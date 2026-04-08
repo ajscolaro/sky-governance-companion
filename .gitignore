@@ -1,0 +1,21 @@
+# Atlas repo clone (reproducible via scripts/setup.sh)
+.atlas-repo/
+
+# Generated index (rebuilt on refresh)
+data/
+
+# Python virtual environment
+.venv/
+
+# Ephemeral working files (PR bodies, diffs)
+tmp/
+
+# Session-specific plan files
+.claude/plans/
+
+# Personal development notes (not useful publicly)
+HANDOFF.md
+initial-plan.md
+
+# OS files
+.DS_Store
