@@ -45,17 +45,21 @@ The user may provide:
 - Nothing — list recent open PRs
 
 ```bash
+GH_API="https://api.github.com/repos/sky-ecosystem/next-gen-atlas"
+
 # List open PRs
-gh pr list --repo sky-ecosystem/next-gen-atlas --state open --json number,title,createdAt --jq '.[] | "#\(.number) \(.createdAt[:10]) \(.title)"'
+curl -sf "$GH_API/pulls?state=open&sort=created&direction=desc&per_page=10" \
+    | jq -r '.[] | "#\(.number) \(.created_at[:10]) \(.title)"'
 
 # List recently merged PRs
-gh pr list --repo sky-ecosystem/next-gen-atlas --state merged --limit 10 --json number,title,mergedAt --jq '.[] | "#\(.number) \(.mergedAt[:10]) \(.title)"'
+curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=10" \
+    | jq -r '.[] | select(.merged_at != null) | "#\(.number) \(.merged_at[:10]) \(.title)"'
 ```
 
 ### 2. Get the PR details
 
 ```bash
-gh pr view <N> --repo sky-ecosystem/next-gen-atlas --json title,body,state,mergedAt,additions,deletions
+curl -sf "$GH_API/pulls/<N>" | jq '{title, body, state, merged_at, additions, deletions}'
 ```
 
 Read the PR body carefully. Weekly edit proposals (titled like "Atlas Edit Proposal — 2026-03-30") list discrete edits as bullet points with **bolded titles** and one-line descriptions. Use these as the high-level structure for your analysis — group your explanation by these edits, not by document number.
@@ -69,8 +73,8 @@ Also check for linked forum posts or discussion, which may provide additional mo
 ```bash
 # Save the diff and PR body to tmp/ for reading
 mkdir -p tmp
-gh pr diff <N> --repo sky-ecosystem/next-gen-atlas > tmp/pr-<N>.diff 2>/dev/null
-gh pr view <N> --repo sky-ecosystem/next-gen-atlas --json body --jq '.body' > tmp/pr-<N>-body.md 2>/dev/null
+curl -sf -H "Accept: application/vnd.github.v3.diff" "$GH_API/pulls/<N>" > tmp/pr-<N>.diff 2>/dev/null
+curl -sf "$GH_API/pulls/<N>" | jq -r '.body // ""' > tmp/pr-<N>-body.md 2>/dev/null
 ```
 
 Then read it in manageable chunks using the Read tool on `tmp/pr-<N>.diff`. For large diffs (1000+ lines), start by identifying which sections exist:

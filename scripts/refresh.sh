@@ -38,6 +38,11 @@ fi
 echo "Rebuilding index..."
 python3 "$SCRIPT_DIR/build-index.py"
 
+# --- Build address map for voting API scripts ---
+if [ -f "$SCRIPT_DIR/build-address-map.py" ]; then
+    python3 "$SCRIPT_DIR/build-address-map.py" 2>/dev/null || true
+fi
+
 # --- Check for unprocessed merged PRs ---
 echo ""
 echo "Checking for unprocessed PRs..."
@@ -48,20 +53,22 @@ LAST_MERGED_DATE=$(grep -E '^\| #[0-9]+ ' "$LOG_FILE" 2>/dev/null \
     | sed -E 's/.*\| ([0-9]{4}-[0-9]{2}-[0-9]{2}) \|.*/\1/' \
     | sort -r | head -1)
 
+GH_API="https://api.github.com/repos/sky-ecosystem/next-gen-atlas"
+
 if [ -n "$LAST_MERGED_DATE" ]; then
     echo "Last processed PR was merged on $LAST_MERGED_DATE. Checking for newer PRs..."
-    MERGED_PRS=$(gh pr list --repo sky-ecosystem/next-gen-atlas --state merged \
-        --search "merged:>=$LAST_MERGED_DATE" --limit 30 \
-        --json number,title,mergedAt \
-        --jq '.[] | "\(.number)\t\(.mergedAt[:10])\t\(.title)"' 2>/dev/null) || {
+    MERGED_PRS=$(curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=30" \
+        | jq -r --arg since "$LAST_MERGED_DATE" \
+            '.[] | select(.merged_at != null and .merged_at >= $since)
+             | "\(.number)\t\(.merged_at[:10])\t\(.title)"' 2>/dev/null) || {
         echo "Warning: Could not fetch PR list from GitHub. Skipping unprocessed PR check."
         exit 0
     }
 else
     echo "No previously processed PRs found. Fetching last 30 merged PRs..."
-    MERGED_PRS=$(gh pr list --repo sky-ecosystem/next-gen-atlas --state merged --limit 30 \
-        --json number,title,mergedAt \
-        --jq '.[] | "\(.number)\t\(.mergedAt[:10])\t\(.title)"' 2>/dev/null) || {
+    MERGED_PRS=$(curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=30" \
+        | jq -r '.[] | select(.merged_at != null)
+             | "\(.number)\t\(.merged_at[:10])\t\(.title)"' 2>/dev/null) || {
         echo "Warning: Could not fetch PR list from GitHub. Skipping unprocessed PR check."
         exit 0
     }
@@ -95,6 +102,22 @@ fi
 # --- Refresh forum cache (background, non-blocking) ---
 if [ -f "$SCRIPT_DIR/fetch-forum.sh" ]; then
     bash "$SCRIPT_DIR/fetch-forum.sh" --quiet 2>/dev/null &
+fi
+
+# --- Refresh delegate vote rationales (background, non-blocking) ---
+if [ -f "$SCRIPT_DIR/fetch-delegates.sh" ]; then
+    bash "$SCRIPT_DIR/fetch-delegates.sh" --quiet 2>/dev/null &
+fi
+
+# --- Refresh voting portal data (background, non-blocking) ---
+if [ -f "$SCRIPT_DIR/fetch-voting-delegates.sh" ]; then
+    bash "$SCRIPT_DIR/fetch-voting-delegates.sh" --quiet 2>/dev/null &
+fi
+if [ -f "$SCRIPT_DIR/fetch-voting-polls.sh" ]; then
+    bash "$SCRIPT_DIR/fetch-voting-polls.sh" --quiet 2>/dev/null &
+fi
+if [ -f "$SCRIPT_DIR/fetch-voting-executive.sh" ]; then
+    bash "$SCRIPT_DIR/fetch-voting-executive.sh" --quiet 2>/dev/null &
 fi
 
 exit 0

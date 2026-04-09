@@ -30,8 +30,11 @@ The script generates a skeleton entry in each affected entity's changelog. After
 Compare `history/_log.md` against recent merged PRs:
 
 ```bash
+GH_API="https://api.github.com/repos/sky-ecosystem/next-gen-atlas"
+
 # List recent merged PRs
-gh pr list --repo sky-ecosystem/next-gen-atlas --state merged --limit 20
+curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=20" \
+    | jq -r '.[] | select(.merged_at != null) | "#\(.number) \(.merged_at[:10]) \(.title)"'
 
 # See what's already processed
 cat history/_log.md
@@ -45,7 +48,8 @@ To build deeper history, process PRs in chronological order:
 
 ```bash
 # List all merged PRs (oldest first)
-gh pr list --repo sky-ecosystem/next-gen-atlas --state merged --limit 50 --json number,title,mergedAt | jq -r 'sort_by(.mergedAt) | .[] | "#\(.number) \(.mergedAt[:10]) \(.title)"'
+curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=50" \
+    | jq -r '[.[] | select(.merged_at != null)] | sort_by(.merged_at) | .[] | "#\(.number) \(.merged_at[:10]) \(.title)"'
 ```
 
 Then batch process. The script skips already-processed PRs.

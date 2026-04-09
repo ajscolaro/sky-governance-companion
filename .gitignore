@@ -1,3 +1,5 @@
+.env
+
 # Atlas repo clone (reproducible via scripts/setup.sh)
 .atlas-repo/
 
@@ -16,6 +18,9 @@ tmp/
 # Personal development notes (not useful publicly)
 HANDOFF.md
 initial-plan.md
+
+# Internal plans and notes
+plans/
 
 # OS files
 .DS_Store

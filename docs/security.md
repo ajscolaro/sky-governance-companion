@@ -15,7 +15,7 @@ Configured in `.claude/settings.json`. Every Claude Code session in this repo is
 
 **Network:**
 - Only `github.com`, `api.github.com`, and `forum.skyeco.com` are reachable
-- `enableWeakerNetworkIsolation` is on so `gh` CLI can verify TLS certificates via macOS trust service
+- `enableWeakerNetworkIsolation` is on so network-dependent tools (curl, git) can verify TLS certificates via macOS trust service
 
 **Command restrictions:**
 - `eval`, `exec`, pipe-to-shell (`curl | bash`, etc.) are denied via permission rules
@@ -46,6 +46,35 @@ This is the primary defense against the prompt injection → self-modification a
 
 Install: `brew install docker/tap/sbx`
 
+## Delegate RSS feeds
+
+AD vote rationales are fetched from per-thread Discourse RSS feeds (`{thread_url}.rss`). These are **untrusted forum content** — the highest risk tier.
+
+### Fetch/process separation
+
+Raw RSS is fetched during `refresh.sh` (background, non-blocking) and stored as sanitized JSON in `data/delegates/{slug}/`. Claude only reads this cached data when the user invokes `/ad-track` — untrusted content never enters the agent's context automatically.
+
+### Author filtering
+
+Only posts where `dc:creator` matches the AD's forum username are cached. The username is discovered from the thread's first post (the recognition submission) via the Discourse topic JSON API — this is the post the AD themselves authored to register. The thread URL comes from the Atlas Active Data (A.1.5.1.5.0.6.1), which is governance-approved, ensuring we're looking at the correct thread. This prevents third-party replies (which could contain injection attempts) from being stored.
+
+### Sanitization
+
+`fetch-delegates.py` applies the same sanitization pipeline as `fetch-forum.py`:
+- HTML stripping (script/style tags, all markup)
+- Injection marker removal (`[SYSTEM]`, `[INST]`, ChatML `<|...|>`, HTML comments)
+- Control character removal
+- Content length limits (8KB body cap)
+
+### Threat model additions
+
+| Attack | Mitigation |
+|--------|------------|
+| Injection via AD vote rationale | Sanitized at fetch time; `dc:creator` filter limits to AD's own posts; `/ad-track` skill warns agent to treat content as data |
+| Malicious AD recognition submission | Same sanitization; content framed as quoted data in `comms.md`, not instructions |
+| Roster manipulation via fake Atlas edit | Roster is read from merged Atlas `main` (governance-approved); open PRs cannot affect it |
+| Username spoofing via thread replies | Username derived from thread creator (post #1) via Discourse API, not from arbitrary replies |
+
 ## Sanitization
 
 `process-pr.sh` sanitizes PR titles and document names before writing to `history/` changelogs:
@@ -61,7 +90,7 @@ Install: `brew install docker/tap/sbx`
 |---|---|
 | Shell injection via crafted document names | OS sandbox restricts filesystem/network for all subprocesses |
 | Prompt injection → self-modification | PreToolUse hook requires human approval for config/script writes |
-| Exfiltration via network | Sandbox allowlist limits outbound to GitHub only |
+| Exfiltration via network | Sandbox allowlist limits outbound to GitHub and forum.skyeco.com only |
 | Credential theft | `~/.ssh`, `~/.gnupg`, `~/.aws` are deny-read |
 | Agent bypasses sandbox | `allowUnsandboxedCommands: false` blocks the escape hatch |
 | Write to Atlas mirror | Hard-blocked by hook (exit 2) + sandbox denyWrite |

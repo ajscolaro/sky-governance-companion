@@ -19,6 +19,7 @@ INDEX="$PROJECT_DIR/data/index.json"
 HISTORY_DIR="$PROJECT_DIR/history"
 LOG_FILE="$HISTORY_DIR/_log.md"
 REPO="sky-ecosystem/next-gen-atlas"
+GH_API="https://api.github.com/repos/$REPO"
 
 if [ ! -f "$INDEX" ]; then
     echo "Error: Index not found. Run scripts/setup.sh first." >&2
@@ -77,14 +78,14 @@ for PR_NUM in "$@"; do
 
     echo "Processing PR #$PR_NUM..."
 
-    # Fetch PR metadata
-    PR_JSON=$(gh pr view "$PR_NUM" --repo "$REPO" --json title,body,mergedAt,additions,deletions 2>/dev/null) || {
+    # Fetch PR metadata via REST API (no auth needed for public repos)
+    PR_JSON=$(curl -sf "$GH_API/pulls/$PR_NUM" 2>/dev/null) || {
         echo "Error: Could not fetch PR #$PR_NUM" >&2
         continue
     }
 
     TITLE=$(sanitize "$(echo "$PR_JSON" | jq -r '.title')")
-    MERGED_AT=$(echo "$PR_JSON" | jq -r '.mergedAt // "not merged"')
+    MERGED_AT=$(echo "$PR_JSON" | jq -r '.merged_at // "not merged"')
     ADDITIONS=$(echo "$PR_JSON" | jq -r '.additions')
     DELETIONS=$(echo "$PR_JSON" | jq -r '.deletions')
     BODY=$(echo "$PR_JSON" | jq -r '.body // ""')
@@ -104,7 +105,7 @@ for PR_NUM in "$@"; do
     fi
 
     # Fetch the diff and save to tmp/
-    DIFF=$(gh pr diff "$PR_NUM" --repo "$REPO" 2>/dev/null) || {
+    DIFF=$(curl -sf -H "Accept: application/vnd.github.v3.diff" "$GH_API/pulls/$PR_NUM" 2>/dev/null) || {
         echo "Error: Could not fetch diff for PR #$PR_NUM" >&2
         continue
     }

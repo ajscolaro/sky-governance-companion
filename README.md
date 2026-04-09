@@ -19,7 +19,7 @@ This project provides local tooling to search, read, and analyze that document a
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
 - Python 3.8+
-- [GitHub CLI](https://cli.github.com/) (`gh`) — authenticated with access to public repos
+- `curl` — for GitHub REST API calls (pre-installed on macOS)
 - `jq` — for JSON queries (`brew install jq` on macOS)
 
 ## Setup
