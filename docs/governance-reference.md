@@ -98,3 +98,27 @@ This is useful when a PR claims "currently X, changing to Y" and you want to con
 - **Weekly cycle:** Atlas Axis publishes edit proposals weekly (typically Sunday/Monday)
 - **Monthly cycle:** larger AEPs may follow a monthly cadence
 - **Active Data updates:** can happen independently of the governance cycle when the controller authorizes them
+
+## Two distinct change flows
+
+Atlas PRs arrive through two different pipelines with different timing:
+
+### Flow 1: Atlas text edits (rules, structure, roles, annotations)
+```
+Forum discussion → Ratification Poll (3-4 day vote) → Atlas PR merged (same day poll ends)
+```
+The poll is the approval gate. No executive spell is involved — these are document-only changes. The PR typically merges the same day the poll ends (e.g., Poll #1627 ended 2026-04-09, PR #219 merged 2026-04-09).
+
+**Monitoring signal:** Polls give 3-4 days advance notice before the PR merges.
+
+### Flow 2: On-chain execution (parameter changes, onboardings, fund transfers)
+```
+Poll (if required) → Executive Spell proposed → Hat → Cast → Atlas PR records changes (4-11 days later)
+```
+The executive spell executes on-chain first, then a separate PR updates the Atlas to reflect what happened. These "spell changes" PRs are bookkeeping — the on-chain action is already done.
+
+**Monitoring signal:** Executive lifecycle tracking (hat/cast events) gives 4-11 days advance notice before the recording PR appears. Polls for the underlying action give even earlier signal.
+
+### How to distinguish them in PR titles
+- **Text edits:** "Atlas Edit Proposal", "Weekly Cycle", "AEW Proposal", "AEP-N", "SAEP-N"
+- **Spell recordings:** "spell changes", "executive changes", "Exec", spell dates in title

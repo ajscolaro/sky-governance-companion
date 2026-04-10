@@ -4,7 +4,12 @@ Personal tooling for navigating the Sky Atlas and tracking governance changes ov
 
 ## What is the Sky Atlas?
 
-The governing document for the Sky ecosystem (formerly MakerDAO). A single ~3MB markdown file (~9,800 documents) in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas), updated via weekly "Atlas Edit Proposal" PRs approved by governance.
+The governing document for the Sky ecosystem (formerly MakerDAO). A single ~3MB markdown file (~9,800 documents) in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas), updated through two distinct governance flows:
+
+- **Flow 1 (text edits):** Forum → ratification poll → Atlas PR merged (same day poll ends). Covers weekly edits, AEPs, SAEPs. No on-chain execution involved.
+- **Flow 2 (spell recording):** Executive spell executes on-chain → Atlas PR records the changes (4-11 days later). These PRs document what already happened.
+
+Both flows produce PRs in the same repo. See `docs/governance-reference.md` for the full pipeline and how to distinguish them.
 
 ## Source of truth
 
@@ -27,6 +32,7 @@ If unprocessed PRs are reported, **proactively process all of them** using `/atl
 - `data/delegates/` — cached AD vote rationales from RSS feeds (gitignored, fetched on refresh)
 - `data/voting/` — cached voting portal API data: delegation metrics, poll tallies, executive support (gitignored, fetched on refresh)
 - `data/voting/executive/proposals/` — transient processing cache for executive proposals; files are fetched, parsed, distilled into `lifecycle.json`, then auto-deleted (gitignored)
+- `data/market.db` — SQLite database of daily price/mcap data (gitignored, rebuilt from Messari API). Query via `scripts/market/market.py`
 - `delegates/` — per-AD profiles and vote rationale logs (committed)
 - `snapshots/` — committed time-series from vote.sky.money (delegation power, executive support) — **irreproducible, do not delete**
 - `snapshots/executive/lifecycle.json` — spell lifecycle events: proposed/hat/cast/expired transitions (committed)

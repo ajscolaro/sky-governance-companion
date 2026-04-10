@@ -15,10 +15,6 @@ tmp/
 # Session-specific plan files
 .claude/plans/
 
-# Personal development notes (not useful publicly)
-HANDOFF.md
-initial-plan.md
-
 # Internal plans and notes
 plans/
 

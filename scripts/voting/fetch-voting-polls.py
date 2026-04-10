@@ -5,6 +5,13 @@ Calls GET /api/polling/all-polls-with-tally to collect per-voter tally data
 for all polls, matches voter addresses to tracked ADs via the address map,
 and builds a vote matrix showing how each AD voted on each poll.
 
+Polls serve two distinct governance flows:
+  Flow 1 (text edits): Poll ratifies Atlas text changes. PR merges same day poll ends.
+    Identifiable by "weekly" tag or "Atlas Edit" / "AEP" / "SAEP" in title.
+  Flow 2 (on-chain params): Poll authorizes executive spell. Spell executes later,
+    recording PR follows 4-11 days after cast.
+    Identifiable by "risk-parameter" tag or spell-related titles.
+
 Supports --backfill (all historical polls) and incremental mode (new polls only).
 """
 
@@ -114,6 +121,49 @@ def fetch_active_poll_ids() -> list[int]:
         return []
 
 
+def extract_pr_number(content: str) -> int | None:
+    """Extract Atlas PR number from poll HTML content."""
+    if not content:
+        return None
+    match = re.search(r"github\.com/sky-ecosystem/next-gen-atlas/pull/(\d+)", content)
+    return int(match.group(1)) if match else None
+
+
+def classify_poll(title: str, tags: list) -> str:
+    """Classify a poll as atlas-edit, parameter-change, or other.
+
+    atlas-edit: Flow 1 polls that ratify Atlas text changes (PR merges same day).
+    parameter-change: Flow 2 polls that authorize executive spells.
+    other: Delegate changes, governance resolutions, etc.
+    """
+    tag_ids = {t if isinstance(t, str) else t.get("id", "") for t in tags}
+    title_lower = title.lower()
+
+    if "weekly" in tag_ids or "atlas edit" in title_lower or "aew" in title_lower:
+        return "atlas-edit"
+    if any(kw in title_lower for kw in ("aep", "saep", "edit proposal")):
+        return "atlas-edit"
+    if "risk-parameter" in tag_ids:
+        return "parameter-change"
+    if any(kw in title_lower for kw in ("collateral", "onboard", "offboard", "stability fee",
+                                         "debt ceiling", "liquidation", "rate limit")):
+        return "parameter-change"
+    if any(t in tag_ids for t in ("collateral-onboard", "collateral-offboard", "ddm", "psm")):
+        return "parameter-change"
+    return "other"
+
+
+def normalize_tags(tags: list) -> list[str]:
+    """Extract tag IDs from tag objects or strings."""
+    result = []
+    for t in tags:
+        if isinstance(t, str):
+            result.append(t)
+        elif isinstance(t, dict):
+            result.append(t.get("id", ""))
+    return result
+
+
 def process_poll(poll: dict, by_address: dict, all_slugs: set, ad_created: dict) -> dict:
     """Process a single poll into our matrix format."""
     poll_id = str(poll.get("pollId", ""))
@@ -154,16 +204,40 @@ def process_poll(poll: dict, by_address: dict, all_slugs: set, ad_created: dict)
     eligible_slugs = {s for s in all_slugs if ad_created.get(s, "9999") <= poll_start}
     ad_non_voters = sorted(eligible_slugs - set(ad_votes.keys()))
 
-    return {
-        "title": sanitize_str(poll.get("title", "")),
+    title = sanitize_str(poll.get("title", ""))
+    raw_tags = poll.get("tags", [])
+    tags = normalize_tags(raw_tags)
+    poll_type = classify_poll(title, raw_tags)
+
+    # Cross-reference fields from the API
+    discussion_link = poll.get("discussionLink") or ""
+    summary = sanitize_str(poll.get("summary") or "", max_len=400)
+    poll_url = poll.get("url") or ""
+    pr_number = extract_pr_number(poll.get("content") or "")
+
+    entry = {
+        "title": title,
         "start_date": (poll.get("startDate") or "")[:10],
         "end_date": (poll.get("endDate") or "")[:10],
-        "tags": poll.get("tags", []),
+        "tags": tags,
+        "poll_type": poll_type,
         "result": result_label,
         "total_sky": tally.get("totalSkyParticipation") or tally.get("totalSkySupport") or tally.get("totalMkrParticipation") or "0",
         "ad_votes": ad_votes,
         "ad_non_voters": ad_non_voters,
     }
+
+    # Only include cross-reference fields when they have data
+    if summary:
+        entry["summary"] = summary
+    if discussion_link:
+        entry["discussion_link"] = discussion_link
+    if poll_url:
+        entry["poll_url"] = poll_url
+    if pr_number:
+        entry["atlas_pr"] = pr_number
+
+    return entry
 
 
 def compute_ad_summary(polls: dict, all_slugs: set, ad_created: dict) -> dict:
@@ -295,6 +369,24 @@ def main():
         except (urllib.error.URLError, OSError) as e:
             if not args.quiet:
                 print(f"  Warning: Could not fetch recent polls: {e}", file=sys.stderr)
+
+    # Enrich atlas-edit polls with PR numbers by fetching individual poll detail.
+    # Only fetches polls that are atlas-edit type and don't have atlas_pr yet.
+    missing_pr = [
+        pid for pid, p in matrix["polls"].items()
+        if p.get("poll_type") == "atlas-edit" and not p.get("atlas_pr")
+    ]
+    if missing_pr and not args.quiet:
+        print(f"  Enriching {len(missing_pr)} atlas-edit poll(s) with PR links...")
+    for pid in missing_pr:
+        try:
+            detail = api_get(f"/polling/{pid}")
+            pr_num = extract_pr_number(detail.get("content") or "")
+            if pr_num:
+                matrix["polls"][pid]["atlas_pr"] = pr_num
+            time.sleep(REQUEST_DELAY)
+        except (urllib.error.URLError, OSError):
+            continue
 
     # Recompute summary
     matrix["ad_summary"] = compute_ad_summary(matrix["polls"], all_slugs, ad_created)

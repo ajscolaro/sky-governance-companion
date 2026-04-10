@@ -148,9 +148,19 @@ A.6	A.6--agents
 
 ## Governance context
 
-Before rewriting changelog entries, read `docs/governance-reference.md` for shared governance context. When writing entries:
+Before rewriting changelog entries, read `docs/governance-reference.md` for shared governance context.
 
-- **Identify the proposal type** in the entry header: was this a weekly edit (Atlas Axis), an AEP, a SAEP, or a Risk Advisor action?
+**Two governance flows produce Atlas PRs:**
+- **Flow 1 (text edits):** Forum → ratification poll → PR merged same day poll ends. Covers weekly edits, AEPs, SAEPs. No executive spell involved.
+- **Flow 2 (spell recording):** Executive spell cast on-chain → PR records changes 4-11 days later. These PRs have "spell changes" or "executive changes" in the title.
+
+Flow 1 PRs are governance decisions. Flow 2 PRs are documentation of on-chain execution. Don't expect Flow 1 PRs to reference spells — they won't have any.
+
+When writing entries:
+
+- **Identify the proposal type** in the entry header: was this a weekly edit (Atlas Axis), an AEP, a SAEP, a Risk Advisor action, or a spell recording?
+- **For Flow 1 PRs**: look up the authorizing poll in `data/voting/polls/vote-matrix.json` — polls with `atlas_pr` matching the PR number give you the poll ID, vote result, and AD participation
+- **For Flow 2 PRs**: cross-reference with `snapshots/executive/lifecycle.json` to find the spell, its actions, and market context at cast time
 - **For Active Data changes**: note whether the designated controller is exercising normal authority or if this is a governance override
 - **Reference roles by name**: "Atlas Axis weekly edit", "per Risk Advisor recommendation", "SAEP-12 (Spark proposal)"
 
@@ -221,7 +231,7 @@ After `process-pr.sh` generates the skeleton:
 5. **Classify each change** as material or housekeeping
 6. **For material changes**: document the specific before→after values by comparing current Atlas vs diff
 7. **For housekeeping**: collapse into summary lines
-8. **Look up market context**: Run `python3 scripts/market/market-lookup.py --date <merge-date> --format context` to get the market environment. Include in the Context section where relevant — especially for material changes to parameters, capital allocation, or exposure limits.
+8. **Look up market context**: Run `python3 scripts/market/market-lookup.py --date <merge-date> --format context` to get the market environment, or `--window <date>` to see price behavior around the event. Include in the Context section where relevant — especially for material changes to parameters, capital allocation, or exposure limits.
 9. **Write the Context section** with cross-cutting interpretation
 10. **Replace the script's raw skeleton** with the rewritten entry
 11. **Update `_log.md`**: change the entry's status from `skeleton` to `complete`
@@ -232,11 +242,12 @@ The script skeleton is a starting point, not the final product. The value of the
 
 Use these labels in the `**Type:**` field:
 
-| Label | When to use |
-|-------|-------------|
-| Weekly edit (Atlas Axis) | PR title matches "Atlas Edit Proposal — YYYY-MM-DD" |
-| AEP-N | PR references a formal Atlas Edit Proposal |
-| SAEP-N (Spark proposal) | Spark agent edit proposal |
-| Risk Advisor action | Changes citing Risk Advisor recommendation |
-| Housekeeping | Pure formatting, linting, URL fixes |
-| Agent proposal (agent name) | Other agent-specific proposals |
+| Label | When to use | Flow |
+|-------|-------------|------|
+| Weekly edit (Atlas Axis) | PR title matches "Atlas Edit Proposal — YYYY-MM-DD" | 1 (text edit) |
+| AEP-N | PR references a formal Atlas Edit Proposal | 1 (text edit) |
+| SAEP-N (Spark proposal) | Spark agent edit proposal | 1 (text edit) |
+| Risk Advisor action | Changes citing Risk Advisor recommendation | 1 (text edit) |
+| Spell recording (date) | PR title contains "spell changes" or "executive changes" | 2 (on-chain) |
+| Housekeeping | Pure formatting, linting, URL fixes | 1 (admin) |
+| Agent proposal (agent name) | Other agent-specific proposals | 1 (text edit) |

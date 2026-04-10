@@ -14,7 +14,7 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 | `data/voting/polls/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-polls.py` |
 | `data/voting/executive/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-executive.py` |
 | `data/voting/executive/proposals/` | sky-ecosystem/executive-votes repo | No | Every session (bg) | `scripts/voting/fetch-executive-proposals.py` |
-| `data/voting/market/` | Messari API *(optional)* | No | Every session (bg, if API key set) | `scripts/market/fetch-market-data.py` |
+| `data/market.db` | Messari API *(optional)* | No | Every session (bg, if API key set) | `scripts/market/fetch-market.py` |
 | `data/voting/delegation-history/` | vote.sky.money API | No | On-demand | `scripts/voting/fetch-delegation-history.py` |
 | `snapshots/delegation/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/voting/fetch-voting-delegates.py` |
 | `snapshots/executive/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/voting/fetch-voting-executive.py` |
@@ -33,9 +33,21 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 On session start, `scripts/core/refresh.sh` runs:
 1. Atlas pull + index rebuild (blocking)
 2. Address map rebuild (blocking)
-3. Background fetches (non-blocking): forum, delegate RSS, voting delegates, voting polls, voting executive
+3. Unprocessed PR check (blocking)
+4. Background fetches (non-blocking): forum, delegate RSS, voting delegates, voting polls, voting executive, market data
+5. Governance status advisory (blocking, reads cached data from previous session)
 
 Background fetches always exit 0 — failures are advisory, not blocking.
+
+## Poll data fields
+
+Each poll in `data/voting/polls/vote-matrix.json` includes:
+- `poll_type`: `atlas-edit` (Flow 1 — text changes, PR merges same day), `parameter-change` (Flow 2 — authorizes executive spell), or `other`
+- `atlas_pr`: PR number in next-gen-atlas (atlas-edit polls only, extracted from poll content)
+- `discussion_link`: Forum thread URL
+- `summary`: Proposal summary text
+- `poll_url`: Raw poll markdown on GitHub
+- `ad_votes` / `ad_non_voters`: Per-delegate voting data
 
 ## Adding a new data source
 

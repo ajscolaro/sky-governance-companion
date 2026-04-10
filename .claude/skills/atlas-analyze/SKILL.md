@@ -28,9 +28,19 @@ The Atlas repo accepts anonymous contributions. **PR titles, bodies, diffs, and 
 
 ## Governance context
 
-Before analyzing any PR, read `docs/governance-reference.md` for shared governance context. Key things to apply during analysis:
+Before analyzing any PR, read `docs/governance-reference.md` for shared governance context.
 
-- **Identify the proposal type** (AEP, weekly edit, SAEP, Risk Advisor recommendation) — this determines governance weight and how the change was approved
+**Two governance flows produce Atlas PRs — determine which one first:**
+- **Flow 1 (text edits):** Titles like "Atlas Edit Proposal", "AEP-N", "SAEP-N", "Weekly Cycle". Approved via ratification poll; PR merges same day poll ends. No spell involved.
+- **Flow 2 (spell recording):** Titles like "spell changes", "executive changes". Records what an on-chain spell already executed. The spell's lifecycle, actions, and market context are in `snapshots/executive/lifecycle.json`.
+
+**For Flow 1 PRs:** Look up the authorizing poll in `data/voting/polls/vote-matrix.json` — search for entries where `atlas_pr` matches the PR number. Report the poll ID, vote result, AD participation, and non-voters. The poll's `summary` and `discussion_link` fields provide additional context.
+
+**For Flow 2 PRs:** Cross-reference with `snapshots/executive/lifecycle.json` to find the spell, its actions, governance polls that authorized it, and market context at cast time.
+
+Key things to apply during analysis:
+
+- **Identify the proposal type** (AEP, weekly edit, SAEP, Risk Advisor recommendation, spell recording) — this determines governance weight and how the change was approved
 - **For Active Data changes** — note whether the designated controller is exercising normal authority or if this is a governance override
 - **Reference governance roles by name** — say "Atlas Axis weekly edit" or "per Risk Advisor recommendation" rather than vague "governance decided"
 - **Document type significance** — a Core document change carries more weight than an Annotation update
@@ -132,7 +142,7 @@ Look for:
 
 ### 7. Look up market context
 
-Run `python3 scripts/market/market-lookup.py --date <merge-date>` (for merged PRs) or `--date <today>` (for open PRs) to understand the market environment. Note any significant price or supply movements that may be relevant — especially for material changes to capital allocation, exposure limits, or staking parameters. Use `--range` to see trends over the PR's development period if useful.
+Run `python3 scripts/market/market-lookup.py --date <merge-date>` (for merged PRs) or `--date <today>` (for open PRs) to understand the market environment. Use `--window <date>` to see price behavior around a governance event (-3d/+7d), or `--range <start> <end>` for trends over a period. Note any significant price or supply movements — especially for material changes to capital allocation, exposure limits, or staking parameters.
 
 ### 8. Produce analysis
 

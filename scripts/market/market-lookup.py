@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Look up market data for a given date or date range.
+"""Look up market data for a date or date range from the SQLite database.
 
-Reads cached JSON from data/voting/market/ (no API calls).
+No API calls — reads from data/market.db.
 
 Usage:
-    python3 scripts/market-lookup.py --date 2025-10-24
-    python3 scripts/market-lookup.py --date 2025-10-24 --format context
-    python3 scripts/market-lookup.py --range 2025-10-01 2025-10-31
-    python3 scripts/market-lookup.py --range 2025-10-01 2025-10-31 --format json
+    python3 scripts/market/market-lookup.py --date 2026-04-09
+    python3 scripts/market/market-lookup.py --date 2026-04-09 --format context
+    python3 scripts/market/market-lookup.py --range 2026-04-01 2026-04-10
+    python3 scripts/market/market-lookup.py --window 2026-04-09
+    python3 scripts/market/market-lookup.py --check
 """
 
 from __future__ import annotations
@@ -18,272 +19,190 @@ import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
-MARKET_DIR = PROJECT_DIR / "data" / "voting" / "market"
-
-# Point schemas (implicit in Messari API response):
-#   price:     [timestamp, open, high, low, close, volume]
-#   marketcap: [timestamp, marketcap, ?, fully_diluted_marketcap]
-# For stablecoins (USDS, sUSDS), marketcap ≈ circulating supply.
-
-ASSETS = [
-    {"slug": "sky",   "name": "SKY",   "type": "governance", "datasets": ["price", "marketcap"]},
-    {"slug": "spk",   "name": "SPK",   "type": "agent",      "datasets": ["price", "marketcap"]},
-    {"slug": "usds",  "name": "USDS",  "type": "stablecoin",  "datasets": ["marketcap"]},
-    {"slug": "susds", "name": "sUSDS", "type": "stablecoin",  "datasets": ["marketcap"]},
-    {"slug": "btc",   "name": "BTC",   "type": "benchmark",   "datasets": ["price"]},
-    {"slug": "eth",   "name": "ETH",   "type": "benchmark",   "datasets": ["price"]},
-]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from market import MarketDB, ASSETS, fmt_price, fmt_supply, fmt_pct, format_context
 
 
-def load_points(slug: str, dataset: str) -> list[tuple[datetime, list]]:
-    """Load data points from a market JSON file. Returns [(datetime, raw_point), ...]."""
-    path = MARKET_DIR / f"{slug}-{dataset}.json"
-    if not path.exists():
-        return []
-    with open(path) as f:
-        data = json.load(f)
-    points = data.get("points", [])
-    result = []
-    for p in points:
-        ts = datetime.utcfromtimestamp(p[0])
-        result.append((ts, p))
-    return result
-
-
-def find_nearest(points: list[tuple[datetime, list]], target: datetime,
-                 max_days: int = 7) -> tuple[datetime, list] | None:
-    """Find the data point nearest to target date, within max_days tolerance."""
-    if not points:
-        return None
-    best = None
-    best_delta = timedelta(days=max_days + 1)
-    for ts, p in points:
-        delta = abs(ts - target)
-        if delta < best_delta:
-            best = (ts, p)
-            best_delta = delta
-    if best_delta > timedelta(days=max_days):
-        return None
-    return best
-
-
-def find_prior(points: list[tuple[datetime, list]], target: datetime,
-               days_back: int = 7) -> tuple[datetime, list] | None:
-    """Find the data point ~days_back before target for computing deltas."""
-    prior_target = target - timedelta(days=days_back)
-    return find_nearest(points, prior_target, max_days=4)
-
-
-def fmt_price(value: float) -> str:
-    if value >= 1:
-        return f"${value:,.2f}"
-    elif value >= 0.01:
-        return f"${value:.4f}"
-    else:
-        return f"${value:.6f}"
-
-
-def fmt_supply(value: float) -> str:
-    if value >= 1e9:
-        return f"${value / 1e9:.2f}B"
-    elif value >= 1e6:
-        return f"${value / 1e6:.1f}M"
-    else:
-        return f"${value:,.0f}"
-
-
-def fmt_volume(value: float) -> str:
-    if value >= 1e6:
-        return f"${value / 1e6:.1f}M"
-    elif value >= 1e3:
-        return f"${value / 1e3:.0f}K"
-    else:
-        return f"${value:,.0f}"
-
-
-def fmt_pct(old: float, new: float) -> str:
-    if old == 0:
-        return "n/a"
-    pct = (new - old) / old * 100
-    sign = "+" if pct >= 0 else ""
-    return f"{sign}{pct:.1f}%"
-
-
-def lookup_date(target: datetime) -> list[dict]:
-    """Look up all asset data for a single date. Returns list of asset snapshots."""
-    results = []
-    for asset in ASSETS:
-        entry = {"slug": asset["slug"], "name": asset["name"], "type": asset["type"]}
-
-        if "price" in asset["datasets"]:
-            points = load_points(asset["slug"], "price")
-            match = find_nearest(points, target)
-            if match:
-                ts, p = match
-                entry["price_date"] = ts.strftime("%Y-%m-%d")
-                entry["close"] = p[4]
-                entry["volume"] = p[5]
-                prior = find_prior(points, ts)
-                if prior:
-                    entry["price_7d_change"] = fmt_pct(prior[1][4], p[4])
-
-        if "marketcap" in asset["datasets"]:
-            points = load_points(asset["slug"], "marketcap")
-            match = find_nearest(points, target)
-            if match:
-                ts, p = match
-                entry["mcap_date"] = ts.strftime("%Y-%m-%d")
-                entry["marketcap"] = p[1]
-                prior = find_prior(points, ts)
-                if prior:
-                    entry["mcap_7d_change"] = fmt_pct(prior[1][1], p[1])
-
-        results.append(entry)
-    return results
-
-
-def format_table(results: list[dict], target_date: str) -> str:
-    """Format results as a readable table."""
-    lines = [f"Market snapshot for {target_date}:", ""]
-    for r in results:
-        parts = [f"  {r['name']:6s}"]
-        if "close" in r:
-            parts.append(f"{fmt_price(r['close']):>12s} (close)")
-            if "price_7d_change" in r:
-                parts.append(f"7d: {r['price_7d_change']}")
-            if "volume" in r:
-                parts.append(f"vol: {fmt_volume(r['volume'])}")
-        if "marketcap" in r:
-            label = "supply" if r["type"] == "stablecoin" else "mcap"
-            parts.append(f"{label}: {fmt_supply(r['marketcap'])}")
-            if "mcap_7d_change" in r:
-                parts.append(f"7d: {r['mcap_7d_change']}")
+def format_table(db: MarketDB, date: str) -> str:
+    lines = [f"Market snapshot for {date}:", ""]
+    for slug, info in ASSETS.items():
+        parts = [f"  {info['name']:6s}"]
+        if info["has_price"]:
+            price = db.get_price(slug, date)
+            if price is not None:
+                parts.append(f"{fmt_price(price):>12s}")
+                delta = db.get_delta(slug, date, days=-7)
+                if delta is None:
+                    week_ago = (datetime.strptime(date, "%Y-%m-%d") - timedelta(days=7)).strftime("%Y-%m-%d")
+                    prev = db.get_price(slug, week_ago)
+                    if prev and prev != 0:
+                        delta = round((price - prev) / prev * 100, 1)
+                if delta is not None:
+                    parts.append(f"7d: {fmt_pct(delta)}")
+        if info["has_mcap"]:
+            mcap = db.get_mcap(slug, date)
+            if mcap is not None:
+                label = "supply" if info["type"] == "stablecoin" else "mcap"
+                parts.append(f"{label}: {fmt_supply(mcap)}")
         if len(parts) == 1:
-            parts.append("no data available")
+            parts.append("no data")
         lines.append("  ".join(parts))
     return "\n".join(lines)
 
 
-def format_context(results: list[dict]) -> str:
-    """Format as a prose sentence for pasting into a ### Context section."""
-    parts = []
-    for r in results:
-        if "close" in r:
-            s = f"{r['name']} ~{fmt_price(r['close'])}"
-            if "price_7d_change" in r:
-                pct = r["price_7d_change"]
-                direction = "up" if pct.startswith("+") else "down"
-                s += f" ({direction} {pct.lstrip('+-')} WoW)"
-            parts.append(s)
-        elif "marketcap" in r:
-            label = "supply" if r["type"] == "stablecoin" else "mcap"
-            parts.append(f"{r['name']} {label} {fmt_supply(r['marketcap'])}")
-    return ", ".join(parts) + "."
-
-
-def format_json(results: list[dict]) -> str:
-    return json.dumps(results, indent=2)
-
-
-def lookup_range(start: datetime, end: datetime) -> str:
-    """Look up market data for a date range, showing start/end and delta."""
-    start_data = lookup_date(start)
-    end_data = lookup_date(end)
-
-    lines = [f"Market data: {start.strftime('%Y-%m-%d')} → {end.strftime('%Y-%m-%d')}", ""]
+def format_range(db: MarketDB, start: str, end: str) -> str:
+    lines = [f"Market data: {start} -> {end}", ""]
     lines.append(f"  {'Asset':6s}  {'Start':>14s}  {'End':>14s}  {'Change':>10s}")
     lines.append(f"  {'─' * 6}  {'─' * 14}  {'─' * 14}  {'─' * 10}")
 
-    for s, e in zip(start_data, end_data):
-        if "close" in s and "close" in e:
-            lines.append(
-                f"  {s['name']:6s}  {fmt_price(s['close']):>14s}  "
-                f"{fmt_price(e['close']):>14s}  {fmt_pct(s['close'], e['close']):>10s}"
-            )
-        if "marketcap" in s and "marketcap" in e:
-            label = f"{s['name']:6s}"
-            if "close" in s:
-                label = f"  {'':6s}"  # indent under price row
-            kind = "supply" if s["type"] == "stablecoin" else "mcap"
-            lines.append(
-                f"  {label}  {fmt_supply(s['marketcap']):>14s}  "
-                f"{fmt_supply(e['marketcap']):>14s}  {fmt_pct(s['marketcap'], e['marketcap']):>10s}"
-                f"  ({kind})"
-            )
+    for slug, info in ASSETS.items():
+        if info["has_price"]:
+            p1 = db.get_price(slug, start)
+            p2 = db.get_price(slug, end)
+            if p1 and p2:
+                pct = (p2 - p1) / p1 * 100
+                lines.append(
+                    f"  {info['name']:6s}  {fmt_price(p1):>14s}  "
+                    f"{fmt_price(p2):>14s}  {fmt_pct(pct):>10s}"
+                )
+        if info["has_mcap"]:
+            m1 = db.get_mcap(slug, start)
+            m2 = db.get_mcap(slug, end)
+            if m1 and m2:
+                pct = (m2 - m1) / m1 * 100
+                label = "supply" if info["type"] == "stablecoin" else "mcap"
+                name = info["name"] if not info["has_price"] else ""
+                lines.append(
+                    f"  {name:6s}  {fmt_supply(m1):>14s}  "
+                    f"{fmt_supply(m2):>14s}  {fmt_pct(pct):>10s}  ({label})"
+                )
     return "\n".join(lines)
 
 
-def check_data_freshness() -> list[str]:
-    """Check for stale or missing data files."""
+def format_window(db: MarketDB, date: str) -> str:
+    w = db.get_event_window(date, before=3, after=7)
+    lines = [f"Event window for {date} (-3d / +7d):", ""]
+    for slug, data in w.get("assets", {}).items():
+        parts = [f"  {ASSETS[slug]['name']:6s}  {fmt_price(data['price']):>12s}"]
+        if "pct_before" in data:
+            parts.append(f"3d before: {fmt_pct(data['pct_before'])}")
+        if "pct_after" in data:
+            parts.append(f"7d after: {fmt_pct(data['pct_after'])}")
+        lines.append("  ".join(parts))
+    return "\n".join(lines)
+
+
+def check_freshness(db: MarketDB) -> list[str]:
+    dr = db.date_range()
+    if not dr:
+        return ["Database is empty. Run: python3 scripts/market/fetch-market.py --backfill"]
     warnings = []
-    for asset in ASSETS:
-        for dataset in asset["datasets"]:
-            path = MARKET_DIR / f"{asset['slug']}-{dataset}.json"
-            if not path.exists():
-                warnings.append(f"Missing: {path.name}")
-                continue
-            with open(path) as f:
-                data = json.load(f)
-            points = data.get("points", [])
-            if not points:
-                warnings.append(f"Empty: {path.name}")
-                continue
-            last_ts = datetime.utcfromtimestamp(points[-1][0])
-            age = datetime.utcnow() - last_ts
-            if age > timedelta(days=14):
-                warnings.append(
-                    f"Stale: {path.name} — last data point {last_ts.strftime('%Y-%m-%d')} "
-                    f"({age.days} days old). Run: python3 scripts/market/fetch-market-data.py --asset {asset['slug']}"
-                )
+    latest = datetime.strptime(dr[1], "%Y-%m-%d")
+    age = (datetime.utcnow() - latest).days
+    if age > 7:
+        warnings.append(f"Data is {age} days stale (latest: {dr[1]}). "
+                        "Run: python3 scripts/market/fetch-market.py")
+    else:
+        warnings.append(f"Data: {dr[0]} to {dr[1]} ({db.row_count()} rows)")
     return warnings
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Look up market data for a date or date range",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="Reads cached data from data/voting/market/. No API calls.\n"
-               "Run scripts/market/fetch-market-data.py to refresh the cache.",
+        description="Look up market data from SQLite database",
+        epilog="Reads data/market.db. Run scripts/market/fetch-market.py to refresh.",
     )
     parser.add_argument("--date", type=str, help="Lookup date (YYYY-MM-DD)")
     parser.add_argument("--range", type=str, nargs=2, metavar=("START", "END"),
-                        help="Date range (YYYY-MM-DD YYYY-MM-DD)")
+                        help="Date range")
+    parser.add_argument("--window", type=str, metavar="DATE",
+                        help="Event window: price around a governance event")
+    parser.add_argument("--ratio", type=str, nargs=2, metavar=("ASSET", "DENOM"),
+                        help="Price ratio (e.g., --ratio SKY BTC)")
+    parser.add_argument("--stablecoins", type=str, nargs="?", const="latest", metavar="DATE",
+                        help="Stablecoin market share snapshot (default: latest)")
     parser.add_argument("--format", type=str, default="table",
                         choices=["table", "context", "json"],
                         help="Output format (default: table)")
+    parser.add_argument("--check", action="store_true", help="Check data freshness")
     args = parser.parse_args()
 
-    if not args.date and not args.range:
+    if not any([args.date, args.range, args.window, args.ratio,
+                args.stablecoins, args.check]):
         parser.print_help()
         sys.exit(1)
 
-    # Check freshness
-    warnings = check_data_freshness()
-    if warnings:
-        for w in warnings:
-            print(f"⚠ {w}", file=sys.stderr)
-        print(file=sys.stderr)
+    try:
+        db = MarketDB()
+    except FileNotFoundError as e:
+        print(str(e), file=sys.stderr)
+        sys.exit(1)
 
-    if args.range:
-        start = datetime.strptime(args.range[0], "%Y-%m-%d")
-        end = datetime.strptime(args.range[1], "%Y-%m-%d")
+    if args.check:
+        for msg in check_freshness(db):
+            print(msg)
+        db.close()
+        return
+
+    if args.stablecoins:
+        date = args.stablecoins
+        if date == "latest":
+            date = db.latest_date() or datetime.utcnow().strftime("%Y-%m-%d")
+        share = db.get_stablecoin_share(date)
+        if not share:
+            print(f"No stablecoin data for {date}. Run: python3 scripts/market/fetch-market.py")
+        elif args.format == "json":
+            print(json.dumps(share, indent=2))
+        else:
+            print(f"Stablecoin market share — {share['date']}")
+            print(f"Total supply: {fmt_supply(share['total_supply'])}")
+            if share.get("usds"):
+                u = share["usds"]
+                print(f"USDS: #{u['rank']} — {fmt_supply(u['supply'])} ({u['share_pct']:.2f}%)")
+            print()
+            for sc in share["stablecoins"][:15]:
+                marker = " <--" if sc["asset"].lower() == "usds" else ""
+                print(f"  #{sc['rank']:2d}  {sc['asset']:8s}  {fmt_supply(sc['supply']):>12s}  "
+                      f"({sc['share_pct']:.2f}%){marker}")
+    elif args.ratio:
+        asset, denom = args.ratio[0].lower(), args.ratio[1].lower()
+        if args.range:
+            data = db.get_ratio_range(asset, denom, args.range[0], args.range[1])
+            for date, ratio in data:
+                print(f"  {date}: {ratio:.10f}")
+        elif args.date:
+            ratio = db.get_ratio(asset, denom, args.date)
+            if ratio:
+                print(f"{asset.upper()}/{denom.upper()} on {args.date}: {ratio:.10f}")
+            else:
+                print(f"No data for {asset.upper()}/{denom.upper()} on {args.date}")
+        else:
+            # Default: last 30 days
+            end = db.latest_date() or datetime.utcnow().strftime("%Y-%m-%d")
+            start = (datetime.strptime(end, "%Y-%m-%d") - timedelta(days=30)).strftime("%Y-%m-%d")
+            data = db.get_ratio_range(asset, denom, start, end)
+            print(f"{asset.upper()}/{denom.upper()} — last 30 days:")
+            for date, ratio in data:
+                print(f"  {date}: {ratio:.10f}")
+    elif args.window:
+        print(format_window(db, args.window))
+    elif args.range:
         if args.format == "json":
             print(json.dumps({
-                "start": lookup_date(start),
-                "end": lookup_date(end),
+                "start": db.get_context(args.range[0]),
+                "end": db.get_context(args.range[1]),
             }, indent=2))
         else:
-            print(lookup_range(start, end))
+            print(format_range(db, args.range[0], args.range[1]))
     elif args.date:
-        target = datetime.strptime(args.date, "%Y-%m-%d")
-        results = lookup_date(target)
         if args.format == "table":
-            print(format_table(results, args.date))
+            print(format_table(db, args.date))
         elif args.format == "context":
-            print(format_context(results))
+            print(format_context(db, args.date))
         elif args.format == "json":
-            print(format_json(results))
+            print(json.dumps(db.get_context(args.date), indent=2))
+
+    db.close()
 
 
 if __name__ == "__main__":

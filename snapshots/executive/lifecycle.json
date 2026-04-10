@@ -78,18 +78,7 @@
           "title": "add 2025-05-29 spell changes",
           "merged": "2025-06-04"
         }
-      ],
-      "market_context": {
-        "date": "2025-05-29",
-        "sky_price": 0.069362,
-        "sky_price_3d": 0.066687,
-        "sky_pct_3d": -3.86,
-        "usds_mcap": 6943890197,
-        "usds_mcap_3d": 7118788581,
-        "btc_price": 105620.87,
-        "btc_pct_3d": 0.03,
-        "eth_price": 2633.14
-      }
+      ]
     },
     "0xbf5ef05a578f270c0e54c7f6ef7ccfb5c9cd56b0": {
       "title": "Housekeeping Items, Spark Proxy Spell",
@@ -131,19 +120,7 @@
           "title": "Add 2025-06-12 spell changes",
           "merged": "2025-06-16"
         }
-      ],
-      "market_context": {
-        "date": "2025-06-12",
-        "sky_price": 0.08273,
-        "sky_price_3d": 0.089145,
-        "sky_pct_3d": 7.75,
-        "usds_mcap": 7264036599,
-        "usds_mcap_3d": 7122916940,
-        "spk_price": 0.057518,
-        "btc_price": 105741.59,
-        "btc_pct_3d": -0.17,
-        "eth_price": 2646.15
-      }
+      ]
     },
     "0xc9c4ddf824e4ff80158ab7862d168a35ce616e8e": {
       "title": "SPK Farming Initialization, Partial Phase 3 MKR-to-SKY Migration, Smart Burn Engine Parameter Updates, ALLOCATOR-BLOOM-A Maximum Debt Ceiling Increase, Spark USDS Transfer, Launch Project Funding, Delegate Compensation for May 2025, Atlas Core Development Payments for June 2025, Spark Proxy Spell",
@@ -210,19 +187,7 @@
           "title": "2025-06-26 spell changes",
           "merged": "2025-06-30"
         }
-      ],
-      "market_context": {
-        "date": "2025-06-26",
-        "sky_price": 0.076338,
-        "sky_price_3d": 0.0842,
-        "sky_pct_3d": 10.3,
-        "usds_mcap": 7087633744,
-        "usds_mcap_3d": 7117567689,
-        "spk_price": 0.038603,
-        "btc_price": 106920.33,
-        "btc_pct_3d": 1.36,
-        "eth_price": 2415.78
-      }
+      ]
     },
     "0x12a79facd8d6bbb1583593ef414897a9ba8f0d26": {
       "title": "Sky Token Rewards Rebalance, Aligned Delegate Compensation for June 2025, Atlas Core Development Payments for July 2025, HV Bank (RWA009-A) DAO Resolution, Auxiliary Actions for Token Transfer Between Spark and Grove, Star Proxy Spells",
@@ -278,19 +243,7 @@
           "title": "Atlas update from 2025-07-24 Exec",
           "merged": "2025-07-29"
         }
-      ],
-      "market_context": {
-        "date": "2025-07-24",
-        "sky_price": 0.084,
-        "sky_price_3d": 0.097384,
-        "sky_pct_3d": 15.93,
-        "usds_mcap": 7332683477,
-        "usds_mcap_3d": 7700179471,
-        "spk_price": 0.108515,
-        "btc_price": 118357.63,
-        "btc_pct_3d": 0.92,
-        "eth_price": 3706.74
-      }
+      ]
     },
     "0x26009aff7fe39bf7611d66e0d38cac43b3a93cd5": {
       "title": "Deactivate Spark DAI Morpho Direct Deposit Module, Retire Legacy MKR Oracle, Chainlog Management, Spark Proxy Spell, Grove Proxy Spell",
@@ -348,19 +301,7 @@
           "title": "extra fixes for 2025-08-07 executive",
           "merged": "2025-08-12"
         }
-      ],
-      "market_context": {
-        "date": "2025-08-07",
-        "sky_price": 0.083236,
-        "sky_price_3d": 0.087647,
-        "sky_pct_3d": 5.3,
-        "usds_mcap": 7873388576,
-        "usds_mcap_3d": 8063380902,
-        "spk_price": 0.116061,
-        "btc_price": 117494.84,
-        "btc_pct_3d": 1.55,
-        "eth_price": 3912.91
-      }
+      ]
     },
     "0x3f89fedd7588456e44189a36fd888c56b2c1f589": {
       "title": "Fortification Foundation Grant, Surplus Buffer Splitter Parameter Changes, UNIV2DAIUSDC-A Offboard, Spark-Aave Revenue Share, Liquidity Bootstrapping Funding, Delegate Compensation for July 2025, Atlas Core Development Payments for August 2025, Sky Frontier Foundation Grant, Prime Agent Proxy Spells",
@@ -429,19 +370,7 @@
           "title": "2025-08-21 Spell Changes",
           "merged": "2025-08-25"
         }
-      ],
-      "market_context": {
-        "date": "2025-08-21",
-        "sky_price": 0.067448,
-        "sky_price_3d": 0.063118,
-        "sky_pct_3d": -6.42,
-        "usds_mcap": 7897629094,
-        "usds_mcap_3d": 7856247080,
-        "spk_price": 0.071415,
-        "btc_price": 112463.35,
-        "btc_pct_3d": 0.94,
-        "eth_price": 4223.46
-      }
+      ]
     },
     "0x1832df0ff2bf73a182e09966166bec6c4ed0b69b": {
       "title": "stUSDS Onboarding, SKY Token Rewards Rebalance, Core Simplification Buffer Budget Transfer, Accessibility Reward Budget Transfer, Spark Proxy Spell",
@@ -489,19 +418,7 @@
           "authorization": "[Governance Poll 1569](https://vote.sky.money/polling/QmeLKi1N)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-09-04",
-        "sky_price": 0.072572,
-        "sky_price_3d": 0.071012,
-        "sky_pct_3d": -2.15,
-        "usds_mcap": 8170958774,
-        "usds_mcap_3d": 8126714833,
-        "spk_price": 0.059853,
-        "btc_price": 110734.28,
-        "btc_pct_3d": 0.38,
-        "eth_price": 4297.96
-      }
+      "forum_links": []
     },
     "0x98b876f9e8aa2d32a85042f5fe8e860d3a7b8d3b": {
       "title": "Delayed Upgrade Penalty, Launch Agent 2 Allocator Adjustment, LSEV2-SKY-A Liquidation Ratio Increase, First Monthly Settlement Cycle, AD Compensation for September 2025, Atlas Core Development USDS and SKY Payments, Spark Proxy Spell",
@@ -565,19 +482,7 @@
           "title": "2025-09-18 executive changes",
           "merged": "2025-09-29"
         }
-      ],
-      "market_context": {
-        "date": "2025-09-18",
-        "sky_price": 0.077552,
-        "sky_price_3d": 0.069969,
-        "sky_pct_3d": -9.78,
-        "usds_mcap": 7982558549,
-        "usds_mcap_3d": 8144875076,
-        "spk_price": 0.061341,
-        "btc_price": 117145.67,
-        "btc_pct_3d": -1.59,
-        "eth_price": 4590.21
-      }
+      ]
     },
     "0x0727ffa3221a8d3cdaaabc7d19ed0583847496e1": {
       "title": "Launch Lockstake Capped OSM Wrapper, SKY Token Rewards Rebalance, Whitelist Keel ALM Proxy, Execute Prime Agent Proxy Spells",
@@ -622,19 +527,7 @@
           "authorization": "[Governance Poll 1592](https://vote.sky.money/polling/QmXYRjmQ)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-10-06",
-        "sky_price": 0.06941,
-        "sky_price_3d": 0.067092,
-        "sky_pct_3d": -3.34,
-        "usds_mcap": 7969259219,
-        "usds_mcap_3d": 7943588452,
-        "spk_price": 0.05189,
-        "btc_price": 124747.51,
-        "btc_pct_3d": -2.45,
-        "eth_price": 4687.64
-      }
+      "forum_links": []
     },
     "0xf3d37a2508d269b8328026f72d65795730ce07b6": {
       "title": "Allocator 4 Technical Launch, Monthly Settlement Cycle for September 2025, Ranked Delegate Compensation, Atlas Core Development Compensation, Execute Prime Agent Proxy Spells",
@@ -678,19 +571,7 @@
           "title": "Oct 16th Spell updates",
           "merged": "2025-10-24"
         }
-      ],
-      "market_context": {
-        "date": "2025-10-16",
-        "sky_price": 0.060366,
-        "sky_price_3d": 0.059021,
-        "sky_pct_3d": -2.23,
-        "usds_mcap": 8193669473,
-        "usds_mcap_3d": 8296539011,
-        "spk_price": 0.036026,
-        "btc_price": 108202.75,
-        "btc_pct_3d": 0.46,
-        "eth_price": 3895.23
-      }
+      ]
     },
     "0xa1d35e93d5bfaf300e0327d73143529f19b3da78": {
       "title": "Initialize Kicker, Recalibrate Smart Burn Engine, Initialize lsSKY to SKY Farm, Initialize Spark StarGuard, Fund Core Council Multisigs, Fund Integration Boost Multisig, Adjust stUSDS BEAM Step Parameters, Execute Prime Agent Proxy Spells",
@@ -744,19 +625,7 @@
           "authorization": "[Snapshot Proposal](https://snapshot.box/#/s:sparkfi.eth/proposal/0xeea0e2648f55df4e57f8717831a5949f2a35852e32aa0f98a7e16e7ed56268a8)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-10-30",
-        "sky_price": 0.057585,
-        "sky_price_3d": 0.055776,
-        "sky_pct_3d": -3.14,
-        "usds_mcap": 9081919530,
-        "usds_mcap_3d": 9070468746,
-        "spk_price": 0.035051,
-        "btc_price": 108345.31,
-        "btc_pct_3d": 2.08,
-        "eth_price": 3804.89
-      }
+      "forum_links": []
     },
     "0xed3de16bdf69f697fecf1b4103b9f48d71bddf20": {
       "title": "Solana Bridge Migration Spell 0, Launch Agent 4 DC-IAM Parameter Changes and Genesis Capital Funding, Whitelist Launch Agent 4 ALMProxy on the LitePSM, Prime Agent Proxy Spells",
@@ -817,19 +686,7 @@
           "authorization": "[Atlas Entry](https://sky-atlas.io/#A.2.9.2.1)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-11-13",
-        "sky_price": 0.05518,
-        "sky_price_3d": 0.05,
-        "sky_pct_3d": -9.39,
-        "usds_mcap": 9239669469,
-        "usds_mcap_3d": 9329935736,
-        "spk_price": 0.034721,
-        "btc_price": 99688.59,
-        "btc_pct_3d": -5.23,
-        "eth_price": 3231.39
-      }
+      "forum_links": []
     },
     "0x2140f15f957fcb0b101cd3957217174c3e4d6bf9": {
       "title": "Out-of-Schedule Spell - Solana Bridge Migration Spell 1",
@@ -856,19 +713,7 @@
           "authorization": "[Governance Poll 1603](https://vote.sky.money/polling/Qmetv8fp), [Atlas Entry](https://sky-atlas.io/#A.1.9.4.1)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-11-17",
-        "sky_price": 0.049384,
-        "sky_price_3d": 0.048331,
-        "sky_pct_3d": -2.13,
-        "usds_mcap": 9247694917,
-        "usds_mcap_3d": 9142696692,
-        "spk_price": 0.032008,
-        "btc_price": 92183.22,
-        "btc_pct_3d": -6.2,
-        "eth_price": 3028.22
-      }
+      "forum_links": []
     },
     "0xa57d885d8fb034455aadb8c3f3d5414c214cbe3d": {
       "title": "Launch StarGuards, October Monthly Settlement Cycle and Treasury Management Function, October Ranked Delegate Compensation, Atlas Core Development Compensation, Payment to Gnosis, Add ALLOCATOR-OBEX-A to SP-BEAM, Prime Agent Proxy Spells",
@@ -940,19 +785,7 @@
           "authorization": "[Snapshot Poll](https://snapshot.box/#/s:sparkfi.eth/proposal/0x9dd06e68b3b109b616cc7cf7af7f1cf78ed9408312bfb9fe43764a3b3dba563a)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-11-27",
-        "sky_price": 0.049169,
-        "sky_price_3d": 0.055393,
-        "sky_pct_3d": 12.66,
-        "usds_mcap": 9336112618,
-        "usds_mcap_3d": 9428020918,
-        "spk_price": 0.031336,
-        "btc_price": 91315.99,
-        "btc_pct_3d": -1.0,
-        "eth_price": 3015.16
-      }
+      "forum_links": []
     },
     "0x0d2bda9a446527238e802708b370dd66f375e4d1": {
       "title": "Initialize and Fund Core Council Executor Agent 1 SubProxy and StarGuard, USDS-SKY Farm Normalization, Increase Delayed Upgrade Penalty, Adjust stUSDS Liquidation Ratio and Capped OSM, Adjust stUSDS BEAM step Parameters, DAO Resolution, Ranked Delegate and Atlas Core Development Compensation, Star Proxy Spells",
@@ -1031,19 +864,7 @@
           "authorization": "[A.2.9.2.2.2.5.5.1](https://sky-atlas.io/#A.2.9.2.2.2.5.5.1)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2025-12-11",
-        "sky_price": 0.05509,
-        "sky_price_3d": 0.059511,
-        "sky_pct_3d": 8.03,
-        "usds_mcap": 9681764447,
-        "usds_mcap_3d": 9864554491,
-        "spk_price": 0.023678,
-        "btc_price": 92495.22,
-        "btc_pct_3d": -4.73,
-        "eth_price": 3237.21
-      }
+      "forum_links": []
     },
     "0xe91c453b7e1f4df94fb4cb69e1f4836e62718d76": {
       "title": "Reduce Rewards Emissions, Complete GUNI Vault Offboardings, Whitelist Keel SubProxy to Send Cross-Chain Messages, Adjust Grove DC-IAM Parameters, Delegate Compensation, Star Agent Proxy Spells",
@@ -1105,19 +926,7 @@
           "authorization": "[Snapshot Poll](https://snapshot.box/#/s:sparkfi.eth/proposal/0xdd79e0fc0308fd0e4393b88cccb8e9b23237c9c398e0458c8c5c43198669e4bb)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2026-01-15",
-        "sky_price": 0.059841,
-        "sky_price_3d": 0.063961,
-        "sky_pct_3d": 6.88,
-        "usds_mcap": 9728368656,
-        "usds_mcap_3d": 9702842059,
-        "spk_price": 0.023316,
-        "btc_price": 95555.29,
-        "btc_pct_3d": -2.03,
-        "eth_price": 3317.39
-      }
+      "forum_links": []
     },
     "0x4d99868f6d4d2545ebff3a1385efe31c06d3a472": {
       "title": "November and December Monthly Settlement Cycles and Treasury Management Function, Pattern Onboarding, Skybase Onboarding and Genesis Capital Funding, DAO Resolution for 6s Capital, Prime Agent Proxy Spells",
@@ -1177,19 +986,7 @@
           "authorization": "[A.6.1.1.1.3.2.1.2.1 - SparkLend Risk Parameters Modification](https://sky-atlas.io/#A.6.1.1.1.3.2.1.2.1)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2026-01-26",
-        "sky_price": 0.064825,
-        "sky_price_3d": 0.064982,
-        "sky_pct_3d": 0.24,
-        "usds_mcap": 9382258799,
-        "usds_mcap_3d": 9259238700,
-        "spk_price": 0.022412,
-        "btc_price": 88253.86,
-        "btc_pct_3d": -4.07,
-        "eth_price": 2926.45
-      }
+      "forum_links": []
     },
     "0x97bd98f46d0d0769745883e76c05483f9aa15ca6": {
       "title": "Adjust ALLOCATOR-NOVA-A DC-IAM Parameters, Reduce RWA001-A Stability Fee, Prime Agent Proxy Spells",
@@ -1232,19 +1029,7 @@
           "authorization": "[A.6.1.1.1.2.6.1.2.1.2.3](https://sky-atlas.io/#A.6.1.1.1.2.6.1.2.1.2.3)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2026-04-10",
-        "sky_price": 0.07775,
-        "sky_price_3d": 0.07775,
-        "sky_pct_3d": 0.0,
-        "usds_mcap": 11492802018,
-        "usds_mcap_3d": 11492802018,
-        "spk_price": 0.02041,
-        "btc_price": 72760.44,
-        "btc_pct_3d": 0.0,
-        "eth_price": 2238.66
-      }
+      "forum_links": []
     },
     "0x4c56b1b1554b1230349d66f665814641a609c569": {
       "title": "Launch Agent Onboardings, January Monthly Settlement Cycle and Treasury Management Function, SKY Staking Rewards Normalization, Prime Agent Proxy Spells",
@@ -1303,19 +1088,7 @@
           "authorization": "[Atlas - A.2.8.2.2.2.5.5.2 - Spark Foundation Grant Authorization: December 2025](https://sky-atlas.io/#A.2.8.2.2.2.5.5.2)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2026-04-10",
-        "sky_price": 0.07775,
-        "sky_price_3d": 0.07775,
-        "sky_pct_3d": 0.0,
-        "usds_mcap": 11492802018,
-        "usds_mcap_3d": 11492802018,
-        "spk_price": 0.02041,
-        "btc_price": 72760.44,
-        "btc_pct_3d": 0.0,
-        "eth_price": 2238.66
-      }
+      "forum_links": []
     },
     "0x396122c087aa23bee53b38e14237b3c0c10dddbc": {
       "title": "SKY Buyback Reduction, Delayed Upgrade Penalty Increase, Safe Harbor Adoption, Spark Proxy Spell",
@@ -1360,19 +1133,7 @@
           "authorization": "[Snapshot poll](https://snapshot.org/#/s:sparkfi.eth/proposal/0xeb2f5f08ec6ab8a2ff5302453ac7383f7519a09cf7e1e56cbb7fc8244f15cfa2)"
         }
       ],
-      "forum_links": [],
-      "market_context": {
-        "date": "2026-04-10",
-        "sky_price": 0.07775,
-        "sky_price_3d": 0.07775,
-        "sky_pct_3d": 0.0,
-        "usds_mcap": 11492802018,
-        "usds_mcap_3d": 11492802018,
-        "spk_price": 0.02041,
-        "btc_price": 72760.44,
-        "btc_pct_3d": 0.0,
-        "eth_price": 2238.66
-      }
+      "forum_links": []
     },
     "0x415396c98a5b42c0d97e4e80cb5c9079369ea4d8": {
       "title": "Ozone Onboarding, Amatsu Onboarding, Genesis Funding Transfers, February 2026 Monthly Settlement Cycle, Safe Harbor Update, Prime Agent Proxy Spells",
@@ -1439,19 +1200,7 @@
         "https://forum.skyeco.com/t/msc-6-settlement-summary-february-2026/27778",
         "https://forum.skyeco.com/t/technical-scope-of-the-new-amatsu-executor-agent/27780",
         "https://forum.skyeco.com/t/technical-scope-of-the-new-ozone-executor-agent/27779"
-      ],
-      "market_context": {
-        "date": "2026-04-10",
-        "sky_price": 0.07775,
-        "sky_price_3d": 0.07775,
-        "sky_pct_3d": 0.0,
-        "usds_mcap": 11492802018,
-        "usds_mcap_3d": 11492802018,
-        "spk_price": 0.02041,
-        "btc_price": 72760.44,
-        "btc_pct_3d": 0.0,
-        "eth_price": 2238.66
-      }
+      ]
     },
     "0x70da14478667c08320ef65506063abba84b6990f": {
       "title": "Launch Avalanche SkyLink, Update Staking Rewards, Grove Genesis Capital Transfer, Safe Harbor Update, Prime Agent Proxy Spells",
@@ -1503,20 +1252,8 @@
         "https://forum.skyeco.com/t/grove-genesis-capital-transfer/27828",
         "https://forum.skyeco.com/t/lssky-to-sky-rewards-sky-rewards-for-sky-stakers-normalization-configuration/27721/6",
         "https://forum.skyeco.com/t/skylink-bridge-to-avalanche/27825"
-      ],
-      "market_context": {
-        "date": "2026-04-09",
-        "sky_price": 0.07806,
-        "sky_price_3d": 0.07775,
-        "sky_pct_3d": -0.4,
-        "usds_mcap": 11512563112,
-        "usds_mcap_3d": 11492802018,
-        "spk_price": 0.019902,
-        "btc_price": 71773.48,
-        "btc_pct_3d": 1.38,
-        "eth_price": 2189.28
-      }
+      ]
     }
   },
-  "last_updated": "2026-04-10T18:38:42Z"
+  "last_updated": "2026-04-10T20:59:58Z"
 }

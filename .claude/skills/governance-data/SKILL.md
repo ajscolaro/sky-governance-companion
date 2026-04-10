@@ -80,6 +80,8 @@ After running, report:
 - Notable dissent (AD voted differently from majority)
 - Non-voters on recent polls
 
+**Poll types:** Each poll has a `poll_type` field: `atlas-edit` (Flow 1 — ratifies Atlas text changes, PR merges same day), `parameter-change` (Flow 2 — authorizes executive spells), or `other`. Atlas-edit polls include an `atlas_pr` field linking to the corresponding PR number. Use `discussion_link` and `summary` fields for additional context.
+
 ### `/governance-data executive`
 
 Update executive proposal, hat monitoring, and spell lifecycle data.
@@ -101,14 +103,14 @@ cat snapshots/executive/YYYY-MM-DD.json
 cat snapshots/executive/lifecycle.json
 ```
 
-`lifecycle.json` contains for each spell: title, summary, condensed actions with authorizations, Atlas document references, governance poll numbers, forum links, lifecycle events (proposed/hat/cast/expired), market context at proposal date, and linked Atlas PRs.
+`lifecycle.json` contains for each spell: title, summary, condensed actions with authorizations, Atlas document references, **governance polls that authorized the spell** (these are Flow 2 parameter-change polls, separate from the Atlas recording PRs), forum links, lifecycle events (proposed/hat/cast/expired), and **linked Atlas PRs that record the spell's changes** (typically merged 4-11 days after cast). For market context, query `data/market.db` via `python3 scripts/market/market-lookup.py --window <cast-date>` or import `scripts/market/market.py`.
 
 After running, report:
 - Current hat (which spell has the most support)
 - Which ADs are on the hat vs stale spells
 - ADs not supporting any spell (disengagement signal)
 - Active spells: title, actions, time to expiration, current support
-- Recently cast spells: what was implemented, market context at cast time
+- Recently cast spells: what was implemented, market context at cast time (query via `market-lookup.py --window <date>`)
 - Any new lifecycle transitions since last check
 
 ### `/governance-data spell <date-or-slug>`
@@ -124,7 +126,7 @@ Report:
 - Governance polls that authorized it
 - Forum discussion links
 - Lifecycle timeline: proposed → hat → cast (with dates)
-- Market context: SKY price, USDS supply, BTC/ETH for beta context, +-3 day changes
+- Market context: run `python3 scripts/market/market-lookup.py --window <spell-date>` for SKY price, USDS supply, BTC/ETH, and pre/post event deltas
 - Linked Atlas PRs: which PRs in `history/` recorded this spell's changes back into the Atlas
 
 ### `/governance-data enrich`

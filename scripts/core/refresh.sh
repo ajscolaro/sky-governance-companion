@@ -126,10 +126,15 @@ if [ -f "$VOTING_DIR/fetch-executive-proposals.sh" ]; then
     bash "$VOTING_DIR/fetch-executive-proposals.sh" --quiet 2>/dev/null &
 fi
 
-# --- Refresh market data cache (background, non-blocking, optional) ---
+# --- Refresh market data (background, non-blocking, optional) ---
 MARKET_DIR="$PROJECT_DIR/scripts/market"
-if [ -f "$MARKET_DIR/fetch-market-data.py" ]; then
-    python3 "$MARKET_DIR/fetch-market-data.py" --quiet 2>/dev/null &
+if [ -f "$MARKET_DIR/fetch-market.py" ]; then
+    python3 "$MARKET_DIR/fetch-market.py" --quiet 2>/dev/null &
+fi
+
+# --- Governance status advisory (reads cached data from previous session) ---
+if [ -f "$SCRIPT_DIR/governance-advisory.py" ]; then
+    python3 "$SCRIPT_DIR/governance-advisory.py" 2>/dev/null || true
 fi
 
 exit 0

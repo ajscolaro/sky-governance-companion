@@ -14,7 +14,7 @@ Pipeline:
 Data flow:
   sky-ecosystem/executive-votes repo  ->  (parse)  ->  snapshots/executive/lifecycle.json
   vote.sky.money /api/executive       ->  (lifecycle events)  ->  snapshots/executive/lifecycle.json
-  data/voting/market/                 ->  (market context)    ->  snapshots/executive/lifecycle.json
+  data/market.db                      ->  (query on the fly via scripts/market/market.py)
   history/_log.md                     ->  (cross-refs)        ->  snapshots/executive/lifecycle.json
 """
 
@@ -27,14 +27,13 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 PROPOSALS_DIR = PROJECT_DIR / "data" / "voting" / "executive" / "proposals"
 INDEX_FILE = PROJECT_DIR / "data" / "voting" / "executive" / "index.json"
 LIFECYCLE_FILE = PROJECT_DIR / "snapshots" / "executive" / "lifecycle.json"
-MARKET_DIR = PROJECT_DIR / "data" / "voting" / "market"
 LOG_FILE = PROJECT_DIR / "history" / "_log.md"
 
 REPO_RAW_BASE = "https://raw.githubusercontent.com/sky-ecosystem/executive-votes/main"
@@ -469,9 +468,13 @@ def parse_log_date(text: str) -> str | None:
 
 
 def cross_reference_atlas_prs(lifecycle: dict, *, quiet: bool = False) -> int:
-    """Scan history/_log.md for PRs that reference executive spells.
+    """Scan history/_log.md for Flow 2 (spell-recording) PRs and link to spells.
 
-    Matches PRs with spell-related titles to executive spells by date.
+    Only links PRs with spell-related titles (e.g., "spell changes", "executive
+    changes"). Flow 1 (text-edit) PRs are correctly filtered out — they don't
+    reference spells and shouldn't be linked here.
+
+    Matches by date extraction from PR title; uses +/-3 day tolerance.
     Stores results as atlas_prs on each spell entry.
     """
     if not LOG_FILE.exists():
@@ -530,151 +533,6 @@ def cross_reference_atlas_prs(lifecycle: dict, *, quiet: bool = False) -> int:
 
     return linked
 
-
-# ---------------------------------------------------------------------------
-# Market context at cast events
-# ---------------------------------------------------------------------------
-
-def load_market_timeseries(slug: str, dataset: str) -> list[tuple[str, float]]:
-    """Load market data as (date_str, value) pairs."""
-    path = MARKET_DIR / f"{slug}-{dataset}.json"
-    if not path.exists():
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    points = data.get("points", [])
-    schema = data.get("point_schema", [])
-
-    # Find the timestamp and value columns
-    ts_idx = 0  # first column is always timestamp
-    val_idx = 4 if len(points) > 0 and len(points[0]) >= 5 else 1  # close price for OHLCV, else second col
-    for i, col in enumerate(schema):
-        col_name = col if isinstance(col, str) else col.get("name", "")
-        if "timestamp" in col_name.lower():
-            ts_idx = i
-        elif "close" in col_name.lower() or "value" in col_name.lower():
-            val_idx = i
-
-    result = []
-    for pt in points:
-        if len(pt) > max(ts_idx, val_idx):
-            ts = pt[ts_idx]
-            val = pt[val_idx]
-            if isinstance(ts, (int, float)):
-                # Detect seconds vs milliseconds: timestamps < 1e11 are seconds
-                if ts < 1e11:
-                    date_str = datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
-                else:
-                    date_str = datetime.fromtimestamp(ts / 1000, tz=timezone.utc).strftime("%Y-%m-%d")
-            elif isinstance(ts, str):
-                date_str = ts[:10]
-            else:
-                continue
-            if val is not None:
-                result.append((date_str, float(val)))
-    return result
-
-
-def get_price_at_date(series: list[tuple[str, float]], target: str) -> float | None:
-    """Find the closest price to a target date."""
-    if not series:
-        return None
-    # Find exact match or closest
-    for date_str, val in series:
-        if date_str == target:
-            return val
-    # Fallback: closest by date string comparison
-    closest = min(series, key=lambda x: abs(
-        (datetime.strptime(x[0], "%Y-%m-%d") - datetime.strptime(target, "%Y-%m-%d")).days
-    ))
-    delta = abs((datetime.strptime(closest[0], "%Y-%m-%d") - datetime.strptime(target, "%Y-%m-%d")).days)
-    return closest[1] if delta <= 5 else None
-
-
-def add_market_context(lifecycle: dict, *, quiet: bool = False) -> int:
-    """Add market data around cast events to lifecycle entries."""
-    # Load all market series
-    sky_price = load_market_timeseries("sky", "price")
-    usds_mcap = load_market_timeseries("usds", "marketcap")
-    spk_price = load_market_timeseries("spk", "price")
-    btc_price = load_market_timeseries("btc", "price")
-    eth_price = load_market_timeseries("eth", "price")
-
-    if not sky_price:
-        if not quiet:
-            print("  No market data available, skipping market context")
-        return 0
-
-    enriched = 0
-    for addr, spell in lifecycle["spells"].items():
-        # Find cast date
-        cast_event = None
-        for e in spell.get("events", []):
-            if e["type"] == "cast":
-                cast_event = e
-                break
-
-        if not cast_event:
-            # Use proposal date for historical context even without cast
-            target_date = spell.get("date", "")
-        else:
-            target_date = cast_event["at"][:10]
-
-        if not target_date:
-            continue
-
-        # Skip if already has market context for this date
-        existing_ctx = spell.get("market_context", {})
-        if existing_ctx.get("date") == target_date:
-            continue
-
-        try:
-            target_dt = datetime.strptime(target_date, "%Y-%m-%d")
-        except ValueError:
-            continue
-
-        date_3d = (target_dt + timedelta(days=3)).strftime("%Y-%m-%d")
-
-        ctx = {"date": target_date}
-
-        sky_at = get_price_at_date(sky_price, target_date)
-        if sky_at is not None:
-            ctx["sky_price"] = round(sky_at, 6)
-            sky_3d = get_price_at_date(sky_price, date_3d)
-            if sky_3d is not None:
-                ctx["sky_price_3d"] = round(sky_3d, 6)
-                ctx["sky_pct_3d"] = round((sky_3d - sky_at) / sky_at * 100, 2)
-
-        usds_at = get_price_at_date(usds_mcap, target_date)
-        if usds_at is not None:
-            ctx["usds_mcap"] = round(usds_at)
-            usds_3d = get_price_at_date(usds_mcap, date_3d)
-            if usds_3d is not None:
-                ctx["usds_mcap_3d"] = round(usds_3d)
-
-        spk_at = get_price_at_date(spk_price, target_date)
-        if spk_at is not None:
-            ctx["spk_price"] = round(spk_at, 6)
-
-        btc_at = get_price_at_date(btc_price, target_date)
-        if btc_at is not None:
-            ctx["btc_price"] = round(btc_at, 2)
-            btc_3d = get_price_at_date(btc_price, date_3d)
-            if btc_3d is not None:
-                ctx["btc_pct_3d"] = round((btc_3d - btc_at) / btc_at * 100, 2)
-
-        eth_at = get_price_at_date(eth_price, target_date)
-        if eth_at is not None:
-            ctx["eth_price"] = round(eth_at, 2)
-
-        if len(ctx) > 1:  # more than just the date
-            spell["market_context"] = ctx
-            enriched += 1
-
-    if enriched and not quiet:
-        print(f"  Added market context to {enriched} spell(s)")
-
-    return enriched
 
 
 # ---------------------------------------------------------------------------
@@ -771,9 +629,6 @@ def main():
     # Step 4: Atlas PR cross-references
     cross_reference_atlas_prs(lifecycle, quiet=args.quiet)
 
-    # Step 5: Market context
-    add_market_context(lifecycle, quiet=args.quiet)
-
     # Save lifecycle
     save_lifecycle(lifecycle)
 
@@ -791,10 +646,9 @@ def main():
             1 for s in lifecycle["spells"].values()
             if not any(e["type"] in ("cast", "expired") for e in s.get("events", []))
         )
-        with_market = sum(1 for s in lifecycle["spells"].values() if s.get("market_context"))
         with_prs = sum(1 for s in lifecycle["spells"].values() if s.get("atlas_prs"))
         print(f"\n  Summary: {total} spells ({cast} cast, {active} active)")
-        print(f"  Market context: {with_market} | Atlas PR links: {with_prs}")
+        print(f"  Atlas PR links: {with_prs}")
 
 
 if __name__ == "__main__":
