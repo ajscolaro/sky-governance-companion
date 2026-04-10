@@ -75,26 +75,6 @@ history/
 
 This table may be incomplete — new agents can be added via governance at any time. See `/atlas-track` for how to add them.
 
-## Market data
-
-**Always use the local market database for price/supply queries** — do not call the Messari MCP tools (`mcp__claude_ai_Messari__get_timeseries`, `get_timeseries_catalog`, etc.) for data that is already in `data/market.db`. The local database has daily price and market cap data for SKY, USDS, sUSDS, SPK, BTC, and ETH, plus a stablecoin market share snapshot.
-
-```python
-# Import the query module
-import sys; sys.path.insert(0, "scripts/market")
-from market import MarketDB, format_context
-db = MarketDB()
-db.get_price("SKY", "2026-04-09")          # point query
-db.get_context("2026-04-09")                # all-asset snapshot
-db.get_event_window("2026-04-09")           # -3d/+7d around governance event
-db.get_ratio("SKY", "BTC", "2026-04-09")   # derived ratio
-db.get_stablecoin_share("2026-04-10")       # USDS vs competitors
-```
-
-CLI: `python3 scripts/market/market-lookup.py --date 2026-04-09` (also `--range`, `--window`, `--ratio`, `--stablecoins`)
-
-Use Messari MCP tools only for data not in the local db (e.g., `ask_messari` for qualitative research, `create_deep_research` for reports).
-
 ## Available skills
 
 - `/atlas-navigate` — search and read Atlas documents locally
@@ -102,6 +82,7 @@ Use Messari MCP tools only for data not in the local db (e.g., `ask_messari` for
 - `/atlas-analyze` — analyze open PRs against current Atlas and accumulated history
 - `/ad-track` — process cached AD vote rationales into per-delegate comms, sync roster with Atlas
 - `/governance-data` — fetch/analyze on-chain governance data (delegation snapshots, vote matrix, executive/hat monitoring)
+- `/market-data` — query local market database for price, supply, stablecoin rankings, and governance event impact. **Use this for all price/supply questions — do not use Messari MCP tools for data in the local db.**
 - `/forum-search` — search and read cached Sky Forum governance discussions
 
 ## Security
