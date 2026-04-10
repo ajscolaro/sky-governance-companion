@@ -139,6 +139,16 @@ Market data is most useful when correlated with governance actions:
 
 Example workflow: find USDS supply inflection points, then check `_log.md` and `lifecycle.json` for governance events within ±7 days.
 
+### Reading vote-matrix.json safely
+
+When reading poll data from `data/voting/polls/vote-matrix.json`, note these field types:
+- `tags` — always a list of **strings** (e.g., `["high-impact", "weekly"]`), never dicts
+- `poll_type` — string: `"atlas-edit"`, `"parameter-change"`, or `"other"`
+- `atlas_pr` — integer PR number (only on atlas-edit polls) or absent
+- `discussion_link`, `summary`, `poll_url` — strings, may be absent on older polls
+- `ad_votes` — dict of `{slug: {option, option_id, sky_weight, chain, timestamp}}`
+- `ad_non_voters` — list of slug strings
+
 ## Refreshing data
 
 Data is fetched automatically on session start (`scripts/market/fetch-market.py`). To manually refresh:
