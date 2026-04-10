@@ -82,7 +82,7 @@ This table may be incomplete — new agents can be added via governance at any t
 - `/atlas-analyze` — analyze open PRs against current Atlas and accumulated history
 - `/ad-track` — process cached AD vote rationales into per-delegate comms, sync roster with Atlas
 - `/governance-data` — fetch/analyze on-chain governance data (delegation snapshots, vote matrix, executive/hat monitoring)
-- `/market-data` — query local market database for price, supply, stablecoin rankings, and governance event impact. **Use this for all price/supply questions — do not use Messari MCP tools for data in the local db.**
+- `/messari-market-data` — query local market database (sourced from Messari API) for price, supply, stablecoin rankings, and governance event impact. **Use this for all price/supply questions — do not use Messari MCP tools for data in the local db.** Requires `MESSARI_API_KEY` for refresh; queries work without it.
 - `/forum-search` — search and read cached Sky Forum governance discussions
 
 ## Security

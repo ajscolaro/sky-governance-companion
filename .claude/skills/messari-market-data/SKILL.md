@@ -1,16 +1,17 @@
 ---
-name: market-data
+name: messari-market-data
 description: >
   Query local market database for price, supply, stablecoin market share, and governance event
   impact analysis. Uses data/market.db (SQLite) populated from Messari API. Covers SKY, USDS+DAI,
   sUSDS, SPK, BTC, ETH daily data from Sep 2024 to present, plus stablecoin competitive rankings.
+  Requires MESSARI_API_KEY for data refresh; queries work without it.
 argument-hint: "<query in natural language, e.g. 'USDS supply growth vs competitors' or 'SKY/ETH ratio last 90 days'>"
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
-# Market Data
+# Messari Market Data
 
-You have a local SQLite database (`data/market.db`) with daily market data. **Always use the `MarketDB` class to query it — never write raw SQL, and never call Messari MCP tools for data that is already local.**
+You have a local SQLite database (`data/market.db`) with daily market data sourced from the Messari API. **Always use the `MarketDB` class to query it — never write raw SQL, and never call Messari MCP tools for data that is already local.**
 
 ## What's in the database
 
@@ -79,7 +80,7 @@ share = db.get_stablecoin_share("2026-04-10")
 #     "total_supply": 295.6e9, "stablecoins": [{rank, asset, supply, share_pct}, ...]}
 ```
 
-**Important:** `get_stablecoin_share()` uses the asset-level marketcap for USDS (from the `daily` table) for accuracy, not the raw stablecoin snapshot value. The label is automatically changed to "USDS+DAI".
+**Important:** `get_stablecoin_share()` uses the asset-level marketcap for USDS (from the `daily` table) for accuracy. The label is automatically changed to "USDS+DAI".
 
 ### Formatting helpers
 ```python
@@ -158,7 +159,7 @@ python3 scripts/market/fetch-market.py --backfill    # full history
 python3 scripts/market/fetch-market.py --asset sky   # single asset
 ```
 
-Requires `MESSARI_API_KEY` in `.env`. Without it, existing data is still queryable.
+Requires `MESSARI_API_KEY` in `.env`. Without it, existing cached data is still fully queryable — only the refresh is skipped.
 
 ## What NOT to do
 

@@ -25,6 +25,7 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 ## Key concepts
 
 - **Gitignored (`data/`):** Reproducible caches rebuilt from external sources on each session. Safe to delete.
+- **Optional (`data/market.db`):** Requires `MESSARI_API_KEY` in `.env` to populate. All other features work without it. Query via `scripts/market/market.py` (`MarketDB` class), never raw SQL.
 - **Committed (`snapshots/`):** Irreproducible time-series. Once a day passes, that governance state can't be re-fetched. Committed so it survives repo clones.
 - **Committed (`delegates/`, `history/`):** Curated institutional memory. Agent-processed, human-reviewed.
 

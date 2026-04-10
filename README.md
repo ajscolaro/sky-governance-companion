@@ -13,10 +13,11 @@ This project provides local tooling to search, read, and analyze that document a
 - **Local Atlas access** — Shallow clone auto-refreshed on session start, with a parsed JSON index for fast document lookup by name, path, type, or UUID
 - **Change tracking** — Process merged PRs into per-entity changelogs that accumulate institutional memory of how governance evolves
 - **PR analysis** — Analyze open or merged PRs against the current Atlas and historical context
-- **On-chain governance data** — Delegation snapshots, poll vote matrix, executive hat/supporter monitoring via the vote.sky.money API
-- **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references. Optionally enriched with market data when available.
+- **On-chain governance data** — Delegation snapshots, poll vote matrix (with poll type classification and PR linking), executive hat/supporter monitoring via the vote.sky.money API
+- **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references
+- **Governance status advisory** — On session start, prints current hat, AD alignment, pending spells, active/recently ended polls, and lifecycle events
 - **Delegate tracking** — Per-AD profiles with on-chain voting records and forum vote rationales
-- **Market data** *(optional)* — Daily price and supply data for SKY, USDS, sUSDS, SPK, BTC, ETH from the Messari API. Requires `MESSARI_API_KEY`.
+- **Market data** *(optional, requires `MESSARI_API_KEY`)* — SQLite database with daily price and supply data for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH. Derived ratios (SKY/BTC, SKY/ETH), event windows, and stablecoin competitive rankings. All other features work without it.
 - **Forum search** — Cache and search Sky Forum governance discussions via RSS
 
 ## Prerequisites
@@ -42,13 +43,13 @@ On the first session, the **SessionStart hook** automatically:
 2. Builds the document index at `data/index.json`
 3. Creates the `history/` directory structure
 
-On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, and launches background refreshes for forum posts, delegate RSS feeds, voting portal data (delegation, polls, executive), executive proposal lifecycle, and market data.
+On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, launches background refreshes (forum posts, delegate RSS, voting portal data, executive lifecycle, market data), and prints a governance status advisory.
 
 No manual setup steps are required.
 
 ## Skills
 
-Invoke these during a Claude Code session:
+Invoke these during a Claude Code session. Skills marked *(optional)* depend on external API keys.
 
 ### `/atlas-navigate` — Search and read Atlas documents
 
@@ -97,6 +98,19 @@ Process cached AD vote rationales from forum RSS into per-delegate profiles.
 /ad-track
 ```
 
+### `/messari-market-data` — Market data queries *(optional)*
+
+Query the local market database for price, supply, stablecoin rankings, derived ratios, and governance event impact analysis. Data sourced from the Messari API.
+
+```
+/messari-market-data USDS supply growth over time
+/messari-market-data SKY/ETH ratio last 90 days
+/messari-market-data stablecoin market share
+/messari-market-data event window around 2026-04-09
+```
+
+Requires `MESSARI_API_KEY` in `.env` for data refresh. Queries work on cached data without it.
+
 ### `/forum-search` — Search forum discussions
 
 Search cached Sky Forum governance discussions by keyword, author, category, or date.
@@ -115,14 +129,14 @@ Search cached Sky Forum governance discussions by keyword, author, category, or 
   skills/             Skill definitions for all slash commands
 data/                 Generated caches (gitignored, rebuilt on refresh)
   index.json          Parsed document index with line offsets
+  market.db           SQLite market database (optional, requires Messari API key)
   forum/              Cached forum posts and search index
   delegates/          Cached AD vote rationales from RSS feeds
   voting/
     address-map.json  Voting address → AD slug mapping
     delegates/        Delegation API cache
-    polls/            Poll tallies and vote matrix
+    polls/            Poll tallies, vote matrix (with poll_type, atlas_pr linking)
     executive/        Executive API cache + transient proposal processing dir
-    market/           Daily price and supply data (optional, requires Messari API key)
 delegates/            Per-AD profiles and vote rationale logs (committed)
 docs/
   governance-reference.md   Shared governance context for PR analysis
@@ -145,9 +159,10 @@ plans/                Implementation plans and handoff docs
 scripts/
   core/
     setup.sh                    First-time setup
-    refresh.sh                  Pull Atlas, rebuild index, launch background fetches
+    refresh.sh                  Pull Atlas, rebuild index, background fetches, governance advisory
     build-index.py              Parse Atlas into JSON index
     build-address-map.py        Join voting addresses to AD slugs
+    governance-advisory.py      Print governance status on session start
     check-write-path.sh         PreToolUse hook for write protection
   atlas/
     search-index.sh             Query the index by prefix/name/type/UUID
@@ -166,8 +181,9 @@ scripts/
     fetch-executive-proposals.py  Proposal lifecycle: fetch, parse, enrich, cleanup
     fetch-delegation-history.py Delegation lock/unlock event history
   market/
-    fetch-market-data.py        Price/supply data from Messari API (optional)
-    market-lookup.py            Look up cached market data by date
+    market.py                   MarketDB query module (import for programmatic access)
+    fetch-market.py             Populate SQLite from Messari API (optional)
+    market-lookup.py            CLI for market data queries (date, range, ratio, stablecoins)
 CLAUDE.md             Agent instructions, security rules, project conventions
 ```
 
