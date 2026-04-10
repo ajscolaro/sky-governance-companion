@@ -16,7 +16,7 @@ import re
 import sys
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DELEGATES_DIR = PROJECT_DIR / "delegates"
 OUTPUT_DIR = PROJECT_DIR / "data" / "voting"
 OUTPUT_FILE = OUTPUT_DIR / "address-map.json"

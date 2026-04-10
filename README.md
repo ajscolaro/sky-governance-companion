@@ -13,14 +13,19 @@ This project provides local tooling to search, read, and analyze that document a
 - **Local Atlas access** — Shallow clone auto-refreshed on session start, with a parsed JSON index for fast document lookup by name, path, type, or UUID
 - **Change tracking** — Process merged PRs into per-entity changelogs that accumulate institutional memory of how governance evolves
 - **PR analysis** — Analyze open or merged PRs against the current Atlas and historical context
+- **On-chain governance data** — Delegation snapshots, poll vote matrix, executive hat/supporter monitoring via the vote.sky.money API
+- **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references. Optionally enriched with market data when available.
+- **Delegate tracking** — Per-AD profiles with on-chain voting records and forum vote rationales
+- **Market data** *(optional)* — Daily price and supply data for SKY, USDS, sUSDS, SPK, BTC, ETH from the Messari API. Requires `MESSARI_API_KEY`.
 - **Forum search** — Cache and search Sky Forum governance discussions via RSS
 
 ## Prerequisites
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
-- Python 3.8+
+- Python 3.8+ with a virtual environment at `.venv/` (setup creates this automatically)
 - `curl` — for GitHub REST API calls (pre-installed on macOS)
 - `jq` — for JSON queries (`brew install jq` on macOS)
+- `MESSARI_API_KEY` in `.env` — **optional**, enables market data (SKY/USDS/SPK prices). All other features work without it.
 
 ## Setup
 
@@ -36,9 +41,8 @@ On the first session, the **SessionStart hook** automatically:
 1. Clones the Atlas repo (shallow) into `.atlas-repo/`
 2. Builds the document index at `data/index.json`
 3. Creates the `history/` directory structure
-4. Fetches recent forum posts into `data/forum/`
 
-On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, and refreshes the forum cache.
+On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, and launches background refreshes for forum posts, delegate RSS feeds, voting portal data (delegation, polls, executive), executive proposal lifecycle, and market data.
 
 No manual setup steps are required.
 
@@ -73,6 +77,26 @@ Explain what a PR is changing, why it matters, and how it relates to previous ch
 /atlas-analyze open
 ```
 
+### `/governance-data` — On-chain governance data
+
+Fetch and analyze delegation snapshots, vote alignment, executive vote lifecycle, and spell monitoring.
+
+```
+/governance-data executive        # Hat monitoring + spell lifecycle
+/governance-data spell 2026-04-09 # Deep-dive into a specific spell
+/governance-data snapshot         # Delegation power snapshot
+/governance-data votes            # Poll vote matrix update
+/governance-data status           # Data freshness report
+```
+
+### `/ad-track` — Delegate tracking
+
+Process cached AD vote rationales from forum RSS into per-delegate profiles.
+
+```
+/ad-track
+```
+
 ### `/forum-search` — Search forum discussions
 
 Search cached Sky Forum governance discussions by keyword, author, category, or date.
@@ -88,12 +112,21 @@ Search cached Sky Forum governance discussions by keyword, author, category, or 
 .atlas-repo/          Shallow clone of next-gen-atlas (gitignored, auto-refreshed)
 .claude/
   settings.json       Sandbox config, hooks, permissions
-  skills/             Skill definitions (atlas-navigate, atlas-track, atlas-analyze, forum-search)
-data/                 Generated data (gitignored, rebuilt on refresh)
+  skills/             Skill definitions for all slash commands
+data/                 Generated caches (gitignored, rebuilt on refresh)
   index.json          Parsed document index with line offsets
   forum/              Cached forum posts and search index
+  delegates/          Cached AD vote rationales from RSS feeds
+  voting/
+    address-map.json  Voting address → AD slug mapping
+    delegates/        Delegation API cache
+    polls/            Poll tallies and vote matrix
+    executive/        Executive API cache + transient proposal processing dir
+    market/           Daily price and supply data (optional, requires Messari API key)
+delegates/            Per-AD profiles and vote rationale logs (committed)
 docs/
   governance-reference.md   Shared governance context for PR analysis
+  data-catalog.md           Master index of all data directories and sources
   security.md               Security model and threat mitigations
 history/              Per-entity change logs (committed, long-term memory)
   entity-routing.conf       Maps Atlas prefixes to history directories
@@ -102,20 +135,39 @@ history/              Per-entity change logs (committed, long-term memory)
   A.1--governance/
   ...
   A.6--agents/
-    A.6.1.1.1--spark/       Per-agent changelogs
+    A.6.1.1.1--spark/       Per-agent changelogs (8 agents tracked)
     A.6.1.1.2--grove/
     ...
+snapshots/            Committed time-series (irreproducible, do not delete)
+  delegation/         Daily delegation power snapshots
+  executive/          Daily hat/supporter snapshots + lifecycle.json
+plans/                Implementation plans and handoff docs
 scripts/
-  setup.sh            First-time setup (clone, index, create dirs)
-  refresh.sh          Pull latest Atlas, rebuild index, check for new PRs
-  build-index.py      Parse Atlas into JSON index
-  search-index.sh     Query the index by prefix/name/type/UUID
-  read-section.sh     Extract document content by line range
-  process-pr.sh       Analyze a merged PR diff and route to changelogs
-  fetch-forum.py      Fetch forum posts via RSS
-  fetch-forum.sh      Bash wrapper for forum fetch
-  search-forum.sh     Search cached forum posts
-  check-write-path.sh PreToolUse hook for write protection
+  core/
+    setup.sh                    First-time setup
+    refresh.sh                  Pull Atlas, rebuild index, launch background fetches
+    build-index.py              Parse Atlas into JSON index
+    build-address-map.py        Join voting addresses to AD slugs
+    check-write-path.sh         PreToolUse hook for write protection
+  atlas/
+    search-index.sh             Query the index by prefix/name/type/UUID
+    read-section.sh             Extract document content by line range
+    process-pr.sh               Analyze a merged PR diff and route to changelogs
+    backfill-prs.sh             Batch-generate skeleton changelog entries
+  forum/
+    fetch-forum.py              Fetch forum posts via RSS
+    search-forum.sh             Search cached forum posts
+  delegates/
+    fetch-delegates.py          Fetch per-AD vote rationales via RSS
+  voting/
+    fetch-voting-delegates.py   Delegation snapshots from vote.sky.money
+    fetch-voting-polls.py       Poll vote matrix from vote.sky.money
+    fetch-voting-executive.py   Hat/supporter snapshots from vote.sky.money
+    fetch-executive-proposals.py  Proposal lifecycle: fetch, parse, enrich, cleanup
+    fetch-delegation-history.py Delegation lock/unlock event history
+  market/
+    fetch-market-data.py        Price/supply data from Messari API (optional)
+    market-lookup.py            Look up cached market data by date
 CLAUDE.md             Agent instructions, security rules, project conventions
 ```
 
@@ -152,7 +204,7 @@ The `/atlas-track` skill can also detect and set up new agents automatically.
 
 ### Network access
 
-The sandbox network allowlist in `.claude/settings.json` controls which domains are reachable. By default: `github.com`, `api.github.com`, and `forum.skyeco.com`. Add domains as needed for your use case.
+The sandbox network allowlist in `.claude/settings.json` controls which domains are reachable. Current allowlist: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`. Add domains as needed for your use case.
 
 ## License
 

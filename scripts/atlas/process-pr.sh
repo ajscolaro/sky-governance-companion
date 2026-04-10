@@ -14,7 +14,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 INDEX="$PROJECT_DIR/data/index.json"
 HISTORY_DIR="$PROJECT_DIR/history"
 LOG_FILE="$HISTORY_DIR/_log.md"

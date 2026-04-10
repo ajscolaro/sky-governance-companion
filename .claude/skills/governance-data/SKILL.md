@@ -2,8 +2,9 @@
 name: governance-data
 description: >
   Fetch and analyze on-chain governance data from the Sky Voting Portal API.
-  Delegation snapshots, vote alignment matrix, executive/hat monitoring, delegate profile enrichment.
-argument-hint: "<'snapshot', 'votes', 'executive', 'enrich', or 'status'>"
+  Delegation snapshots, vote alignment matrix, executive/hat monitoring,
+  spell lifecycle tracking, delegate profile enrichment.
+argument-hint: "<'snapshot', 'votes', 'executive', 'spell <date>', 'enrich', or 'status'>"
 allowed-tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
@@ -14,7 +15,7 @@ You are working with on-chain governance data from the Sky Voting Portal API (`v
 ## Data flow
 
 ```
-vote.sky.money API → scripts/fetch-voting-*.py → data/voting/ (cache, gitignored)
+vote.sky.money API → scripts/voting/fetch-voting-*.py → data/voting/ (cache, gitignored)
                                                 → snapshots/ (committed time-series)
                                                 → delegates/{slug}/profile.md (enriched profiles)
 ```
@@ -34,13 +35,13 @@ Take a delegation power snapshot. Reports current delegation amounts and changes
 
 ```bash
 # Take today's snapshot (skips if already exists)
-source .venv/bin/activate && python3 scripts/fetch-voting-delegates.py
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-delegates.py
 
 # Force overwrite
-source .venv/bin/activate && python3 scripts/fetch-voting-delegates.py --force
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-delegates.py --force
 
 # Also fetch per-AD delegator breakdowns (heavier, 13+ API calls)
-source .venv/bin/activate && python3 scripts/fetch-voting-delegates.py --delegators
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-delegates.py --delegators
 ```
 
 **Read snapshot data:**
@@ -59,13 +60,13 @@ Update the vote alignment matrix. First run should use `--backfill` to fetch all
 
 ```bash
 # Backfill all historical polls (first time — may take 1-2 minutes)
-source .venv/bin/activate && python3 scripts/fetch-voting-polls.py --backfill
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-polls.py --backfill
 
 # Incremental update (new polls only)
-source .venv/bin/activate && python3 scripts/fetch-voting-polls.py
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-polls.py
 
 # Fetch a single poll
-source .venv/bin/activate && python3 scripts/fetch-voting-polls.py --poll 1627
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-polls.py --poll 1627
 ```
 
 **Read vote matrix:**
@@ -81,21 +82,50 @@ After running, report:
 
 ### `/governance-data executive`
 
-Update executive proposal and hat monitoring data.
+Update executive proposal, hat monitoring, and spell lifecycle data.
 
 ```bash
-source .venv/bin/activate && python3 scripts/fetch-voting-executive.py
+# Update daily hat/supporter snapshot
+source .venv/bin/activate && python3 scripts/voting/fetch-voting-executive.py
+
+# Update spell lifecycle (proposals, events, market context, Atlas cross-refs)
+source .venv/bin/activate && python3 scripts/voting/fetch-executive-proposals.py
 ```
 
-**Read executive data:**
+**Read data:**
 ```bash
+# Today's hat/supporter snapshot
 cat snapshots/executive/YYYY-MM-DD.json
+
+# Full spell lifecycle (the single source of truth for executive vote monitoring)
+cat snapshots/executive/lifecycle.json
 ```
+
+`lifecycle.json` contains for each spell: title, summary, condensed actions with authorizations, Atlas document references, governance poll numbers, forum links, lifecycle events (proposed/hat/cast/expired), market context at proposal date, and linked Atlas PRs.
 
 After running, report:
 - Current hat (which spell has the most support)
 - Which ADs are on the hat vs stale spells
 - ADs not supporting any spell (disengagement signal)
+- Active spells: title, actions, time to expiration, current support
+- Recently cast spells: what was implemented, market context at cast time
+- Any new lifecycle transitions since last check
+
+### `/governance-data spell <date-or-slug>`
+
+Deep-dive into a specific executive proposal. Read from `snapshots/executive/lifecycle.json`.
+
+Find the spell by date (e.g., `2026-04-09`) or slug substring (e.g., `skylink`, `buyback`).
+
+Report:
+- Full title and summary
+- All actions with their authorizations
+- Atlas document references (which Atlas sections this spell touches)
+- Governance polls that authorized it
+- Forum discussion links
+- Lifecycle timeline: proposed → hat → cast (with dates)
+- Market context: SKY price, USDS supply, BTC/ETH for beta context, +-3 day changes
+- Linked Atlas PRs: which PRs in `history/` recorded this spell's changes back into the Atlas
 
 ### `/governance-data enrich`
 
@@ -159,9 +189,15 @@ Report:
 | Poll tallies | `data/voting/polls/tallies/{id}.json` | No | `fetch-voting-polls.py` |
 | Executive snapshots | `snapshots/executive/YYYY-MM-DD.json` | **Yes** | `fetch-voting-executive.py` |
 | Executive cache | `data/voting/executive/` | No | `fetch-voting-executive.py` |
+| Spell lifecycle | `snapshots/executive/lifecycle.json` | **Yes** | `fetch-executive-proposals.py` |
+| Proposal text cache | `data/voting/executive/proposals/` | No (auto-cleaned) | `fetch-executive-proposals.py` |
 
 ## Integration with other skills
 
 - **`/ad-track`** provides the qualitative side (what delegates *say* in vote rationales). `/governance-data` provides the quantitative side (how they actually *voted*, with what weight). Cross-reference both for a complete picture.
-- **`/atlas-track`** tracks Atlas PR changes. Poll tags (e.g., "grove", "spark", "risk-parameter") can be cross-referenced with PR changes in `history/` to see which Atlas edits each AD supported.
-- **`/atlas-analyze`** can reference delegation data when assessing a PR's political context.
+- **`/atlas-track`** tracks Atlas PR changes. The spell lifecycle in `lifecycle.json` cross-references Atlas PRs that record spell outcomes (e.g., PRs titled "add 2025-06-12 spell changes"). When writing changelog entries for such PRs, reference the corresponding spell's actions and market context.
+- **`/atlas-analyze`** can reference delegation data and spell lifecycle when assessing a PR's political context. Check `lifecycle.json` for any active spells that reference the same Atlas sections being modified.
+
+## Architecture note: lifecycle.json as single source of truth
+
+`snapshots/executive/lifecycle.json` is the committed, long-term record of all executive votes. Raw proposal markdown is fetched, parsed, distilled into lifecycle.json, then cleaned up automatically. The `data/voting/executive/proposals/` directory is a transient processing pipeline — files appear during fetch and disappear after enrichment. Do not depend on raw proposal files existing; always read from lifecycle.json.

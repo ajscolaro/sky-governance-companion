@@ -16,9 +16,9 @@ snapshots/
 
 ## How snapshots are created
 
-- **Delegation:** `scripts/fetch-voting-delegates.py` writes one snapshot per day (deduped by date)
-- **Executive:** `scripts/fetch-voting-executive.py` writes one snapshot per day (deduped by date)
-- Both run in the background during `scripts/refresh.sh` (session start)
+- **Delegation:** `scripts/voting/fetch-voting-delegates.py` writes one snapshot per day (deduped by date)
+- **Executive:** `scripts/voting/fetch-voting-executive.py` writes one snapshot per day (deduped by date)
+- Both run in the background during `scripts/core/refresh.sh` (session start)
 
 ## Schema
 

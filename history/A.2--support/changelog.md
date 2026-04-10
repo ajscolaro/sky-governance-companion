@@ -38,6 +38,82 @@ The three-stage staking rewards framework is a structural precursor to full SKY 
 
 ---
 
+## PR #110 — Nov 10 edit
+**Merged:** 2025-11-13 | **Type:** Weekly edit
+
+### Material Changes
+- **Sky Direct Exposures list expanded** (A.2.4 Active Data): added "PSMs — Investments by Spark or Grove in USDC in PSMs on non-Ethereum chains" and "Curve Pools — Investments by Spark in USDT in sUSDS/USDT Curve pools"
+- **No ASC requirements for Sky Direct Exposures** (A.2.4, new): Primes not required to hold Actively Stabilizing Collateral for Direct Sky Exposures
+- **Ecosystem Accord 4 terms updated** — see A.0 changelog for Launch Agent 4 details
+
+### Housekeeping
+- "Support Facilitators" → "Core GovOps" / "Core Facilitator" propagations in A.2.2, A.2.7
+
+### Context
+See A.0--preamble changelog for comprehensive description. The expansion of Direct Sky Exposures shifts more protocol liquidity outside Prime-level risk capital requirements.
+
+---
+
+## PR #107 — OOS Atlas Edit
+**Merged:** 2025-11-10 | **Type:** Weekly edit (out-of-schedule)
+
+### Material Changes
+- **Ecosystem Accord 4: Sky and Launch Agent 4** added (A.2.10, new): indefinite accord commencing November 13, 2025. Genesis Capital Allocation: 21,000,000 USDS to Launch Agent 4 SubProxy. Launch Agent 4 added to Pioneer Primes list.
+
+### Context
+Launch Agent 4 (Rubicon) onboarded as a new Prime Agent with 21M USDS Genesis Capital — the second-largest allocation after Spark's 25M.
+
+---
+
+## PR #89 — 2025-10-20 Atlas Weekly Cycle Proposal
+**Merged:** 2025-10-23 | **Type:** Weekly edit
+
+### Material Changes
+- **Direct Sky Exposures framework added** (A.2.4, new): JAAA through Grove designated as first Direct Sky Exposure. No Risk Capital or ASC requirements for Primes. Revenue sharing model defined.
+- **Atlas Edit Proposal Process for Prime Agents** (A.2.4, new): Primes without Root Edit Primitive submit drafts to Core GovOps by Monday → formal proposal submitted following week
+- **"BA Labs" → "Core Council Risk Advisor"** throughout A.2.4 and A.2.6 Settlement Cycle documents
+
+### Housekeeping
+- "Support Facilitators" → "Core GovOps" in A.2.2 governance process support
+
+### Context
+See A.0--preamble changelog for comprehensive description. A.2 additions formalize the Direct Sky Exposures framework and Prime Agent Atlas edit process.
+
+---
+
+## PR #78 — October 13 edit
+**Merged:** 2025-10-16 | **Type:** Weekly edit
+
+### Housekeeping
+- "Support Facilitators" → "Core GovOps" in governance process coordination, Ecosystem Actor designation, and resource budget
+- "Support Facilitator" → "Core Facilitator" in Atlas Core Development funding
+- Sky Forum moderator list: removed "Accessibility Facilitators"
+
+### Context
+Continuation of the governance terminology migration. The A.2 changes are primarily propagation of role renames.
+
+---
+
+## PR #61 — 2025-09-22 Weekly Cycle Edit Proposal
+**Merged:** 2025-09-26 | **Type:** Weekly edit
+
+### Material Changes
+- **Ecosystem Accords dispute resolution framework added** (A.2.10, new section): Comprehensive dispute resolution process with roles for Core GovOps (manages process, gathers information) and Core Facilitator (isolated adjudicator). Process: Formal Request → Reasonableness determination (3 working days) → Statement of Problem (5 days) → Statement of Response (5 days) → Rebuttal (3 days) → Core GovOps analysis → Core Facilitator decision (3 days) → publication on Forum and Active Data
+- **First dispute recorded** (A.2.10 Active Data): "Dispute Between Spark And Grove Regarding Effective Date Of Their Ecosystem Accord" (September 2, 2025)
+- **Ecosystem Accords article renumbered:** A.2.8 → A.2.10; "List Of Active Ecosystem Accords" → "Active Ecosystem Accords"
+- **Ethena RRC ratios tightened** (A.3.3):
+  - Direct Ethena Exposures: 2% → **3%**
+  - Lending Ethena-related against Ethena-related collateral: 2% → **3%**
+  - Lending non-Ethena against Ethena collateral: 3% → **4%**
+- **Ethena Aggregate Exposure Limit introduced** (A.3.3, new): 1,500,000,000 USDS cap across all Prime Agents; no new investments allowed to exceed; Core Council may direct sales if exceeded
+- **Superstate risk framework added** (A.3.3, new): 3% Instance Financial RRC; 500M USDS Aggregate Exposure Limit; 20M USDS Initial Deployment Limit; 50M USDS Subsequent Deployment Limits (require BA Labs/Risk Advisor approval)
+- **Typo fix** (A.2.3): "Exercutive Vote" → "Executive Vote" in Accessibility Reward process
+
+### Context
+PR #61 is one of the most substantively important edits in this batch despite its unassuming title. The Ecosystem Accords dispute resolution framework formalizes a process that was previously ad hoc — and its first exercise (the Spark/Grove dispute) is already recorded. The Ethena RRC tightening (+50% across the board) and the new 1.5B USDS aggregate cap signal growing governance concern about Ethena concentration risk. The Superstate framework opens a new asset class (USCC) with graduated deployment limits. SKY was ~$0.07 and USDS supply ~$7-8B.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **+1987/-171 lines**
 

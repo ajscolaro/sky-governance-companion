@@ -67,7 +67,7 @@ Each post file contains: `topic_id`, `title`, `author`, `category`, `published`,
 Tell the user to run the fetch script manually:
 
 ```
-bash scripts/fetch-forum.sh
+bash scripts/forum/fetch-forum.sh
 ```
 
 The RSS feed returns the ~30 most recent forum posts. Older posts accumulate

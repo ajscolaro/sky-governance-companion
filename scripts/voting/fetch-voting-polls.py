@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_DIR / "data" / "voting" / "polls"
 TALLY_DIR = DATA_DIR / "tallies"
 MATRIX_FILE = DATA_DIR / "vote-matrix.json"

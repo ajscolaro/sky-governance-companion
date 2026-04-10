@@ -14,8 +14,8 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
-ATLAS_FILE = Path(__file__).resolve().parent.parent / ".atlas-repo" / "Sky Atlas" / "Sky Atlas.md"
-OUTPUT_FILE = Path(__file__).resolve().parent.parent / "data" / "index.json"
+ATLAS_FILE = Path(__file__).resolve().parent.parent.parent / ".atlas-repo" / "Sky Atlas" / "Sky Atlas.md"
+OUTPUT_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "index.json"
 
 # Matches title lines like:
 #   #### A.0.1.1.3 - Aligned Structure [Core]  <!-- UUID: fad68392-... -->

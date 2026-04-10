@@ -16,7 +16,7 @@ The Atlas is the governance *document*. It defines rules, parameters, roles, and
 5. PR merged — the Atlas text is now updated
 ```
 
-The on-chain execution of parameter changes (via Executive Votes and spells) is a separate process that we don't track. We track what the Atlas *says* should be the case.
+The on-chain execution of parameter changes (via Executive Votes and spells) is tracked separately via `scripts/voting/fetch-executive-proposals.py`, which fetches full proposal text from the `sky-ecosystem/executive-votes` repo and monitors spell lifecycle (proposed/hat/cast/expired) via the vote.sky.money API. See `snapshots/executive/lifecycle.json` for transition events and `data/voting/executive/proposals/` for parsed proposal metadata.
 
 ## Proposal types
 

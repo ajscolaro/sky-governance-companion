@@ -92,10 +92,10 @@ Then read each section of the diff thoroughly. **For every change you report, yo
 
 ```bash
 # Find documents in the affected area
-bash scripts/search-index.sh --prefix "A.2.3.1.4.2" --limit 20
+bash scripts/atlas/search-index.sh --prefix "A.2.3.1.4.2" --limit 20
 
 # Read the current content
-bash scripts/read-section.sh A.2.3.1.4.2 --subtree --depth 3
+bash scripts/atlas/read-section.sh A.2.3.1.4.2 --subtree --depth 3
 ```
 
 **You must do this for each substantive edit.** Without reading the current state, you cannot accurately describe what is changing. This is the whole point of having a local Atlas copy.
@@ -130,7 +130,11 @@ Look for:
 - **Setup**: Did a previous PR create the structure that this one is modifying?
 - **Related decisions**: Did a previous change mention the same Risk Advisor recommendation or governance action?
 
-### 7. Produce analysis
+### 7. Look up market context
+
+Run `python3 scripts/market/market-lookup.py --date <merge-date>` (for merged PRs) or `--date <today>` (for open PRs) to understand the market environment. Note any significant price or supply movements that may be relevant — especially for material changes to capital allocation, exposure limits, or staking parameters. Use `--range` to see trends over the PR's development period if useful.
+
+### 8. Produce analysis
 
 **For weekly edit proposals** (multiple edits bundled), structure as:
 
@@ -166,7 +170,7 @@ Look for:
 - **Don't editorialize.** Explain what the proposal does and its implications, not whether it's good or bad.
 - **Highlight key numbers.** When parameters change (exposure limits, rate limits, addresses, allocation percentages), state both the old and new values explicitly.
 
-### 8. On-chain verification (optional)
+### 9. On-chain verification (optional)
 
 If the PR involves on-chain parameters (addresses, rate limits, exposure caps, collateral ratios), you can verify current values against the live contracts.
 
@@ -191,8 +195,8 @@ which cast > /dev/null 2>&1 && [ -n "${ETH_RPC_URL:-}" ] && echo "available" || 
 
 **If not available**, skip silently. Don't tell the user to install Foundry unless they ask about on-chain verification. Just note in your analysis: "On-chain parameter values were not independently verified."
 
-### 9. Offer next steps
+### 10. Offer next steps
 
-- **If the PR is merged** and hasn't been processed into history yet, offer to run `bash scripts/process-pr.sh <N>` and fill in the Context sections with the analysis.
+- **If the PR is merged** and hasn't been processed into history yet, offer to run `bash scripts/atlas/process-pr.sh <N>` and fill in the Context sections with the analysis.
 - **If the PR is open**, note that it's a proposal awaiting governance approval. Offer to compare it against related open PRs if relevant.
 - **If the user wants to dig deeper**, suggest specific `/atlas-navigate` queries to explore related areas.

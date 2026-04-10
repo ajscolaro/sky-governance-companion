@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 REPO_DIR="$PROJECT_DIR/.atlas-repo"
 ATLAS_REPO="https://github.com/sky-ecosystem/next-gen-atlas.git"
 

@@ -13,7 +13,7 @@ Tracks Aligned Delegate (AD) communications and voting rationales over time.
 
 ## How it works
 
-1. **`scripts/refresh.sh`** fetches each AD's forum thread RSS in the background, storing raw sanitized JSON in `data/delegates/{slug}/`
+1. **`scripts/core/refresh.sh`** fetches each AD's forum thread RSS in the background, storing raw sanitized JSON in `data/delegates/{slug}/`
 2. **`/ad-track`** (user-invoked) processes the cached data into `comms.md` files, diffs the Atlas roster against `_roster.md`, and flags additions/removals
 3. Forum content is **never auto-processed** — Claude only reads it when you invoke `/ad-track`
 

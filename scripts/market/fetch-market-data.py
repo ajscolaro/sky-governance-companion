@@ -19,7 +19,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 OUTPUT_DIR = PROJECT_DIR / "data" / "voting" / "market"
 ENV_FILE = PROJECT_DIR / ".env"
 
@@ -29,7 +29,7 @@ REQUEST_DELAY = 1.0
 MAX_RETRIES = 3
 RETRY_BACKOFF = 5
 
-# Sky ecosystem assets
+# Sky ecosystem assets + market benchmarks
 ASSETS = {
     "sky": {
         "id": "6b4833f7-4671-4074-9de6-93d6c40bd739",
@@ -51,13 +51,23 @@ ASSETS = {
         "name": "SPK",
         "datasets": ["price", "marketcap"],
     },
+    "btc": {
+        "id": "1e31218a-e44e-4285-820c-8282ee222035",
+        "name": "BTC",
+        "datasets": ["price"],
+    },
+    "eth": {
+        "id": "21c795f5-1bfd-40c3-858e-e9d7e820c6d0",
+        "name": "ETH",
+        "datasets": ["price"],
+    },
 }
 
 LAUNCH_DATE = "2024-09-18T00:00:00Z"
 
 
-def load_api_key() -> str:
-    """Load Messari API key from .env or environment."""
+def load_api_key() -> str | None:
+    """Load Messari API key from .env or environment. Returns None if not configured."""
     key = os.environ.get("MESSARI_API_KEY")
     if key:
         return key
@@ -68,8 +78,7 @@ def load_api_key() -> str:
             if line.startswith("MESSARI_API_KEY="):
                 return line.split("=", 1)[1].strip().strip("\"'")
 
-    print("Error: MESSARI_API_KEY not found in .env or environment.", file=sys.stderr)
-    sys.exit(1)
+    return None
 
 
 def api_get(path: str, api_key: str) -> dict:
@@ -123,11 +132,16 @@ def main():
     parser.add_argument("--dataset", type=str, help="Fetch only this dataset (price, supply, marketcap)")
     parser.add_argument("--start", type=str, default=LAUNCH_DATE, help="Start date (ISO 8601)")
     parser.add_argument("--end", type=str, help="End date (ISO 8601, default: now)")
-    parser.add_argument("--granularity", type=str, default="1w",
-                        choices=["5m", "1h", "1d", "1w"], help="Time granularity (default: 1w)")
+    parser.add_argument("--granularity", type=str, default="1d",
+                        choices=["5m", "1h", "1d", "1w"], help="Time granularity (default: 1d)")
     args = parser.parse_args()
 
     api_key = load_api_key()
+    if not api_key:
+        if not args.quiet:
+            print("MESSARI_API_KEY not configured. Skipping market data fetch.")
+            print("Set MESSARI_API_KEY in .env or environment to enable market data.")
+        return
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     end = args.end or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

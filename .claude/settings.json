@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && if [ -d .atlas-repo/.git ]; then bash scripts/refresh.sh 2>&1; else bash scripts/setup.sh 2>&1; fi"
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && if [ -d .atlas-repo/.git ]; then bash scripts/core/refresh.sh 2>&1; else bash scripts/core/setup.sh 2>&1; fi"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/check-write-path.sh\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/core/check-write-path.sh\""
           }
         ]
       }
@@ -46,6 +46,7 @@
       "allowedDomains": [
         "github.com",
         "api.github.com",
+        "raw.githubusercontent.com",
         "forum.skyeco.com",
         "vote.sky.money",
         "api.messari.io"

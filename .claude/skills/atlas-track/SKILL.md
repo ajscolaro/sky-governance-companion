@@ -16,8 +16,8 @@ You are maintaining the change history for the Sky Atlas. This is the institutio
 ### Process specific PRs
 
 ```bash
-bash scripts/process-pr.sh 217
-bash scripts/process-pr.sh 210 211 212   # batch
+bash scripts/atlas/process-pr.sh 217
+bash scripts/atlas/process-pr.sh 210 211 212   # batch
 ```
 
 The script generates a skeleton entry in each affected entity's changelog. After processing, **review the output and fill in the `### Context` section** with interpretive analysis:
@@ -216,14 +216,15 @@ After `process-pr.sh` generates the skeleton:
 
 1. **Read the PR body** from `tmp/pr-<N>-body.md` to understand the intent and edit descriptions
 2. **Read the full diff** from `tmp/pr-<N>.diff` (already saved by the script)
-3. **Read the current Atlas baseline** for each affected section using `scripts/read-section.sh`
+3. **Read the current Atlas baseline** for each affected section using `scripts/atlas/read-section.sh`
 4. **Identify the governance path**: is this a weekly edit (Atlas Axis), AEP, SAEP, or Risk Advisor action? Add a `**Type:**` line to the entry header.
 5. **Classify each change** as material or housekeeping
 6. **For material changes**: document the specific before→after values by comparing current Atlas vs diff
 7. **For housekeeping**: collapse into summary lines
-8. **Write the Context section** with cross-cutting interpretation
-9. **Replace the script's raw skeleton** with the rewritten entry
-10. **Update `_log.md`**: change the entry's status from `skeleton` to `complete`
+8. **Look up market context**: Run `python3 scripts/market/market-lookup.py --date <merge-date> --format context` to get the market environment. Include in the Context section where relevant — especially for material changes to parameters, capital allocation, or exposure limits.
+9. **Write the Context section** with cross-cutting interpretation
+10. **Replace the script's raw skeleton** with the rewritten entry
+11. **Update `_log.md`**: change the entry's status from `skeleton` to `complete`
 
 The script skeleton is a starting point, not the final product. The value of the changelog is in the material changes and context you write, not in the list of document numbers.
 

@@ -19,7 +19,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_DIR / "data" / "voting" / "executive"
 CACHE_SNAPSHOT_DIR = DATA_DIR / "snapshots"
 COMMITTED_DIR = PROJECT_DIR / "snapshots" / "executive"

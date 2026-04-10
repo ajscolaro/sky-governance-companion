@@ -1,6 +1,6 @@
 .env
 
-# Atlas repo clone (reproducible via scripts/setup.sh)
+# Atlas repo clone (reproducible via scripts/core/setup.sh)
 .atlas-repo/
 
 # Generated index (rebuilt on refresh)

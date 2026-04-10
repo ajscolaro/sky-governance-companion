@@ -23,6 +23,53 @@ The Target Backstop Capital raise and the Phase-Out mechanism are complementary:
 
 ---
 
+## PR #110 — Nov 10 edit
+**Merged:** 2025-11-13 | **Type:** Weekly edit
+
+### Material Changes
+- **Actively Stabilizing Collateral Incentive introduced** (A.3.4, new): `Eligible ASC * (Base Rate - Treasury Bill Rate)` per block; paid monthly via Settlement Cycle. Treasury Bill Rate = 91-day US T-bill yield.
+- **Resting ASC updated** (A.3.4): added "Cash Stablecoins in Uniswap (paired with USDS)"
+- **Latent ASC updated** (A.3.4): "Cash Stablecoins in Uniswap" → "Cash Stablecoins in Uniswap (not paired with USDS)"
+- **Agent Credit Line Borrow Rate** (A.3.2): now may vary by Prime Agent credit rating per Spell Security Registry
+- **Prime Agent Credit Rating System** (A.3.2): Spell Security Incident Registry added as explicit factor
+
+### Context
+The ASC Incentive compensates Primes for the opportunity cost of maintaining liquid stablecoin buffers — the spread between the Sky Base Rate and risk-free T-bill rate. Combined with the Spell Security Registry linkage to credit ratings, this creates a dual incentive: maintain liquidity (ASC Incentive) and maintain spell quality (favorable credit rating).
+
+---
+
+## PR #89 — 2025-10-20 Atlas Weekly Cycle Proposal
+**Merged:** 2025-10-23 | **Type:** Weekly edit
+
+### Material Changes
+- **A.3.1 Scope Improvement deleted:** Entire "Stability Scope Advisors" framework removed — replaced by Core Council Risk Advisor in A.1.7
+- **"Instance Financial RRC Ratio" → "Instance Financial CRR"** throughout A.3.3: terminology standardized to Capital Requirement Ratio across Ethena, Superstate, Fluid, Pendle, and lending market documents
+- **Capital Requirement Ratio (CRR) defined** (A.3.3, new): formal definition with examples
+- **Superstate Instance Financial CRR raised:** 3% → **4.5%**
+- **"Stability Scope Advisors" / "Stability Facilitators" → "Core Council Risk Advisor"** across A.3.2 (Base Rate setting), A.3.3 (lending market approvals), and other documents
+
+### Context
+The CRR terminology standardization and Superstate tightening are the key A.3 changes. The deletion of A.3.1 completes the migration of BA Labs from "Stability Scope Advisor" to "Core Council Risk Advisor."
+
+---
+
+## PR #61 — 2025-09-22 Weekly Cycle Edit Proposal
+**Merged:** 2025-09-26 | **Type:** Weekly edit
+
+### Material Changes
+- **Ethena RRC ratios tightened** (A.3.3):
+  - Direct Ethena Exposures: 2% → **3%**
+  - Lending Ethena-related against Ethena collateral: 2% → **3%**
+  - Lending non-Ethena against Ethena collateral: 3% → **4%**
+- **Ethena risk framework restructured** (A.3.3): new parent documents (Ethena, Ethena Required Risk Capital) added; Ethena Smart Contract/Administrative RRC text updated to reference "Direct Ethena Exposures" definition
+- **Ethena Aggregate Exposure Limit introduced** (A.3.3, new): 1,500,000,000 USDS cap; prohibition on investments exceeding limit; Core Council may direct sales
+- **Superstate risk framework added** (A.3.3, new): 3% Instance Financial RRC; 500M USDS Aggregate Exposure Limit; deployment limits (20M initial, 50M subsequent with approval); Smart Contract/Administrative RRC = zero in short term
+
+### Context
+Comprehensive risk framework tightening. Ethena RRC increased 50% across the board with a new aggregate cap. Superstate introduced as a new exposure category with graduated deployment limits.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **+1987/-171 lines**
 

@@ -28,7 +28,7 @@ Check if the Atlas AD roster (A.1.5.1.5.0.6.1) has changed since last sync:
 
 ```bash
 # Read the current Atlas roster
-bash scripts/read-section.sh A.1.5.1.5.0.6.1
+bash scripts/atlas/read-section.sh A.1.5.1.5.0.6.1
 ```
 
 Compare the delegate names against `delegates/_roster.md`. Report:
@@ -38,7 +38,7 @@ Compare the delegate names against `delegates/_roster.md`. Report:
 
 After syncing, rebuild the data roster:
 ```bash
-source .venv/bin/activate && python3 scripts/fetch-delegates.py --rebuild-roster
+source .venv/bin/activate && python3 scripts/delegates/fetch-delegates.py --rebuild-roster
 ```
 
 ### Process cached vote rationales
@@ -119,7 +119,7 @@ When a new AD appears in the Atlas:
    delegates/{slug}/comms.md
    ```
 3. Add them to `delegates/_roster.md` with status `active`
-4. Fetch their posts: `bash scripts/fetch-delegates.sh --delegate {slug}`
+4. Fetch their posts: `bash scripts/delegates/fetch-delegates.sh --delegate {slug}`
 
 ## Removing a delegate
 

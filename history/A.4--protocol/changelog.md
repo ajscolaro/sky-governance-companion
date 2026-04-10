@@ -20,6 +20,51 @@ These are the Protocol Scope mirror of the Support Scope changes in A.2.3.1.4.2.
 
 ---
 
+## PR #110 — Nov 10 edit
+**Merged:** 2025-11-13 | **Type:** Weekly edit
+
+### Material Changes
+- **Gnosis Payment authorized** (A.4.1, new): 1,806,670 USDS to compensate Gnosis for SSR/DSR difference on xDai (March 1 - October 28, 2025). Authorized for next Executive Vote without Governance Poll.
+- **USDS Launch tense updated** (A.4.1): "USDS is launched" → "USDS was launched"
+
+### Context
+The Gnosis payment resolves a legacy obligation from the DAI-to-USDS transition, compensating for the rate differential during the migration period.
+
+---
+
+## PR #107 — OOS Atlas Edit
+**Merged:** 2025-11-10 | **Type:** Weekly edit (out-of-schedule)
+
+### Material Changes
+- **Capital Contributed to Agents updated** (A.4.5): Launch Agent 4 added with 21,000,000 USDS allocation
+
+### Context
+Records the Launch Agent 4 Genesis Capital Allocation in the Protocol Scope capital tracking.
+
+---
+
+## PR #66 — 2025-10-06 Weekly Edit Proposal
+**Merged:** 2025-10-09 | **Type:** Weekly edit
+
+### Material Changes
+- **SKY Backstop definition expanded** (A.4.3): added "SKY Backstop Event" — the period when the recapitalization mechanism is actively minting and selling SKY
+
+### Context
+Formalizes the "SKY Backstop Event" concept referenced in multiple risk documents.
+
+---
+
+## PR #59 — Atlas Edit Weekly Cycle Proposal 2025 09 15
+**Merged:** 2025-09-19 | **Type:** Weekly edit
+
+### Material Changes
+- **New Article A.4.6 — Protocol Mechanisms** added: defines maintenance/housekeeping mechanisms and contracts for administering the Sky Ecosystem
+
+### Context
+Structural addition creating a home for protocol-level administrative mechanisms.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **+2119/-158 lines**
 

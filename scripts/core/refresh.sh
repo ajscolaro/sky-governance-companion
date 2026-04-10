@@ -5,7 +5,7 @@
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 REPO_DIR="$PROJECT_DIR/.atlas-repo"
 LOG_FILE="$PROJECT_DIR/history/_log.md"
 
@@ -95,29 +95,41 @@ else
     echo "The following PRs have been merged but not yet recorded in history/:"
     echo ""
     echo "$UNPROCESSED"
-    echo "Run: bash scripts/process-pr.sh <number(s)> to process them."
+    echo "Run: bash scripts/atlas/process-pr.sh <number(s)> to process them."
     echo "Then review and fill in the Context sections in the affected changelogs."
 fi
 
 # --- Refresh forum cache (background, non-blocking) ---
-if [ -f "$SCRIPT_DIR/fetch-forum.sh" ]; then
-    bash "$SCRIPT_DIR/fetch-forum.sh" --quiet 2>/dev/null &
+FORUM_DIR="$PROJECT_DIR/scripts/forum"
+if [ -f "$FORUM_DIR/fetch-forum.sh" ]; then
+    bash "$FORUM_DIR/fetch-forum.sh" --quiet 2>/dev/null &
 fi
 
 # --- Refresh delegate vote rationales (background, non-blocking) ---
-if [ -f "$SCRIPT_DIR/fetch-delegates.sh" ]; then
-    bash "$SCRIPT_DIR/fetch-delegates.sh" --quiet 2>/dev/null &
+DELEGATES_DIR="$PROJECT_DIR/scripts/delegates"
+if [ -f "$DELEGATES_DIR/fetch-delegates.sh" ]; then
+    bash "$DELEGATES_DIR/fetch-delegates.sh" --quiet 2>/dev/null &
 fi
 
 # --- Refresh voting portal data (background, non-blocking) ---
-if [ -f "$SCRIPT_DIR/fetch-voting-delegates.sh" ]; then
-    bash "$SCRIPT_DIR/fetch-voting-delegates.sh" --quiet 2>/dev/null &
+VOTING_DIR="$PROJECT_DIR/scripts/voting"
+if [ -f "$VOTING_DIR/fetch-voting-delegates.sh" ]; then
+    bash "$VOTING_DIR/fetch-voting-delegates.sh" --quiet 2>/dev/null &
 fi
-if [ -f "$SCRIPT_DIR/fetch-voting-polls.sh" ]; then
-    bash "$SCRIPT_DIR/fetch-voting-polls.sh" --quiet 2>/dev/null &
+if [ -f "$VOTING_DIR/fetch-voting-polls.sh" ]; then
+    bash "$VOTING_DIR/fetch-voting-polls.sh" --quiet 2>/dev/null &
 fi
-if [ -f "$SCRIPT_DIR/fetch-voting-executive.sh" ]; then
-    bash "$SCRIPT_DIR/fetch-voting-executive.sh" --quiet 2>/dev/null &
+if [ -f "$VOTING_DIR/fetch-voting-executive.sh" ]; then
+    bash "$VOTING_DIR/fetch-voting-executive.sh" --quiet 2>/dev/null &
+fi
+if [ -f "$VOTING_DIR/fetch-executive-proposals.sh" ]; then
+    bash "$VOTING_DIR/fetch-executive-proposals.sh" --quiet 2>/dev/null &
+fi
+
+# --- Refresh market data cache (background, non-blocking, optional) ---
+MARKET_DIR="$PROJECT_DIR/scripts/market"
+if [ -f "$MARKET_DIR/fetch-market-data.py" ]; then
+    python3 "$MARKET_DIR/fetch-market-data.py" --quiet 2>/dev/null &
 fi
 
 exit 0

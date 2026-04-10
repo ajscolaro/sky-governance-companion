@@ -30,7 +30,7 @@ The sandbox only wraps Bash commands and their subprocesses. Claude's Read, Writ
 
 ### PreToolUse hook (protects against self-modification)
 
-To close this gap, a PreToolUse hook (`scripts/check-write-path.sh`) intercepts all Write/Edit calls:
+To close this gap, a PreToolUse hook (`scripts/core/check-write-path.sh`) intercepts all Write/Edit calls:
 
 | Path | Behavior |
 |---|---|

@@ -6,15 +6,19 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 
 | Directory | Source | Committed | Refresh Trigger | Script |
 |-----------|--------|-----------|-----------------|--------|
-| `data/index.json` | Atlas parse | No | Every session | `scripts/build-index.py` |
-| `data/voting/address-map.json` | Delegate profiles | No | Every session | `scripts/build-address-map.py` |
-| `data/forum/` | Forum RSS | No | Every session (bg) | `scripts/fetch-forum.py` |
-| `data/delegates/` | Per-AD forum RSS | No | Every session (bg) | `scripts/fetch-delegates.py` |
-| `data/voting/delegates/` | vote.sky.money API | No | Every session (bg) | `scripts/fetch-voting-delegates.py` |
-| `data/voting/polls/` | vote.sky.money API | No | Every session (bg) | `scripts/fetch-voting-polls.py` |
-| `data/voting/executive/` | vote.sky.money API | No | Every session (bg) | `scripts/fetch-voting-executive.py` |
-| `snapshots/delegation/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/fetch-voting-delegates.py` |
-| `snapshots/executive/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/fetch-voting-executive.py` |
+| `data/index.json` | Atlas parse | No | Every session | `scripts/core/build-index.py` |
+| `data/voting/address-map.json` | Delegate profiles | No | Every session | `scripts/core/build-address-map.py` |
+| `data/forum/` | Forum RSS | No | Every session (bg) | `scripts/forum/fetch-forum.py` |
+| `data/delegates/` | Per-AD forum RSS | No | Every session (bg) | `scripts/delegates/fetch-delegates.py` |
+| `data/voting/delegates/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-delegates.py` |
+| `data/voting/polls/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-polls.py` |
+| `data/voting/executive/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-executive.py` |
+| `data/voting/executive/proposals/` | sky-ecosystem/executive-votes repo | No | Every session (bg) | `scripts/voting/fetch-executive-proposals.py` |
+| `data/voting/market/` | Messari API *(optional)* | No | Every session (bg, if API key set) | `scripts/market/fetch-market-data.py` |
+| `data/voting/delegation-history/` | vote.sky.money API | No | On-demand | `scripts/voting/fetch-delegation-history.py` |
+| `snapshots/delegation/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/voting/fetch-voting-delegates.py` |
+| `snapshots/executive/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/voting/fetch-voting-executive.py` |
+| `snapshots/executive/lifecycle.json` | vote.sky.money API + executive-votes repo | **Yes** | Every session | `scripts/voting/fetch-executive-proposals.py` |
 | `delegates/` | Processed forum data | **Yes** | On `/ad-track` or `/governance-data enrich` | Agent-driven |
 | `history/` | Processed PR data | **Yes** | On `/atlas-track` | Agent-driven |
 
@@ -26,7 +30,7 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 
 ## Refresh chain
 
-On session start, `scripts/refresh.sh` runs:
+On session start, `scripts/core/refresh.sh` runs:
 1. Atlas pull + index rebuild (blocking)
 2. Address map rebuild (blocking)
 3. Background fetches (non-blocking): forum, delegate RSS, voting delegates, voting polls, voting executive
@@ -35,8 +39,8 @@ Background fetches always exit 0 — failures are advisory, not blocking.
 
 ## Adding a new data source
 
-1. Create `scripts/fetch-{name}.sh` (bash wrapper) + `scripts/fetch-{name}.py` (logic)
-2. Add a background job to `scripts/refresh.sh`
+1. Create the script in the appropriate `scripts/{category}/` subdirectory
+2. Add a background job to `scripts/core/refresh.sh`
 3. Add a row to this catalog
 4. Update `CLAUDE.md` project layout
 5. If time-series data is involved, add a committed `snapshots/{name}/` directory

@@ -22,7 +22,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_DIR / "data" / "voting" / "delegation-history"
 ADDRESS_MAP_FILE = PROJECT_DIR / "data" / "voting" / "address-map.json"
 

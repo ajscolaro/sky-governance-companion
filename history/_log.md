@@ -65,3 +65,33 @@
 | #184 | Spark Proposal - SLL - Onboard Morpho v2 USDT Vault | 2026-03-20 | agents/spark | skeleton |
 | #185 | SAEP-10: Update Offchain Collateralized Lending Artifact Section | 2026-03-20 |  | skeleton |
 | #186 | 2026-02-16 AEW proposal | 2026-02-22 | support, governance, protocol, other, agents/skybase, agents/grove, agents/launch-agent-7, agents/obex | skeleton |
+| #59 | Atlas Edit Weekly Cycle Proposal 2025 09 15 | 2025-09-19 | preamble, governance, protocol | complete |
+| #60 | 2025-09-18 executive changes | 2025-09-29 | agents/spark, agents | complete |
+| #61 | 2025-09-22 Weekly Cycle Edit Proposal | 2025-09-26 | support, stability | complete |
+| #63 | September 29 edit | 2025-10-02 | preamble, governance | complete |
+| #64 | Oct 2 spell changes | 2025-10-14 | agents/spark | complete |
+| #66 | 2025-10-06 Weekly Edit Proposal | 2025-10-09 | preamble, governance, protocol | complete |
+| #68 | Spark - Onboard Aave v3 Avalanche USDC | 2025-10-06 | agents/spark | complete |
+| #69 | Spark - Proposal 1 - Set Target Risk Tolerance Ratio | 2025-10-10 | agents/spark | complete |
+| #70 | Spark - Onboard Avalanche to SLL | 2025-10-06 | agents/spark | complete |
+| #71 | Spark - SLL - Disable unused products | 2025-10-06 | agents/spark | complete |
+| #72 | Changes to the Spark Liquidity Layer | 2025-10-16 | agents/spark | complete |
+| #78 | October 13 edit | 2025-10-16 | preamble, governance, support, accessibility | complete |
+| #79 | Oct 16th Spell updates | 2025-10-24 | governance | complete |
+| #80 | Spark Proposal - [Ethereum] SparkLend - Increase cbBTC Supply and Bor… | 2025-10-29 | agents/spark | complete |
+| #81 | Spark Proposal - [Ethereum] SparkLend - Increase tBTC Supply and Borrow Caps | 2025-10-29 | agents/spark | complete |
+| #82 | HTML linting | 2025-10-16 | governance | complete |
+| #83 | Changes to SLL (assorted fixes) | 2025-10-16 | agents/spark | complete |
+| #84 | Spark proposal - Remove supply and borrow caps for non-collateral stablecoins | 2025-10-24 | agents/spark | complete |
+| #85 | Spark proposal - Spark Liquidity Layer - Onboard syrupUSDT | 2025-10-24 | agents/spark | complete |
+| #87 | SAEP-02 | 2025-10-24 | agents/spark | complete |
+| #89 | 2025-10-20 Atlas Edit Weekly Proposal | 2025-10-23 | preamble, governance, support, stability | complete |
+| #90 | Spark savings | 2025-10-24 | agents/spark | complete |
+| #91 | Spark proposal: Spark Liquidity Layer - Update Controller to v1.7 | 2025-10-24 | agents/spark | complete |
+| #93 | Fix location of Ethena PT documents from 2025-10-13 edit | 2025-10-24 | agents/spark | complete |
+| #105 | Spark proposal - Increase Deposit Caps for spUSDC, spUSDT, and spETH | 2025-11-07 | agents/spark | complete |
+| #106 | Spark proposal: Onboard cbETH and ETH | 2025-11-07 | agents/spark | complete |
+| #107 | OOS Atlas Edit | 2025-11-10 | preamble, support, protocol, agents, agents/grove | complete |
+| #108 | Minor fixes | 2025-11-19 | agents/spark | complete |
+| #109 | SAEP-04 | 2025-11-19 | agents/spark | complete |
+| #110 | Nov 10 edit | 2025-11-13 | preamble, governance, support, stability, protocol, agents/grove | complete |

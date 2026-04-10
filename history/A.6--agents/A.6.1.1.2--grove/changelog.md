@@ -28,6 +28,29 @@ This PR marks a significant expansion of Grove's operational scope: it simultane
 
 ---
 
+## PR #110 — Nov 10 edit
+**Merged:** 2025-11-13 | **Type:** Weekly edit
+
+### Material Changes
+- **Interim Deployment documents removed from 5 instances:** Curve RLUSD/USDC, Morpho Grove x Steakhouse USDC (x2), Securitize STAC, Aave v3 USDT0 — all graduated from interim testing to normal operation (removed Interim Deployment, Maximum Allocation, and Rate Limits interim testing docs)
+
+### Context
+These 5 Grove instances completed their constrained testing period and are now operating under standard risk parameters rather than interim $25M maximum allocation limits.
+
+---
+
+## PR #107 — OOS Atlas Edit
+**Merged:** 2025-11-10 | **Type:** Weekly edit (out-of-schedule)
+
+### Material Changes
+- **Base rate limits added** to Grove Liquidity Layer: USDC CCTP to Base ALM Proxy and back to Ethereum:
+  - maxAmount: 50,000,000 USDC; slope: 50,000,000 USDC per day (both directions)
+
+### Context
+Formalizes Grove's cross-chain USDC operations on Base with symmetric 50M USDC rate limits.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **+1987/-171 lines**
 

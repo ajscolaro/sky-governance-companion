@@ -15,53 +15,53 @@ You are helping explore the Sky Atlas governance document using the local clone 
 
 If `data/index.json` doesn't exist, run setup first:
 ```bash
-bash scripts/setup.sh
+bash scripts/core/setup.sh
 ```
 
 If the Atlas may be stale (hasn't been refreshed recently), refresh:
 ```bash
-bash scripts/refresh.sh
+bash scripts/core/refresh.sh
 ```
 
 ## Searching for documents
 
-Use `scripts/search-index.sh` to query the index:
+Use `scripts/atlas/search-index.sh` to query the index:
 
 ```bash
 # By name keyword (case-insensitive)
-bash scripts/search-index.sh "exposure"
+bash scripts/atlas/search-index.sh "exposure"
 
 # By path prefix (everything under an entity)
-bash scripts/search-index.sh --prefix "A.6.1.1.2" --limit 30
+bash scripts/atlas/search-index.sh --prefix "A.6.1.1.2" --limit 30
 
 # By document type
-bash scripts/search-index.sh --type "Active Data" --limit 20
+bash scripts/atlas/search-index.sh --type "Active Data" --limit 20
 
 # By UUID (partial match OK)
-bash scripts/search-index.sh --uuid "fad68392"
+bash scripts/atlas/search-index.sh --uuid "fad68392"
 
 # Combined filters
-bash scripts/search-index.sh --prefix "A.6.1.1.1" --name "rate" --limit 20
+bash scripts/atlas/search-index.sh --prefix "A.6.1.1.1" --name "rate" --limit 20
 ```
 
 Output is tab-separated: `number  name  [type]  lines X-Y`
 
 ## Reading document content
 
-Use `scripts/read-section.sh` to extract content by line range:
+Use `scripts/atlas/read-section.sh` to extract content by line range:
 
 ```bash
 # Single document by number
-bash scripts/read-section.sh A.6.1.1.2
+bash scripts/atlas/read-section.sh A.6.1.1.2
 
 # Single document by UUID
-bash scripts/read-section.sh fad68392-c852-4102-81fd-2a4037be38f9
+bash scripts/atlas/read-section.sh fad68392-c852-4102-81fd-2a4037be38f9
 
 # Subtree (document + all children)
-bash scripts/read-section.sh A.6.1.1.2 --subtree
+bash scripts/atlas/read-section.sh A.6.1.1.2 --subtree
 
 # Subtree with depth limit (recommended for large subtrees)
-bash scripts/read-section.sh A.6.1.1.2 --subtree --depth 2
+bash scripts/atlas/read-section.sh A.6.1.1.2 --subtree --depth 2
 ```
 
 **Important:** Large subtrees (Spark, Grove) have thousands of documents. Always use `--depth` to limit output, then drill deeper into specific areas.

@@ -12,7 +12,7 @@ The governing document for the Sky ecosystem (formerly MakerDAO). A single ~3MB 
 
 ## Session startup
 
-A SessionStart hook automatically runs `scripts/refresh.sh`, which:
+A SessionStart hook automatically runs `scripts/core/refresh.sh`, which:
 1. Pulls the latest Atlas from `main`
 2. Rebuilds the document index
 3. Checks for merged PRs not yet recorded in `history/_log.md` and lists them
@@ -26,14 +26,16 @@ If unprocessed PRs are reported, **proactively process all of them** using `/atl
 - `data/forum/` — cached forum posts and search index (gitignored, fetched on refresh)
 - `data/delegates/` — cached AD vote rationales from RSS feeds (gitignored, fetched on refresh)
 - `data/voting/` — cached voting portal API data: delegation metrics, poll tallies, executive support (gitignored, fetched on refresh)
+- `data/voting/executive/proposals/` — transient processing cache for executive proposals; files are fetched, parsed, distilled into `lifecycle.json`, then auto-deleted (gitignored)
 - `delegates/` — per-AD profiles and vote rationale logs (committed)
 - `snapshots/` — committed time-series from vote.sky.money (delegation power, executive support) — **irreproducible, do not delete**
+- `snapshots/executive/lifecycle.json` — spell lifecycle events: proposed/hat/cast/expired transitions (committed)
 - `docs/governance-reference.md` — shared governance context (roles, processes, contracts) — read this when analyzing PRs
 - `docs/data-catalog.md` — master index of all data directories, sources, and refresh behavior
 - `history/` — per-entity change logs, the institutional memory (committed)
 - `history/entity-routing.conf` — maps Atlas prefixes to history directories
 - `tmp/` — ephemeral working files: PR bodies, diffs, etc. (gitignored)
-- `scripts/` — setup, refresh, index build, section read, search, PR processing, voting API fetchers
+- `scripts/` — organized by function: `core/` (setup, refresh, index), `atlas/` (search, read, PR processing), `forum/`, `delegates/`, `voting/`, `market/`
 - `.venv/` — Python virtual environment (use for any Python execution)
 
 ## History structure

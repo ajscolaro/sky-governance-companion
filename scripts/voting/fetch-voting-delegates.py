@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_DIR / "data" / "voting" / "delegates"
 SNAPSHOT_CACHE_DIR = DATA_DIR / "snapshots"
 DELEGATOR_DIR = DATA_DIR / "delegators"

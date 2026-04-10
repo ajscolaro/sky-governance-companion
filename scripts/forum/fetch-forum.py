@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 FORUM_DIR = PROJECT_DIR / "data" / "forum"
 POSTS_DIR = FORUM_DIR / "posts"
 INDEX_FILE = FORUM_DIR / "index.json"
