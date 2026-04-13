@@ -189,7 +189,7 @@ Requires `MESSARI_API_KEY` in `.env`. Without it, existing cached data is still 
 
 ## Complementary skills
 
-This skill provides the *what* (price/supply data). For the *why*, use other skills:
+This skill provides the *what* (price/supply data). For the *why*, the main conversation should spawn parallel agents using other skills — see "Cross-domain questions" in CLAUDE.md. Key complements:
 - `/governance-data` — spell lifecycle, poll results, delegation snapshots
 - `/forum-search` — governance discussion context around key dates
 - `/atlas-analyze` — what changed in a specific Atlas PR

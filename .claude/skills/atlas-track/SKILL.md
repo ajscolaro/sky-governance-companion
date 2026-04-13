@@ -251,3 +251,11 @@ Use these labels in the `**Type:**` field:
 | Spell recording (date) | PR title contains "spell changes" or "executive changes" | 2 (on-chain) |
 | Housekeeping | Pure formatting, linting, URL fixes | 1 (admin) |
 | Agent proposal (agent name) | Other agent-specific proposals | 1 (text edit) |
+
+## Complementary skills
+
+When writing changelog Context sections, use other skills for richer analysis — see "Cross-domain questions" in CLAUDE.md:
+- `/messari-market-data` — market environment at merge date (the `--window` and `--format context` CLI flags are especially useful)
+- `/governance-data` — poll results (`atlas_pr` field links polls to PRs), spell lifecycle for Flow 2 PRs
+- `/atlas-analyze` — if you need a deeper diff analysis before writing the changelog entry
+- `/forum-search` — discussion context behind proposals

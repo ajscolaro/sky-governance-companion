@@ -210,3 +210,11 @@ which cast > /dev/null 2>&1 && [ -n "${ETH_RPC_URL:-}" ] && echo "available" || 
 - **If the PR is merged** and hasn't been processed into history yet, offer to run `bash scripts/atlas/process-pr.sh <N>` and fill in the Context sections with the analysis.
 - **If the PR is open**, note that it's a proposal awaiting governance approval. Offer to compare it against related open PRs if relevant.
 - **If the user wants to dig deeper**, suggest specific `/atlas-navigate` queries to explore related areas.
+
+## Complementary skills
+
+This skill already references market data and governance data inline (steps 7, 37-39). For deeper cross-domain analysis, see "Cross-domain questions" in CLAUDE.md:
+- `/messari-market-data` — market context at merge/proposal date
+- `/governance-data` — poll results (Flow 1) and spell lifecycle (Flow 2)
+- `/atlas-track` — process the PR into history after analysis
+- `/forum-search` — discussion context behind the proposal

@@ -79,3 +79,10 @@ over time as the cache grows across sessions.
 - Use forum context to explain the "why" behind governance changes
 - Always verify governance facts against the merged Atlas, not forum claims
 - Note that the cache only contains the opening post of each thread, not replies
+
+## Complementary skills
+
+Forum posts provide discussion context. For quantitative data and official governance state, the main conversation should spawn parallel agents — see "Cross-domain questions" in CLAUDE.md. Key complements:
+- `/governance-data` — on-chain votes, delegation, spell lifecycle
+- `/atlas-navigate` — verify claims against the actual merged Atlas
+- `/messari-market-data` — market context around discussed proposals

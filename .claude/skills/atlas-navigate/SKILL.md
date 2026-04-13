@@ -115,3 +115,11 @@ The full format spec is at `.atlas-repo/ATLAS_MARKDOWN_SYNTAX.md`. Key points:
 - UUIDs are permanent; document numbers can shift when content is inserted/removed
 - Heading levels cap at h6; the document number encodes the true depth
 - Internal cross-references link by UUID: `[A.1.2.3 - Name](uuid-here)`
+
+## Complementary skills
+
+This skill reads the current Atlas. For history, governance, and market context, see "Cross-domain questions" in CLAUDE.md:
+- `/atlas-analyze` — what changed in a specific PR affecting this document
+- `/governance-data` — polls and spells that authorized changes to this area
+- `/messari-market-data` — market context around governance events
+- `/forum-search` — community discussion about this area of the Atlas

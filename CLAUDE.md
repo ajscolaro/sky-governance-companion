@@ -42,7 +42,7 @@ Changes are tracked per-scope in `history/` with changelogs routed by the most s
 
 ## Skills and how to compose them
 
-Skills are narrowly scoped — each handles one domain. For questions that span multiple domains, **invoke multiple skills** rather than trying to answer everything from one skill's data.
+Skills are narrowly scoped — each handles one domain. For questions that span multiple domains, **spawn parallel agents** rather than trying to answer everything from one skill's data.
 
 | Skill | Domain | When to use |
 |-------|--------|-------------|
@@ -54,12 +54,30 @@ Skills are narrowly scoped — each handles one domain. For questions that span 
 | `/forum-search` | Forum discussion search and reading | Governance discussion context |
 | `/ad-track` | Delegate rationale processing | AD vote reasoning |
 
-**Composition patterns:**
-- *"Why did SKY price move?"* → `/messari-market-data` for the price data, then `/governance-data` or `/forum-search` for attribution. Don't web-search for explanations.
-- *"What was the market impact of PR #N?"* → `/atlas-analyze` for what changed, then `/messari-market-data` for price around the merge date.
-- *"How did delegates vote on the proposal that changed X?"* → `/atlas-navigate` to find the document, then `/governance-data` for the vote matrix.
+### Cross-domain questions: use parallel agents
 
-**Analysis guidelines:**
+When a question touches multiple domains, **spawn one Agent per domain in a single message** so they run concurrently. Each agent gets a self-contained brief: the user's question, which skill to invoke, and what to return. After all agents finish, synthesize their results into one answer.
+
+**How to brief each agent:**
+- State the user's question so the agent has context
+- Name the skill to invoke (e.g., "Use the `/messari-market-data` skill")
+- Specify what data to return (e.g., "Return the top 3 outperformance windows with dates and percentages")
+- Tell it the output format: concise findings, not raw data dumps
+
+**Example — "When did SKY outperform BTC/ETH the most, and why?"**
+
+Spawn two agents in one message:
+1. **Market agent:** "The user asks when SKY outperformed BTC/ETH the most. Invoke `/messari-market-data`. Compute rolling 30-day outperformance windows (SKY return minus average of BTC+ETH returns). Return the top 3 windows with start/end dates, SKY return, benchmark returns, and any notable USDS supply changes in the same period."
+2. **Governance agent:** "The user asks what governance events might explain SKY outperformance in [date range from market data, or broad range]. Invoke `/governance-data` to check spell lifecycle and poll results in that period. Also invoke `/forum-search` for any major governance discussions. Check `history/_log.md` for Atlas PRs merged in that window. Return a timeline of governance events with dates and one-line descriptions."
+
+Then synthesize: align the market windows with the governance timeline and present a unified narrative.
+
+**When to use parallel agents vs. a single skill:**
+- Single skill: question is clearly one domain ("What's SKY price today?", "Find the stability scope in the Atlas")
+- Parallel agents: question implies causation, comparison, or context across domains ("Why did X happen?", "What was the impact of Y?", "How does X relate to Y?")
+
+### Analysis guidelines
+
 - **Never use WebSearch/WebFetch** to explain market moves or governance events — all attribution should come from local data (history logs, lifecycle, polls, forum posts, delegate rationales). If local data doesn't explain something, say so honestly.
 - **Write single comprehensive scripts** rather than many small exploratory ones. Read data structures once, compute everything needed, and print a clean summary. This avoids noisy trial-and-error in the terminal.
 - **Handle errors inside scripts** with try/except and informative messages rather than letting them crash and retrying.

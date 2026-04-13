@@ -133,3 +133,10 @@ When an AD is derecognized:
 2. Update their `profile.md` status to `Derecognized`
 3. Keep their `comms.md` intact — it's historical record
 4. Do not delete their directory
+
+## Complementary skills
+
+For richer delegate analysis, see "Cross-domain questions" in CLAUDE.md:
+- `/governance-data` — on-chain voting records and delegation metrics (quantitative counterpart to rationale text)
+- `/atlas-navigate` — verify claims delegates make about Atlas content
+- `/forum-search` — broader forum context around the topics delegates are voting on
