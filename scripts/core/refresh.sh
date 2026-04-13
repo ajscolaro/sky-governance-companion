@@ -132,9 +132,11 @@ if [ -f "$MARKET_DIR/fetch-market.py" ]; then
     python3 "$MARKET_DIR/fetch-market.py" --quiet 2>/dev/null &
 fi
 
-# --- Governance status advisory (reads cached data from previous session) ---
-if [ -f "$SCRIPT_DIR/governance-advisory.py" ]; then
-    python3 "$SCRIPT_DIR/governance-advisory.py" 2>/dev/null || true
+# --- Session briefing (reads cached data from previous session) ---
+# Pipe through tee /dev/tty so the briefing is visible in the terminal immediately,
+# while stdout still goes to Claude's additionalContext via the hook.
+if [ -f "$SCRIPT_DIR/session-briefing.py" ]; then
+    python3 "$SCRIPT_DIR/session-briefing.py" 2>/dev/null | tee /dev/tty || true
 fi
 
 exit 0

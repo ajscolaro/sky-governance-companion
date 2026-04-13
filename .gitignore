@@ -18,5 +18,8 @@ tmp/
 # Internal plans and notes
 plans/
 
+# Per-user session timestamp
+.last-session
+
 # OS files
 .DS_Store

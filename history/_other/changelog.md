@@ -4,6 +4,18 @@ Changes that do not match any tracked entity prefix.
 
 ---
 
+## PR #223 — remove non breaking space characters
+**Merged:** 2026-04-13 | **Type:** Housekeeping
+
+### Housekeeping
+- Replaced non-breaking space characters (U+00A0) with regular spaces throughout the entire Atlas document
+- Added `no-nbsps.js` markdownlint rule to lint for and prevent future NBSP characters
+
+### Context
+Pure linting/formatting pass with no content changes. Companion to PR #218 (remove whitespace in lists). No governance implications.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **+1987/-171 lines**
 

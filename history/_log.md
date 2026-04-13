@@ -95,3 +95,4 @@
 | #108 | Minor fixes | 2025-11-19 | agents/spark | complete |
 | #109 | SAEP-04 | 2025-11-19 | agents/spark | complete |
 | #110 | Nov 10 edit | 2025-11-13 | preamble, governance, support, stability, protocol, agents/grove | complete |
+| #223 | remove non breaking space characters | 2026-04-13 | other | complete |

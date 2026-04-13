@@ -34,4 +34,9 @@ for dir in \
     mkdir -p "$HISTORY_DIR/$dir"
 done
 
+# Show first-run orientation
+if [ -f "$SCRIPT_DIR/session-briefing.py" ]; then
+    python3 "$SCRIPT_DIR/session-briefing.py" --first-run 2>/dev/null || true
+fi
+
 echo "Setup complete."

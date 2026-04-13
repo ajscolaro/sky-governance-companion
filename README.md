@@ -17,7 +17,7 @@ This project provides local tooling to search, read, and analyze that document a
 - **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references
 - **Governance status advisory** — On session start, prints current hat, AD alignment, pending spells, active/recently ended polls, and lifecycle events
 - **Delegate tracking** — Per-AD profiles with on-chain voting records and forum vote rationales
-- **Market data** *(optional, requires `MESSARI_API_KEY`)* — SQLite database with daily price and supply data for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH. Derived ratios (SKY/BTC, SKY/ETH), event windows, and stablecoin competitive rankings. All other features work without it.
+- **Market data** *(optional)* — SQLite database with daily price and supply data for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH. Derived ratios (SKY/BTC, SKY/ETH), event windows, and stablecoin competitive rankings. Requires a Messari API key — or use the [x402 pay-per-request path](https://docs.messari.io/api-reference/x402-payments) (USDC on Base/Solana, no account needed). All other features work without it.
 - **Forum search** — Cache and search Sky Forum governance discussions via RSS
 
 ## Prerequisites
@@ -26,7 +26,7 @@ This project provides local tooling to search, read, and analyze that document a
 - Python 3.8+ with a virtual environment at `.venv/` (setup creates this automatically)
 - `curl` — for GitHub REST API calls (pre-installed on macOS)
 - `jq` — for JSON queries (`brew install jq` on macOS)
-- `MESSARI_API_KEY` in `.env` — **optional**, enables market data (SKY/USDS/SPK prices). All other features work without it.
+- `MESSARI_API_KEY` in `.env` — **optional**, enables market data (SKY/USDS/SPK prices). All other features work without it. The Messari API also supports [x402 pay-per-request access](https://docs.messari.io/api-reference/x402-payments) via USDC on Base or Solana — no account or subscription required.
 
 ## Setup
 
@@ -43,7 +43,7 @@ On the first session, the **SessionStart hook** automatically:
 2. Builds the document index at `data/index.json`
 3. Creates the `history/` directory structure
 
-On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, launches background refreshes (forum posts, delegate RSS, voting portal data, executive lifecycle, market data), and prints a governance status advisory.
+On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, launches background refreshes (forum posts, delegate RSS, voting portal data, executive lifecycle, market data), and prints a session briefing directly to the terminal showing what changed since your last session, active polls, and market moves.
 
 No manual setup steps are required.
 
@@ -109,7 +109,7 @@ Query the local market database for price, supply, stablecoin rankings, derived 
 /messari-market-data event window around 2026-04-09
 ```
 
-Requires `MESSARI_API_KEY` in `.env` for data refresh. Queries work on cached data without it.
+Requires `MESSARI_API_KEY` in `.env` for data refresh. Queries work on cached data without it. The Messari API is also [x402-compatible](https://docs.messari.io/api-reference/x402-payments) — pay per request with USDC on Base or Solana, no subscription needed (x402 integration not yet wired into the fetch scripts).
 
 ### `/forum-search` — Search forum discussions
 
@@ -159,7 +159,7 @@ scripts/
     refresh.sh                  Pull Atlas, rebuild index, background fetches, governance advisory
     build-index.py              Parse Atlas into JSON index
     build-address-map.py        Join voting addresses to AD slugs
-    governance-advisory.py      Print governance status on session start
+    session-briefing.py         Session briefing: what changed, governance status, forum activity (printed to terminal on startup)
     check-write-path.sh         PreToolUse hook for write protection
   atlas/
     search-index.sh             Query the index by prefix/name/type/UUID
@@ -218,6 +218,16 @@ The `/atlas-track` skill can also detect and set up new agents automatically.
 ### Network access
 
 The sandbox network allowlist in `.claude/settings.json` controls which domains are reachable. Current allowlist: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`. Add domains as needed for your use case.
+
+## Starting fresh vs. using the included history
+
+This repo ships with `history/` pre-populated with changelogs going back to mid-2025, and `delegates/` with per-AD profiles. Both represent accumulated institutional memory derived entirely from public governance data.
+
+**If you want to use the included history:** clone and go — you get full context from day one.
+
+**If you prefer to start fresh:** delete the contents of `history/` (keep the directory structure and `_log.md` header) and `delegates/`. The tooling works from whatever state you give it. To backfill history from scratch, use `/atlas-track` with `scripts/atlas/backfill-prs.sh`.
+
+The `### Context` sections in changelogs contain interpretive analysis — feel free to rewrite them to reflect your own read.
 
 ## License
 

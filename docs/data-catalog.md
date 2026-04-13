@@ -33,7 +33,7 @@ On session start, `scripts/core/refresh.sh` runs:
 2. Address map rebuild (blocking)
 3. Unprocessed PR check (blocking)
 4. Background fetches (non-blocking): forum, delegate RSS, voting delegates, voting polls, voting executive, market data
-5. Governance status advisory (blocking, reads cached data from previous session)
+5. Session briefing (blocking, reads cached data from previous session — prints to terminal)
 
 Background fetches always exit 0 — failures are advisory, not blocking.
 
