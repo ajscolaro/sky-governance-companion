@@ -160,7 +160,7 @@ When writing entries:
 
 - **Identify the proposal type** in the entry header: was this a weekly edit (Atlas Axis), an AEP, a SAEP, a Risk Advisor action, or a spell recording?
 - **For Flow 1 PRs**: look up the authorizing poll in `data/voting/polls/vote-matrix.json` — polls with `atlas_pr` matching the PR number give you the poll ID, vote result, and AD participation
-- **For Flow 2 PRs**: cross-reference with `snapshots/executive/lifecycle.json` to find the spell, its actions, and market context at cast time
+- **For Flow 2 PRs**: cross-reference with `data/voting/executive/lifecycle.json` to find the spell, its actions, and market context at cast time
 - **For Active Data changes**: note whether the designated controller is exercising normal authority or if this is a governance override
 - **Reference roles by name**: "Atlas Axis weekly edit", "per Risk Advisor recommendation", "SAEP-12 (Spark proposal)"
 

@@ -32,11 +32,11 @@ Before analyzing any PR, read `docs/governance-reference.md` for shared governan
 
 **Two governance flows produce Atlas PRs — determine which one first:**
 - **Flow 1 (text edits):** Titles like "Atlas Edit Proposal", "AEP-N", "SAEP-N", "Weekly Cycle". Approved via ratification poll; PR merges same day poll ends. No spell involved.
-- **Flow 2 (spell recording):** Titles like "spell changes", "executive changes". Records what an on-chain spell already executed. The spell's lifecycle, actions, and market context are in `snapshots/executive/lifecycle.json`.
+- **Flow 2 (spell recording):** Titles like "spell changes", "executive changes". Records what an on-chain spell already executed. The spell's lifecycle, actions, and market context are in `data/voting/executive/lifecycle.json`.
 
 **For Flow 1 PRs:** Look up the authorizing poll in `data/voting/polls/vote-matrix.json` — search for entries where `atlas_pr` matches the PR number. Report the poll ID, vote result, AD participation, and non-voters. The poll's `summary` and `discussion_link` fields provide additional context.
 
-**For Flow 2 PRs:** Cross-reference with `snapshots/executive/lifecycle.json` to find the spell, its actions, governance polls that authorized it, and market context at cast time.
+**For Flow 2 PRs:** Cross-reference with `data/voting/executive/lifecycle.json` to find the spell, its actions, governance polls that authorized it, and market context at cast time.
 
 Key things to apply during analysis:
 

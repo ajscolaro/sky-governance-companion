@@ -5,7 +5,7 @@ Calls /api/executive, /api/executive/hat, and /api/executive/supporters to build
 a snapshot of the current governance state: which spell is the hat, who supports it,
 and which ADs are on stale spells.
 
-Daily snapshots are committed to snapshots/executive/ for time-series tracking.
+Data is cached to data/voting/executive/ (gitignored).
 """
 
 from __future__ import annotations
@@ -22,7 +22,6 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_DIR / "data" / "voting" / "executive"
 CACHE_SNAPSHOT_DIR = DATA_DIR / "snapshots"
-COMMITTED_DIR = PROJECT_DIR / "snapshots" / "executive"
 ADDRESS_MAP_FILE = PROJECT_DIR / "data" / "voting" / "address-map.json"
 
 API_BASE = "https://vote.sky.money/api"
@@ -73,11 +72,11 @@ def main():
     args = parser.parse_args()
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    committed_file = COMMITTED_DIR / f"{today}.json"
+    cache_file = CACHE_SNAPSHOT_DIR / f"{today}.json"
 
-    if committed_file.exists() and not args.force:
+    if cache_file.exists() and not args.force:
         if not args.quiet:
-            print(f"Executive snapshot for {today} already exists. Use --force to overwrite.")
+            print(f"Executive data for {today} already cached. Use --force to overwrite.")
         return
 
     address_map = load_address_map()
@@ -176,11 +175,9 @@ def main():
     }
 
     # Write cache
-    for directory in [CACHE_SNAPSHOT_DIR, COMMITTED_DIR]:
-        directory.mkdir(parents=True, exist_ok=True)
-        outfile = directory / f"{today}.json"
-        with open(outfile, "w", encoding="utf-8") as f:
-            json.dump(snapshot, f, indent=2)
+    CACHE_SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
+    with open(cache_file, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, indent=2)
 
     # Also write current-state cache files
     DATA_DIR.mkdir(parents=True, exist_ok=True)

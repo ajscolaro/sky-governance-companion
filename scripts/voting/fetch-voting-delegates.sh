@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fetch delegation snapshots from vote.sky.money API into data/voting/ and snapshots/.
+# Fetch delegation data from vote.sky.money API into data/voting/delegates/.
 # Wrapper around fetch-voting-delegates.py — always exits 0 (advisory, not critical).
 set -uo pipefail
 
@@ -9,7 +9,6 @@ PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 # Ensure output directories exist
 mkdir -p "$PROJECT_DIR/data/voting/delegates/snapshots"
 mkdir -p "$PROJECT_DIR/data/voting/delegates/delegators"
-mkdir -p "$PROJECT_DIR/snapshots/delegation"
 
 # Activate venv if available
 if [ -f "$PROJECT_DIR/.venv/bin/activate" ]; then

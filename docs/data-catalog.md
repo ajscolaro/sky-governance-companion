@@ -16,9 +16,7 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 | `data/voting/executive/proposals/` | sky-ecosystem/executive-votes repo | No | Every session (bg) | `scripts/voting/fetch-executive-proposals.py` |
 | `data/market.db` | Messari API *(optional)* | No | Every session (bg, if API key set) | `scripts/market/fetch-market.py` |
 | `data/voting/delegation-history/` | vote.sky.money API | No | On-demand | `scripts/voting/fetch-delegation-history.py` |
-| `snapshots/delegation/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/voting/fetch-voting-delegates.py` |
-| `snapshots/executive/` | vote.sky.money API | **Yes** | Daily (deduped) | `scripts/voting/fetch-voting-executive.py` |
-| `snapshots/executive/lifecycle.json` | vote.sky.money API + executive-votes repo | **Yes** | Every session | `scripts/voting/fetch-executive-proposals.py` |
+| `data/voting/executive/lifecycle.json` | vote.sky.money API + executive-votes repo | No | Every session | `scripts/voting/fetch-executive-proposals.py` |
 | `delegates/` | Processed forum data | **Yes** | On `/ad-track` or `/governance-data enrich` | Agent-driven |
 | `history/` | Processed PR data | **Yes** | On `/atlas-track` | Agent-driven |
 
@@ -26,7 +24,6 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 
 - **Gitignored (`data/`):** Reproducible caches rebuilt from external sources on each session. Safe to delete.
 - **Optional (`data/market.db`):** Requires `MESSARI_API_KEY` in `.env` to populate. All other features work without it. Query via `scripts/market/market.py` (`MarketDB` class), never raw SQL.
-- **Committed (`snapshots/`):** Irreproducible time-series. Once a day passes, that governance state can't be re-fetched. Committed so it survives repo clones.
 - **Committed (`delegates/`, `history/`):** Curated institutional memory. Agent-processed, human-reviewed.
 
 ## Refresh chain
@@ -56,4 +53,4 @@ Each poll in `data/voting/polls/vote-matrix.json` includes:
 2. Add a background job to `scripts/core/refresh.sh`
 3. Add a row to this catalog
 4. Update `CLAUDE.md` project layout
-5. If time-series data is involved, add a committed `snapshots/{name}/` directory
+5. If the data is committed (not gitignored), document why

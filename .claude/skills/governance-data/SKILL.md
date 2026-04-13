@@ -4,7 +4,7 @@ description: >
   Fetch and analyze on-chain governance data from the Sky Voting Portal API.
   Delegation snapshots, vote alignment matrix, executive/hat monitoring,
   spell lifecycle tracking, delegate profile enrichment.
-argument-hint: "<'snapshot', 'votes', 'executive', 'spell <date>', 'enrich', or 'status'>"
+argument-hint: "<'delegation', 'votes', 'executive', 'spell <date>', 'enrich', or 'status'>"
 allowed-tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
@@ -16,7 +16,6 @@ You are working with on-chain governance data from the Sky Voting Portal API (`v
 
 ```
 vote.sky.money API → scripts/voting/fetch-voting-*.py → data/voting/ (cache, gitignored)
-                                                → snapshots/ (committed time-series)
                                                 → delegates/{slug}/profile.md (enriched profiles)
 ```
 
@@ -29,12 +28,12 @@ The voting portal API returns public blockchain data. This is lower risk than fo
 
 ## Commands
 
-### `/governance-data snapshot`
+### `/governance-data delegation`
 
-Take a delegation power snapshot. Reports current delegation amounts and changes since last snapshot.
+Fetch current delegation metrics. Reports delegation amounts, ranking, and concentration.
 
 ```bash
-# Take today's snapshot (skips if already exists)
+# Fetch today's delegation data (skips if already cached)
 source .venv/bin/activate && python3 scripts/voting/fetch-voting-delegates.py
 
 # Force overwrite
@@ -44,15 +43,16 @@ source .venv/bin/activate && python3 scripts/voting/fetch-voting-delegates.py --
 source .venv/bin/activate && python3 scripts/voting/fetch-voting-delegates.py --delegators
 ```
 
-**Read snapshot data:**
+**Read cached data:**
 ```bash
-cat snapshots/delegation/YYYY-MM-DD.json
+# Latest cached delegation data (find most recent file)
+ls -t data/voting/delegates/snapshots/*.json | head -1 | xargs cat
 ```
 
 After running, report:
-- Top delegation changes since last snapshot
 - Current delegation ranking and concentration (top 3 ADs' combined share)
-- Any ADs with significant delegator count changes
+- Any notable participation or communication scores
+- Total SKY delegated and delegator counts
 
 ### `/governance-data votes`
 
@@ -87,7 +87,7 @@ After running, report:
 Update executive proposal, hat monitoring, and spell lifecycle data.
 
 ```bash
-# Update daily hat/supporter snapshot
+# Update hat/supporter data
 source .venv/bin/activate && python3 scripts/voting/fetch-voting-executive.py
 
 # Update spell lifecycle (proposals, events, market context, Atlas cross-refs)
@@ -96,11 +96,11 @@ source .venv/bin/activate && python3 scripts/voting/fetch-executive-proposals.py
 
 **Read data:**
 ```bash
-# Today's hat/supporter snapshot
-cat snapshots/executive/YYYY-MM-DD.json
+# Latest cached hat/supporter data (find most recent file)
+ls -t data/voting/executive/snapshots/*.json | head -1 | xargs cat
 
 # Full spell lifecycle (the single source of truth for executive vote monitoring)
-cat snapshots/executive/lifecycle.json
+cat data/voting/executive/lifecycle.json
 ```
 
 `lifecycle.json` contains for each spell: title, summary, condensed actions with authorizations, Atlas document references, **governance polls that authorized the spell** (these are Flow 2 parameter-change polls, separate from the Atlas recording PRs), forum links, lifecycle events (proposed/hat/cast/expired), and **linked Atlas PRs that record the spell's changes** (typically merged 4-11 days after cast). For market context, query `data/market.db` via `python3 scripts/market/market-lookup.py --window <cast-date>` or import `scripts/market/market.py`.
@@ -115,14 +115,33 @@ After running, report:
 
 ### `/governance-data spell <date-or-slug>`
 
-Deep-dive into a specific executive proposal. Read from `snapshots/executive/lifecycle.json`.
+Deep-dive into a specific executive proposal.
 
-Find the spell by date (e.g., `2026-04-09`) or slug substring (e.g., `skylink`, `buyback`).
+Find the spell by date (e.g., `2026-04-09`) or slug substring (e.g., `skylink`, `buyback`) in `data/voting/executive/lifecycle.json`.
+
+**Source priority for active/pending proposals:** `lifecycle.json` stores condensed metadata (action titles, authorizations) but not specific parameter values like transfer amounts, rate changes, or cap adjustments. For questions about what a proposal *actually does*, always fetch the full proposal text first using the `proposal_url` field in lifecycle.json, then use Atlas documents for context on *why* those values exist. Do not substitute Atlas-defined ceilings or authorized maximums for the actual proposed amounts — they often differ.
+
+```python
+# Fetch full proposal text for an active spell
+import json, urllib.request
+lifecycle = json.load(open("data/voting/executive/lifecycle.json"))
+spell = lifecycle["spells"]["<address>"]
+url = spell["proposal_url"]  # raw GitHub markdown
+req = urllib.request.Request(url, headers={"User-Agent": "SkyAtlasExplorer/1.0"})
+text = urllib.request.urlopen(req).read().decode()
+```
+
+Alternatively, fetch from the vote.sky.money API which returns rendered HTML:
+```python
+url = f"https://vote.sky.money/api/executive/{spell_address}"
+data = json.loads(urllib.request.urlopen(url).read())
+html_content = data["content"]
+```
 
 Report:
 - Full title and summary
-- All actions with their authorizations
-- Atlas document references (which Atlas sections this spell touches)
+- All actions with **specific parameter values** from the proposal text (amounts, rates, addresses)
+- Atlas document references — for context on authorization ceilings, related framework
 - Governance polls that authorized it
 - Forum discussion links
 - Lifecycle timeline: proposed → hat → cast (with dates)
@@ -134,9 +153,9 @@ Report:
 Update each AD's `profile.md` with an `## On-chain Activity` section using the latest cached data.
 
 Read from:
-- `snapshots/delegation/` — latest delegation snapshot
+- `data/voting/delegates/snapshots/` — latest delegation data
 - `data/voting/polls/vote-matrix.json` — voting record
-- `snapshots/executive/` — latest executive snapshot
+- `data/voting/executive/snapshots/` — latest executive data
 
 For each AD in `delegates/_roster.md`, update their `profile.md` with:
 
@@ -164,8 +183,8 @@ If the section already exists, replace it with updated data. If not, append it a
 Report the current state of all governance data:
 
 ```bash
-# Check what snapshots exist
-ls snapshots/delegation/ snapshots/executive/
+# Check what cached data exists
+ls data/voting/delegates/snapshots/ data/voting/executive/snapshots/
 
 # Check vote matrix freshness
 python3 -c "import json; d=json.load(open('data/voting/polls/vote-matrix.json')); print(f'Last updated: {d[\"last_updated\"]}, {d[\"poll_count\"]} polls')" 2>/dev/null || echo "No vote matrix yet"
@@ -175,24 +194,25 @@ python3 -c "import json; d=json.load(open('data/voting/address-map.json')); prin
 ```
 
 Report:
-- Number and date range of delegation snapshots
+- Delegation cache: latest date, number of ADs
 - Vote matrix: poll count, last updated, any gaps
-- Executive: latest snapshot date
+- Executive cache: latest date
+- Lifecycle: spell count
 - Which data needs refreshing
 
 ## Data locations
 
-| Data | Location | Committed | Script |
-|------|----------|-----------|--------|
-| Address map | `data/voting/address-map.json` | No | `build-address-map.py` |
-| Delegation snapshots | `snapshots/delegation/YYYY-MM-DD.json` | **Yes** | `fetch-voting-delegates.py` |
-| Delegation cache | `data/voting/delegates/` | No | `fetch-voting-delegates.py` |
-| Vote matrix | `data/voting/polls/vote-matrix.json` | No | `fetch-voting-polls.py` |
-| Poll tallies | `data/voting/polls/tallies/{id}.json` | No | `fetch-voting-polls.py` |
-| Executive snapshots | `snapshots/executive/YYYY-MM-DD.json` | **Yes** | `fetch-voting-executive.py` |
-| Executive cache | `data/voting/executive/` | No | `fetch-voting-executive.py` |
-| Spell lifecycle | `snapshots/executive/lifecycle.json` | **Yes** | `fetch-executive-proposals.py` |
-| Proposal text cache | `data/voting/executive/proposals/` | No (auto-cleaned) | `fetch-executive-proposals.py` |
+| Data | Location | Script |
+|------|----------|--------|
+| Address map | `data/voting/address-map.json` | `build-address-map.py` |
+| Delegation data | `data/voting/delegates/snapshots/YYYY-MM-DD.json` | `fetch-voting-delegates.py` |
+| Delegator lists | `data/voting/delegates/delegators/{slug}.json` | `fetch-voting-delegates.py --delegators` |
+| Vote matrix | `data/voting/polls/vote-matrix.json` | `fetch-voting-polls.py` |
+| Poll tallies | `data/voting/polls/tallies/{id}.json` | `fetch-voting-polls.py` |
+| Executive data | `data/voting/executive/snapshots/YYYY-MM-DD.json` | `fetch-voting-executive.py` |
+| Spell lifecycle | `data/voting/executive/lifecycle.json` | `fetch-executive-proposals.py` |
+| Full proposal text | Via `proposal_url` in lifecycle.json | — |
+| Proposal text cache | `data/voting/executive/proposals/` (auto-cleaned) | `fetch-executive-proposals.py` |
 
 ## Integration with other skills
 
@@ -200,6 +220,8 @@ Report:
 - **`/atlas-track`** tracks Atlas PR changes. The spell lifecycle in `lifecycle.json` cross-references Atlas PRs that record spell outcomes (e.g., PRs titled "add 2025-06-12 spell changes"). When writing changelog entries for such PRs, reference the corresponding spell's actions and market context.
 - **`/atlas-analyze`** can reference delegation data and spell lifecycle when assessing a PR's political context. Check `lifecycle.json` for any active spells that reference the same Atlas sections being modified.
 
-## Architecture note: lifecycle.json as single source of truth
+## Architecture note: lifecycle.json and proposal text
 
-`snapshots/executive/lifecycle.json` is the committed, long-term record of all executive votes. Raw proposal markdown is fetched, parsed, distilled into lifecycle.json, then cleaned up automatically. The `data/voting/executive/proposals/` directory is a transient processing pipeline — files appear during fetch and disappear after enrichment. Do not depend on raw proposal files existing; always read from lifecycle.json.
+`data/voting/executive/lifecycle.json` is the cached record of all executive votes, rebuilt from the API on each session. Raw proposal markdown is fetched, parsed, distilled into lifecycle.json, then cleaned up automatically. The `data/voting/executive/proposals/` directory is a transient processing pipeline — files appear during fetch and disappear after enrichment.
+
+**lifecycle.json is the right starting point** for lifecycle state (proposed/hat/cast), cross-references, and action summaries. But it deliberately condenses proposals — action titles and authorizations are kept, specific parameter values (amounts, rates, addresses) are not. Each spell entry includes a `proposal_url` field pointing to the full proposal markdown on GitHub. **For questions about what a proposal specifically does, fetch the full text via `proposal_url` and use Atlas documents for context, not as a substitute for the actual proposed values.**

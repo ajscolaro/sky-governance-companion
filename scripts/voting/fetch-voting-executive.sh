@@ -8,7 +8,6 @@ PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 # Ensure output directories exist
 mkdir -p "$PROJECT_DIR/data/voting/executive/snapshots"
-mkdir -p "$PROJECT_DIR/snapshots/executive"
 
 # Activate venv if available
 if [ -f "$PROJECT_DIR/.venv/bin/activate" ]; then

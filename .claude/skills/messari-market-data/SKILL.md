@@ -135,7 +135,7 @@ share = db.get_stablecoin_share("2026-04-10")
 
 Market data is most useful when correlated with governance actions:
 - **`history/_log.md`** — merged Atlas PR dates, for correlating supply/price with Atlas changes
-- **`snapshots/executive/lifecycle.json`** — spell proposed/hat/cast dates
+- **`data/voting/executive/lifecycle.json`** — spell proposed/hat/cast dates
 - **`data/voting/polls/vote-matrix.json`** — poll end dates (especially `atlas-edit` polls)
 
 Example workflow: find USDS supply inflection points, then check `_log.md` and `lifecycle.json` for governance events within ±7 days.

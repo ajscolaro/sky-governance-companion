@@ -3,7 +3,7 @@
 
 Syncs the index from sky-ecosystem/executive-votes, fetches full proposal markdown
 for each spell, parses structured metadata, distills it into lifecycle.json, then
-cleans up the raw files. lifecycle.json is the single committed source of truth.
+cleans up the raw files. lifecycle.json is the source of truth for spell tracking.
 
 Pipeline:
   1. Fetch raw proposal text (ephemeral cache in data/voting/executive/proposals/)
@@ -12,10 +12,10 @@ Pipeline:
   4. Clean up raw files after enrichment
 
 Data flow:
-  sky-ecosystem/executive-votes repo  ->  (parse)  ->  snapshots/executive/lifecycle.json
-  vote.sky.money /api/executive       ->  (lifecycle events)  ->  snapshots/executive/lifecycle.json
+  sky-ecosystem/executive-votes repo  ->  (parse)  ->  data/voting/executive/lifecycle.json
+  vote.sky.money /api/executive       ->  (lifecycle events)  ->  data/voting/executive/lifecycle.json
   data/market.db                      ->  (query on the fly via scripts/market/market.py)
-  history/_log.md                     ->  (cross-refs)        ->  snapshots/executive/lifecycle.json
+  history/_log.md                     ->  (cross-refs)        ->  data/voting/executive/lifecycle.json
 """
 
 from __future__ import annotations
@@ -33,7 +33,7 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 PROPOSALS_DIR = PROJECT_DIR / "data" / "voting" / "executive" / "proposals"
 INDEX_FILE = PROJECT_DIR / "data" / "voting" / "executive" / "index.json"
-LIFECYCLE_FILE = PROJECT_DIR / "snapshots" / "executive" / "lifecycle.json"
+LIFECYCLE_FILE = PROJECT_DIR / "data" / "voting" / "executive" / "lifecycle.json"
 LOG_FILE = PROJECT_DIR / "history" / "_log.md"
 
 REPO_RAW_BASE = "https://raw.githubusercontent.com/sky-ecosystem/executive-votes/main"
@@ -242,6 +242,7 @@ def sync_proposals(*, force: bool = False, quiet: bool = False) -> list[dict]:
             with open(json_file, "r", encoding="utf-8") as f:
                 parsed = json.load(f)
             parsed.setdefault("key", slug)
+            parsed.setdefault("proposal_url", f"{REPO_RAW_BASE}/{path}")
             fetched.append(parsed)
             continue
 
@@ -260,6 +261,7 @@ def sync_proposals(*, force: bool = False, quiet: bool = False) -> list[dict]:
 
         parsed = parse_proposal(text, metadata)
         parsed["key"] = slug  # preserve the slug for lifecycle key
+        parsed["proposal_url"] = f"{REPO_RAW_BASE}/{path}"
         with open(json_file, "w", encoding="utf-8") as f:
             json.dump(parsed, f, indent=2)
 
@@ -343,6 +345,8 @@ def enrich_lifecycle(lifecycle: dict, proposals: list[dict], *, quiet: bool = Fa
         spell["atlas_refs"] = meta.get("atlas_refs", [])
         spell["governance_polls"] = meta.get("governance_polls", [])
         spell["forum_links"] = meta.get("forum_links", [])
+        if meta.get("proposal_url"):
+            spell["proposal_url"] = meta["proposal_url"]
 
         enriched += 1
 
@@ -617,6 +621,16 @@ def main():
     # Step 2: Enrich lifecycle with distilled proposal data
     if new_proposals:
         enrich_lifecycle(lifecycle, new_proposals, quiet=args.quiet)
+
+    # Step 2b: Backfill proposal_url for spells enriched before this field existed
+    if INDEX_FILE.exists():
+        with open(INDEX_FILE, "r", encoding="utf-8") as f:
+            idx = json.load(f)
+        for entry in idx:
+            path = entry.get("path", "")
+            addr = (entry.get("metadata", {}).get("address") or "").lower()
+            if addr and addr in lifecycle.get("spells", {}) and not lifecycle["spells"][addr].get("proposal_url"):
+                lifecycle["spells"][addr]["proposal_url"] = f"{REPO_RAW_BASE}/{path}"
 
     # Step 3: Update lifecycle events from live API
     new_events = update_lifecycle_from_api(lifecycle, quiet=args.quiet)

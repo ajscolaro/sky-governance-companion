@@ -45,7 +45,7 @@ source .venv/bin/activate && python3 scripts/delegates/fetch-delegates.py --rebu
 
 Vote rationales may cover two types of governance actions:
 - **Ratification polls** (Flow 1): AD explains their position on Atlas text changes. The poll directly authorizes a PR merge.
-- **Executive spell support** (Flow 2): AD explains why they support or oppose an on-chain spell. Cross-reference with `snapshots/executive/lifecycle.json` for spell details.
+- **Executive spell support** (Flow 2): AD explains why they support or oppose an on-chain spell. Cross-reference with `data/voting/executive/lifecycle.json` for spell details.
 
 Read the cached RSS posts from `data/delegates/{slug}/` and append new entries to `delegates/{slug}/comms.md`.
 

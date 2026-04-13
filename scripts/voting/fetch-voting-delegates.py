@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Fetch delegation snapshots from the Sky Voting Portal API.
+"""Fetch delegation data from the Sky Voting Portal API.
 
 Calls GET /api/delegates to collect delegation metrics for all delegates,
-matches them to tracked ADs via the address map, and writes daily snapshots
-to both data/voting/ (gitignored cache) and snapshots/ (committed time-series).
+matches them to tracked ADs via the address map, and writes to
+data/voting/delegates/ (gitignored cache).
 
-Snapshots are deduped by date — only one per day unless --force is used.
+Fetches are deduped by date — only one per day unless --force is used.
 """
 
 from __future__ import annotations
@@ -25,7 +25,6 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_DIR / "data" / "voting" / "delegates"
 SNAPSHOT_CACHE_DIR = DATA_DIR / "snapshots"
 DELEGATOR_DIR = DATA_DIR / "delegators"
-COMMITTED_DIR = PROJECT_DIR / "snapshots" / "delegation"
 ADDRESS_MAP_FILE = PROJECT_DIR / "data" / "voting" / "address-map.json"
 
 API_BASE = "https://vote.sky.money/api"
@@ -99,44 +98,6 @@ def load_address_map() -> dict:
         return json.load(f)
 
 
-def load_previous_snapshot() -> dict | None:
-    """Load the most recent committed snapshot for delta computation."""
-    snapshots = sorted(COMMITTED_DIR.glob("*.json"), reverse=True)
-    if not snapshots:
-        return None
-    with open(snapshots[0], "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def compute_deltas(current: list[dict], previous: dict | None) -> dict:
-    """Compute changes from the previous snapshot."""
-    if not previous:
-        return {}
-
-    prev_by_slug = {d["slug"]: d for d in previous.get("aligned_delegates", [])}
-    deltas = {}
-
-    for delegate in current:
-        slug = delegate["slug"]
-        prev = prev_by_slug.get(slug)
-        if not prev:
-            deltas[slug] = {"new": True}
-            continue
-
-        sky_change = Decimal(delegate["sky_delegated"]) - Decimal(prev["sky_delegated"])
-        delegator_change = delegate["delegator_count"] - prev["delegator_count"]
-        rank_change = prev.get("rank", 0) - delegate.get("rank", 0)  # positive = moved up
-
-        if sky_change != 0 or delegator_change != 0 or rank_change != 0:
-            deltas[slug] = {
-                "sky_change": str(sky_change),
-                "delegator_change": delegator_change,
-                "rank_change": rank_change,
-            }
-
-    return deltas
-
-
 def fetch_delegators(address: str, slug: str, quiet: bool = False) -> list[dict]:
     """Fetch paginated delegator list for a single delegate."""
     all_delegators = []
@@ -171,16 +132,15 @@ def main():
     args = parser.parse_args()
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    committed_file = COMMITTED_DIR / f"{today}.json"
     cache_file = SNAPSHOT_CACHE_DIR / f"{today}.json"
 
-    # Dedup: skip if today's snapshot already exists
-    if committed_file.exists() and not args.force:
+    # Dedup: skip if today's cache already exists
+    if cache_file.exists() and not args.force:
         if not args.quiet:
-            print(f"Delegation snapshot for {today} already exists. Use --force to overwrite.")
+            print(f"Delegation data for {today} already cached. Use --force to overwrite.")
         if not args.delegators:
             return
-        # Fall through to delegator fetch even if snapshot exists
+        # Fall through to delegator fetch even if cache exists
 
     address_map = load_address_map()
     by_address = address_map["by_address"]
@@ -227,10 +187,6 @@ def main():
     for i, d in enumerate(aligned, 1):
         d["rank"] = i
 
-    # Compute deltas from previous snapshot
-    previous = load_previous_snapshot()
-    deltas = compute_deltas(aligned, previous)
-
     snapshot = {
         "date": today,
         "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -241,36 +197,14 @@ def main():
         "aligned_delegates": aligned,
     }
 
-    if deltas:
-        snapshot["deltas"] = deltas
-
-    # Write to both cache and committed directories
-    if not committed_file.exists() or args.force:
-        for directory in [SNAPSHOT_CACHE_DIR, COMMITTED_DIR]:
-            directory.mkdir(parents=True, exist_ok=True)
-            outfile = directory / f"{today}.json"
-            with open(outfile, "w", encoding="utf-8") as f:
-                json.dump(snapshot, f, indent=2)
+    # Write to cache
+    SNAPSHOT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    with open(cache_file, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, indent=2)
 
     if not args.quiet:
-        print(f"Delegation snapshot: {len(aligned)} aligned delegates, "
+        print(f"Delegation data: {len(aligned)} aligned delegates, "
               f"{stats.get('totalDelegators', '?')} total delegators")
-        if deltas:
-            for slug, delta in sorted(deltas.items()):
-                if delta.get("new"):
-                    print(f"  {slug}: NEW")
-                else:
-                    parts = []
-                    if delta.get("sky_change", "0") != "0":
-                        parts.append(f"SKY {'+' if not delta['sky_change'].startswith('-') else ''}{delta['sky_change']}")
-                    if delta.get("delegator_change", 0) != 0:
-                        dc = delta["delegator_change"]
-                        parts.append(f"delegators {'+' if dc > 0 else ''}{dc}")
-                    if delta.get("rank_change", 0) != 0:
-                        rc = delta["rank_change"]
-                        parts.append(f"rank {'+' if rc > 0 else ''}{rc}")
-                    if parts:
-                        print(f"  {slug}: {', '.join(parts)}")
 
     # Optional: fetch per-AD delegator lists
     if args.delegators:

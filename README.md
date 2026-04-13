@@ -13,7 +13,7 @@ This project provides local tooling to search, read, and analyze that document a
 - **Local Atlas access** — Shallow clone auto-refreshed on session start, with a parsed JSON index for fast document lookup by name, path, type, or UUID
 - **Change tracking** — Process merged PRs into per-entity changelogs that accumulate institutional memory of how governance evolves
 - **PR analysis** — Analyze open or merged PRs against the current Atlas and historical context
-- **On-chain governance data** — Delegation snapshots, poll vote matrix (with poll type classification and PR linking), executive hat/supporter monitoring via the vote.sky.money API
+- **On-chain governance data** — Delegation metrics, poll vote matrix (with poll type classification and PR linking), executive hat/supporter monitoring via the vote.sky.money API
 - **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references
 - **Governance status advisory** — On session start, prints current hat, AD alignment, pending spells, active/recently ended polls, and lifecycle events
 - **Delegate tracking** — Per-AD profiles with on-chain voting records and forum vote rationales
@@ -85,7 +85,7 @@ Fetch and analyze delegation snapshots, vote alignment, executive vote lifecycle
 ```
 /governance-data executive        # Hat monitoring + spell lifecycle
 /governance-data spell 2026-04-09 # Deep-dive into a specific spell
-/governance-data snapshot         # Delegation power snapshot
+/governance-data delegation       # Current delegation metrics
 /governance-data votes            # Poll vote matrix update
 /governance-data status           # Data freshness report
 ```
@@ -136,7 +136,7 @@ data/                 Generated caches (gitignored, rebuilt on refresh)
     address-map.json  Voting address → AD slug mapping
     delegates/        Delegation API cache
     polls/            Poll tallies, vote matrix (with poll_type, atlas_pr linking)
-    executive/        Executive API cache + transient proposal processing dir
+    executive/        Executive API cache, lifecycle.json, transient proposal processing dir
 delegates/            Per-AD profiles and vote rationale logs (committed)
 docs/
   governance-reference.md   Shared governance context for PR analysis
@@ -152,9 +152,6 @@ history/              Per-entity change logs (committed, long-term memory)
     A.6.1.1.1--spark/       Per-agent changelogs (8 agents tracked)
     A.6.1.1.2--grove/
     ...
-snapshots/            Committed time-series (irreproducible, do not delete)
-  delegation/         Daily delegation power snapshots
-  executive/          Daily hat/supporter snapshots + lifecycle.json
 plans/                Implementation plans and handoff docs
 scripts/
   core/
@@ -175,9 +172,9 @@ scripts/
   delegates/
     fetch-delegates.py          Fetch per-AD vote rationales via RSS
   voting/
-    fetch-voting-delegates.py   Delegation snapshots from vote.sky.money
+    fetch-voting-delegates.py   Delegation data from vote.sky.money
     fetch-voting-polls.py       Poll vote matrix from vote.sky.money
-    fetch-voting-executive.py   Hat/supporter snapshots from vote.sky.money
+    fetch-voting-executive.py   Hat/supporter data from vote.sky.money
     fetch-executive-proposals.py  Proposal lifecycle: fetch, parse, enrich, cleanup
     fetch-delegation-history.py Delegation lock/unlock event history
   market/
