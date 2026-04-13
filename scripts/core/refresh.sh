@@ -14,6 +14,14 @@ if [ ! -d "$REPO_DIR/.git" ]; then
     exit 1
 fi
 
+# --- Session briefing (reads cached data from PREVIOUS session) ---
+# Runs first, before any slow operations, so it prints to the terminal before
+# Claude Code's TUI starts rendering. Tee to /dev/tty makes it visible to the
+# user; stdout copy goes to Claude's additionalContext via the hook.
+if [ -f "$SCRIPT_DIR/session-briefing.py" ]; then
+    python3 "$SCRIPT_DIR/session-briefing.py" 2>/dev/null | tee /dev/tty || true
+fi
+
 # Clear ephemeral working files from previous session
 rm -f "$PROJECT_DIR"/tmp/pr-*.diff "$PROJECT_DIR"/tmp/pr-*-body.md 2>/dev/null
 
@@ -130,13 +138,6 @@ fi
 MARKET_DIR="$PROJECT_DIR/scripts/market"
 if [ -f "$MARKET_DIR/fetch-market.py" ]; then
     python3 "$MARKET_DIR/fetch-market.py" --quiet 2>/dev/null &
-fi
-
-# --- Session briefing (reads cached data from previous session) ---
-# Pipe through tee /dev/tty so the briefing is visible in the terminal immediately,
-# while stdout still goes to Claude's additionalContext via the hook.
-if [ -f "$SCRIPT_DIR/session-briefing.py" ]; then
-    python3 "$SCRIPT_DIR/session-briefing.py" 2>/dev/null | tee /dev/tty || true
 fi
 
 exit 0

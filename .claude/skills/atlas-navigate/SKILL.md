@@ -46,6 +46,17 @@ bash scripts/atlas/search-index.sh --prefix "A.6.1.1.1" --name "rate" --limit 20
 
 Output is tab-separated: `number  name  [type]  lines X-Y`
 
+### Search fallback strategy
+
+**Never retry the exact same query twice.** Atlas document names are often shorter than expected (e.g. the agent is called "Pattern", not "Pattern Agent"). If a search returns no results:
+
+1. **Break multi-word queries into single keywords** — try each word separately to find candidate documents
+2. **Try the most distinctive word only** — e.g. "Pattern Agent" → try "Pattern", then "Agent" if needed
+3. **Use `--prefix` if you suspect a path** — e.g. `--prefix A.6.1.1` to list all agents
+4. **Fall back to jq** for flexible matching across fields
+
+If none of the above return results, report that clearly rather than looping.
+
 ## Reading document content
 
 Use `scripts/atlas/read-section.sh` to extract content by line range:

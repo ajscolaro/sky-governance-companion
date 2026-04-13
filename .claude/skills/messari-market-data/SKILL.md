@@ -142,13 +142,31 @@ Example workflow: find USDS supply inflection points, then check `_log.md` and `
 
 ### Reading vote-matrix.json safely
 
-When reading poll data from `data/voting/polls/vote-matrix.json`, note these field types:
+**Root structure:** `{"last_updated": str, "poll_count": int, "polls": {poll_id: {...}, ...}}`
+
+Access polls via `data["polls"].values()`, not by iterating the root dict.
+
+Per-poll fields:
+- `title`, `start_date`, `end_date` — strings (dates are YYYY-MM-DD)
 - `tags` — always a list of **strings** (e.g., `["high-impact", "weekly"]`), never dicts
 - `poll_type` — string: `"atlas-edit"`, `"parameter-change"`, or `"other"`
 - `atlas_pr` — integer PR number (only on atlas-edit polls) or absent
 - `discussion_link`, `summary`, `poll_url` — strings, may be absent on older polls
 - `ad_votes` — dict of `{slug: {option, option_id, sky_weight, chain, timestamp}}`
 - `ad_non_voters` — list of slug strings
+
+### Reading lifecycle.json safely
+
+**Root structure:** `{"spells": {address: {...}, ...}}`
+
+Access spells via `data["spells"].values()`. Each spell has:
+- `date` — YYYY-MM-DD string (proposal date)
+- `events` — list of `{"type": "proposed"|"hat"|"cast"|"expired", "at": ISO timestamp}`
+- `actions` — list of `{"title": str, "authorization": str}`
+- `governance_polls` — list of poll ID integers
+- `atlas_prs` — list of `{"pr": int, "title": str, "merged": date_str}`
+
+**Coverage:** lifecycle.json starts ~May 2025. For earlier periods, use `history/_log.md` and poll data.
 
 ## Refreshing data
 
@@ -167,3 +185,12 @@ Requires `MESSARI_API_KEY` in `.env`. Without it, existing cached data is still 
 - **Don't call Messari MCP tools** (`get_timeseries`, `get_timeseries_catalog`, etc.) for data in the local db
 - **Don't read the old JSON files** in `data/voting/market/` — they are legacy, the db is the source of truth
 - **Don't assume `stablecoin_snapshot` has historical data** — it's current-day rankings only
+- **Don't web-search for market explanations** — attribute moves using local governance data or say the data doesn't cover it
+
+## Complementary skills
+
+This skill provides the *what* (price/supply data). For the *why*, use other skills:
+- `/governance-data` — spell lifecycle, poll results, delegation snapshots
+- `/forum-search` — governance discussion context around key dates
+- `/atlas-analyze` — what changed in a specific Atlas PR
+- `/atlas-navigate` — current Atlas document content
