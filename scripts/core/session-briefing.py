@@ -6,9 +6,9 @@ Reads cached data from disk (no API calls) to produce a startup summary:
   Tier 2 — What's ahead: active polls, pending spells, upcoming forum proposals
   Tier 3 — First-run orientation for new users (--first-run flag)
 
-Designed to run synchronously in refresh.sh after background fetches are kicked
-off — it reads data from the *previous* session's cache, same as the old
-governance-advisory.py it replaces.
+Runs in refresh.sh after voting data fetches complete, so polls, executive, and
+lifecycle data are fresh. Forum and market data may still be from the previous
+session (they refresh in the background after this script runs).
 """
 
 from __future__ import annotations
