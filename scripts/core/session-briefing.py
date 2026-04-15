@@ -6,9 +6,8 @@ Reads cached data from disk (no API calls) to produce a startup summary:
   Tier 2 — What's ahead: active polls, pending spells, upcoming forum proposals
   Tier 3 — First-run orientation for new users (--first-run flag)
 
-Runs in refresh.sh after voting data fetches complete, so polls, executive, and
-lifecycle data are fresh. Forum and market data may still be from the previous
-session (they refresh in the background after this script runs).
+Runs in refresh.sh after ALL data fetches complete in parallel, so every data
+source (polls, executive, lifecycle, forum, market, delegates) is fresh.
 """
 
 from __future__ import annotations
