@@ -24,7 +24,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -219,6 +219,7 @@ def process_poll(poll: dict, by_address: dict, all_slugs: set, ad_created: dict)
         "title": title,
         "start_date": (poll.get("startDate") or "")[:10],
         "end_date": (poll.get("endDate") or "")[:10],
+        "end_datetime": poll.get("endDate") or "",
         "tags": tags,
         "poll_type": poll_type,
         "result": result_label,
@@ -344,22 +345,33 @@ def main():
                     json.dump(tally, f, indent=2)
 
     else:
-        # Incremental mode: fetch active + recently completed polls not in matrix
+        # Incremental mode: fetch new polls + refresh active/recently ended
         if not args.quiet:
             print("Checking for new polls...")
 
         existing_ids = set(matrix["polls"].keys())
         active_ids = fetch_active_poll_ids()
-        new_ids = [pid for pid in active_ids if str(pid) not in existing_ids]
 
-        # Also check recent polls-with-tally page 1 for recently completed
+        # IDs to always refresh: currently active polls
+        refresh_ids = set(str(pid) for pid in active_ids)
+
+        # Also refresh polls that ended recently (tallies may have updated)
+        recent_cutoff = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%d")
+        for spid, poll_data in matrix["polls"].items():
+            if poll_data.get("end_date", "") >= recent_cutoff:
+                refresh_ids.add(spid)
+
+        # Fetch page 1 of all-polls-with-tally for new + refreshable polls
         try:
             data = api_get("/polling/all-polls-with-tally?page=1")
             for poll in data.get("polls", []):
                 pid = poll.get("pollId")
-                if pid and str(pid) not in existing_ids:
+                if not pid:
+                    continue
+                spid = str(pid)
+                if spid in refresh_ids or spid not in existing_ids:
                     processed = process_poll(poll, by_address, all_slugs, ad_created)
-                    matrix["polls"][str(pid)] = processed
+                    matrix["polls"][spid] = processed
 
                     tally = poll.get("tally", {})
                     if tally:

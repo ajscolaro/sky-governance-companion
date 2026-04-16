@@ -63,6 +63,10 @@ def yellow(text: str) -> str:
     return c("33", text)
 
 
+ATLAS_PR_URL = "https://github.com/sky-ecosystem/next-gen-atlas/pull/{}"
+POLL_URL = "https://vote.sky.money/polling/{}"
+
+
 # ---------------------------------------------------------------------------
 # Data loading
 # ---------------------------------------------------------------------------
@@ -134,7 +138,7 @@ def get_merged_prs_since(since: datetime) -> list[dict]:
 
 
 def get_lifecycle_events_since(lifecycle: dict | None, since: datetime) -> list[tuple]:
-    """Return (date, event_type, spell_title) tuples since `since`."""
+    """Return (date, event_type, spell_title, proposal_url) tuples since `since`."""
     if not lifecycle:
         return []
     since_str = since.strftime("%Y-%m-%dT%H:%M:%S")
@@ -147,9 +151,25 @@ def get_lifecycle_events_since(lifecycle: dict | None, since: datetime) -> list[
                     at[:10],
                     event["type"],
                     short_title(spell.get("title", ""), 60),
+                    spell.get("proposal_url", ""),
                 ))
     events.sort(reverse=True)
     return events
+
+
+def _poll_has_ended(poll: dict) -> bool:
+    """Check if a poll has ended using full timestamp if available."""
+    end_dt = poll.get("end_datetime", "")
+    if end_dt:
+        try:
+            end_time = datetime.fromisoformat(end_dt.replace("Z", "+00:00"))
+            return datetime.now(timezone.utc) >= end_time
+        except ValueError:
+            pass
+    # Fallback: treat end_date as ended if strictly before today
+    end = poll.get("end_date", "")
+    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return end < today_str
 
 
 def get_ended_polls_since(matrix: dict | None, since: datetime) -> list[dict]:
@@ -157,11 +177,10 @@ def get_ended_polls_since(matrix: dict | None, since: datetime) -> list[dict]:
     if not matrix:
         return []
     since_str = since.strftime("%Y-%m-%d")
-    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     results = []
     for pid, poll in matrix.get("polls", {}).items():
         end = poll.get("end_date", "")
-        if since_str <= end < today_str:
+        if since_str <= end and _poll_has_ended(poll):
             results.append({
                 "id": pid,
                 "title": poll.get("title", ""),
@@ -170,21 +189,31 @@ def get_ended_polls_since(matrix: dict | None, since: datetime) -> list[dict]:
                 "poll_type": poll.get("poll_type", ""),
                 "atlas_pr": poll.get("atlas_pr"),
                 "non_voters": poll.get("ad_non_voters", []),
+                "poll_url": poll.get("poll_url", ""),
             })
     results.sort(key=lambda x: x["end_date"], reverse=True)
     return results
 
 
-def get_market_moves(since: datetime) -> list[tuple]:
-    """Return (asset, pct_change, current_price) for significant movers."""
+def get_market_moves(since: datetime) -> list[tuple] | None:
+    """Return (asset, pct_change, current_price) tuples.
+
+    Ecosystem assets (SKY, SPK, USDS/sUSDS supply) are always shown.
+    Benchmarks (BTC, ETH) only appear if they moved >= MARKET_MOVE_THRESHOLD.
+    Returns None if market.db doesn't exist (no API key configured).
+    """
     if not MARKET_DB_FILE.exists():
-        return []
+        return None
     since_str = since.strftime("%Y-%m-%d")
     today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    # Ecosystem assets: always shown. Benchmarks: threshold-gated.
+    ecosystem_assets = ["sky", "spk"]
+    benchmark_assets = ["btc", "eth"]
+    supply_assets = ["usds", "susds"]
     moves = []
     try:
         conn = sqlite3.connect(str(MARKET_DB_FILE))
-        for asset in ["sky", "spk", "btc", "eth"]:
+        for asset in ecosystem_assets + benchmark_assets:
             row_then = conn.execute(
                 "SELECT close FROM daily WHERE asset = ? AND date >= ? "
                 "AND close IS NOT NULL ORDER BY date LIMIT 1",
@@ -197,76 +226,117 @@ def get_market_moves(since: datetime) -> list[tuple]:
             ).fetchone()
             if row_then and row_now and row_then[0]:
                 pct = ((row_now[0] - row_then[0]) / row_then[0]) * 100
-                if abs(pct) >= MARKET_MOVE_THRESHOLD:
+                is_ecosystem = asset in ecosystem_assets
+                if is_ecosystem or abs(pct) >= MARKET_MOVE_THRESHOLD:
                     moves.append((asset.upper(), pct, row_now[0]))
-        # Stablecoin supply change
-        for stable in ["usds"]:
+        # Supply: use mcap from daily table (Messari market data) for both
+        for stable in supply_assets:
             row_then = conn.execute(
-                "SELECT supply FROM stablecoin_snapshot WHERE asset = ? AND date >= ? "
-                "AND supply IS NOT NULL ORDER BY date LIMIT 1",
+                "SELECT mcap FROM daily WHERE asset = ? AND date >= ? "
+                "AND mcap IS NOT NULL ORDER BY date LIMIT 1",
                 (stable, since_str),
             ).fetchone()
             row_now = conn.execute(
-                "SELECT supply FROM stablecoin_snapshot WHERE asset = ? AND date <= ? "
-                "AND supply IS NOT NULL ORDER BY date DESC LIMIT 1",
+                "SELECT mcap FROM daily WHERE asset = ? AND date <= ? "
+                "AND mcap IS NOT NULL ORDER BY date DESC LIMIT 1",
                 (stable, today_str),
             ).fetchone()
             if row_then and row_now and row_then[0]:
                 pct = ((row_now[0] - row_then[0]) / row_then[0]) * 100
-                if abs(pct) >= MARKET_MOVE_THRESHOLD:
-                    moves.append((f"{stable.upper()} supply", pct, row_now[0]))
+                label = "sUSDS TVL" if stable == "susds" else f"{stable.upper()} supply"
+                moves.append((label, pct, row_now[0]))
         conn.close()
     except (sqlite3.Error, OSError):
         pass
-    # Sort by magnitude
-    moves.sort(key=lambda x: abs(x[1]), reverse=True)
     return moves
 
 
+def _section_header(title: str, since_label: str | None = None) -> None:
+    suffix = f" {dim(f'(since {since_label})')}" if since_label else ""
+    print(f"\n{bold(f'=== {title} ===')}{suffix}")
+
+
+def _print_market(moves: list[tuple] | None, since_label: str) -> bool:
+    if moves is None:
+        return False
+    _section_header("MARKET ACTIVITY", since_label)
+    if not moves:
+        print(dim("  no data in range"))
+        return True
+    parts = []
+    for asset, pct, price in moves:
+        direction = "+" if pct > 0 else ""
+        if "supply" in asset or "TVL" in asset:
+            parts.append(f"{asset} {direction}{pct:.1f}% (${price / 1e9:.1f}B)")
+        elif price >= 1000:
+            parts.append(f"{asset} {direction}{pct:.1f}% (${price:,.0f})")
+        else:
+            parts.append(f"{asset} {direction}{pct:.1f}% (${price:.4f})")
+    print(f"  {', '.join(parts)}")
+    return True
+
+
+def _print_polls(polls: list[dict], since_label: str) -> bool:
+    if not polls:
+        return False
+    _section_header("POLLS ENDED", since_label)
+    type_labels = {"atlas-edit": "text edit", "parameter-change": "param change"}
+    for p in polls[:MAX_RECENT_POLLS]:
+        tag = f" [{type_labels.get(p['poll_type'], '')}]" if p["poll_type"] in type_labels else ""
+        pr_num = p.get("atlas_pr")
+        pr_ref = f" -> PR #{pr_num}" if pr_num else ""
+        nv = f" | non-voters: {', '.join(p['non_voters'])}" if p["non_voters"] else ""
+        poll_url = POLL_URL.format(p['id'])
+        print(f"  Poll #{p['id']} ended {p['end_date']}: {p['result']}{tag}{pr_ref}{nv}")
+        print(f"    {dim(poll_url)}")
+    return True
+
+
+def _print_spell_events(events: list[tuple], since_label: str) -> bool:
+    if not events:
+        return False
+    _section_header("SPELL EVENTS", since_label)
+    for date, etype, title, proposal_url in events[:4]:
+        print(f"  Spell {etype}: {title} {dim(f'({date})')}")
+        if proposal_url:
+            print(f"    {dim(proposal_url)}")
+    return True
+
+
+def _print_merged_prs(merged: list[dict], since_label: str) -> bool:
+    if not merged:
+        return False
+    _section_header("MERGED PRS", since_label)
+    for pr in merged[:5]:
+        status_tag = dim(" [tracked]") if pr["status"] == "complete" else ""
+        print(f"  PR #{pr['pr']} merged {pr['merged']}: {short_title(pr['title'], 55)}{status_tag}")
+        print(f"    {dim(ATLAS_PR_URL.format(pr['pr']))}")
+    return True
+
+
 def print_whats_changed(since: datetime, lifecycle: dict | None, matrix: dict | None) -> bool:
-    """Print Tier 1 — what changed. Returns True if anything was printed."""
+    """Print Tier 1 — what changed, one section per update type.
+
+    Sections are emitted in this order: Market Activity, Polls Ended,
+    Spell Events, Merged PRs. Each is omitted if it has no data.
+    Returns True if anything was printed.
+    """
     merged = get_merged_prs_since(since)
     events = get_lifecycle_events_since(lifecycle, since)
     polls = get_ended_polls_since(matrix, since)
     moves = get_market_moves(since)
 
-    anything = merged or events or polls or moves
-    if not anything:
+    if not (merged or events or polls or moves is not None):
         return False
 
     since_label = since.strftime("%b %d")
-    print(f"\n{bold('=== SINCE LAST SESSION')} {dim(f'({since_label})')} {bold('===')}")
+    printed = False
+    printed |= _print_market(moves, since_label)
+    printed |= _print_polls(polls, since_label)
+    printed |= _print_spell_events(events, since_label)
+    printed |= _print_merged_prs(merged, since_label)
 
-    if merged:
-        for pr in merged[:5]:
-            status_tag = dim(" [tracked]") if pr["status"] == "complete" else ""
-            print(f"  PR #{pr['pr']} merged {pr['merged']}: {short_title(pr['title'], 55)}{status_tag}")
-
-    if events:
-        for date, etype, title in events[:4]:
-            print(f"  Spell {etype}: {title} {dim(f'({date})')}")
-
-    if polls:
-        type_labels = {"atlas-edit": "text edit", "parameter-change": "param change"}
-        for p in polls[:MAX_RECENT_POLLS]:
-            tag = f" [{type_labels.get(p['poll_type'], '')}]" if p["poll_type"] in type_labels else ""
-            pr_ref = f" -> PR #{p['atlas_pr']}" if p.get("atlas_pr") else ""
-            nv = f" | non-voters: {', '.join(p['non_voters'])}" if p["non_voters"] else ""
-            print(f"  Poll #{p['id']} ended {p['end_date']}: {p['result']}{tag}{pr_ref}{nv}")
-
-    if moves:
-        parts = []
-        for asset, pct, price in moves:
-            direction = "+" if pct > 0 else ""
-            if "supply" in asset:
-                parts.append(f"{asset} {direction}{pct:.1f}% (${price / 1e9:.1f}B)")
-            elif price >= 1000:
-                parts.append(f"{asset} {direction}{pct:.1f}% (${price:,.0f})")
-            else:
-                parts.append(f"{asset} {direction}{pct:.1f}% (${price:.4f})")
-        print(f"  Market: {', '.join(parts)}")
-
-    return True
+    return printed
 
 
 # ---------------------------------------------------------------------------
@@ -275,23 +345,20 @@ def print_whats_changed(since: datetime, lifecycle: dict | None, matrix: dict | 
 
 def print_whats_ahead(lifecycle: dict | None, matrix: dict | None) -> bool:
     """Print Tier 2 — active polls and pending spells. Returns True if printed."""
-    today = datetime.now(timezone.utc).date()
-    today_str = today.strftime("%Y-%m-%d")
-    anything = False
-
-    # Active polls
+    # Active polls — evaluated per-poll so a matrix can mix active and ended
     active_polls = []
     if matrix:
         for pid, poll in matrix.get("polls", {}).items():
-            end = poll.get("end_date", "")
-            if end >= today_str:
-                active_polls.append({
-                    "id": pid,
-                    "title": poll.get("title", ""),
-                    "end_date": end,
-                    "poll_type": poll.get("poll_type", ""),
-                    "non_voters": poll.get("ad_non_voters", []),
-                })
+            if _poll_has_ended(poll):
+                continue
+            active_polls.append({
+                "id": pid,
+                "title": poll.get("title", ""),
+                "end_date": poll.get("end_date", ""),
+                "poll_type": poll.get("poll_type", ""),
+                "non_voters": poll.get("ad_non_voters", []),
+                "poll_url": poll.get("poll_url", ""),
+            })
         active_polls.sort(key=lambda x: x["end_date"])
 
     # Pending spells
@@ -312,6 +379,7 @@ def print_whats_ahead(lifecycle: dict | None, matrix: dict | None) -> bool:
                 spell_date,
                 short_title(spell.get("title", ""), 60),
                 "hat, not yet cast" if is_hat else "proposed, not yet hat",
+                spell.get("proposal_url", ""),
             ))
         pending_spells.sort(reverse=True)
 
@@ -327,15 +395,17 @@ def print_whats_ahead(lifecycle: dict | None, matrix: dict | None) -> bool:
             tag = f" [{type_labels.get(p['poll_type'], '')}]" if p["poll_type"] in type_labels else ""
             nv = f" | not yet voted: {', '.join(p['non_voters'])}" if p["non_voters"] else ""
             print(f"    #{p['id']} {short_title(p['title'], 50)}{tag} (ends {p['end_date']}{nv})")
+            print(f"      {dim(POLL_URL.format(p['id']))}")
     else:
         print("  No active polls")
 
     if pending_spells:
-        for date, title, status in pending_spells[:3]:
+        for date, title, status, proposal_url in pending_spells[:3]:
             print(f"  Pending spell: {title} {dim(f'({date}, {status})')}")
+            if proposal_url:
+                print(f"    {dim(proposal_url)}")
 
-    anything = True
-    return anything
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -356,6 +426,8 @@ def print_forum_activity(since: datetime) -> bool:
     for p in recent[:MAX_FORUM_POSTS]:
         cat = dim(f"[{p.get('category', '')}]") if p.get("category") else ""
         print(f"  {p.get('published', '')} {p.get('title', '')[:65]} {cat}")
+        if p.get("url"):
+            print(f"    {dim(p['url'])}")
     if len(recent) > MAX_FORUM_POSTS:
         print(dim(f"  ... and {len(recent) - MAX_FORUM_POSTS} more. Use /forum-search to browse."))
     return True
@@ -416,6 +488,9 @@ def main():
     had_changes = print_whats_changed(since, lifecycle, matrix)
     had_ahead = print_whats_ahead(lifecycle, matrix)
     had_forum = print_forum_activity(since)
+
+    if not MARKET_DB_FILE.exists():
+        print(dim("\n  Set MESSARI_API_KEY in .env for price data."))
 
     if not had_changes and not had_ahead and not had_forum:
         since_label = since.strftime("%b %d")
