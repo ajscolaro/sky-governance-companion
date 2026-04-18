@@ -166,7 +166,7 @@ When writing entries:
 
 ## Changelog entry format
 
-The script generates a raw skeleton with document-level adds/modifies/deletes. **Your job is to rewrite the entry** into a useful record by reading the actual diff and current Atlas content. The goal: someone reading this changelog months from now should understand what *actually* changed without re-reading any diffs.
+The script generates a raw skeleton with document-level adds/modifies/deletes. **Your job is to rewrite the entry** into a terse, RAG-optimized record. The diff is the source of truth; this changelog is an index into it. Someone skimming for "what changed when" should be able to decide from the entry alone whether to pull up the diff.
 
 ### What to track closely (material changes)
 
@@ -189,54 +189,67 @@ These get a single line, not a detailed breakdown:
 - Pure renumbering (document shifted position, no content change)
 - Broken link fixes, forum URL updates
 
-### Target entry format
+### Including identifiers (UUIDs, paths, addresses)
+
+These are stable navigation anchors — include them where they make future cross-referencing cheaper, skip them where they add noise.
+
+- **UUIDs**: include for new entities (new instance, new primitive, new artifact) and for renumberings where the UUID is preserved (makes it clear the identity carried over). UUIDs are immutable across Atlas renumberings, so they're the most durable anchor for grep. Don't dump UUID lists for every touched document in a sweeping edit.
+- **Atlas paths** (`A.6.1.1.1.2.6.1...`): include when naming new entities — they give human-readable tree context. Fine to omit for well-known scopes.
+- **Contract addresses**: include only for genuinely new infrastructure (new ALM Controller, new Bridge, new Vault). Don't reproduce full multisig signer address lists or every touched contract.
+
+### Target entry format (RAG-optimized)
+
+Entries are short and grep-friendly. Include specific magnitudes, before→after values, and stable identifiers (UUIDs, paths) that aid retrieval. Skip address dumps, exhaustive parameter tables, and nested sub-bullets more than one level deep.
+
+**Substantive PR** (weekly edit, AEP, SAEP, spell recording):
 
 ```markdown
-## PR #219 — Atlas Edit Proposal — 2026-04-06
-**Merged:** 2026-04-07 | **Type:** Weekly edit (Atlas Axis)
+## PR #N — <Title>
+**Merged:** YYYY-MM-DD | **Type:** <governance path label>
 
 ### Material Changes
-- **Step 4 Capital allocation** restructured from flat split (80% Smart Burn / 20% Staking) to three-stage framework:
-  - Stage 0 (current): 37,600 USDS/day to buybacks via Smart Burn, staking rewards funded from SKY token reserves at 75% of prior cycle's Step 4 Capital, remainder to Surplus Buffer
-  - Stage 1: same buyback rate, staking from reserves drops to 50%, remainder to Surplus Buffer
-  - Stage 2: [specific details]
-  - Transition triggers: [thresholds if specified]
-- **Target Aggregate Backstop Capital**: 125M → 150M USDS, with Genesis Agent phase-out as aggregate grows
-- **Avalanche SkyLink Bridge** added: USDS/sUSDS bridge, 5M USDS/day rate limit, Freezer Multisig 0x4deb...f30 (2/5: Soter×2, Endgame Edge×2, Grove×1)
-- **Grove designated Avalanche Pioneer Prime**, added as Freezer Multisig signer
-- **Maple syrupUSDC Maximum Exposure** set to [value] per Risk Advisor recommendation
+- **<Thing>**: <terse before→after or key fact>
+- **<New entity/instance>** (`<Atlas path>`, UUID `<short>…<short>`): <1-line summary>
 
 ### Housekeeping
-- Scope Facilitator → Core Facilitator terminology (12 docs across A.0)
-- SubDAO Proxy → Prime Treasury in Spark grant docs
-- SLL/GLL abbreviations expanded to full names
+- <one-line summary, collapsed>
 
 ### Context
-The Avalanche expansion is the headline — three edits together (bridge, Grove as Pioneer Prime,
-distribution rewards) establish full operational presence. The staking rewards restructure is
-structurally significant: moving from a simple percentage split to a staged framework where
-the protocol's revenue distribution evolves as backstop capital grows.
+<0-2 sentences. Cross-reference prior PRs where obvious. Skip the section entirely if nothing worth saying.>
 
 ---
 ```
+
+**Trivial housekeeping PR** (whitespace, typos, renumbers, single-file cleanup):
+
+```markdown
+## PR #N — <Title>
+**Merged:** YYYY-MM-DD | **Type:** Housekeeping
+
+<1-2 sentences describing what was cleaned up and where.>
+
+---
+```
+
+Target length: 5-15 lines substantive, 3-5 lines trivial. If you catch yourself writing three-level bullet sub-lists or reproducing multisig signer rosters, you're over the bar — drop the detail and let the diff carry it.
 
 ### The rewrite process
 
 After `process-pr.sh` generates the skeleton:
 
 1. **Read the PR body** from `tmp/pr-<N>-body.md` to understand the intent and edit descriptions
-2. **Read the full diff** from `tmp/pr-<N>.diff` (already saved by the script)
-3. **Read the current Atlas baseline** for each affected section using `scripts/atlas/read-section.sh`
-4. **Identify the governance path**: is this a weekly edit (Atlas Axis), AEP, SAEP, or Risk Advisor action? Add a `**Type:**` line to the entry header.
-5. **Classify each change** as material or housekeeping
-6. **For material changes**: document the specific before→after values by comparing current Atlas vs diff
-7. **For housekeeping**: collapse into summary lines
-8. **Look up market context**: Run `python3 scripts/market/market-lookup.py --date <merge-date> --format context` to get the market environment, or `--window <date>` to see price behavior around the event. Include in the Context section where relevant — especially for material changes to parameters, capital allocation, or exposure limits.
-9. **Write the Context section** with cross-cutting interpretation
-10. **Replace the script's raw skeleton** with the rewritten entry
-11. **Update `_log.md`**: change the entry's status from `skeleton` to `complete`
+2. **Read the full diff** from `tmp/pr-<N>.diff` (already saved by the script). For huge diffs (>5000 lines), sample with `head -500` and lean on the body + `gh pr view <N> --repo sky-ecosystem/next-gen-atlas --json files`.
+3. **Identify the governance path** (weekly edit, AEP, SAEP, spell recording, etc. — see label table below)
+4. **Classify each change** as material or housekeeping
+5. **For material changes**: document specific before→after values from the diff. Only read the current Atlas baseline (`scripts/atlas/read-section.sh`) if the diff alone doesn't make the prior value clear.
+6. **For housekeeping**: collapse into one or two summary lines
+7. **(Optional) Market context**: For genuinely significant capital allocation, exposure, or framework changes, run `python3 scripts/market/market-lookup.py --date <merge-date> --format context` and weave the 1-line summary into the Context section. Skip for routine edits.
+8. **Write the Context section** (or skip if nothing interesting to say — don't pad)
+9. **Replace the script's raw skeleton** with the rewritten entry
+10. **Update `_log.md`**: change status from `skeleton` to `complete` and populate the "Sections Affected" column
+11. **Re-sort if needed**: `/atlas-track` appends new entries in processing order. If the parent changelog ends up out of order, run `python3 scripts/core/sort-changelogs.py` for a repo-wide chronological sort (most-recent-first).
 
-The script skeleton is a starting point, not the final product. The value of the changelog is in the material changes and context you write, not in the list of document numbers.
+The script skeleton is a starting point, not the final product. The value of the changelog is in terse, searchable material-change bullets with stable identifiers for navigation — not in exhaustive reconstruction of the diff.
 
 ### Governance path labels
 
@@ -245,12 +258,14 @@ Use these labels in the `**Type:**` field:
 | Label | When to use | Flow |
 |-------|-------------|------|
 | Weekly edit (Atlas Axis) | PR title matches "Atlas Edit Proposal — YYYY-MM-DD" | 1 (text edit) |
+| Weekly edit (out-of-schedule) | Weekly-style edit merged outside the normal Axis cadence | 1 (text edit) |
 | AEP-N | PR references a formal Atlas Edit Proposal | 1 (text edit) |
-| SAEP-N (Spark proposal) | Spark agent edit proposal | 1 (text edit) |
+| SAEP-N (Spark proposal) | Formal numbered Spark Atlas Edit Proposal | 1 (text edit) |
+| Spark proposal (<descriptor>) | Informal (non-SAEP) Spark-initiated proposal — e.g., "Spark proposal (new SLL instance)", "Spark proposal (risk parameter update)" | 1 (text edit) |
 | Risk Advisor action | Changes citing Risk Advisor recommendation | 1 (text edit) |
-| Spell recording (date) | PR title contains "spell changes" or "executive changes" | 2 (on-chain) |
+| Spell recording (YYYY-MM-DD) | PR title contains "spell changes" or "executive changes"; date is the spell cast date (from the title, not the merge date) | 2 (on-chain) |
 | Housekeeping | Pure formatting, linting, URL fixes | 1 (admin) |
-| Agent proposal (agent name) | Other agent-specific proposals | 1 (text edit) |
+| Agent proposal (agent name) | Informal agent-initiated proposals from agents other than Spark | 1 (text edit) |
 
 ## Complementary skills
 

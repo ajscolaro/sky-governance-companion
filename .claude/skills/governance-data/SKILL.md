@@ -28,7 +28,7 @@ The voting portal API returns public blockchain data. This is lower risk than fo
 
 ## Quick lookup: governance events in a date range
 
-When spawned as a parallel agent to find "what governance happened around date X", use this pattern instead of running fetch scripts (data is already cached on session start):
+When spawned as a parallel agent to find "what governance happened around date X", use this pattern instead of running fetch scripts (data is cached by `/refresh`):
 
 ```python
 import json

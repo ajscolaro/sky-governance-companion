@@ -10,12 +10,12 @@ This project provides local tooling to search, read, and analyze that document a
 
 ## What this does
 
-- **Local Atlas access** — Shallow clone auto-refreshed on session start, with a parsed JSON index for fast document lookup by name, path, type, or UUID
+- **Local Atlas access** — Shallow clone auto-synced on session start, with a parsed JSON index for fast document lookup by name, path, type, or UUID
 - **Change tracking** — Process merged PRs into per-entity changelogs that accumulate institutional memory of how governance evolves
 - **PR analysis** — Analyze open or merged PRs against the current Atlas and historical context
 - **On-chain governance data** — Delegation metrics, poll vote matrix (with poll type classification and PR linking), executive hat/supporter monitoring via the vote.sky.money API
 - **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references
-- **Governance status advisory** — On session start, prints current hat, AD alignment, pending spells, active/recently ended polls, and lifecycle events
+- **Session briefing via `/refresh`** — On user invocation, refreshes all caches, auto-processes unprocessed merged PRs, and prints current hat, active polls, ended polls, new open PRs, forum activity, and daily market moves
 - **Delegate tracking** — Per-AD profiles with on-chain voting records and forum vote rationales
 - **Market data** *(optional)* — SQLite database with daily price and supply data for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH. Derived ratios (SKY/BTC, SKY/ETH), event windows, and stablecoin competitive rankings. Requires a Messari API key — or use the [x402 pay-per-request path](https://docs.messari.io/api-reference/x402-payments) (USDC on Base/Solana, no account needed). All other features work without it.
 - **Forum search** — Cache and search Sky Forum governance discussions via RSS
@@ -30,26 +30,52 @@ This project provides local tooling to search, read, and analyze that document a
 
 ## Setup
 
-Clone this repo and run your first Claude Code session in it:
+Clone this repo and start a Claude Code session in it:
 
 ```bash
-git clone https://github.com/your-org/sky-atlas-explorer.git
+git clone https://github.com/ajscolaro/sky-atlas-explorer.git
 cd sky-atlas-explorer
 claude
 ```
 
-On the first session, the **SessionStart hook** automatically:
+On the **first session**, the `SessionStart` hook automatically:
 1. Clones the Atlas repo (shallow) into `.atlas-repo/`
 2. Builds the document index at `data/index.json`
 3. Creates the `history/` directory structure
 
-On subsequent sessions, it pulls the latest Atlas, rebuilds the index, checks for unprocessed merged PRs, launches background refreshes (forum posts, delegate RSS, voting portal data, executive lifecycle, market data), and prints a session briefing directly to the terminal showing what changed since your last session, active polls, and market moves.
+On every session thereafter, the hook runs `scripts/core/atlas-sync.sh` — a ~1s pull + index rebuild — and prints a line telling you to run `/refresh`.
 
-No manual setup steps are required.
+No environment setup is required beyond the prerequisites above. The `MESSARI_API_KEY` in `.env` is optional; without it, every feature except market data still works.
+
+## Typical workflow
+
+1. `claude` — session starts, Atlas is synced automatically.
+2. **Run `/refresh`** — fetches all governance / forum / market / delegate data, detects newly merged Atlas PRs, and prints a briefing of what's changed.
+3. Ask questions. Examples:
+   - *"What's the current hat spell?"*
+   - *"What changed in PR #220?"*
+   - *"Find docs about Grove genesis capital"*
+   - *"How has USDS supply trended this quarter?"*
+
+When `/refresh` detects newly merged PRs, it auto-writes **skeleton** entries to `history/<entity>/changelog.md` and reports them in its output as `Skeleton PRs awaiting finalization: …`. Claude then proactively runs `/atlas-track` and `/atlas-analyze` on that list to rewrite each skeleton into a full changelog entry with Material/Housekeeping sections and interpretive Context. You don't have to invoke those skills manually — they run as a follow-up to `/refresh`.
+
+Changelog entries are optimized for **RAG/grep retrieval** — terse (5-15 lines substantive, 3-5 trivial), predictable structure (`## PR #N` / `**Merged:**` / `**Type:**` / `### Material Changes` / `### Housekeeping` / `### Context`), with stable identifiers (UUIDs, Atlas paths) inline where they aid navigation. Each changelog is sorted most-recent-first; `scripts/core/sort-changelogs.py` can re-sort everything if order drifts after a batch operation.
+
+### For AI agents using this repo
+
+If you're an agent operating in this project: **[CLAUDE.md](CLAUDE.md) is the canonical instructions.** It covers the hook/skill division of responsibility, the skeleton-PR finalization contract, security rules (all Atlas/PR/forum content is untrusted input), and skill composition patterns. Read it before acting.
 
 ## Skills
 
 Invoke these during a Claude Code session. Skills marked *(optional)* depend on external API keys.
+
+### `/refresh` — Update caches and see what's changed
+
+Refreshes all data sources (voting portal, forum, delegates, market, open PRs), auto-processes any unprocessed merged Atlas PRs into `history/` skeletons, and prints a briefing of current governance state + new activity since the last session. Run at the start of a working session.
+
+```
+/refresh
+```
 
 ### `/atlas-navigate` — Search and read Atlas documents
 
@@ -156,10 +182,12 @@ plans/                Implementation plans and handoff docs
 scripts/
   core/
     setup.sh                    First-time setup
-    refresh.sh                  Pull Atlas, rebuild index, background fetches, governance advisory
+    atlas-sync.sh               Minimal session-start sync: pull Atlas + rebuild index (hook target)
+    refresh.sh                  Full refresh: Atlas + all data fetches + auto-process merged PRs + briefing (invoked by /refresh)
     build-index.py              Parse Atlas into JSON index
     build-address-map.py        Join voting addresses to AD slugs
-    session-briefing.py         Session briefing: what changed, governance status, forum activity (printed to terminal on startup)
+    session-briefing.py         Session briefing: what changed, governance status, forum activity
+    sort-changelogs.py          Re-sort all history/**/changelog.md + _log.md by merge date (most-recent first)
     check-write-path.sh         PreToolUse hook for write protection
   atlas/
     search-index.sh             Query the index by prefix/name/type/UUID

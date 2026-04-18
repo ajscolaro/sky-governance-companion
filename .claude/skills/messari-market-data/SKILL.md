@@ -170,7 +170,7 @@ Access spells via `data["spells"].values()`. Each spell has:
 
 ## Refreshing data
 
-Data is fetched automatically on session start (`scripts/market/fetch-market.py`). To manually refresh:
+Data is fetched when the user runs `/refresh` (`scripts/market/fetch-market.py`). To manually refresh just market data:
 ```bash
 python3 scripts/market/fetch-market.py              # incremental (new days only)
 python3 scripts/market/fetch-market.py --backfill    # full history

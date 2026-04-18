@@ -18,9 +18,9 @@ If `data/index.json` doesn't exist, run setup first:
 bash scripts/core/setup.sh
 ```
 
-If the Atlas may be stale (hasn't been refreshed recently), refresh:
+If the Atlas may be stale (hasn't been refreshed recently), re-sync:
 ```bash
-bash scripts/core/refresh.sh
+bash scripts/core/atlas-sync.sh
 ```
 
 ## Searching for documents

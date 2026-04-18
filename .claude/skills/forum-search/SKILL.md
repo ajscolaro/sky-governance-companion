@@ -2,7 +2,7 @@
 name: forum-search
 description: >
   Search and read cached Sky Forum governance discussions by keyword,
-  author, category, or date. Forum data is fetched on session start.
+  author, category, or date. Forum data is fetched when the user runs `/refresh`.
 argument-hint: "<search term, topic ID, or 'recent'>"
 allowed-tools: Read, Grep, Glob
 ---

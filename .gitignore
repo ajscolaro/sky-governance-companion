@@ -15,11 +15,22 @@ tmp/
 # Session-specific plan files
 .claude/plans/
 
+# Per-user Claude Code overrides (permissions, env, etc.)
+.claude/settings.local.json
+
+# Claude Code debug logs
+.claude/debug/
+
 # Internal plans and notes
 plans/
 
 # Per-user session timestamp
 .last-session
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
 
 # OS files
 .DS_Store

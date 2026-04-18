@@ -13,7 +13,16 @@ Both flows produce PRs in the same repo. See `docs/governance-reference.md` for 
 
 ## Session startup
 
-If the startup hook reports unprocessed PRs, **proactively process all of them** with `/atlas-track` then `/atlas-analyze` before doing other work.
+Responsibilities are split:
+
+- **SessionStart hook** (`scripts/core/atlas-sync.sh`) — pulls the latest Atlas and rebuilds `data/index.json` + address map. This is the only thing that touches `.atlas-repo/`; Claude's sandbox denies writes there.
+- **`/refresh` skill** (`scripts/core/refresh.sh`) — user-invoked. Refreshes all data caches (voting, forum, delegates, market, open PRs), auto-processes any unprocessed merged PRs into `history/` skeletons, then prints the session briefing.
+
+`/refresh` does **not** re-sync the Atlas. If the user needs fresh Atlas commits mid-session, they should restart Claude.
+
+A **skeleton** is a merged PR whose raw changes are recorded in `history/` but whose Material/Housekeeping/Context sections haven't been written. Only merged PRs ever become skeletons.
+
+If the `/refresh` output shows `Skeleton PRs awaiting finalization: <numbers>`, **proactively run `/atlas-track` then `/atlas-analyze`** on that list to finalize them, before doing other work. If the line reads `(5 most recent of N)` with N > 5, a backlog has accumulated across sessions — don't auto-finalize; just flag the count and let the user decide whether to batch-process.
 
 ## Project layout
 
@@ -25,6 +34,7 @@ If the startup hook reports unprocessed PRs, **proactively process all of them**
 - `data/voting/executive/proposals/` — transient processing cache for executive proposals; files are fetched, parsed, distilled into `lifecycle.json`, then auto-deleted (gitignored)
 - `data/voting/executive/lifecycle.json` — spell lifecycle (gitignored, rebuilt from API). Structure: `spells` dict keyed by address, each with `title`, `date`, `key`, `events` (proposed/hat/cast/expired), `actions` (high-level descriptions only — specific parameter values like amounts and rates are deliberately excluded), `governance_polls`, `atlas_prs`, `proposal_url`. For detailed parameters, fetch the full proposal text via `proposal_url`
 - `data/market.db` — SQLite database of daily price/mcap data (gitignored, rebuilt from Messari API). **Never write raw SQL** — use `MarketDB` class (`from market import MarketDB`) or the CLI (`scripts/market/market-lookup.py`), or invoke `/messari-market-data`. Schema: table `daily` (date, asset, close, mcap), table `stablecoin_snapshot` (date, asset, supply). There is no `daily_prices` table, no `volume` column
+- `data/github/open-prs.json` — cached open (non-draft) PRs from next-gen-atlas (gitignored, fetched on refresh) — used by session briefing to surface upcoming proposals
 - `delegates/` — per-AD profiles and vote rationale logs (committed)
 - `docs/governance-reference.md` — shared governance context (roles, processes, contracts) — read this when analyzing PRs
 - `docs/data-catalog.md` — master index of all data directories, sources, and refresh behavior
@@ -38,7 +48,9 @@ If the startup hook reports unprocessed PRs, **proactively process all of them**
 
 Changes are tracked per-scope in `history/` with changelogs routed by the most specific matching prefix in `entity-routing.conf`. Agents have their own subdirectories under `A.6--agents/`. The directory may be incomplete — new agents can be added via governance at any time.
 
-**Entry format:** `## PR #N — Title` header, `**Merged:** date | **Type:** governance-path` metadata, then `### Material Changes` (parameter changes, capital allocation, new entities, authority changes) and/or `### Housekeeping` (renames, linting, renumbering), then `### Context` (interpretation and market environment). Governance path labels: "Weekly edit (Atlas Axis)", "AEP-N", "SAEP-N", "Spell recording". Use `/atlas-track` for full schema and rules.
+**Entry format:** entries are optimized for RAG / grep retrieval — terse, self-contained, predictable structure. `## PR #N — Title` header, `**Merged:** date | **Type:** governance-path` metadata, then `### Material Changes` (specific before→after values for parameter changes, capital allocation, new entities, authority changes) and/or `### Housekeeping` (renames, linting, renumbering, collapsed to one line), then `### Context` (1-2 sentences max — skip if nothing worth saying). Trivial housekeeping PRs (whitespace, typos) collapse to a single 1-2 sentence block with no subsections. No address dumps, no UUID lists — the diff is the source of truth, the changelog is an index into it. Governance path labels: "Weekly edit (Atlas Axis)", "AEP-N", "SAEP-N (Spark proposal)", "Spell recording (date)", "Housekeeping". Target length: 5-15 lines substantive, 3-5 trivial. See `/atlas-track` for full schema.
+
+**Ordering:** each changelog is sorted most-recent-first (by merge date). `/atlas-track` handles sort on insert; `scripts/core/sort-changelogs.py` can re-sort everything if order drifts.
 
 ## Skills and how to compose them
 
@@ -46,6 +58,7 @@ Skills are narrowly scoped — each handles one domain. For questions that span 
 
 | Skill | Domain | When to use |
 |-------|--------|-------------|
+| `/refresh` | Refresh all caches + auto-process merged PRs + briefing | Start of a working session; "what's changed?" |
 | `/messari-market-data` | Price, supply, ratios, stablecoin rankings | Quantitative market analysis |
 | `/atlas-navigate` | Atlas document search and reading | "What does the Atlas say about X?" |
 | `/atlas-analyze` | PR diff analysis and impact assessment | "What changed in PR #N?" |

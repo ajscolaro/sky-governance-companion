@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && if [ -d .atlas-repo/.git ]; then bash scripts/core/refresh.sh 2>&1; else bash scripts/core/setup.sh 2>&1; fi"
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && if [ -d .atlas-repo/.git ]; then bash scripts/core/atlas-sync.sh 2>&1; else bash scripts/core/setup.sh 2>&1; fi"
           }
         ]
       }

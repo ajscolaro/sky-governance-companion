@@ -5,57 +5,28 @@ Atlas path: `A.6.1.1.4` (722 docs)
 ---
 
 ## PR #186 — 2026-02-16 AEW proposal
-**Merged:** 2026-02-22 | **+2119/-158 lines**
+**Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 
-### Raw Changes (rewrite with /atlas-track)
-- **Added** `A.6.1.1.4.2.5.2.2.2.3.1` - Initial Planning [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.2.3` - Emergency Protocol [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.3.3` - Artifact Edit Proposal [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.6` - Integration Boost Data Submission Responsible Actor [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.2.2` - Non-Routine Protocol [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.2.2` - Non-Routine Protocol [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1` - Parameters [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.2.3` - Emergency Protocol [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.7` - Integration Boost Savings Rate Adjustment Strategy [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.4` - Integration Boost Cadence [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.1` - Integration Partner Name [Core]
-- **Added** `A.6.1.1.4.2.5.2.1.2.2` - Curve Instance Configuration Document Location [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.1` - Integration Partner Name [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.4` - Integration Boost Cadence [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.3.3` - Artifact Edit Proposal [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.3.2` - Operational GovOps Review [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.2.1` - Routine Protocol [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.2` - Operational Process Definition [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.3.4.0.6.1` - List Of Integration Boost Payments [Active Data]
-- **Added** `A.6.1.1.4.2.5.2.2.2.2` - Operational Process Definition [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.3.4` - Integration Boost Payments [Active Data Controller]
-- **Added** `A.6.1.1.4.2.5.2.2.3.3` - Date Repository [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.5` - Integration Boost Data Submission Format [Core]
-- **Added** `A.6.1.1.4.2.5.2.1.2.3` - Morpho Instance Configuration Document Location [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.5` - Integration Boost Data Submission Format [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.3.4.0.6.1` - List Of Integration Boost Payments [Active Data]
-- **Added** `A.6.1.1.4.2.5.2.2.3.2.1.1` - Agent Customizations [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.2` - Integration Partner Reward Address [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3` - Morpho Instance Configuration Document [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.3.2` - Operational GovOps Review [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.2.1.1` - Agent Customizations [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.2.1` - Routine Protocol [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.3` - Data Repository [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.3.4` - Integration Boost Payments [Active Data Controller]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.6` - Integration Boost Data Submission Responsible Actor [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.3` - Integration Partner Chain [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.7` - Integration Boost Savings Rate Adjustment Strategy [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.8` - Custom Instance Parameters [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.8` - Custom Instance Parameters [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.3.1` - Initial Planning [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2` - Curve Instance Configuration Document [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.2.1.2` - Integration Partner Reward Address [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1.3` - Integration Partner Chain [Core]
-- **Added** `A.6.1.1.4.2.5.2.2.3.1` - Parameters [Core]
+### Material Changes
 
-<!-- REWRITE THIS ENTRY: Read the diff and current Atlas to classify changes as
-     Material (with before→after values) vs Housekeeping (one-line summaries).
-     Replace this section with ### Material Changes and ### Housekeeping.
-     See /atlas-track skill for the target format. -->
+- **New instance: Curve Integration Boost** (`A.6.1.1.4.2.5.2.2.2`, new Instance Configuration Document): onboards the Curve Finance integration
+  - Integration Partner: Curve; Reward Address: `0xa7843f843d29ca33ba48d9d1335b774eecc328dc`; Chain: Ethereum Mainnet
+  - Cadence: **weekly**; Data Submission Responsible Actor: **Core Council Risk Advisor**
+  - Data endpoint: `https://info-sky.blockanalitica.com/api/v1/incentivized-pools/`
+  - Savings Rate Adjustment: per-block values for USDS in Curve vs. Sky Savings Rate
+  - Inherits base routine protocol from `A.2.2.8.1.2.4.1`; no agent-specific customizations
+- **New instance: Morpho Integration Boost** (`A.6.1.1.4.2.5.2.2.3`, new Instance Configuration Document): onboards the Morpho integration
+  - Integration Partner: Morpho; Reward Address: `0xa7843f843d29ca33ba48d9d1335b774eecc328dc` (same as Curve)
+  - Chain: Ethereum Mainnet; Cadence: **weekly**; Data Submission Responsible Actor: Core Council Risk Advisor
+  - Same data endpoint as Curve; same per-block-USDS-vs-SSR adjustment strategy
+  - No customizations; Integration Boost Payments Active Data list initialized empty
+
+### Housekeeping
+
+- Added Instance Configuration Document Location pointers at `A.6.1.1.4.2.5.2.1.2.2` (Curve) and `A.6.1.1.4.2.5.2.1.2.3` (Morpho) in the Active Instances Directory
+
+### Context
+
+Skybase's Integration Boost Primitive grows from a single Euler instance to three with the addition of Curve and Morpho — the two largest DeFi venues for USDS liquidity after Aave. The shared reward address across Curve and Morpho suggests a common distribution contract, and the Core Council Risk Advisor is designated Data Submission Responsible Actor for both, consistent with the role's scope established by PR #89. Operational logic is entirely inherited from the Sky Core base class, meaning rate-adjustment methodology is uniform across Skybase's Integration Boost instances. The empty Integration Boost Payments lists indicate the instances are configured but not yet paying out at merge. SKY ~$0.065, USDS supply ~$9.9B at merge.
 
 ---

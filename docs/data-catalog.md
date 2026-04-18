@@ -6,34 +6,37 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 
 | Directory | Source | Committed | Refresh Trigger | Script |
 |-----------|--------|-----------|-----------------|--------|
-| `data/index.json` | Atlas parse | No | Every session | `scripts/core/build-index.py` |
-| `data/voting/address-map.json` | Delegate profiles | No | Every session | `scripts/core/build-address-map.py` |
-| `data/forum/` | Forum RSS | No | Every session (bg) | `scripts/forum/fetch-forum.py` |
-| `data/delegates/` | Per-AD forum RSS | No | Every session (bg) | `scripts/delegates/fetch-delegates.py` |
-| `data/voting/delegates/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-delegates.py` |
-| `data/voting/polls/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-polls.py` |
-| `data/voting/executive/` | vote.sky.money API | No | Every session (bg) | `scripts/voting/fetch-voting-executive.py` |
-| `data/voting/executive/proposals/` | sky-ecosystem/executive-votes repo | No | Every session (bg) | `scripts/voting/fetch-executive-proposals.py` |
-| `data/market.db` | Messari API *(optional)* | No | Every session (bg, if API key set) | `scripts/market/fetch-market.py` |
+| `data/index.json` | Atlas parse | No | Session start (hook) + `/refresh` | `scripts/core/build-index.py` |
+| `data/voting/address-map.json` | Delegate profiles | No | Session start (hook) + `/refresh` | `scripts/core/build-address-map.py` |
+| `data/forum/` | Forum RSS | No | `/refresh` | `scripts/forum/fetch-forum.py` |
+| `data/delegates/` | Per-AD forum RSS | No | `/refresh` | `scripts/delegates/fetch-delegates.py` |
+| `data/voting/delegates/` | vote.sky.money API | No | `/refresh` | `scripts/voting/fetch-voting-delegates.py` |
+| `data/voting/polls/` | vote.sky.money API | No | `/refresh` | `scripts/voting/fetch-voting-polls.py` |
+| `data/voting/executive/` | vote.sky.money API | No | `/refresh` | `scripts/voting/fetch-voting-executive.py` |
+| `data/voting/executive/proposals/` | sky-ecosystem/executive-votes repo | No | `/refresh` | `scripts/voting/fetch-executive-proposals.py` |
+| `data/market.db` | Messari API *(optional)* | No | `/refresh` (if API key set) | `scripts/market/fetch-market.py` |
+| `data/github/open-prs.json` | GitHub API (next-gen-atlas open PRs) | No | `/refresh` | `scripts/github/fetch-open-prs.sh` |
 | `data/voting/delegation-history/` | vote.sky.money API | No | On-demand | `scripts/voting/fetch-delegation-history.py` |
-| `data/voting/executive/lifecycle.json` | vote.sky.money API + executive-votes repo | No | Every session | `scripts/voting/fetch-executive-proposals.py` |
+| `data/voting/executive/lifecycle.json` | vote.sky.money API + executive-votes repo | No | `/refresh` | `scripts/voting/fetch-executive-proposals.py` |
 | `delegates/` | Processed forum data | **Yes** | On `/ad-track` or `/governance-data enrich` | Agent-driven |
-| `history/` | Processed PR data | **Yes** | On `/atlas-track` | Agent-driven |
+| `history/` | Processed PR data | **Yes** | Auto-skeleton on `/refresh`; finalized by `/atlas-track` | Agent-driven |
 
 ## Key concepts
 
-- **Gitignored (`data/`):** Reproducible caches rebuilt from external sources on each session. Safe to delete.
+- **Gitignored (`data/`):** Reproducible caches rebuilt from external sources. Safe to delete.
 - **Optional (`data/market.db`):** Requires `MESSARI_API_KEY` in `.env` to populate. All other features work without it. Query via `scripts/market/market.py` (`MarketDB` class), never raw SQL.
-- **Committed (`delegates/`, `history/`):** Curated institutional memory. Agent-processed, human-reviewed.
+- **Committed (`delegates/`, `history/`):** Curated institutional memory. Agent-processed, human-reviewed. Changelog entries in `history/` are optimized for RAG/grep retrieval (terse, predictable `## PR #N` / `**Merged:**` / `**Type:**` structure with inline UUIDs and Atlas paths); sorted most-recent-first via `scripts/core/sort-changelogs.py`.
 
 ## Refresh chain
 
-On session start, `scripts/core/refresh.sh` runs:
-1. Atlas pull + index rebuild (blocking)
-2. Address map rebuild (blocking)
-3. Unprocessed PR check (blocking)
-4. Background fetches (non-blocking): forum, delegate RSS, voting delegates, voting polls, voting executive, market data
-5. Session briefing (blocking, reads cached data from previous session — prints to terminal)
+**On session start (automatic, fast):** `scripts/core/atlas-sync.sh` pulls the latest Atlas, rebuilds `data/index.json` and the address map. Nothing else.
+
+**On `/refresh` (user-invoked):** `scripts/core/refresh.sh` runs:
+1. Parallel fetches: forum, delegate RSS, voting delegates/polls/executive, market data, open PRs, unprocessed-PR discovery
+2. Auto-process any unprocessed merged PRs via `scripts/atlas/process-pr.sh` (writes skeleton entries to `history/`)
+3. Session briefing (reads fresh data, prints sections with content only)
+
+`/refresh` does **not** re-sync the Atlas git repo or rebuild the index — that's owned by the SessionStart hook. If the user needs fresh Atlas commits mid-session, restart Claude to re-trigger the hook.
 
 Background fetches always exit 0 — failures are advisory, not blocking.
 

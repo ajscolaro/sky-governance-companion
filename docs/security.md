@@ -52,7 +52,7 @@ AD vote rationales are fetched from per-thread Discourse RSS feeds (`{thread_url
 
 ### Fetch/process separation
 
-Raw RSS is fetched during `refresh.sh` (background, non-blocking) and stored as sanitized JSON in `data/delegates/{slug}/`. Claude only reads this cached data when the user invokes `/ad-track` — untrusted content never enters the agent's context automatically.
+Raw RSS is fetched when the user invokes `/refresh` (which runs `scripts/core/refresh.sh` in background, non-blocking) and stored as sanitized JSON in `data/delegates/{slug}/`. Claude only reads this cached data when the user invokes `/ad-track` — untrusted content never enters the agent's context automatically.
 
 ### Author filtering
 
