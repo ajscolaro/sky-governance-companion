@@ -4,6 +4,40 @@ Atlas path: `A.6` — Changes not scoped to a specific agent
 
 ---
 
+## PR #176 — 2026-02-02 Edit
+**Merged:** 2026-02-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Launch Agent 5 renamed to Pattern** throughout agent scope and cross-references in the Atlas.
+
+### Context
+Public-name reveal for LA5. See pattern changelog. Rename-only backfill — full PR content not processed.
+
+---
+
+## PR #167 — 2026-01-19 edit
+**Merged:** 2026-01-22 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Launch Agent 3 renamed to Skybase** throughout agent scope and cross-references in the Atlas.
+- Ecosystem Accord 7 (Sky and Skybase) added alongside new Ecosystem Accords 5 and 6 — see A.2 changelog if/when processed.
+
+### Context
+Public-name reveal for LA3. See skybase changelog. Rename-only backfill — full PR content not processed.
+
+---
+
+## PR #121 — Nov 24 Atlas edit
+**Merged:** 2025-11-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Launch Agent 4 renamed to Obex** throughout agent scope and cross-references in the Atlas (Ecosystem Accord 4 parties, Initial Allocation, Pioneer Primes list, all LA4 references).
+
+### Context
+Public-name reveal for LA4. See obex changelog. Rename-only backfill — full PR content not processed.
+
+---
+
 ## PR #107 — OOS Atlas Edit
 **Merged:** 2025-11-10 | **Type:** Weekly edit (out-of-schedule)
 
@@ -12,6 +46,17 @@ Atlas path: `A.6` — Changes not scoped to a specific agent
 
 ### Context
 Records the Ecosystem Accord link in Launch Agent 4's Artifact. See A.2 and A.4 changelogs for the full Accord terms and capital allocation.
+
+---
+
+## PR #66 — 2025-10-06 Weekly Edit Proposal
+**Merged:** 2025-10-09 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Launch Agent 2 renamed to Keel** throughout agent scope and cross-references in the Atlas; **Matariki Labs** introduced as Keel's operating company.
+
+### Context
+Public-name reveal for LA2 — HTML-era PR; the HTML→Markdown migration in PR #117 carried the "Keel" name forward. See keel changelog. Rename-only backfill — full PR content not processed.
 
 ---
 

@@ -56,3 +56,14 @@ The Solana Instance Configuration Document formalizes what was previously only e
 Raising the Freezer threshold from 2/4 to 2/5 while specifying actual signer identities (Amatsu, Endgame Edge, Keel) formalizes Keel's emergency governance structure. The 2/5 threshold with five named signer groups mirrors other Freezer Multisig configurations used across agents in this era.
 
 ---
+
+## PR #66 — 2025-10-06 Weekly Edit Proposal
+**Merged:** 2025-10-09 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Launch Agent 2 renamed to Keel** throughout the Atlas: agent Artifact header (A.6.1.1.3), full Primitives scaffold, Ecosystem Accord 3 parties and all sub-provisions (Liquidity Bootstrapping transfer, Pre-Pioneer Incentive Pool, Use of Idle Funds, development expenses clause), Pioneer Primes list, and forum references. Keel's operating company introduced as **Matariki Labs**.
+
+### Context
+Public-name reveal for Launch Agent 2 — parallels the Grove (LA1) rename in PR #22. Atlas was still in HTML format at this point (HTML→MD migration came later in PR #117). Rename-only backfill — the rest of this PR's content has not been processed in detail.
+
+---

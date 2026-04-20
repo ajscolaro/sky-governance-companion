@@ -32,10 +32,11 @@ if [ -f "$SCRIPT_DIR/build-address-map.py" ]; then
     python3 "$SCRIPT_DIR/build-address-map.py" >/dev/null 2>&1 || true
 fi
 
-# Emit the summary to both stdout (Claude's context via system-reminder) and
-# /dev/tty (so the user sees it in their terminal). The SessionStart hook only
-# propagates stdout to Claude; the user-visible terminal needs the tty write.
+# Emit the summary to both stdout (Claude's context via SessionStart hook) and
+# /dev/tty (user-visible in terminal). The leading blank lines pad the tty
+# write up into the scrollback so the TUI input prompt doesn't overwrite it.
 {
+    printf '\n\n\n'
     echo "Atlas synced: $LATEST_SHA ($LATEST_MSG)"
     echo "Run /refresh to update governance/market/forum data and see what's changed."
 } | tee /dev/tty

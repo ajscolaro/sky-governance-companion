@@ -125,17 +125,95 @@ for PR_NUM in "$@"; do
     # Collect changes grouped by entity
     declare -A ENTITY_CHANGES
 
-    # Build a lookup of deleted docs from diff removed lines (for docs not in current index)
+    # Build UUID → name maps from diff title lines, for both removed (-) and added (+).
+    # Used to (a) recover info for deleted docs not in current index, and
+    # (b) detect renames (same UUID, different name in - vs + heading).
     declare -A DIFF_DOC_INFO
+    declare -A DIFF_DOC_OLD_NAME
+    declare -A DIFF_DOC_NEW_NAME
     while IFS= read -r line; do
-        if [[ "$line" =~ ^-.*UUID:\ ([a-f0-9-]{36}) ]]; then
-            local_uuid="${BASH_REMATCH[1]}"
-            # Extract doc number, name, type from the removed line
-            if [[ "$line" =~ ^-[#]+\ (A\.[^ ]+|NR-[0-9]+)\ -\ (.+)\ \[([^\]]+)\] ]]; then
-                DIFF_DOC_INFO[$local_uuid]="${BASH_REMATCH[1]}	${BASH_REMATCH[2]}	${BASH_REMATCH[3]}"
-            fi
+        if [[ "$line" =~ ^-[#]+\ (A\.[^ ]+|NR-[0-9]+)\ -\ (.+)\ \[([^\]]+)\].*UUID:\ ([a-f0-9-]{36}) ]]; then
+            local_uuid="${BASH_REMATCH[4]}"
+            DIFF_DOC_INFO[$local_uuid]="${BASH_REMATCH[1]}	${BASH_REMATCH[2]}	${BASH_REMATCH[3]}"
+            DIFF_DOC_OLD_NAME[$local_uuid]="${BASH_REMATCH[2]}"
+        elif [[ "$line" =~ ^\+[#]+\ (A\.[^ ]+|NR-[0-9]+)\ -\ (.+)\ \[([^\]]+)\].*UUID:\ ([a-f0-9-]{36}) ]]; then
+            DIFF_DOC_NEW_NAME[${BASH_REMATCH[4]}]="${BASH_REMATCH[2]}"
         fi
     done <<< "$DIFF"
+
+    # Detect renames: UUID present in both +/- title lines with different names.
+    declare -A RENAMED_UUIDS
+    for uuid in $MODIFIED_UUIDS; do
+        [ -z "$uuid" ] && continue
+        old_n="${DIFF_DOC_OLD_NAME[$uuid]:-}"
+        new_n="${DIFF_DOC_NEW_NAME[$uuid]:-}"
+        if [ -n "$old_n" ] && [ -n "$new_n" ] && [ "$old_n" != "$new_n" ]; then
+            RENAMED_UUIDS[$uuid]="${old_n}|||${new_n}"
+        fi
+    done
+
+    # Auto-add routing for new agent-level Core docs (A.6.1.1.X).
+    # A new Prime/Launch Agent's artifact shows up as an "Added" Core doc at this
+    # depth. Without an explicit routing entry it falls through to the scope-level
+    # changelog — detect and scaffold the dedicated entity directory instead.
+    for uuid in $NEW_UUIDS; do
+        [ -z "$uuid" ] && continue
+        agent_info=$(jq -r --arg uuid "$uuid" '.[] | select(.uuid == $uuid) | "\(.number)\t\(.name)\t\(.type)"' "$INDEX" 2>/dev/null)
+        [ -z "$agent_info" ] && continue
+        agent_number=$(echo "$agent_info" | cut -f1)
+        agent_name=$(echo "$agent_info" | cut -f2)
+        agent_type=$(echo "$agent_info" | cut -f3)
+        if [[ "$agent_number" =~ ^A\.6\.1\.1\.[0-9]+$ ]] && [ "$agent_type" = "Core" ]; then
+            if ! grep -qE "^${agent_number}\b" "$ROUTING_FILE"; then
+                PROJECT_DIR="$PROJECT_DIR" ROUTING_FILE="$ROUTING_FILE" \
+                AGENT_NUMBER="$agent_number" AGENT_NAME="$agent_name" \
+                python3 - <<'PYEOF'
+import os, re, sys
+routing_file = os.environ['ROUTING_FILE']
+number = os.environ['AGENT_NUMBER']
+name = os.environ['AGENT_NAME']
+slug = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-') or 'new-agent'
+dirname = f'A.6--agents/{number}--{slug}'
+new_line = f'{number}\t{dirname}'
+with open(routing_file) as f:
+    lines = [l.rstrip('\n') for l in f]
+# Find the A.6.1.1.X block; collect, add new entry, sort numerically, replace
+def num_key(n):
+    return tuple(int(p) for p in n.split('.')[1:])
+block_start = block_end = None
+for i, l in enumerate(lines):
+    if l.startswith('A.6.1.1.'):
+        if block_start is None:
+            block_start = i
+        block_end = i
+if block_start is None:
+    # No existing block; insert before first A.6 scope line
+    for i, l in enumerate(lines):
+        if re.match(r'^A\.[0-9]\t', l):
+            lines.insert(i, new_line)
+            break
+    else:
+        lines.append(new_line)
+else:
+    block = lines[block_start:block_end+1]
+    block.append(new_line)
+    block.sort(key=lambda x: num_key(x.split('\t')[0]))
+    lines[block_start:block_end+1] = block
+with open(routing_file, 'w') as f:
+    f.write('\n'.join(lines) + '\n')
+# Create the directory with a stub changelog
+project_dir = os.environ['PROJECT_DIR']
+full_dir = os.path.join(project_dir, 'history', dirname)
+os.makedirs(full_dir, exist_ok=True)
+cl = os.path.join(full_dir, 'changelog.md')
+if not os.path.exists(cl):
+    with open(cl, 'w') as f:
+        f.write(f'# {name} — Change History\n\nAtlas path: `{number}`\n\n---\n')
+print(f'  → Auto-created routing: {number} → {dirname}', file=sys.stderr)
+PYEOF
+            fi
+        fi
+    done
 
     add_change() {
         local uuid="$1" change_type="$2"
@@ -157,13 +235,29 @@ for PR_NUM in "$@"; do
         doc_type=$(echo "$doc_info" | cut -f3)
         entity=$(route_to_entity "$number")
 
-        ENTITY_CHANGES[$entity]+="- **${change_type}** \`$number\` - $name [$doc_type]
+        # Renamed: include old → new in the label so finalization can't miss it.
+        if [ "$change_type" = "Renamed" ]; then
+            local old_n new_n
+            old_n=$(sanitize "${DIFF_DOC_OLD_NAME[$uuid]:-?}")
+            new_n=$(sanitize "${DIFF_DOC_NEW_NAME[$uuid]:-$name}")
+            ENTITY_CHANGES[$entity]+="- **Renamed** \`$number\` - \"$old_n\" → \"$new_n\" [$doc_type]
 "
+        else
+            ENTITY_CHANGES[$entity]+="- **${change_type}** \`$number\` - $name [$doc_type]
+"
+        fi
     }
 
     for uuid in $NEW_UUIDS; do [ -n "$uuid" ] && add_change "$uuid" "Added"; done
     for uuid in $DELETED_UUIDS; do [ -n "$uuid" ] && add_change "$uuid" "Deleted"; done
-    for uuid in $MODIFIED_UUIDS; do [ -n "$uuid" ] && add_change "$uuid" "Modified"; done
+    for uuid in $MODIFIED_UUIDS; do
+        [ -z "$uuid" ] && continue
+        if [ -n "${RENAMED_UUIDS[$uuid]:-}" ]; then
+            add_change "$uuid" "Renamed"
+        else
+            add_change "$uuid" "Modified"
+        fi
+    done
 
     # Also count lines changed in non-title-line content (rough measure of substantive changes)
     CONTENT_ADDS=$(echo "$DIFF" | grep -c '^\+[^+]' || true)

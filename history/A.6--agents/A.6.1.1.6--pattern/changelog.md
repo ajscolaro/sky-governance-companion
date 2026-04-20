@@ -38,6 +38,17 @@ Pattern's Liquidity Layer goes live in this PR — analogous to the Grove Liquid
 
 ---
 
+## PR #176 — 2026-02-02 Edit
+**Merged:** 2026-02-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Launch Agent 5 renamed to Pattern** throughout the Atlas: agent Artifact header (A.6.1.1.6), full Primitives scaffold, Agent Token references, Pattern Allocator Vault parameters, Root Edit / forum category references, and all LA5 cross-references.
+
+### Context
+Public-name reveal for Launch Agent 5 — last of the original pseudonymous LA1–LA5 cohort to receive its public name (Grove/Keel/Skybase/Obex already renamed). This PR also set initial Skybase SubProxy and StarGuard addresses (A.6.1.1.4) — see skybase changelog if/when processed. Rename-only backfill — the rest of this PR's content has not been processed in detail.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **Type:** Weekly edit (Atlas Axis)
 

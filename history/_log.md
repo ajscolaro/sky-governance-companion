@@ -12,6 +12,8 @@
 | #186 | 2026-02-16 AEW proposal | 2026-02-22 | support, governance, protocol, other, agents/skybase, agents/grove, agents/launch-agent-7, agents/obex | complete |
 | #182 | remove ALLOCATOR-NOVA-A from DC-IAM and set `line` to 0 | 2026-02-17 | stability | complete |
 | #181 | Add AxisLegati | 2026-02-10 | governance | complete |
+| #176 | 2026-02-02 Edit | 2026-02-05 | agents/pattern, agents (rename backfill only) | partial |
+| #167 | 2026-01-19 edit | 2026-01-22 | agents/skybase, agents (rename backfill only) | partial |
 | #134 | Spark proposal - Onboard Spark Prime / Arkis | 2025-12-15 | agents/spark, other | complete |
 | #140 | SAEP-08 | 2025-12-11 | agents/spark | complete |
 | #138 | SAEP-07 | 2025-12-11 | agents/spark | complete |
@@ -23,6 +25,7 @@
 | #133 | 2025-12-01 AEW Proposal | 2025-12-04 | support, governance, other, agents/grove, stability, agents/pattern, agents/keel | complete |
 | #136 | add python script to generate UUIDs for new documents | 2025-12-03 | other | complete |
 | #135 | fix typos | 2025-12-03 | governance | complete |
+| #121 | Nov 24 Atlas edit | 2025-11-30 | agents/obex, agents, governance (rename backfill only) | partial |
 | #129 | Always run the `validate` check to satisfy branch protection rules | 2025-11-27 | other | complete |
 | #109 | SAEP-04 | 2025-11-19 | agents/spark | complete |
 | #108 | Minor fixes | 2025-11-19 | agents/spark | complete |
@@ -46,7 +49,7 @@
 | #72 | Changes to the Spark Liquidity Layer | 2025-10-16 | agents/spark | complete |
 | #64 | Oct 2 spell changes | 2025-10-14 | agents/spark | complete |
 | #69 | Spark - Proposal 1 - Set Target Risk Tolerance Ratio | 2025-10-10 | agents/spark | complete |
-| #66 | 2025-10-06 Weekly Edit Proposal | 2025-10-09 | preamble, governance, protocol | complete |
+| #66 | 2025-10-06 Weekly Edit Proposal | 2025-10-09 | preamble, governance, protocol, agents/keel, agents (rename backfill added) | partial |
 | #71 | Spark - SLL - Disable unused products | 2025-10-06 | agents/spark | complete |
 | #70 | Spark - Onboard Avalanche to SLL | 2025-10-06 | agents/spark | complete |
 | #68 | Spark - Onboard Aave v3 Avalanche USDC | 2025-10-06 | agents/spark | complete |

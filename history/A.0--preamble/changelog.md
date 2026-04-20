@@ -300,4 +300,3 @@ Whitespace and inline formatting cleanup in the Atlas Preamble (A.0) and Article
 - Minor wording updates in A.0 definitions: "First Loss Capital" → "Risk Capital" references updated; no new A.0 documents added.
 
 ---
-

@@ -61,22 +61,64 @@ if [ -f "$GITHUB_DIR/fetch-open-prs.sh" ]; then
     bash "$GITHUB_DIR/fetch-open-prs.sh" --quiet 2>/dev/null &
 fi
 
-# Discover unprocessed merged PRs (write numbers to file for Phase 3)
+# Discover unprocessed merged PRs (write numbers to file for Phase 3).
+# Paginates closed PRs sorted by updated_at DESC and stops once a page's
+# oldest updated_at falls below LAST_MERGED_DATE — any older, untouched PR
+# is either already processed or hasn't changed, so safe to skip. Visible
+# warnings on fetch/parse failure so silent drops stop happening
+# (prior single-page-30 fetch silently dropped #66/#121/#167/#176).
 UNPROCESSED_FILE=$(mktemp "${TMPDIR:-/tmp}/unprocessed-prs.XXXXXX")
+DISCOVERY_WARN_FILE=$(mktemp "${TMPDIR:-/tmp}/pr-discovery-warn.XXXXXX")
 (
     LAST_MERGED_DATE=$(grep -E '^\| #[0-9]+ ' "$LOG_FILE" 2>/dev/null \
         | sed -E 's/.*\| ([0-9]{4}-[0-9]{2}-[0-9]{2}) \|.*/\1/' \
         | sort -r | head -1)
 
     GH_API="https://api.github.com/repos/sky-ecosystem/next-gen-atlas"
+    PAGE=1
+    MAX_PAGES=20   # 20 * 100 = 2000 PRs; covers any plausible backlog
+    ALL_MERGED=""
+
+    while [ "$PAGE" -le "$MAX_PAGES" ]; do
+        RESULT=$(curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=100&page=$PAGE" 2>/dev/null)
+        RC=$?
+        if [ $RC -ne 0 ] || [ -z "$RESULT" ]; then
+            echo "WARNING: PR discovery failed at page $PAGE (curl exit=$RC); unprocessed PRs may be missed." >> "$DISCOVERY_WARN_FILE"
+            break
+        fi
+        PAGE_COUNT=$(echo "$RESULT" | jq 'length' 2>/dev/null)
+        if [ -z "$PAGE_COUNT" ]; then
+            echo "WARNING: PR discovery got non-JSON response at page $PAGE; stopping." >> "$DISCOVERY_WARN_FILE"
+            break
+        fi
+        if [ "$PAGE_COUNT" = "0" ]; then
+            break
+        fi
+        PAGE_MERGED=$(echo "$RESULT" | jq -r '.[] | select(.merged_at != null) | "\(.number)\t\(.updated_at)"' 2>/dev/null || true)
+        if [ -n "$PAGE_MERGED" ]; then
+            ALL_MERGED+="$PAGE_MERGED"$'\n'
+        fi
+        OLDEST_UPDATED=$(echo "$RESULT" | jq -r '.[].updated_at' 2>/dev/null | sort | head -1)
+        if [ -n "$LAST_MERGED_DATE" ] && [ -n "$OLDEST_UPDATED" ]; then
+            OLDEST_DATE="${OLDEST_UPDATED:0:10}"
+            if [[ "$OLDEST_DATE" < "$LAST_MERGED_DATE" ]]; then
+                break
+            fi
+        fi
+        if [ "$PAGE_COUNT" -lt 100 ]; then
+            break
+        fi
+        PAGE=$((PAGE + 1))
+    done
+
+    if [ "$PAGE" -gt "$MAX_PAGES" ]; then
+        echo "WARNING: PR discovery reached max-pages cap ($MAX_PAGES); backlog may extend further." >> "$DISCOVERY_WARN_FILE"
+    fi
 
     if [ -n "$LAST_MERGED_DATE" ]; then
-        MERGED_PRS=$(curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=30" \
-            | jq -r --arg since "$LAST_MERGED_DATE" \
-                '.[] | select(.merged_at != null and .merged_at >= $since) | .number' 2>/dev/null) || exit 0
+        MERGED_PRS=$(echo "$ALL_MERGED" | awk -F'\t' -v since="$LAST_MERGED_DATE" '$1 != "" && $2 >= since {print $1}')
     else
-        MERGED_PRS=$(curl -sf "$GH_API/pulls?state=closed&sort=updated&direction=desc&per_page=30" \
-            | jq -r '.[] | select(.merged_at != null) | .number' 2>/dev/null) || exit 0
+        MERGED_PRS=$(echo "$ALL_MERGED" | awk -F'\t' '$1 != "" {print $1}')
     fi
 
     while IFS= read -r pr_num; do
@@ -89,6 +131,13 @@ UNPROCESSED_FILE=$(mktemp "${TMPDIR:-/tmp}/unprocessed-prs.XXXXXX")
 
 # === Phase 2: Wait for everything to finish ===
 wait
+
+# Surface any discovery warnings to the user (not silently dropped)
+if [ -s "$DISCOVERY_WARN_FILE" ]; then
+    echo ""
+    cat "$DISCOVERY_WARN_FILE" >&2
+fi
+rm -f "$DISCOVERY_WARN_FILE"
 
 # === Phase 3: Auto-process unprocessed merged PRs ===
 # Writes skeleton entries to history/<entity>/changelog.md and updates _log.md.

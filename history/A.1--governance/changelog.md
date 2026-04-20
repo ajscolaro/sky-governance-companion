@@ -122,6 +122,17 @@ Two typos fixed: "Multsig" → "Multisig" in the SparkLend Security Access Multi
 
 ---
 
+## PR #121 — Nov 24 Atlas edit
+**Merged:** 2025-11-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **"Agent Spell" → "Prime Spell" terminology normalized** in Prime Spell Security Enforcement framework: `A.1.9.2.3.2.2.3` "Execution Of Agent Spells" → "Execution Of Prime Spells"; `A.1.9.2.3.2.2.3.2.1` "Sky Core Spell Executes Agent Spell" → "Sky Core Spell Executes Prime Spell". Aligns wording with the broader framework introduced in PR #110.
+
+### Context
+Terminology cleanup in the A.1.9 Prime Spell Security Enforcement section. Rename-only backfill — this PR primarily renamed LA4 → Obex (see A.6 changelogs); other governance content not processed in detail.
+
+---
+
 ## PR #110 — Nov 10 edit
 **Merged:** 2025-11-13 | **Type:** Weekly edit (Atlas Axis)
 
