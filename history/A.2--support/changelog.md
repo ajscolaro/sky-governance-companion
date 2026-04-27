@@ -4,6 +4,24 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #224 — Atlas Edit Proposal — 2026-04-20
+**Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis — Poll #1629)
+
+### Material Changes
+- **Multisig Security Enforcement Framework** (`A.2.11.1.3`): new comprehensive section governing multisig setup, ongoing management, incident reporting, and compliance across Sky Core and Prime Agent infrastructure, effective May 20, 2026. Key requirements: smart contract control multisigs should target 7/9 supermajority where feasible; high-value asset multisigs have explicit minimum thresholds; periodic review, incident reporting obligations, and noncompliance enforcement; Multisig Registry (`A.2.11.1.3.4`) with Active Data Controller designation
+- **Ecosystem Upkeep Fee Primitive** replaces split Distribution Requirement / Market Cap Fee structure: all Prime Agents now pay a uniform **50 bps/year** of market cap in USDS (previously 0.30% Market Cap Fee or 0.25% annual token buyback/distribution); Ecosystem Accord special upkeep logic removed; Distribution Requirement Primitive deleted, Market Cap Fee renamed to Ecosystem Upkeep Fee
+- **Loss Absorption Sequence** reordered: Genesis Capital Backstop now applied **before** SKY Backstop (previously SKY came first); Genesis Capital Backstop trigger conditions revised accordingly
+- **Pioneer Incentive Pool split removed**: Pioneer Prime retains **100%** of Pioneer Incentive Pool (previously 80% mandated for third-party USDS adoption incentives, 20% retained)
+- **Prime Agent Data Production Responsibilities** clarified: Prime Agents explicitly responsible for data production and Risk Capital inputs
+
+### Housekeeping
+- Agent creation process updated: "Founder Must Globally Activate Distribution Requirement And/Or Market Cap Fee Primitive" step removed; Ecosystem Upkeep Fee Primitive now required; prohibition on deactivating both primitives simplified to single prohibition on deactivating Ecosystem Upkeep Fee Primitive.
+
+### Context
+The most consequential governance-fee change since agents launched: uniform 50 bps replaces agent-choice between 30 bps Market Cap Fee and 25 bps token distribution. The Genesis Capital Backstop priority change is material for loss-absorption ordering. The Pioneer Incentive Pool change directly affects how Launch Agent 6 can deploy Plasma incentive funds. Poll #1629 passed (non-voters: axislegati, brendan-navigator, excel, opex).
+
+---
+
 ## PR #222 — Atlas Edit Proposal — 2026-04-13
 **Merged:** 2026-04-16 | **Type:** Weekly edit (Atlas Axis — Poll 1628) | **+1232/-32 lines**
 

@@ -73,9 +73,17 @@ When a question touches multiple domains, **spawn one Agent per domain in a sing
 
 **How to brief each agent:**
 - State the user's question so the agent has context
-- Name the skill to invoke (e.g., "Use the `/messari-market-data` skill")
+- Tell it to **invoke the skill via the Skill tool** (e.g., `Skill(skill: "messari-market-data")`). Do not pre-empt the skill with raw bash/grep/python commands — the skill's own instructions are what should guide execution, including security warnings, canonical data paths, and output format. Subagents have the Skill tool and invoking by name works.
 - Specify what data to return (e.g., "Return the top 3 outperformance windows with dates and percentages")
 - Tell it the output format: concise findings, not raw data dumps
+
+**Anti-pattern — don't do this:**
+> "Run `python scripts/atlas/search-index.py 'skybase token'` and grep `.atlas-repo/` for token mentions. Report findings."
+
+The subagent will execute the raw commands and skip the skill entirely, losing its guidance.
+
+**Do this instead:**
+> "Invoke the `/atlas-navigate` skill to search for any mention of a Skybase token in the Atlas. Return a list of matching document paths with a one-line summary of each."
 
 **Example — "When did SKY outperform BTC/ETH the most, and why?"**
 
@@ -86,8 +94,10 @@ Spawn two agents in one message:
 Then synthesize: align the market windows with the governance timeline and present a unified narrative.
 
 **When to use parallel agents vs. a single skill:**
-- Single skill: question is clearly one domain ("What's SKY price today?", "Find the stability scope in the Atlas")
-- Parallel agents: question implies causation, comparison, or context across domains ("Why did X happen?", "What was the impact of Y?", "How does X relate to Y?")
+- **Single skill, invoked directly from main:** question is clearly one domain and needs only one skill's output ("What's SKY price today?", "Read forum post 27853", "Tell me about the fixed-rate USDS post")
+- **Parallel agents:** question spans domains, or benefits from two skills' perspectives ("Why did X happen?", "What was the impact of Y?", "Does the Atlas define a Skybase token?" — Atlas for canonical definition + forum for discussion signal)
+
+**If you catch yourself reaching for raw `Grep`/`Read`/`Bash` on data a skill curates** (e.g., grepping `data/forum/index.json` instead of calling `/forum-search`, or reading `history/` files instead of invoking `/atlas-analyze`), stop and either invoke the skill directly or delegate to an agent. The skills exist so you don't have to rebuild their security warnings, data-path conventions, and output norms from scratch each time.
 
 ### Analysis guidelines
 

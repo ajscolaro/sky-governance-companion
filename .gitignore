@@ -24,6 +24,12 @@ tmp/
 # Internal plans and notes
 plans/
 
+# Drafts of Messari intel summaries
+intel-drafts/
+
+# Per-user Claude Code slash commands
+.claude/commands/
+
 # Per-user session timestamp
 .last-session
 

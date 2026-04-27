@@ -4,6 +4,102 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #216 — Spark Proposal - Spark Savings - Raise Deposit Caps for spUSDC, spUSDT, spETH
+**Merged:** 2026-04-27 | **Type:** Spark proposal (parameter update)
+
+### Material Changes
+- **spUSDC** (Ethereum, `A.6.1.1.1.3.5.2.2.1`) supply cap: 250M → **10B**
+- **spUSDT** (Ethereum, `A.6.1.1.1.3.5.2.2.2`) supply cap: 250M → **10B**
+- **spETH** (Ethereum, `A.6.1.1.1.3.5.2.2.3`) supply cap: 50,000 → **1M ETH**
+
+### Context
+40× increase in USDC/USDT deposit caps and 20× for ETH, effectively removing binding supply constraints on all three products. USDS supply at ~$11B at merge.
+
+Forum: https://forum.skyeco.com/t/april-9-2026-proposed-changes-to-spark-for-upcoming-spell/27804
+
+---
+
+## PR #215 — Spark Proposal - Spark Liquidity Layer - Update Rate Limits
+**Merged:** 2026-04-27 | **Type:** Spark proposal (SLL rate limit update)
+
+### Material Changes
+- **Aave Core USDT** inflow `maxAmount`: 250M → **500M USDT**
+- **SparkLend ETH** inflow `slope`: 10,000 → **250,000 ETH/day**
+- **Ethena USDT** inflow `maxAmount`: 10M → **100M USDT**
+- **BlackRock BUIDL USDT** inflow `maxAmount`: 25M → **50M USDT**; Request Redemption `maxAmount`: 50M → **Unlimited**
+- **Morpho USDT vault** (Ethereum) inflow `maxAmount`: 50M → **100M USDT**
+- **Maple Finance USAT** transferAsset `maxAmount`: 5M → **50M USAT**
+- **Maple Finance USDT** transferAsset `maxAmount`: 5M → **50M USDT**
+- **SKY↔token swap** (`A.6.1.1.1.2.6.1.3.1.7.1`): `maxAmount` 5M → 10M, `slope` 20M → 200M/day, max slippage 0.15% → **0.25%**
+- **Secondary swap** (`A.6.1.1.1.2.6.1.3.1.7.5`): `maxAmount` 100 → 1,000, `slope` 1,000 → **50,000/day**
+- **Conduit closures** (`maxAmount` and outflow set to 0): 3× USDS conduits, 2× USDC conduits, 1× sUSDS/fsUSDS conduit on Ethereum; additional USDC/USDS conduits on Base and Avalanche
+
+### Context
+Batch rate limit update ahead of the April 23, 2026 Executive Vote. The SparkLend ETH slope increase (25× to 250K ETH/day) and swap rate expansions indicate SLL scaling capacity across multiple protocols. Conduit closures decommission inactive pathways.
+
+Forum: https://forum.skyeco.com/t/april-9-2026-proposed-changes-to-spark-for-upcoming-spell/27804
+
+---
+
+## PR #214 — SAEP-14: Update Offchain Collateralized Lending Artifact Section
+**Merged:** 2026-04-27 | **+11/-3 lines**
+
+### Raw Changes (rewrite with /atlas-track)
+- **Added** `A.6.1.1.1.3.8.2.2.2.6` - Gold (AU) [Core]
+
+<!-- REWRITE THIS ENTRY: Read the diff and current Atlas to classify changes as
+     Material (with before→after values) vs Housekeeping (one-line summaries).
+     Replace this section with ### Material Changes and ### Housekeeping.
+     See /atlas-track skill for the target format. -->
+
+---
+
+## PR #210 — Spark proposal - Morpho Vault Curation
+**Merged:** 2026-04-27 | **Type:** Spark proposal (Morpho vault curation)
+
+### Material Changes
+- **Market Exposure section added** to Spark Blue Chip USDT Morpho Vault (`A.6.1.1.1.2.6.1.3.1.8.4`, Ethereum): 4 approved pool exposure limits:
+  - sUSDS/USDT 96.5% LLTV: Unlimited absolute / 100% relative
+  - wstETH/USDT 86% LLTV: 250M absolute / 100% relative
+  - WBTC/USDT 86% LLTV: 100M absolute / 100% relative
+  - cbBTC/USDT 86% LLTV: 250M absolute / 100% relative
+
+### Housekeeping
+- Contract Addresses renumbered `.4.4.1` → `.4.4.2`, Timelock renumbered `.4.4.2` → `.4.4.3` to accommodate the new Market Exposure section at `.4.4.1`.
+
+### Context
+First use of the SAEP-13 Risk Curation Framework (PR #209): the pool exposure limits represent governance-approved bounds within which Soter Labs (Curator) can operate. Note the inflow `maxAmount` for this same vault was also raised 50M → 100M USDT in the same week (PR #215).
+
+---
+
+## PR #209 — SAEP-13: Risk Curation Framework
+**Merged:** 2026-04-27 | **Type:** SAEP-13 (Spark proposal)
+
+### Material Changes
+- **New: Risk Curation Framework** (`A.6.1.1.1.3.9`, UUID `78018ebc…190edca1`): governance framework for delegating on-chain risk management to approved Curator roles within Morpho vaults; requires prior governance poll approval for each action, minimum 3-day public timelock, and independent Guardian with cancellation authority (also cancellable by Spark subdao proxy)
+- **4 approved instances:**
+  - Spark USDS Morpho Vault (Ethereum) — `0xe41a0583…FE0597`
+  - Spark Blue Chip USDC Morpho Vault (Ethereum) — `0x56A76b42…d581D`
+  - Spark Blue Chip USDT Morpho Vault (Ethereum) — `0xc7CDcFDE…bD22`
+  - Spark USDC Morpho Vault (Base) — `0x7BfA7C4f…CBF34A`
+  - Curator for all: Soter Labs at `0x0f963A8A…0646A3` (3/5 multisig)
+  - Guardian for all: Spark Foundation at `0xf5748bBe…C908B` (3/5 multisig)
+
+### Context
+SAEP-13 codifies the governance layer for Spark's Morpho vault curator operations. Curator actions are now subject to explicit poll approval and a mandatory 3-day onchain timelock, with forum reporting within 24 hours required. PR #210 is the first use of this framework.
+
+Forum: https://forum.skyeco.com/t/saep-13-risk-curation-framework/27796/1
+
+---
+
+## PR #224 — Atlas Edit Proposal — 2026-04-20
+**Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Distribution Requirement Primitive (`A.6.1.1.1.2.3.1`) renamed to "Ecosystem Upkeep Fee Primitive"; Market Cap Fee Primitive subtree (`A.6.1.1.1.2.3.2` — Market Cap Fee) deleted; Upkeep Rebate docs updated to reference unified fee structure. Same UUID preserved.
+
+---
+
 ## PR #219 — Atlas Edit Proposal — 2026-04-06
 
 **Merged:** 2026-04-09 | **Type:** Weekly edit (Atlas Axis)

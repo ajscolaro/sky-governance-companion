@@ -4,6 +4,14 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #224 — Atlas Edit Proposal — 2026-04-20
+**Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Distribution Requirement Primitive (`A.6.1.1.2.2.3.1`) renamed to "Ecosystem Upkeep Fee Primitive"; Market Cap Fee Primitive subtree (`A.6.1.1.2.2.3.2`) deleted; Upkeep Rebate references updated.
+
+---
+
 ## PR #222 — Atlas Edit Proposal — 2026-04-13
 **Merged:** 2026-04-16 | **Type:** Weekly edit (Atlas Axis — Poll 1628) | **+1232/-32 lines**
 

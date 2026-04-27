@@ -4,6 +4,22 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #224 — Atlas Edit Proposal — 2026-04-20
+**Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis — Poll #1629)
+
+### Material Changes
+- **Novel Spell Items process** (`A.1.9.2.3.3`, UUID `af13ac4b…`): new definition and multi-step process for out-of-cadence Executive Vote items — Core GovOps/Core Facilitator requests → confirms novelty → spell teams conduct technical feasibility analysis → Core Facilitator obtains stakeholder approval and schedules; complements the Recurring Items section at `A.1.9.2.3.1`
+- **Plasma SkyLink Bridge** (`A.1.9.4.1.4`): full documentation for USDS/sUSDS token bridge and governance bridge between Ethereum Mainnet and Plasma, deployed in the April 23, 2026 Executive Vote
+  - Freezer Multisig on Plasma: `0xB3d26eF66F53C9546d1365F417a85B0Aa69049eE`, 2/5 (3× Soter Labs + 1× Redline Facilitation Group + 1× Launch Agent 6)
+  - USDS rate limit: 5M/day (net accounting); sUSDS: no rate limit set at launch
+  - Token Bridge and Governance Bridge validators specified
+- **Plasma SkyLink Freezer Multisig** added to governance-controlled multisig list (`A.1.9.3.2.17`)
+
+### Housekeeping
+- Solana SkyLink Bridge docs updated: removed forward-looking deployment language; confirmed both phases completed (Phase 1: Nov 13, 2025 Executive Vote; Phase 2: Nov 17, 2025 Out-Of-Schedule Executive Vote).
+
+---
+
 ## PR #219 — Atlas Edit Proposal — 2026-04-06
 **Merged:** 2026-04-09 | **Type:** Weekly edit (Atlas Axis)
 

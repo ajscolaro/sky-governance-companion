@@ -2,6 +2,12 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #216 | Spark Proposal - Spark Savings - Raise Deposit Caps for spUSDC, spUSDT, spETH | 2026-04-27 | agents/spark | complete |
+| #215 | Spark Proposal - Spark Liquidity Layer - Update Rate Limits | 2026-04-27 | agents/spark | complete |
+| #214 | SAEP-14: Update Offchain Collateralized Lending Artifact Section | 2026-04-27 | agents/spark | skeleton |
+| #210 | Spark proposal - Morpho Vault Curation | 2026-04-27 | agents/spark | complete |
+| #209 | SAEP-13: Risk Curation Framework | 2026-04-27 | agents/spark | complete |
+| #224 | Atlas Edit Proposal — 2026-04-20 | 2026-04-24 | governance, support, agents/spark, agents/grove, agents/keel, agents/skybase, agents/obex, agents/pattern, agents/launch-agent-6, agents/launch-agent-7 | complete |
 | #222 | Atlas Edit Proposal — 2026-04-13 | 2026-04-16 | support, agents/grove, agents/pattern, agents/keel | complete |
 | #223 | remove non breaking space characters | 2026-04-13 | other | complete |
 | #219 | Atlas Edit Proposal — 2026-04-06 | 2026-04-09 | preamble, governance, support, stability, protocol, spark, grove, keel | complete |
