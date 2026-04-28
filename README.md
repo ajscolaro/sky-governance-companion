@@ -1,36 +1,34 @@
 # Sky Atlas Explorer
 
-Claude Code tooling for navigating the [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas) and tracking governance changes over time.
+A Claude Code workspace for analyzing Sky ecosystem governance over time, built around the [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas).
 
-## What is the Sky Atlas?
+## Why this exists
 
-The Sky Atlas is the single governing document for the Sky ecosystem (formerly MakerDAO). It's a ~3MB markdown file containing ~9,800 documents that define every rule, parameter, role, and structure in the protocol. It lives in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas) and is updated via weekly governance-approved PRs.
+The [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas) is the single \~3MB markdown document (\~9,800 sections) that defines every rule, parameter, role, and structure in the Sky ecosystem (formerly MakerDAO). It's already well-suited to AI tooling on its own — clean markdown, stable identifiers, governance-approved PRs as the unit of change.
 
-This project provides local tooling to search, read, and analyze that document and its changes without loading the entire file into context.
+But the Atlas only tells you **what's true right now**. To actually reason about Sky governance you also need:
 
-## What this does
+- **History** — what changed, when, and through which governance flow (forum poll, AEP, SAEP, executive spell)
+- **Pipeline** — what's been proposed but not yet ratified (open PRs, active polls, hat spells)
+- **Onchain state** — executive lifecycle, hat changes, delegation, AD vote alignment
+- **Rationale** — forum discussions and delegate vote explanations that capture the *why*
+- **Market context** — price and supply movements aligned to governance events
 
-- **Local Atlas access** — Shallow clone auto-synced on session start, with a parsed JSON index for fast document lookup by name, path, type, or UUID
-- **Change tracking** — Process merged PRs into per-entity changelogs that accumulate institutional memory of how governance evolves
-- **PR analysis** — Analyze open or merged PRs against the current Atlas and historical context
-- **On-chain governance data** — Delegation metrics, poll vote matrix (with poll type classification and PR linking), executive hat/supporter monitoring via the vote.sky.money API
-- **Executive vote lifecycle** — Full proposal text fetched from `sky-ecosystem/executive-votes`, parsed into actions with authorizations, spell lifecycle tracking (proposed/hat/cast/expired), and Atlas PR cross-references
-- **Session briefing via `/refresh`** — On user invocation, refreshes all caches, auto-processes unprocessed merged PRs, and prints current hat, active polls, ended polls, new open PRs, forum activity, and daily market moves
-- **Delegate tracking** — Per-AD profiles with on-chain voting records and forum vote rationales
-- **Market data** *(optional)* — SQLite database with daily price and supply data for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH. Derived ratios (SKY/BTC, SKY/ETH), event windows, and stablecoin competitive rankings. Requires a Messari API key — or use the [x402 pay-per-request path](https://docs.messari.io/api-reference/x402-payments) (USDC on Base/Solana, no account needed). All other features work without it.
-- **Forum search** — Cache and search Sky Forum governance discussions via RSS
+This repo is the workspace that ties all of it together. It indexes the Atlas for efficient lookup (so you don't dump 3MB into every session), maintains per-entity change history, mirrors onchain governance state, caches forum and delegate activity, and exposes everything through a small set of slash commands. The output is governance research that fits in a working session — and a long-term institutional memory in `history/` that grows every time you run it.
 
-## Prerequisites
+## What you get
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
-- Python 3.8+ with a virtual environment at `.venv/` (setup creates this automatically)
-- `curl` — for GitHub REST API calls (pre-installed on macOS)
-- `jq` — for JSON queries (`brew install jq` on macOS)
-- `MESSARI_API_KEY` in `.env` — **optional**, enables market data (SKY/USDS/SPK prices). All other features work without it. The Messari API also supports [x402 pay-per-request access](https://docs.messari.io/api-reference/x402-payments) via USDC on Base or Solana — no account or subscription required.
+- **Indexed Atlas** — Document lookup by name, path, type, or UUID without loading the full file into context
+- **Per-entity change history** — Curated changelogs in `history/`, optimized for RAG/grep retrieval (terse, predictable structure, stable identifiers, sorted most-recent-first)
+- **PR analysis** — Diff-based analysis of open and merged Atlas PRs against current state and prior history
+- **Auto-processing on `/refresh`** — Newly merged PRs become skeleton changelog entries automatically; the agent finalizes them into full Material/Housekeeping/Context entries
+- **Onchain governance** — Delegation snapshots, poll vote matrix (with poll type and Atlas-PR linking), executive hat/supporter monitoring, full spell lifecycle (proposed/hat/cast/expired) with parsed proposal text from `sky-ecosystem/executive-votes`
+- **Delegate tracking** — Per-AD profiles with onchain voting records and forum vote rationales
+- **Forum search** — Cached Sky Forum posts searchable by keyword, author, category, or date
+- **Market data** *(optional)* — SQLite database of daily price and supply for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH; derived ratios; stablecoin competitive rankings
+- **Session briefing** — `/refresh` prints what's changed since last session: current hat, active/ended polls, new open PRs, forum activity, daily market moves
 
 ## Setup
-
-Clone this repo and start a Claude Code session in it:
 
 ```bash
 git clone https://github.com/ajscolaro/sky-atlas-explorer.git
@@ -38,28 +36,30 @@ cd sky-atlas-explorer
 claude
 ```
 
-On the **first session**, the `SessionStart` hook automatically:
-1. Clones the Atlas repo (shallow) into `.atlas-repo/`
-2. Builds the document index at `data/index.json`
-3. Creates the `history/` directory structure
+That's it. On the first session, the `SessionStart` hook clones the Atlas (shallow), builds the document index, creates the Python virtualenv at `.venv/`, and seeds `history/`. Every subsequent session re-pulls the Atlas (~1s) and rebuilds the index.
 
-On every session thereafter, the hook runs `scripts/core/atlas-sync.sh` — a ~1s pull + index rebuild — and prints a line telling you to run `/refresh`.
+Once the session is open, run **`/refresh`** to fetch governance, forum, delegate, and market data, and to print the briefing.
 
-No environment setup is required beyond the prerequisites above. The `MESSARI_API_KEY` in `.env` is optional; without it, every feature except market data still works.
+### Prerequisites
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
+- Python 3.8+ (the setup hook creates `.venv/` for you)
+- `curl` (pre-installed on macOS) and `jq` (`brew install jq` on macOS)
+- *(Optional)* `MESSARI_API_KEY` in `.env` for market data. The Messari API also supports [x402 pay-per-request](https://docs.messari.io/api-reference/x402-payments) — USDC on Base or Solana, no account or subscription needed. Every other feature works without it.
 
 ## Typical workflow
 
-1. `claude` — session starts, Atlas is synced automatically.
-2. **Run `/refresh`** — fetches all governance / forum / market / delegate data, detects newly merged Atlas PRs, and prints a briefing of what's changed.
+1. `claude` — session starts, Atlas auto-synced.
+2. **Run `/refresh`** — fetches all governance / forum / market / delegate data, detects newly merged Atlas PRs, prints a briefing of what's changed.
 3. Ask questions. Examples:
    - *"What's the current hat spell?"*
    - *"What changed in PR #220?"*
    - *"Find docs about Grove genesis capital"*
    - *"How has USDS supply trended this quarter?"*
 
-When `/refresh` detects newly merged PRs, it auto-writes **skeleton** entries to `history/<entity>/changelog.md` and reports them in its output as `Skeleton PRs awaiting finalization: …`. Claude then proactively runs `/atlas-track` and `/atlas-analyze` on that list to rewrite each skeleton into a full changelog entry with Material/Housekeeping sections and interpretive Context. You don't have to invoke those skills manually — they run as a follow-up to `/refresh`.
+When `/refresh` detects newly merged PRs, it auto-writes **skeleton** entries to `history/<entity>/changelog.md` and reports them as `Skeleton PRs awaiting finalization: …`. Claude then proactively runs `/atlas-track` and `/atlas-analyze` to rewrite each skeleton into a full entry with Material/Housekeeping sections and interpretive Context. You don't have to invoke those skills manually.
 
-Changelog entries are optimized for **RAG/grep retrieval** — terse (5-15 lines substantive, 3-5 trivial), predictable structure (`## PR #N` / `**Merged:**` / `**Type:**` / `### Material Changes` / `### Housekeeping` / `### Context`), with stable identifiers (UUIDs, Atlas paths) inline where they aid navigation. Each changelog is sorted most-recent-first; `scripts/core/sort-changelogs.py` can re-sort everything if order drifts after a batch operation.
+Changelog entries are optimized for **RAG/grep retrieval** — terse (5-15 lines substantive, 3-5 trivial), predictable structure (`## PR #N` / `**Merged:**` / `**Type:**` / `### Material Changes` / `### Housekeeping` / `### Context`), with stable identifiers (UUIDs, Atlas paths) inline where they aid navigation. Each changelog is sorted most-recent-first; `scripts/core/sort-changelogs.py` can re-sort everything if order drifts.
 
 ### For AI agents using this repo
 
@@ -104,7 +104,7 @@ Explain what a PR is changing, why it matters, and how it relates to previous ch
 /atlas-analyze open
 ```
 
-### `/governance-data` — On-chain governance data
+### `/governance-data` — Onchain governance data
 
 Fetch and analyze delegation snapshots, vote alignment, executive vote lifecycle, and spell monitoring.
 
