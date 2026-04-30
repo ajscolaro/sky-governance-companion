@@ -29,6 +29,7 @@ If the `/refresh` output shows `Skeleton PRs awaiting finalization: <numbers>`, 
 - `.atlas-repo/` — shallow clone of next-gen-atlas (gitignored, auto-refreshed)
 - `data/index.json` — parsed document index with line offsets (gitignored, rebuilt on refresh)
 - `data/forum/` — cached forum posts and search index (gitignored, fetched on refresh)
+- `data/forum/registry.json` — Authorized Forum Accounts registry (gitignored, rebuilt on refresh from Atlas `A.2.7.1.1.1.1.4.0.6.1`). Maps forum handles to entities and roles. Schema: `entities` (forward map), `by_handle` (case-insensitive reverse map with `entity`/`role`/`type`/`display_handle`), `transitive_refs` for parenthetical "(and their authorized representatives)" expansions. Consumed by `/forum-search` for author enrichment and by `scripts/forum/check-roster-vs-registry.py`
 - `data/delegates/` — cached AD vote rationales from RSS feeds (gitignored, fetched on refresh)
 - `data/voting/` — cached voting portal API data (gitignored, fetched on refresh). Key file: `polls/vote-matrix.json` — keyed by poll ID, each poll has `title`, `start_date`, `end_date`, `poll_type` (`atlas-edit`|`parameter-change`|`other`), `result`, `ad_votes` (per-AD option/weight/chain), `ad_non_voters`, and optionally `atlas_pr` (integer linking Flow 1 polls to their Atlas PR number)
 - `data/voting/executive/proposals/` — transient processing cache for executive proposals; files are fetched, parsed, distilled into `lifecycle.json`, then auto-deleted (gitignored)
@@ -46,7 +47,7 @@ If the `/refresh` output shows `Skeleton PRs awaiting finalization: <numbers>`, 
 
 ## History structure
 
-Changes are tracked per-scope in `history/` with changelogs routed by the most specific matching prefix in `entity-routing.conf`. Agents have their own subdirectories under `A.6--agents/`. The directory may be incomplete — new agents can be added via governance at any time.
+Changes are tracked per-scope in `history/` with changelogs routed by the most specific matching prefix in `entity-routing.conf`. Agents have their own subdirectories under `A.6--agents/`. Article-level splits within a scope follow the same pattern (e.g., `A.2--support/A.2.7.1.1.1.1--forum-accounts/` for the Authorized Forum Accounts registry, which is Active Data and mutates between weekly cycles via Direct Edit). The directory may be incomplete — new agents and article splits can be added via governance at any time.
 
 **Entry format:** entries are optimized for RAG / grep retrieval — terse, self-contained, predictable structure. `## PR #N — Title` header, `**Merged:** date | **Type:** governance-path` metadata, then `### Material Changes` (specific before→after values for parameter changes, capital allocation, new entities, authority changes) and/or `### Housekeeping` (renames, linting, renumbering, collapsed to one line), then `### Context` (1-2 sentences max — skip if nothing worth saying). Trivial housekeeping PRs (whitespace, typos) collapse to a single 1-2 sentence block with no subsections. No address dumps, no UUID lists — the diff is the source of truth, the changelog is an index into it. Governance path labels: "Weekly edit (Atlas Axis)", "AEP-N", "SAEP-N (Spark proposal)", "Spell recording (date)", "Housekeeping". Target length: 5-15 lines substantive, 3-5 trivial. See `/atlas-track` for full schema.
 

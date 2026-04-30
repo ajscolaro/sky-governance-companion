@@ -51,6 +51,9 @@ fi
 if [ -f "$FORUM_DIR/fetch-forum.sh" ]; then
     bash "$FORUM_DIR/fetch-forum.sh" --quiet 2>/dev/null &
 fi
+if [ -f "$FORUM_DIR/build-account-registry.py" ]; then
+    python3 "$FORUM_DIR/build-account-registry.py" --quiet 2>/dev/null &
+fi
 if [ -f "$DELEGATES_DIR/fetch-delegates.sh" ]; then
     bash "$DELEGATES_DIR/fetch-delegates.sh" --quiet 2>/dev/null &
 fi
