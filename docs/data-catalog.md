@@ -9,6 +9,7 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 | `data/index.json` | Atlas parse | No | Session start (hook) + `/refresh` | `scripts/core/build-index.py` |
 | `data/voting/address-map.json` | Delegate profiles | No | Session start (hook) + `/refresh` | `scripts/core/build-address-map.py` |
 | `data/forum/` | Forum RSS | No | `/refresh` | `scripts/forum/fetch-forum.py` |
+| `data/forum/registry.json` | Atlas A.2.7.1.1.1.1 (Authorized Forum Accounts) | No | `/refresh` | `scripts/forum/build-account-registry.py` |
 | `data/delegates/` | Per-AD forum RSS | No | `/refresh` | `scripts/delegates/fetch-delegates.py` |
 | `data/voting/delegates/` | vote.sky.money API | No | `/refresh` | `scripts/voting/fetch-voting-delegates.py` |
 | `data/voting/polls/` | vote.sky.money API | No | `/refresh` | `scripts/voting/fetch-voting-polls.py` |

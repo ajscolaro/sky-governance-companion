@@ -62,6 +62,25 @@ Read data/forum/posts/<topic_id>.json
 
 Each post file contains: `topic_id`, `title`, `author`, `category`, `published`, `url`, `body` (sanitized plain text, max 5000 chars), `fetched_at`.
 
+## Authorized Forum Accounts registry
+
+`data/forum/registry.json` (rebuilt on `/refresh` from Atlas `A.2.7.1.1.1.1.4.0.6.1`) maps forum handles to governance entities. Use it to attribute posts and filter by entity. Schema:
+
+- `entities` — forward map: `{ "<entity name>": { role, entity_handle, authorized_representatives, transitive_refs } }`. `transitive_refs` captures the parenthetical "(and their authorized representatives)" pattern — entities whose own ARs propagate.
+- `by_handle` — case-insensitive reverse map keyed by lowercased handle: `{ "<handle>": [{ entity, role, type: "entity_handle"|"authorized_representative", display_handle }] }`. A single handle may resolve to multiple entries (one handle can be EH for one entity and AR for others).
+
+When a user asks "which posts are by entity X" or "is this author registered":
+
+```
+Read data/forum/registry.json
+```
+
+Then look up the author against `by_handle[author.lower()]`. For entity-wide queries, gather every handle whose `entity` field matches X (across both EH and AR types) plus expand any `transitive_refs` to that entity's own handles.
+
+When attributing authors in your output, prefer the format `<handle> (<entity>)` for single matches and `<handle> (<entity1>; <entity2> AR; ...)` for multi-entity handles. This matches the `/forum-search` shell-script enrichment so output is consistent across surfaces.
+
+If `data/forum/registry.json` doesn't exist yet (e.g., user hasn't run `/refresh` since PR #227 merged), say so and proceed with bare authors.
+
 ## If no data is cached
 
 Tell the user to run the fetch script manually:

@@ -24,7 +24,7 @@ This repo is the workspace that ties all of it together. It indexes the Atlas fo
 - **Auto-processing on `/refresh`** — Newly merged PRs become skeleton changelog entries automatically; the agent finalizes them into full Material/Housekeeping/Context entries
 - **Onchain governance** — Delegation snapshots, poll vote matrix (with poll type and Atlas-PR linking), executive hat/supporter monitoring, full spell lifecycle (proposed/hat/cast/expired) with parsed proposal text from `sky-ecosystem/executive-votes`
 - **Delegate tracking** — Per-AD profiles with onchain voting records and forum vote rationales
-- **Forum search** — Cached Sky Forum posts searchable by keyword, author, category, or date
+- **Forum search** — Cached Sky Forum posts searchable by keyword, author, category, or date; authors are tagged with their governance entity (Prime Agent, GovOps, AR, etc.) via the Authorized Forum Accounts registry (Atlas `A.2.7.1.1.1.1`)
 - **Market data** *(optional)* — SQLite database of daily price and supply for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH; derived ratios; stablecoin competitive rankings
 - **Session briefing** — `/refresh` prints what's changed since last session: current hat, active/ended polls, new open PRs, forum activity, daily market moves
 
@@ -139,12 +139,16 @@ Requires `MESSARI_API_KEY` in `.env` for data refresh. Queries work on cached da
 
 ### `/forum-search` — Search forum discussions
 
-Search cached Sky Forum governance discussions by keyword, author, category, or date.
+Search cached Sky Forum governance discussions by keyword, author, category, or date. Author lines are enriched with governance entity attribution from the Authorized Forum Accounts registry — e.g., `adamfraser (Atlas Axis AR)`, `SoterLabs (Soter Labs; Amatsu AR; Ozone AR)`. Filter by entity or registration status:
 
 ```
 /forum-search genesis capital
 /forum-search recent
+/forum-search --entity Spark --since 2026-04-01     # all posts by Spark's EH or any AR
+/forum-search --registered-only --since 2026-04-01  # drop unregistered authors
 ```
+
+The registry (`data/forum/registry.json`) is rebuilt on `/refresh` from Atlas `A.2.7.1.1.1.1.4.0.6.1`. Run `python3 scripts/forum/check-roster-vs-registry.py` to reconcile the AD roster against the registry (lists ADs not yet registered, multi-entity handles, etc.).
 
 ## Project layout
 
@@ -196,7 +200,10 @@ scripts/
     backfill-prs.sh             Batch-generate skeleton changelog entries
   forum/
     fetch-forum.py              Fetch forum posts via RSS
-    search-forum.sh             Search cached forum posts
+    search-forum.sh             Search cached forum posts (with entity-attribution enrichment)
+    build-account-registry.py   Parse Atlas A.2.7.1.1.1.1.4.0.6.1 → data/forum/registry.json
+    registry_lookup.py          Module + CLI: handle → entity lookup, enrichment, --entity expansion
+    check-roster-vs-registry.py Reconcile AD roster against the registry
   delegates/
     fetch-delegates.py          Fetch per-AD vote rationales via RSS
   voting/
