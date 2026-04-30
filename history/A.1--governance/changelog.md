@@ -4,6 +4,19 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #227 — Atlas Edit Proposal — 2026-04-27
+**Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
+
+### Material Changes
+- **Protocol Security Workstream Lead** (`A.1.7.1.2`, UUID `93651fb8…`): New specialized role for a Professional Ecosystem Actor providing security oversight and incident coordination across the Sky Ecosystem. No conflicting business activities allowed. Currently held by Vamsi.
+- **GSM Pause Delay**: 24 hours → **48 hours** (`A.1.9.3.1.2`)
+- **Plasma SkyLink Bridge deployment deferred**: "April 23, 2026 Executive Vote" → "a future Executive Vote" (`A.1.9.4.1.4.2`); timing now determined (not merely modifiable) by Core Facilitator in consultation with relevant Ecosystem Actors
+
+### Context
+The GSM delay doubling to 48h provides a wider security window for contested spells. The Plasma bridge deferral held back the deployment from the April 23 exec — that exec still ran and recorded parameter changes in PR #226. Poll #1630 passed (non-voters: excel, kuzmich, opex).
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis — Poll #1629)
 

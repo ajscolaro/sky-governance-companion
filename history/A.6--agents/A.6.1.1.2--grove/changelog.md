@@ -4,6 +4,33 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #227 — Atlas Edit Proposal — 2026-04-27
+**Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
+
+### Material Changes
+- **New: Tokenized Treasury JTRSY Instance** (`A.6.1.1.2.2.6.1.3.1.14.1`, UUID `5e38198e…`): USDS-supplied Tokenized Treasury instance via Centrifuge/Anemoy
+  - Token: JTRSY at `0x8c213ee79581Ff4984583C6a801e5263418C4b86`; ERC-7540 Vault: `0xFE6920eB6C421f1179cA8c8d4170530CDBdfd77A`
+  - Rate limits: **0 USDS inflow / 0 USDS outflow** at launch; Max Swap Size: 50M USD; Credit Token Deposits/Withdrawals/Stablecoin Swaps: all Disabled
+  - Owner: Anemoy via Timelock at `0xfB805f2f88e862e687bEBdF120306ef39380F3bf`; RRC Framework: Pending
+- **New: Grove x Steakhouse RLUSD Morpho Vault V2 Instance** (`A.6.1.1.2.2.6.1.3.1.7.8`, UUID `cfb29474…`): RLUSD-supplied Morpho vault
+  - Token: grove-bbqRLUSD at `0xBeEff4fD39F8e48b6a6e475445D650cb11e9599F`
+  - Deposit limits: **100M RLUSD maxAmount / 100M RLUSD per day slope**; Withdrawal: Unlimited
+  - maxExchangeRate: `setMaxExchangeRate(GROVE_X_STEAKHOUSE_RLUSD_V2, 1e18, 3e18)`; RRC Framework: Pending
+- **New: Tokenized Treasury shared contract infrastructure** (`A.6.1.1.2.2.6.1.2.1.1.1.3`): Chronicle Rate Provider (USDS/USDC) at `0xd79B9a9f5Fc240f2DCfcf260f004110B4713A7e7`; Sky PSM Wrapper at `0xA188EEC8F81263234dA3622A406892F3D630f98c`; RWA Instance Contract address TBD
+- **New: Tokenized Treasury Role Hierarchy** (`A.6.1.1.2.2.6.1.2.2.1.6`): 8 roles defined — OWNER_ROLE (via issuer Timelock), MANAGER_ADMIN_ROLE (Grove Proxy `0x1369f7b2…`), MANAGER_ROLE (Grove Relayer Multisig `0x0eEC8664…`), PAUSER_ROLE (Freezer Multisig `0xB0113804…`)
+
+### Context
+Both new instances (JTRSY Tokenized Treasury and Grove x Steakhouse RLUSD V2) launch with zero rate limits / disabled swaps, consistent with infrastructure-registration-ahead-of-activation. Note: a separate JTRSY Centrifuge vault with 500M USDS capacity was also onboarded in PR #222 — that is a different product at a different Atlas path (`A.6.1.1.2.2.6.1.3.1.1.4` vs `A.6.1.1.2.2.6.1.3.1.14.1` here).
+
+---
+
+## PR #234 — add Grove Genesis Capital
+**Merged:** 2026-04-28 | **Type:** Spell recording (2026-04-09)
+
+Records the Grove Genesis Capital of **25,000,000 USDS** transferred in the April 9, 2026 Executive Vote, adding Grove to the Genesis Capital contributions table alongside Spark (25M), Obex (21M), Skybase (15M), and Core Council Executor Agent 1 (25M).
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
 

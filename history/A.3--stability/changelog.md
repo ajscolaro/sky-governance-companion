@@ -4,6 +4,29 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #227 — Atlas Edit Proposal — 2026-04-27
+**Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
+
+### Material Changes
+- **Target Aggregate Backstop Capital** (`A.3.5.3.2.1`): fixed **150 million USDS** → dynamic **1.5% of total USDS supply** (~$158M at current ~$10.5B USDS supply)
+- **Turbo-Fill Floor** (`A.3.5.3.2.2`, UUID `db2aaf07…`): new parameter at **150 million USDS** — the threshold below which accelerated 50% Step 2 Capital retention applies in the new TMF
+- **Genesis Capital Backstop haircut cap** (`A.3.7.1.6`): haircut now explicitly capped at Aggregate Backstop Capital (previously uncapped up to full loss amount)
+- **Post-backstop settlement** (`A.3.7.1.6.2`): removed the 24 billion SKY distribution to Genesis Agents when haircut fully covers the loss; now SKY Backstop activates directly when losses exceed Prime Agent capital plus Aggregate Backstop Capital
+
+### Context
+The Target ABC shift from fixed 150M to 1.5% of USDS supply scales the target with protocol growth. The Turbo-Fill Floor preserves 150M as the accelerated-retention threshold, maintaining the prior target's practical effect while allowing the formal target to grow. The haircut cap and post-backstop settlement changes are complementary to the PR #224 loss-absorption reordering (Genesis Capital Backstop before SKY Backstop).
+
+---
+
+## PR #226 — Update April 23 Parameters
+**Merged:** 2026-04-30 | **Type:** Spell recording (2026-04-23)
+
+### Material Changes
+- **Grove Allocator Vault DC-IAM** (ALLOCATOR-BLOOM-A): `gap` 250M → **500M USDS** (line 5B USDS, ttl 24h unchanged)
+- **Pattern Allocator Vault DC-IAM** (ALLOCATOR-PATTERN-A): `gap` 10M → **50M USDS**; `line` 10M → **2.5B USDS** (ttl 24h unchanged)
+
+---
+
 ## PR #219 — Atlas Edit Proposal — 2026-04-06
 **Merged:** 2026-04-09 | **Type:** Weekly edit (Atlas Axis)
 

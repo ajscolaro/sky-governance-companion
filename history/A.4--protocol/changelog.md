@@ -4,6 +4,17 @@ Atlas path: `A.4` — The Protocol Scope
 
 ---
 
+## PR #227 — Atlas Edit Proposal — 2026-04-27
+**Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
+
+### Housekeeping
+- "SKY Staking Voting Rewards" → "SKY Staking Rewards" across `A.4.4.1.2` and subdocs; "voting rewards" → "rewards" in section descriptions and staking mechanism intro text
+- Activity-tier staking framework deleted: HASR/SASR tier definitions, activity-level qualification criteria, and per-tier payout documents removed from `A.4.4.1.2.1.1.1`–`.3`
+- Staking rewards distribution updated to continuous (previously monthly), with parameters updated at each Monthly Settlement Cycle
+- Cross-references throughout updated from old transitionary `A.2.3.1.4.2` → new TMF Step 3 (`A.2.3.1.2.4`) and Step 4 (`A.2.3.1.2.5`)
+
+---
+
 ## PR #219 — Atlas Edit Proposal — 2026-04-06
 **Merged:** 2026-04-09 | **Type:** Weekly edit (Atlas Axis)
 

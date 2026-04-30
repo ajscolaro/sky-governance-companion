@@ -4,6 +4,34 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #227 — Atlas Edit Proposal — 2026-04-27
+**Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
+
+### Material Changes
+- **TMF Step 1 restructured** (`A.2.3.1.2.2`, UUID `324e9d22…`): "Security and Stability Maintenance" → "Security and Maintenance"; allocation expanded from **10% to 20%** of Net Revenue, now split as:
+  - 10% → **Fortification Foundation Allocation** (`A.2.3.1.2.2.1`, new): legal defense, resilience, unquantifiable risk, protocol development; interim: may flow to Sky Frontier Foundation
+  - 10% → **Core Council Allocation** (`A.2.3.1.2.2.2`, new): unified allocation for Core Executors (active + retired), Aligned Delegates, Governance Accessibility Rewards, Sky Frontier Foundation grants; discretionary split via Core Council Buffer and AD Buffer
+- **TMF Step 2 replaced** with **Aggregate Backstop Capital** (`A.2.3.1.2.3`, UUID `2b28d464…`): replaces HASR buffer + Stability Capital Retention formula. Dynamic ABC retention:
+  - ABC < Turbo-Fill Floor (150M): retain 50% of Step 2 Capital
+  - ABC between Turbo-Fill Floor and Target (1.5% of USDS supply): retain 50% × (1 − ABC/Target)
+  - ABC ≥ Target: 0% retained; all flows to Step 3
+- **TMF Step 3 replaced** with **Smart Burn Engine** (`A.2.3.1.2.4`, UUID `5ce73730…`): Step 3 Capital allocated as 45% SKY buyback→stakers, 45% USDS staking rewards, 10% SKY buyback→burned
+- **TMF Step 4 simplified** to **Staking Rewards** (`A.2.3.1.2.5`, UUID `bb163691…`): distributes USDS and SKY staking rewards produced in Step 3
+- **Transitionary framework retired** (`A.2.3.1.4` deleted): entire Stage 0/1/2 Step 4 allocation structure removed; HASR/SASR activity-tier buffers deleted; SCR/Stability Capital Buffer formula deleted; ISRC sourcing updated to flow from Aggregate Backstop Capital (100% above Target ABC + 1/3 up to Target ABC)
+- **Authorized Forum Accounts Requirements** (`A.2.7.1.1.1.1`, UUID `a76f81b5…`): new section requiring governance-capacity forum accounts to register entity handle and authorized representatives; unregistered accounts may be disregarded for governance purposes. Initial registry: 15 entities (Pattern, Redline, BA Labs, Spark, Obex, Grove, Soter Labs, Amatsu, Dewiz, Atlas Axis, Ozone, Endgame Edge, Keel, Sidestream, JanSky/Rune)
+- **Grove Foundation Grant Authorization Q2 2026** (`A.2.8.2.2.2.4.5.2.1`, UUID `85f7d545…`): **800,000 USDS/month** from Grove's Prime Treasury for 3 months (Q2 2026). Recipient: Grove Foundation at `0xE3EC4CC359E68c9dCE15Bf667b1aD37Df54a5a42`
+
+### Housekeeping
+- ISRC sourcing section renamed: `A.2.3.1.3` "Sourcing Of Internal Senior Risk Capital From Surplus Buffers" → "Sourcing Of Internal Senior Risk Capital"; definition updated to cite ABC as source
+- Core Governance Reward Primitive: funding source clarified as Core Council Allocation; retroactive effective date May 19, 2025; accrued undisbursed amounts funded from Core Council Buffer
+- Spark Foundation grant authorizations reorganized into `A.2.8.2.2.2.4.5.1.x` nested hierarchy; Grove Foundation grants added at `A.2.8.2.2.2.4.5.2`
+- Cross-references throughout updated from old transitionary paths (`A.2.3.1.4.1.x`, `A.2.3.1.4.2`) to new permanent TMF step paths (`A.2.3.1.2.2.x`, `A.2.3.1.2.4`, `A.2.3.1.2.5`)
+
+### Context
+The largest TMF restructuring since the framework launched. The old transitionary framework (Stage 0/1/2 for Step 4 allocation, activity-tier staking buffers, SCR formula) is retired and replaced with a permanent architecture. Key shifts: (1) Step 1 explicitly allocates 10% to the Fortification Foundation, formalizing a legal/security reserve; (2) ABC growth is baked into Step 2 rather than being a separate governance action; (3) staking rewards (USDS and SKY) integrate directly into TMF Steps 3–4 rather than running as parallel vesting streams. USDS supply ~$10.5B at merge.
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis — Poll #1629)
 
