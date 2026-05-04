@@ -4,6 +4,13 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #235 — Restructure ALCS Directory: move Blackrock + Centrifuge to Completed, align Active with ICD numbering
+**Merged:** 2026-05-01 | **Type:** Housekeeping
+
+Structural renumbering of the Active Lending Capital Sources (ALCS) Directory under `A.6.1.1.1.2.6.1.1`. Blackrock (`.2.1.6` → `.3.1`) and Centrifuge (`.2.1.7` → `.3.2`) directory entries moved to the Completed Instances Directory; remaining Active venues decremented by 2 (Superstate `.8`→`.6`, Curve `.9`→`.7`, Morpho `.10`→`.8`, Spark Savings V2 `.11`→`.9`, Arkis `.12`→`.10`, Uniswap v4 `.13`→`.11`, Paxos `.14`→`.12`, Anchorage `.15`→`.13`). All UUIDs preserved; pure renumbering (+46/-46). Replaces an earlier `.14 → .15` collision patch and aligns Active Directory numbering with the ICD tree (Anchorage now `.13` in both).
+
+---
+
 ## PR #216 — Spark Proposal - Spark Savings - Raise Deposit Caps for spUSDC, spUSDT, spETH
 **Merged:** 2026-04-27 | **Type:** Spark proposal (parameter update)
 
@@ -42,15 +49,17 @@ Forum: https://forum.skyeco.com/t/april-9-2026-proposed-changes-to-spark-for-upc
 ---
 
 ## PR #214 — SAEP-14: Update Offchain Collateralized Lending Artifact Section
-**Merged:** 2026-04-27 | **+11/-3 lines**
+**Merged:** 2026-04-27 | **Type:** SAEP-14 (Spark proposal)
 
-### Raw Changes (rewrite with /atlas-track)
-- **Added** `A.6.1.1.1.3.8.2.2.2.6` - Gold (AU) [Core]
+### Material Changes
+- **New collateral asset: Gold (AU)** (`A.6.1.1.1.3.8.2.2.2.6`, UUID `8db0e30b…fdfe92`): Initial LTV 80%, Maintenance 85%, Liquidation 90%; **exposure limit $500M** (of which ≤$50M from XAUM); approved wrapped versions Tether XAUT, Paxos PAXG, Matrixdock XAUM
+- **WBTC wrapped versions expanded** (`A.6.1.1.1.3.8.2.2.2.1` Bitcoin): added **Bitgo/Bitglobal WBTC** alongside existing Coinbase cbBTC and Lombard LBTC
+- **Minimum borrow rate floor lowered** (`A.6.1.1.1.3.8.2.4.2.2`): SSR + 1.5% → **SSR + 0.3%**; SOFR + 2% → **SOFR + 0%** (loans take the greater of the two)
 
-<!-- REWRITE THIS ENTRY: Read the diff and current Atlas to classify changes as
-     Material (with before→after values) vs Housekeeping (one-line summaries).
-     Replace this section with ### Material Changes and ### Housekeeping.
-     See /atlas-track skill for the target format. -->
+### Context
+First non-crypto collateral type added to Spark's offchain lending program; the $500M cap with a $50M XAUM sub-cap concentrates exposure to the more liquid XAUT/PAXG wrappers. The minimum-rate cut is sizable — pricing floor is now effectively "SSR + 30bps or SOFR, whichever is higher" vs. the prior SSR+150 / SOFR+200 floor — removing most of the structural premium over benchmark rates and materially expanding the set of borrowers Spark can compete for. Continues the offchain-lending loosening trajectory from SAEP-10 (PR #185, Mar 2026), which scaled Anchorage capacity 5× to $1B and replaced the entity-enumeration "critical action" test with a whitelist-based one. SKY ~$0.087 (-8.7% WoW), USDS supply $11.02B at merge.
+
+Forum: https://forum.skyeco.com/t/saep-14-update-offchain-collateralized-lending-artifact-section/27805
 
 ---
 

@@ -2,12 +2,13 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #235 | Restructure ALCS Directory: move Blackrock + Centrifuge to Completed, align Active with ICD numbering | 2026-05-01 | agents/spark | complete |
 | #227 | Atlas Edit Proposal — 2026-04-27 | 2026-04-30 | support, governance, protocol, agents/grove, stability | complete |
 | #226 | Update April 23 Parameters | 2026-04-30 | stability | complete |
 | #234 | add Grove Genesis Capital | 2026-04-28 | agents/grove | complete |
 | #216 | Spark Proposal - Spark Savings - Raise Deposit Caps for spUSDC, spUSDT, spETH | 2026-04-27 | agents/spark | complete |
 | #215 | Spark Proposal - Spark Liquidity Layer - Update Rate Limits | 2026-04-27 | agents/spark | complete |
-| #214 | SAEP-14: Update Offchain Collateralized Lending Artifact Section | 2026-04-27 | agents/spark | skeleton |
+| #214 | SAEP-14: Update Offchain Collateralized Lending Artifact Section | 2026-04-27 | agents/spark | complete |
 | #210 | Spark proposal - Morpho Vault Curation | 2026-04-27 | agents/spark | complete |
 | #209 | SAEP-13: Risk Curation Framework | 2026-04-27 | agents/spark | complete |
 | #224 | Atlas Edit Proposal — 2026-04-20 | 2026-04-24 | governance, support, agents/spark, agents/grove, agents/keel, agents/skybase, agents/obex, agents/pattern, agents/launch-agent-6, agents/launch-agent-7 | complete |
