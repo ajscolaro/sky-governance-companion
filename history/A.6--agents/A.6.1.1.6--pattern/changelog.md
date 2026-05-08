@@ -4,6 +4,20 @@ Atlas path: `A.6.1.1.6` (353 docs)
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Pattern Freezer Multisig description simplified** (`A.6.1.1.6.2.6.1.2.1.2.2.2`): removed controlling-party clause "and is controlled by Operational GovOps Soter Labs". Multisig now described only via its `FREEZER_ROLE`; controlling parties remain identified in the Signers subsection.
+
+### Housekeeping
+- Solidity identifier whitespace fix across Pattern ALM Controller, mintUSDS/transferAsset, and Rate Limit Management docs (`A.6.1.1.6.2.6.1.2.2.1.{1.3, 2.1.2.1.1.1, 2.1.2.2.1.1, 3}`): `Rate Limits` → `RateLimits` — same compile-correctness sweep as Keel/Obex.
+
+### Context
+The Freezer Multisig edit is editorial — Soter Labs's role is unaffected, only the description in the introduction was tightened to avoid duplication. Ratified by Poll #1631 (10-0).
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
 

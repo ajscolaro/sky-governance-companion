@@ -54,4 +54,4 @@ if [ -n "$UUID" ]; then
     FILTER="$FILTER | select(.uuid | startswith(\"$UUID\"))"
 fi
 
-jq -r "[.[] | $FILTER] | .[:$LIMIT] | .[] | \"\(.number)\t\(.name)\t[\(.type)]\tlines \(.line_start)-\(.line_end)\"" "$INDEX"
+jq -r "[.[] | $FILTER] | .[:$LIMIT] | .[] | \"\(.number)\t\(.name)\t[\(.type)]\t\(.path)\"" "$INDEX"

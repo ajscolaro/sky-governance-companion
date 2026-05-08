@@ -19,7 +19,10 @@ fi
 rm -f "$PROJECT_DIR"/tmp/pr-*.diff "$PROJECT_DIR"/tmp/pr-*-body.md 2>/dev/null
 
 cd "$REPO_DIR"
-git fetch origin main --depth 1 2>/dev/null || { echo "Atlas sync failed: could not fetch from GitHub."; exit 0; }
+# depth=20 covers ~1 month of merges so process-pr.sh can diff against the
+# parent of recently-merged PRs without needing to deepen the clone every run.
+# Older PRs trigger on-demand deepening in process-pr.sh.
+git fetch origin main --depth 20 2>/dev/null || { echo "Atlas sync failed: could not fetch from GitHub."; exit 0; }
 git reset --hard origin/main >/dev/null 2>&1 || { echo "Atlas sync failed: could not reset to origin/main."; exit 0; }
 
 LATEST_SHA=$(git rev-parse --short HEAD)

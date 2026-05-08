@@ -140,24 +140,19 @@ def build_roster_from_atlas() -> list[dict]:
         print("Warning: Could not find AD roster (A.1.5.1.5.0.6.1) in index.", file=sys.stderr)
         return []
 
-    # Read the relevant lines from the Atlas file
-    atlas_file = PROJECT_DIR / ".atlas-repo" / "Sky Atlas" / "Sky Atlas.md"
-    if not atlas_file.exists():
-        print("Error: Atlas file not found.", file=sys.stderr)
+    doc_rel_path = ad_entry.get("path")
+    if not doc_rel_path:
+        print("Error: AD roster index entry missing 'path' field.", file=sys.stderr)
+        return []
+    doc_path = PROJECT_DIR / doc_rel_path
+    if not doc_path.exists():
+        print(f"Error: AD roster document not found at {doc_path}.", file=sys.stderr)
         return []
 
-    line_start = ad_entry.get("line_start", 0)
-    line_end = ad_entry.get("line_end", line_start + 100)
-
-    with open(atlas_file, "r", encoding="utf-8") as f:
-        lines = []
-        for i, line in enumerate(f, 1):
-            if i >= line_start and i <= line_end:
-                lines.append(line)
-            elif i > line_end:
-                break
-
-    content = "".join(lines)
+    content = doc_path.read_text(encoding="utf-8")
+    if content.startswith("---\n"):
+        end = content.index("\n---\n", 4)
+        content = content[end + 5:]
 
     # Parse the markdown table for forum URLs
     # Table format: | Delegate Name | EA Address | Delegation Contract | Forum Post |

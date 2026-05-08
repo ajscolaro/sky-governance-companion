@@ -4,6 +4,17 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Ecosystem Accord 10 reference added under Grove** (`A.6.1.1.2.3.5.3`, UUID `e7057828…3e25a`): pointer to the full Accord at `A.2.8.2.10` (UUID `0cb00b28…dc97`) — see `A.2--support` changelog for the Accord's compensation formula (20% of Base Rate × USDS in Chronicle Point Reward Instance, monthly MSC settlement, retroactive to 2025-07-24).
+
+### Context
+First ongoing USDS revenue stream Grove receives directly from Sky outside per-spell capital flows. Ratified by Poll #1631 (10-0).
+
+---
+
 ## PR #227 — Atlas Edit Proposal — 2026-04-27
 **Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
 

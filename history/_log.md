@@ -2,6 +2,8 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #241 | Add breach record for Kuzmich on 2026-05-08 | 2026-05-08 | governance/ad-breaches | complete |
+| #237 | Atlas Edit Proposal — 2026-05-04 | 2026-05-08 | support, agents/spark, governance, agents/grove, stability, accessibility, agents/pattern, agents/keel, agents/obex | complete |
 | #235 | Restructure ALCS Directory: move Blackrock + Centrifuge to Completed, align Active with ICD numbering | 2026-05-01 | agents/spark | complete |
 | #227 | Atlas Edit Proposal — 2026-04-27 | 2026-04-30 | support, governance, protocol, agents/grove, stability | complete |
 | #226 | Update April 23 Parameters | 2026-04-30 | stability | complete |
@@ -88,7 +90,7 @@
 | #30 | Atlas edit weekly cycle proposal 2025 07 14 | 2025-07-18 | preamble, governance, support, stability, agents/spark, agents/grove | complete |
 | #26 | Weekly Cycle Atlas Edit 2025-07-07 | 2025-07-11 | stability | complete |
 | #27 | Minor fixes | 2025-07-10 | stability | complete |
-| #25 | New AD added - Kuzmich | 2025-07-07 | governance | complete |
+| #25 | New AD added - Kuzmich | 2025-07-07 | governance/ad-roster | complete |
 | #24 | Update AEP-11.md | 2025-07-07 | other | complete |
 | #23 | "Use of Idle Funds" document location fix | 2025-07-07 | agents | complete |
 | #22 | Weekly Cycle Atlas Edit 2025-06-30 | 2025-07-04 | support, stability, agents, agents/grove | complete |
@@ -100,8 +102,8 @@
 | #15 | 2025-06-16 weekly atlas edit proposal | 2025-06-19 | preamble, governance, support, stability, agents/spark | complete |
 | #16 | update capitalization of daocraft | 2025-06-17 | agents/spark | complete |
 | #9 | Add 2025-06-12 spell changes | 2025-06-16 | stability, agents/spark | complete |
-| #6 | Update Multiple ADs | 2025-06-16 | governance | complete |
-| #14 | Derecognize ADs that failed to migrate | 2025-06-13 | governance | complete |
+| #6 | Update Multiple ADs | 2025-06-16 | governance/ad-roster | complete |
+| #14 | Derecognize ADs that failed to migrate | 2025-06-13 | governance/ad-roster | complete |
 | #12 | governance scope cleanup | 2025-06-13 | governance | complete |
 | #10 | Weekly Cycle Atlas Edit proposal 2025-06-09 | 2025-06-12 | protocol, agents/spark | complete |
 | #11 | cleanup of article and preamble sections | 2025-06-10 | preamble | complete |
@@ -109,4 +111,4 @@
 | #8 | AEP-11: Proposal - Update edit PR | 2025-06-05 | other | complete |
 | #5 | 2025-06-02 changes | 2025-06-05 | protocol | complete |
 | #4 | add 2025-05-29 spell changes | 2025-06-04 | stability, protocol, agents/spark | complete |
-| #3 | New AD added: Max Staking Yield | 2025-06-03 | governance | complete |
+| #3 | New AD added: Max Staking Yield | 2025-06-03 | governance/ad-roster | complete |

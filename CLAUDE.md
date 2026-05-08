@@ -4,12 +4,13 @@ Personal tooling for navigating the Sky Atlas and tracking governance changes ov
 
 ## What is the Sky Atlas?
 
-The governing document for the Sky ecosystem (formerly MakerDAO). A single ~3MB markdown file (~9,800 documents) in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas), updated through two distinct governance flows:
+The governing document for the Sky ecosystem (formerly MakerDAO). ~10,200 documents stored as a folder tree under `content/A/x/y/z/document.md` in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas), each with YAML frontmatter (`id`, `docNo`, `name`, `type`, `depth`, `childType`). Updated through three distinct governance flows:
 
 - **Flow 1 (text edits):** Forum → ratification poll → Atlas PR merged (same day poll ends). Covers weekly edits, AEPs, SAEPs. No on-chain execution involved.
 - **Flow 2 (spell recording):** Executive spell executes on-chain → Atlas PR records the changes (4-11 days later). These PRs document what already happened.
+- **Flow 3 (Active Data Direct Edit):** Designated Controller (typically Core Facilitator) directly edits an `Active Data` document and merges the PR same-day. No poll, no spell — authority comes from the parent doc's Controller designation. Covers registry updates: AD breach records, AD roster changes, Authorized Forum Accounts list, etc.
 
-Both flows produce PRs in the same repo. See `docs/governance-reference.md` for the full pipeline and how to distinguish them. **`main` is canonical** — open PRs are proposals only ("this PR proposes...", not "the Atlas says...").
+All three flows produce PRs in the same repo. See `docs/governance-reference.md` for the full pipeline and how to distinguish them. **`main` is canonical** — open PRs are proposals only ("this PR proposes...", not "the Atlas says...").
 
 ## Session startup
 

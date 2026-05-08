@@ -22,7 +22,6 @@ from typing import List, Tuple
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 INDEX_FILE = PROJECT_DIR / "data" / "index.json"
-ATLAS_FILE = PROJECT_DIR / ".atlas-repo" / "Sky Atlas" / "Sky Atlas.md"
 ATLAS_REPO = PROJECT_DIR / ".atlas-repo"
 OUTPUT_FILE = PROJECT_DIR / "data" / "forum" / "registry.json"
 
@@ -34,7 +33,7 @@ TRANSITIVE_RE = re.compile(
 
 
 def load_section_lines() -> List[str]:
-    """Locate the registry section via data/index.json and return its lines."""
+    """Locate the registry document via data/index.json and return its body lines."""
     with INDEX_FILE.open() as f:
         index = json.load(f)
     entry = next((e for e in index if e.get("uuid") == REGISTRY_UUID), None)
@@ -43,11 +42,12 @@ def load_section_lines() -> List[str]:
             f"Registry section UUID {REGISTRY_UUID} not found in index. "
             "Has the Atlas been synced and indexed?"
         )
-    line_start, line_end = entry["line_start"], entry["line_end"]
-    with ATLAS_FILE.open() as f:
-        all_lines = f.readlines()
-    # line_start/end are 1-indexed and inclusive
-    return all_lines[line_start - 1 : line_end]
+    doc_path = PROJECT_DIR / entry["path"]
+    text = doc_path.read_text(encoding="utf-8")
+    if text.startswith("---\n"):
+        end = text.index("\n---\n", 4)
+        text = text[end + 5:]
+    return text.splitlines(keepends=True)
 
 
 def parse_ar_field(ar_str: str) -> Tuple[List[str], List[str]]:

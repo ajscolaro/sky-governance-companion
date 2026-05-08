@@ -4,6 +4,17 @@ Atlas path: `A.6.1.1.5` (509 docs)
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Solidity identifier whitespace fix across Obex ALM Controller and Rate Limit Management docs (`A.6.1.1.5.2.6.1.2.2.1.{1.3, 2.1.2.1.1.1, 2.1.2.2.1.1, 3, 3.1–3.5}`): same `Rate Limits` → `RateLimits`, `setRate LimitData` → `setRateLimitData`, `getCurrentRate Limit` → `getCurrentRateLimit`, etc. as the parallel Keel/Pattern fixes.
+
+### Context
+Same compile-correctness sweep applied to Keel and Pattern in this PR. Ratified by Poll #1631 (10-0).
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
 

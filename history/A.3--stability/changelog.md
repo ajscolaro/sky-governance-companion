@@ -4,6 +4,17 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Sky Savings Rate Current Value** (`A.3.1.2.2.3`, UUID `aff1868f…52eb`): documents how to read the SSR on-chain — call `ssr()` on the sUSDS contract `0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD` (Ethereum mainnet); the function returns a per-second compounding rate in RAY (10^27) precision; annualized rate = `(ssr() / 1E27)^31536000 - 1`.
+
+### Context
+Documentation only — the SSR mechanism itself is unchanged. Ratified by Poll #1631 (10-0, non-voters: excel, opex, tango).
+
+---
+
 ## PR #227 — Atlas Edit Proposal — 2026-04-27
 **Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
 

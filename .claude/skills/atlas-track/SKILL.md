@@ -150,17 +150,19 @@ A.6	A.6--agents
 
 Before rewriting changelog entries, read `docs/governance-reference.md` for shared governance context.
 
-**Two governance flows produce Atlas PRs:**
+**Three governance flows produce Atlas PRs:**
 - **Flow 1 (text edits):** Forum → ratification poll → PR merged same day poll ends. Covers weekly edits, AEPs, SAEPs. No executive spell involved.
 - **Flow 2 (spell recording):** Executive spell cast on-chain → PR records changes 4-11 days later. These PRs have "spell changes" or "executive changes" in the title.
+- **Flow 3 (Active Data Direct Edit):** Designated Controller (typically Core Facilitator) merges a same-day PR touching only `type: Active Data` documents. No poll, no spell. PR titles describe the registry change (e.g. "Add breach record for X").
 
-Flow 1 PRs are governance decisions. Flow 2 PRs are documentation of on-chain execution. Don't expect Flow 1 PRs to reference spells — they won't have any.
+Flow 1 PRs are governance decisions. Flow 2 PRs are documentation of on-chain execution. Flow 3 PRs are routine Active-Data registry updates exercising authority delegated to a Controller.
 
 When writing entries:
 
-- **Identify the proposal type** in the entry header: was this a weekly edit (Atlas Axis), an AEP, a SAEP, a Risk Advisor action, or a spell recording?
+- **Identify the proposal type** in the entry header: was this a weekly edit (Atlas Axis), an AEP, a SAEP, a Risk Advisor action, a spell recording, or an Active Data Direct Edit?
 - **For Flow 1 PRs**: look up the authorizing poll in `data/voting/polls/vote-matrix.json` — polls with `atlas_pr` matching the PR number give you the poll ID, vote result, and AD participation
 - **For Flow 2 PRs**: cross-reference with `data/voting/executive/lifecycle.json` to find the spell, its actions, and market context at cast time
+- **For Flow 3 PRs**: identify the Designated Controller from the parent doc; cite the controlling Atlas section (e.g. `A.1.5.6.1.3` for AD breaches)
 - **For Active Data changes**: note whether the designated controller is exercising normal authority or if this is a governance override
 - **Reference roles by name**: "Atlas Axis weekly edit", "per Risk Advisor recommendation", "SAEP-12 (Spark proposal)"
 
@@ -264,6 +266,7 @@ Use these labels in the `**Type:**` field:
 | Spark proposal (<descriptor>) | Informal (non-SAEP) Spark-initiated proposal — e.g., "Spark proposal (new SLL instance)", "Spark proposal (risk parameter update)" | 1 (text edit) |
 | Risk Advisor action | Changes citing Risk Advisor recommendation | 1 (text edit) |
 | Spell recording (YYYY-MM-DD) | PR title contains "spell changes" or "executive changes"; date is the spell cast date (from the title, not the merge date) | 2 (on-chain) |
+| Active Data update (Designated Controller) | Only `type: Active Data` documents modified, no matching ratification poll, no matching spell. Authority is the parent doc's Controller designation (often Core Facilitator). E.g. AD breach records, registry list updates. | 3 (direct edit) |
 | Housekeeping | Pure formatting, linting, URL fixes | 1 (admin) |
 | Agent proposal (agent name) | Informal agent-initiated proposals from agents other than Spark | 1 (text edit) |
 
