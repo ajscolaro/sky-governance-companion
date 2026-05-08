@@ -95,22 +95,34 @@ def classify_block(block: str, by_path: dict) -> dict | None:
         m = re.search(rf"^{re.escape(prefix)}{field}:\s*(.+)$", rest, re.M)
         return m.group(1).strip().strip('"') if m else None
 
+    targets: list[str] | None = None
     if kind == "deleted":
         number = _fm("docNo", "-")
         name = _fm("name", "-")
         doc_type = _fm("type", "-")
+        targets_raw = _fm("targets", "-")
     elif kind == "added":
         number = _fm("docNo", "+")
         name = _fm("name", "+")
         doc_type = _fm("type", "+")
+        targets_raw = _fm("targets", "+")
     else:
         # Modified or renamed: pull from current index if available
         path_key = ".atlas-repo/" + (b_path if b_path != "/dev/null" else a_path)
         entry = by_path.get(path_key)
         if entry:
             number, name, doc_type = entry["number"], entry["name"], entry["type"]
+            targets = entry.get("targets") or None
         else:
             number = name = doc_type = None
+        targets_raw = None
+
+    # NR docs (and any future doc type using `targets:`) carry references to
+    # the parent doc(s) they attach to. Surface them to enrich.py so it can
+    # route by target rather than by NR-N (which has no scope prefix).
+    if targets_raw and targets is None:
+        inner = targets_raw.strip("[]").strip()
+        targets = [u.strip() for u in inner.split(",") if u.strip()] if inner else []
 
     out: dict = {"kind": kind, "uuid": uuid}
     if number:
@@ -119,6 +131,8 @@ def classify_block(block: str, by_path: dict) -> dict | None:
         out["name"] = name
     if doc_type:
         out["type"] = doc_type
+    if targets:
+        out["targets"] = targets
     if kind == "renamed":
         out["from"] = a_path
         out["to"] = b_path

@@ -62,6 +62,35 @@ def route_doc(number: str | None, rules: list[tuple[str, str]]) -> str:
     return "_other"
 
 
+def routing_number(doc: dict, by_uuid: dict) -> str | None:
+    """Resolve the doc number used for entity routing.
+
+    For most docs this is just doc["number"]. For NR (Needed Research) docs
+    the doc number ("NR-N") has no scope prefix, so we instead route by the
+    number of the doc the NR attaches to via its frontmatter `targets` field.
+    Falls back to the doc's own number if the target can't be resolved.
+    """
+    number = doc.get("number") or ""
+    if not number.startswith("NR-"):
+        return number
+
+    # Targets either came from the manifest (added/deleted, parsed from the
+    # diff frontmatter) or from the index (modified/renamed, resolved at
+    # build-index time). Try both.
+    targets = doc.get("targets") or []
+    if not targets:
+        idx_entry = by_uuid.get(doc.get("uuid"))
+        if idx_entry:
+            targets = idx_entry.get("targets") or []
+    if not targets:
+        return number  # falls through to _other via route_doc
+
+    target_entry = by_uuid.get(targets[0])
+    if target_entry and target_entry.get("number"):
+        return target_entry["number"]
+    return number
+
+
 def lookup_poll(pr_number: int) -> dict | None:
     """Find the ratification poll for a Flow 1 PR via the atlas_pr field."""
     if not VOTE_MATRIX.exists():
@@ -182,10 +211,12 @@ def main() -> int:
     spell = lookup_spell_for_pr(pr_number)
     flow, type_label = classify_governance_flow(pr_meta, extracted, poll, spell)
 
-    # Group documents by entity (routing destination)
+    # Group documents by entity (routing destination). NR docs route by the
+    # number of the parent doc they target, not by their own NR-N which has
+    # no scope prefix.
     entity_groups: dict[str, list[str]] = defaultdict(list)
     for doc in extracted["documents"]:
-        entity = route_doc(doc.get("number"), rules)
+        entity = route_doc(routing_number(doc, by_uuid), rules)
         doc["entity"] = entity
         entity_groups[entity].append(doc["uuid"])
 
