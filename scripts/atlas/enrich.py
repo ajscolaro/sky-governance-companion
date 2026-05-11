@@ -119,15 +119,34 @@ def lookup_poll(pr_number: int) -> dict | None:
 
 
 def lookup_spell_for_pr(pr_number: int) -> dict | None:
-    """Find a spell whose atlas_prs include this PR (Flow 2 recording)."""
+    """Find a spell whose atlas_prs include this PR (Flow 2 recording).
+
+    Returns spell metadata plus the list of authorizing governance polls
+    (resolved into title/result/atlas_pr triplets so render.py can cite them).
+    """
     if not LIFECYCLE.exists():
         return None
     data = json.loads(LIFECYCLE.read_text())
     spells = data.get("spells", {})
+    polls_by_id: dict = {}
+    if VOTE_MATRIX.exists():
+        vm = json.loads(VOTE_MATRIX.read_text())
+        polls_by_id = vm.get("polls", {}) if isinstance(vm, dict) else {}
+
     for addr, sp in spells.items():
         prs = sp.get("atlas_prs", []) or []
         for ref in prs:
             if isinstance(ref, dict) and ref.get("pr") == pr_number:
+                # Resolve each authorizing poll
+                authorizing: list[dict] = []
+                for poll_id in sp.get("governance_polls", []) or []:
+                    p = polls_by_id.get(str(poll_id)) or polls_by_id.get(poll_id) or {}
+                    authorizing.append({
+                        "poll_id": poll_id,
+                        "title": p.get("title"),
+                        "result": p.get("result"),
+                        "atlas_pr": p.get("atlas_pr"),
+                    })
                 return {
                     "address": addr,
                     "title": sp.get("title"),
@@ -135,6 +154,7 @@ def lookup_spell_for_pr(pr_number: int) -> dict | None:
                     "key": sp.get("key"),
                     "actions": [a.get("title") for a in sp.get("actions", [])][:8],
                     "proposal_url": sp.get("proposal_url"),
+                    "authorizing_polls": authorizing,
                 }
     return None
 

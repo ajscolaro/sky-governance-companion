@@ -11,7 +11,8 @@
 # Execution order:
 #   1. Parallel: all data fetches + unprocessed-PR discovery
 #   2. Wait for fetches
-#   3. Auto-process unprocessed merged PRs (writes skeletons to history/)
+#   3. Auto-process unprocessed merged PRs (full pipeline → fully-rendered
+#      entries in history/, status=auto)
 #   4. Session briefing
 set -uo pipefail
 
@@ -143,9 +144,9 @@ fi
 rm -f "$DISCOVERY_WARN_FILE"
 
 # === Phase 3: Auto-process unprocessed merged PRs ===
-# Writes skeleton entries to history/<entity>/changelog.md and updates _log.md.
-# Claude should follow up with /atlas-track + /atlas-analyze to rewrite
-# skeletons into Material/Housekeeping sections (see CLAUDE.md).
+# Runs the full process-pr.sh pipeline (classify-diff → extract-values →
+# enrich → render → auto-context → verify). Output is fully-rendered entries
+# in history/<entity>/changelog.md with status=auto in _log.md.
 if [ -s "$UNPROCESSED_FILE" ]; then
     PR_NUMS=$(tr '\n' ' ' < "$UNPROCESSED_FILE")
     echo ""
@@ -154,11 +155,10 @@ if [ -s "$UNPROCESSED_FILE" ]; then
 fi
 rm -f "$UNPROCESSED_FILE"
 
-# === Phase 3b: Surface any skeleton PRs awaiting finalization ===
-# Catches both just-auto-processed PRs and any lingering skeletons from prior
-# sessions where Claude didn't follow through with /atlas-track. Capped at the
-# most recently added 5 (by _log.md position); any larger backlog is legacy
-# debt the user should batch-clean manually rather than auto-finalize.
+# === Phase 3b: Surface legacy skeleton PRs (pre-pipeline) ===
+# Newly-processed PRs land at status=auto. Lingering status=skeleton rows are
+# from before the pipeline existed; surface them so Claude can re-process via
+# `process-pr.sh --force <PR>` to upgrade them. Capped at 5 most-recent.
 ALL_SKELETON_LINES=$(grep -E '^\| #[0-9]+ .* \| skeleton \|' "$LOG_FILE" 2>/dev/null || true)
 if [ -n "$ALL_SKELETON_LINES" ]; then
     TOTAL_SKELETONS=$(printf '%s\n' "$ALL_SKELETON_LINES" | grep -c '^| #')

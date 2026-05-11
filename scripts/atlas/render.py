@@ -128,6 +128,25 @@ def render_addition(doc: dict, descendants: list[dict]) -> tuple[str, list[str]]
     if lead:
         main += f": {lead}."
 
+    # Surface key facts from THIS doc directly — useful for ICD / parameter
+    # docs where the meaningful content is the addresses + dates + values, not
+    # the lead-sentence prose. Skip if already in the lead (avoids duplicates).
+    own_ext = doc.get("extracted") or {}
+    own_facts: list[str] = []
+    own_addrs = sorted(set(own_ext.get("addresses_after", []))
+                       - set(re.findall(r"0x[a-fA-F0-9]{40}", lead)))
+    if own_addrs:
+        own_facts.append(f"address{'es' if len(own_addrs) > 1 else ''}: "
+                         + ", ".join(f"`{a}`" for a in own_addrs))
+    own_dates = sorted(set(own_ext.get("dates_after", []))
+                       - set(re.findall(r"\d{4}-\d{2}-\d{2}", lead)))
+    if own_dates:
+        own_facts.append(f"date{'s' if len(own_dates) > 1 else ''}: "
+                         + ", ".join(own_dates))
+    if own_facts:
+        # Append as a parenthetical to keep the bullet on one logical line
+        main += f" ({'; '.join(own_facts)})"
+
     subs: list[str] = []
     # Gather all key facts from descendants — addresses, numerics with units, dates
     addr_set: set[str] = set()
@@ -280,11 +299,40 @@ def render_modification(doc: dict, pattern_covered: set | None = None) -> tuple[
         addrs = _format_addresses(ext["addresses_after"])
         return f"**{name}** (`{number}`): address {addrs}", "material"
 
-    # Numeric delta in body — capture from paired sub
+    # Numeric / parameter changes — surface every value pair, not just up to 3.
+    # Pairs that are pure numeric values (with optional units) carry the
+    # signal a spell-recording reader needs (rate limits, LTV, slope, etc.).
+    # We split this into two flavors: explicit parameter pairs (high signal)
+    # vs. any-pair-containing-a-digit (broader catch).
+    PARAMETER_PAIR_RE = re.compile(
+        r"^-?\d{1,3}(?:[,\d]*\.?\d*|\.\d+)\s*"
+        r"(?:%|million|billion|bps|hours?|hrs?|days?|seconds?|sec|years?|"
+        r"[MBK]\b|USD|USDS|DAI|SKY|sUSDS|ETH|BTC|USDC|USDT)?\s*"
+        r"(?:per\s+(?:day|hour|year|second))?$",
+        re.IGNORECASE,
+    )
+
+    def _is_parameter_pair(p: dict) -> bool:
+        if p.get("kind") != "sub":
+            return False
+        b, a = p.get("before", "").strip(), p.get("after", "").strip()
+        return bool(PARAMETER_PAIR_RE.match(b) and PARAMETER_PAIR_RE.match(a))
+
+    parameter_subs = [p for p in pairs if _is_parameter_pair(p)]
+    if parameter_subs:
+        # All parameter changes for this doc go on a single bullet.
+        bits = "; ".join(f"`{p['before']}` → `{p['after']}`" for p in parameter_subs)
+        return f"**{name}** (`{number}`): {bits}", "material"
+
+    # Broader numeric fallback: any sub where both sides contain digits.
+    # Useful for parameter docs whose values include extra prose ("250M / 100M
+    # per day"). Still uncapped — readers want the full delta, not a sample.
     numeric_subs = [p for p in pairs
-                    if p["kind"] == "sub" and re.search(r"\d", p["before"]) and re.search(r"\d", p["after"])]
+                    if p["kind"] == "sub"
+                    and re.search(r"\d", p.get("before", ""))
+                    and re.search(r"\d", p.get("after", ""))]
     if numeric_subs:
-        bits = "; ".join(f"`{p['before']}` → `{p['after']}`" for p in numeric_subs[:3])
+        bits = "; ".join(f"`{p['before']}` → `{p['after']}`" for p in numeric_subs)
         return f"**{name}** (`{number}`): {bits}", "material"
 
     # Authority/role rename in body
@@ -413,6 +461,35 @@ def render_entity_entry(entity: str, enriched: dict) -> tuple[str, dict]:
     lines: list[str] = []
     lines.append(f"## PR #{pr_number} — {title}")
     lines.append(f"**Merged:** {merged_date} | **Type:** {type_label}")
+
+    # Flow 2 cross-PR linking: cite the authorizing governance polls (and any
+    # Flow 1 Atlas PRs they pre-authorized) on a sub-line right under the
+    # header. Prefer polls with cached results — old spells may list many
+    # polls predating the vote-matrix cache, so trim aggressively.
+    spell = enriched.get("spell")
+    if spell and (spell.get("authorizing_polls") or spell.get("date")):
+        bits: list[str] = []
+        polls = spell.get("authorizing_polls") or []
+        if polls:
+            POLL_CAP = 5
+            with_results = [p for p in polls if p.get("result")]
+            chosen = with_results if with_results else polls
+            poll_strs: list[str] = []
+            for p in chosen[:POLL_CAP]:
+                marker = f"#{p['poll_id']}"
+                if p.get("result"):
+                    marker += f" ({p['result']})"
+                if p.get("atlas_pr"):
+                    marker += f" → PR #{p['atlas_pr']}"
+                poll_strs.append(marker)
+            label = "polls"
+            if len(chosen) > POLL_CAP:
+                poll_strs.append(f"+{len(chosen) - POLL_CAP} more")
+            bits.append(f"{label}: {', '.join(poll_strs)}")
+        if spell.get("date"):
+            bits.append(f"spell cast {spell['date']}")
+        if bits:
+            lines.append(f"**Authorizing:** {' · '.join(bits)}")
     lines.append("")
     if material:
         lines.append("### Material Changes")
