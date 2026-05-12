@@ -4,6 +4,17 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Freezer Multisig Modification (`A.6.1.1.1.2.6.1.2.1.2.2.3.5`): "Governance Facilitators must prepare an expedited Executive Vote…" → "Core Facilitator must prepare…" — terminology cleanup.
+
+### Context
+Same Governance-Facilitators → Core-Facilitator sweep applied to SparkLend Security Access Multisig docs in `A.1--governance` for this PR. Ratified by Poll #1631 (10-0).
+
+---
+
 ## PR #235 — Restructure ALCS Directory: move Blackrock + Centrifuge to Completed, align Active with ICD numbering
 **Merged:** 2026-05-01 | **Type:** Housekeeping
 

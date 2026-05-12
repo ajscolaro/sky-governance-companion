@@ -22,7 +22,7 @@ You are updating all cached data sources and surfacing what's changed since the 
    - Market prices/supply (if `MESSARI_API_KEY` is set)
    - Open Atlas PRs from GitHub
    - Discovery of merged PRs that aren't yet in `history/_log.md`
-2. **Auto-process merged PRs** — runs `scripts/atlas/process-pr.sh` on each unprocessed merged PR, writing skeleton entries to the affected `history/<entity>/changelog.md` files (status=`skeleton`).
+2. **Auto-process merged PRs** — runs `scripts/atlas/process-pr.sh` on each unprocessed merged PR. Pipeline (classify-diff → extract-values → enrich → render → auto-context → verify) writes fully-rendered Material/Housekeeping bullets to the affected `history/<entity>/changelog.md` files (status=`auto`). The optional Context paragraph is filled by `claude -p` when available; falls through cleanly otherwise.
 3. **Session briefing** — prints only sections that have content: market (daily), spells (current + pending), polls (ended since last session + active), atlas proposals (new open PRs in last 7 days), forum activity (new posts).
 
 `/refresh` does **not** re-sync the Atlas git repo or rebuild the index — that's handled by the SessionStart hook (`scripts/core/atlas-sync.sh`). If the user asks for fresh Atlas commits mid-session, tell them to restart Claude.
@@ -36,16 +36,19 @@ bash scripts/core/refresh.sh
 ```
 
 
-## Follow-up: finalize skeleton PRs
+## Follow-up: legacy skeleton PRs
 
-A **skeleton** is a merged PR whose structural changes have been recorded in `history/` but whose interpretive context (Material/Housekeeping sections, before→after values, narrative Context) hasn't been filled in yet. Only merged PRs ever become skeletons — unmerged ones go to the Atlas Proposals section of the briefing instead.
+Most freshly-processed PRs land at status=`auto` (fully rendered by the pipeline). Legacy entries from before the pipeline existed are still marked `skeleton` and need rewriting.
 
-Look for `Skeleton PRs awaiting finalization: <numbers>` in the refresh output. This lists the 5 most-recently-added skeletons in `_log.md` — both ones just auto-processed in this `/refresh` and any that lingered from prior sessions where the follow-up was skipped. **Proactively** run on that list, without waiting for the user to ask:
+Look for `Skeleton PRs awaiting finalization: <numbers>` in the refresh output. If it appears, those are pre-pipeline entries — re-process them through the auto pipeline:
 
-1. `/atlas-track <PR numbers>` — rewrite each skeleton into `### Material Changes` / `### Housekeeping` sections with before→after values.
-2. `/atlas-analyze <PR numbers>` — summarize impact and fill in each entry's `### Context` section.
+```bash
+bash scripts/atlas/process-pr.sh --force <PR numbers>
+```
 
-If the line reads `(5 most recent of N)` with N > 5, a backlog has accumulated across sessions. Do **not** auto-finalize those — mention the count once and offer to batch-finalize on request. `grep 'skeleton' history/_log.md` lists the full set; `scripts/core/sort-changelogs.py` re-sorts chronologically after a batch finalization if ordering drifts.
+`--force` re-runs the full pipeline against the local `.atlas-repo/` and overwrites the skeleton entry with auto-rendered Material/Housekeeping bullets.
+
+If the line reads `(5 most recent of N)` with N > 5, a backlog has accumulated. Mention the count once and offer to batch-process on request rather than auto-running for all of them.
 
 Skip this follow-up entirely if the line doesn't appear.
 
@@ -58,7 +61,7 @@ Skip this follow-up entirely if the line doesn't appear.
 - Add your own section headers ("Highlights")
 
 Instead: wrap the briefing output in a fenced code block (or print it directly) and add only one or two optional lines after it:
-- If `Auto-processing merged PRs: <numbers>` appeared, a note that you're running `/atlas-track` + `/atlas-analyze` next.
+- If `Auto-processing merged PRs: <numbers>` appeared, a note that those PRs were rendered by the auto pipeline (status=`auto`) and are ready unless the briefing also flagged legacy skeletons.
 - If a section the user expected is missing (e.g., no market data), a brief flag — otherwise stay silent.
 
 The briefing is already formatted for human consumption. Your job is to pass it through, not to re-interpret it.

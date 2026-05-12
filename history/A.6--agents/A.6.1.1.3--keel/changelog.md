@@ -4,6 +4,17 @@ Atlas path: `A.6.1.1.3` (874 docs)
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Solidity identifier whitespace fix across Keel ALM Controller and Rate Limit Management docs (`A.6.1.1.3.2.6.1.2.2.1.1.{1.3, 2.1.2.1.1.1, 2.1.2.2.1.1, 3, 3.1–3.5}`): `Rate Limits` → `RateLimits`, `Rate LimitData` → `RateLimitData`, `setRate LimitData` → `setRateLimitData`, `getCurrentRate Limit` → `getCurrentRateLimit`, `triggerRate LimitDecrease` → `triggerRateLimitDecrease`, plus revert-string and event-name corrections.
+
+### Context
+Cosmetic but consequential — the previous spaced forms were not valid Solidity and would not compile if copied. Same fix applied to Obex and Pattern in this PR. Ratified by Poll #1631 (10-0).
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
 

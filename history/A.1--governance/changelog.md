@@ -4,6 +4,20 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- **"Governance Facilitators" → "Core Council"/"Core Facilitator" across SparkLend Security Access Multisig docs**:
+  - `A.1.9.4.2.1.1` (SparkLend Multisig Usage Standards): "Governance Facilitators must ensure…" → "Core Council must ensure…"
+  - `A.1.9.4.2.1.1.0.4.1` (Action Tenet, UUID `71898c9e…2bdd0c`): renamed "Facilitators Must Exercise Due Caution…" → "Core Council Must Exercise Due Caution…"; body references updated
+  - `A.1.9.4.2.1.4` (SparkLend Multisig Signer Modifications): "Governance Facilitators should consider preparing an expedited Executive Vote…" → "Core Facilitator should consider…"
+
+### Context
+Terminology cleanup completing the September 2025 transition from Governance Facilitators to the Core Council/Core Facilitator model (see PR #59) — these SparkLend Security Access Multisig docs were missed by the original sweep. Ratified by Poll #1631 (10-0, non-voters: excel, opex, tango).
+
+---
+
 ## PR #227 — Atlas Edit Proposal — 2026-04-27
 **Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
 
@@ -103,26 +117,6 @@ This AEW represents the **largest structural change to AD governance since the C
 **Merged:** 2025-12-08 | **Type:** Housekeeping
 
 Renumbered the entire Ranked Delegates section from `A.1.5.4` to `A.1.5.3` (and downstream docs correspondingly, e.g. `A.1.5.4.1.1.2` → `A.1.5.3.1.1.2`), plus two cross-reference fixes: `A.1.4.5.1` link updated from `A.1.5.4.5.2` → `A.1.5.3.5.2`, and `A.1.5.16.0.4.1` renumbered to `A.1.4.8.0.4.1`. All UUIDs unchanged; no content changes.
-- **Modified** `A.1.5.4.4.2` - AD Buffer And Loss Of Budget [Core]
-- **Modified** `A.1.5.4.1.3.3` - Selection Of Level 3 Ranked Delegates [Core]
-- **Modified** `A.1.5.4.1.3.2` - Budget For Level 3 Ranked Delegates [Core]
-- **Modified** `A.1.5.7` - Mandate To Maintain High Level of Operational Security [Section]
-- **Modified** `A.1.5.4.3.2.0.3.2` - Voting-Communication Metrics - Element Annotation [Annotation]
-- **Modified** `A.1.5.4.1.1` - Level 1 Ranked Delegates [Core]
-- **Modified** `A.1.5.10` - Emergency Contact Mechanism [Section]
-- **Modified** `A.1.5.4.1.2.1` - Number Of Level 2 Ranked Delegates [Core]
-- **Modified** `A.1.5.4.2` - Budget Accrual [Core]
-- **Modified** `A.1.4.8.0.4.1` - Facilitators’ Authority To Raise Formal Allegation [Action Tenet]
-- **Modified** `A.1.5.4.1.2.3.1` - Current Level 2 Ranked Delegates [Core]
-- **Modified** `A.1.5.4.5.2` - Atlas Workstreams [Core]
-- **Modified** `A.1.5.4.3.2` - Voting-Communication Metrics [Core]
-- **Modified** `A.1.5.4.1` - Levels Of Ranked Delegates [Core]
-- **Modified** `A.1.5.4.1.1.3` - Selection Of Level 1 Ranked Delegates [Core]
-
-<!-- REWRITE THIS ENTRY: Read the diff and current Atlas to classify changes as
-     Material (with before→after values) vs Housekeeping (one-line summaries).
-     Replace this section with ### Material Changes and ### Housekeeping.
-     See /atlas-track skill for the target format. -->
 
 ---
 
@@ -370,14 +364,6 @@ Raising SparkLend's security multisig threshold from 2/5 to 3/5 meaningfully inc
 
 ---
 
-## PR #25 — New AD added - Kuzmich
-**Merged:** 2025-07-07 | **Type:** Weekly edit (Atlas Axis)
-
-### Material Changes
-- **New AD recognized**: Kuzmich — recognition address `0x2847540606a790E5083d0D63470fAb01344c8e92`, vote contract `0x2C89024c13A80bC1B662A3dB990524652C15221C`, forum: https://forum.sky.money/t/ad-recognition-submission/26743
-
----
-
 ## PR #7 — AEP-11: Edit
 **Merged:** 2025-06-23 | **Type:** AEP-11
 
@@ -398,23 +384,6 @@ AEP-11 ratified. Forum: https://forum.sky.money/t/aep-11-moderation-policies-of-
 
 ---
 
-## PR #6 — Update Multiple ADs
-**Merged:** 2025-06-16 | **Type:** Weekly edit (Atlas Axis)
-
-### Material Changes
-- **8 ADs updated to v3 voting contracts**: Bonapublica, PBG, WBC, BLUE, Cloaky, AegisD, Excel, Tango — new contract addresses and verification signatures recorded in the AD Active Data table.
-- **New AD recognized**: Sky Staking (recognition address `0x05c73AE49fF0ec654496bF4008d73274a919cB5C`).
-
----
-
-## PR #14 — Derecognize ADs that failed to migrate
-**Merged:** 2025-06-13 | **Type:** Weekly edit (Atlas Axis)
-
-### Material Changes
-- **12 ADs derecognized** from the AD roster: JAG, Penguin Soldier, Vision, Nimsen, Ikagai, Byteron, Shanah, Pipkin, JuliaChang, StoneWill, Rocky, Jiaozi — all removed for failure to migrate to v3 contracts (context: PR #6 updated v3 addresses for the remaining active ADs).
-
----
-
 ## PR #12 — governance scope cleanup
 **Merged:** 2025-06-13 | **Type:** Housekeeping
 
@@ -431,13 +400,5 @@ Whitespace and inline formatting cleanup across A.1 governance scope documents �
 
 ### Context
 First Atlas PR in the repository — a massive weekly edit primarily restructuring A.2 (Allocation System, Ecosystem Accords) and A.3 (risk framework). A.1 changes are relatively minor. See A.2--support and A.3--stability changelogs for the bulk of this PR's impact.
-
----
-
-## PR #3 — New AD added: Max Staking Yield
-**Merged:** 2025-06-03 | **Type:** Weekly edit (Atlas Axis)
-
-### Material Changes
-- **New AD recognized**: Max Staking Yield (recognition address `0x9746bDaB7ab2609247332324400cc1fbE887095C`, forum: max-staking-yield-ad-recognition-submission/26462).
 
 ---

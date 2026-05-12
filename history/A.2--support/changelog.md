@@ -4,6 +4,25 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Ecosystem Accord 10 — Sky and Grove** (`A.2.8.2.10`, UUID `0cb00b28…dc97`): formalizes ongoing compensation to Grove for the Chronicle Point Reward Instance — the mainnet `StakingRewards` contract at the Chainlog `REWARDS_USDS_01` key, into which USDS is deposited to accrue Chronicle Points.
+  - **Compensation formula**: `USDS_Deposited × 20% × Base_Rate` (Base Rate per `A.3.1.2.1`, UUID `228f9955…00b9`); accrues continuously, sub-period proration when USDS deposited or Base Rate changes
+  - **Settlement**: monthly via the Monthly Settlement Cycle, `Σ(USDS_Deposited × 0.20 × Base_Rate / 365 × Sub-Period_Days)`
+  - **Duration**: indefinite, retroactive commencement 2025-07-24; modifiable only via Atlas Edit
+  - **Retroactive compensation**: 2025-07-24 → 2026-03-31, settled in the April 2026 MSC
+  - **Parties**: Sky (= Sky Core) and Grove (= Grove Prime Agent + Grove Foundation)
+
+### Housekeeping
+- Removed broken `A.5.5.1.1` cross-references from Legacy Accounts (`A.2.3.1.2.2.2.1.6.1`) and the two Spark Liquidity Bootstrapping transfer records (`A.2.8.2.2.2.7.4.1`, `A.2.8.2.2.2.7.4.2`) — cleanup paired with the deletion of Article `A.5.5` (see `A.5--accessibility/changelog.md`).
+
+### Context
+First non-foundational Ecosystem Accord added since the Atlas onboarding wave; ratified by Poll #1631 (10-0, non-voters: excel, opex, tango). Pegs Grove's compensation directly to Sky's monetary policy lever — the Base Rate — so payouts scale automatically with USDS deposits in the Chronicle Point Reward Instance and with future SSR/Base Rate adjustments. The retroactive 8-month window (Jul 2025 – Mar 2026) means the April 2026 MSC will carry a one-time catch-up payment in addition to the recurring monthly accrual.
+
+---
+
 ## PR #227 — Atlas Edit Proposal — 2026-04-27
 **Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
 

@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
 # Analyze a merged PR and append structured entries to the relevant history changelogs.
-# Usage: process-pr.sh <PR-number> [<PR-number> ...]
+# Usage: process-pr.sh [--dry-run] [--force] <PR-number> [<PR-number> ...]
 #
-# For each PR:
-# 1. Fetches PR metadata and diff via gh CLI
-# 2. Identifies which documents were added/modified/deleted (by UUID)
-# 3. Groups changes by entity subtree
-# 4. Appends a skeleton entry to each affected changelog
-# 5. Updates history/_log.md
+# Pipeline (one PR at a time):
+#   1. classify-diff.py   → tmp/pr-<N>-manifest.json   (per-doc add/delete/modify/rename)
+#   2. extract-values.py  → tmp/pr-<N>-extracted.json  (numerics, addresses, sweeps)
+#   3. enrich.py          → tmp/pr-<N>-enriched.json   (poll/spell, routing, type label)
+#   4. render.py          → tmp/pr-<N>-rendered.json   (per-entity markdown entries)
+#   5. auto-context.py    → tmp/pr-<N>-final.json      (Context filled by `claude -p`,
+#                                                       or passthrough if ATLAS_AUTO_CONTEXT=0)
+#   6. verify-entry.py    → exit non-zero if the entry doesn't account for every changed UUID
+#   7. Append entry to history/<entity>/changelog.md, update history/_log.md
 #
-# The skeleton includes the structural changes; interpretive context
-# should be added by the agent reviewing the output.
+# Flags:
+#   --dry-run   Run pipeline but do not modify any history/* files (prints rendered entries)
+#   --force     Re-process even if PR is already in history/_log.md (overwrites prior entry)
+#
+# Env vars (all optional):
+#   ATLAS_AUTO_CONTEXT=0          Skip the LLM Context-fill step
+#   ATLAS_AUTO_CONTEXT_MODEL=...  Override model passed to `claude -p`
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -18,16 +26,33 @@ PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 INDEX="$PROJECT_DIR/data/index.json"
 HISTORY_DIR="$PROJECT_DIR/history"
 LOG_FILE="$HISTORY_DIR/_log.md"
-REPO="sky-ecosystem/next-gen-atlas"
-GH_API="https://api.github.com/repos/$REPO"
+ATLAS_REPO_DIR="$PROJECT_DIR/.atlas-repo"
 
 if [ ! -f "$INDEX" ]; then
     echo "Error: Index not found. Run scripts/setup.sh first." >&2
     exit 1
 fi
 
-if [ $# -eq 0 ]; then
-    echo "Usage: process-pr.sh <PR-number> [<PR-number> ...]" >&2
+DRY_RUN=0
+FORCE=0
+FROM_TMP=0
+PR_ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+        --dry-run)  DRY_RUN=1 ;;
+        --force)    FORCE=1 ;;
+        --from-tmp) FROM_TMP=1 ;;  # use cached tmp/pr-<N>.diff + meta (testing)
+        --) ;;
+        -h|--help)
+            sed -n '2,/^set -euo pipefail$/p' "$0" | sed 's/^# \{0,1\}//' >&2
+            exit 0
+            ;;
+        *) PR_ARGS+=("$arg") ;;
+    esac
+done
+
+if [ ${#PR_ARGS[@]} -eq 0 ]; then
+    echo "Usage: process-pr.sh [--dry-run] [--force] <PR-number> [<PR-number> ...]" >&2
     exit 1
 fi
 
@@ -69,88 +94,128 @@ route_to_entity() {
     echo "_other"
 }
 
-for PR_NUM in "$@"; do
-    # Check if already processed
-    if grep -q "| #$PR_NUM " "$LOG_FILE" 2>/dev/null; then
+# Locate a PR's merge commit in the local atlas-repo. next-gen-atlas
+# squash-merges PRs with the title suffix " (#N)", so we grep commit subjects
+# for that pattern. If the PR isn't in the shallow clone yet, deepen
+# progressively (50 → 200 → 1000 → 5000 commits → unshallow).
+find_pr_merge_sha() {
+    local pr_num="$1"
+    local sha
+    sha=$(git -C "$ATLAS_REPO_DIR" log --all -E --grep="\\(#${pr_num}\\)$" --pretty=format:%H -n 1 2>/dev/null)
+    [ -n "$sha" ] && { echo "$sha"; return 0; }
+
+    for depth in 50 200 1000 5000; do
+        git -C "$ATLAS_REPO_DIR" fetch origin main --depth "$depth" >/dev/null 2>&1 || break
+        sha=$(git -C "$ATLAS_REPO_DIR" log --all -E --grep="\\(#${pr_num}\\)$" --pretty=format:%H -n 1 2>/dev/null)
+        [ -n "$sha" ] && { echo "$sha"; return 0; }
+    done
+
+    git -C "$ATLAS_REPO_DIR" fetch --unshallow origin main >/dev/null 2>&1 || true
+    sha=$(git -C "$ATLAS_REPO_DIR" log --all -E --grep="\\(#${pr_num}\\)$" --pretty=format:%H -n 1 2>/dev/null)
+    [ -n "$sha" ] && { echo "$sha"; return 0; }
+    return 1
+}
+
+# Ensure the merge commit's parent is present so `git diff sha~..sha` is meaningful.
+# In a shallow clone (atlas-sync.sh defaults to depth=1) the parent isn't fetched,
+# which would make `git show <sha>` return the entire tree as additions. Deepen
+# by one if needed.
+ensure_parent_available() {
+    local sha="$1"
+    if git -C "$ATLAS_REPO_DIR" rev-parse "$sha~" >/dev/null 2>&1; then
+        return 0
+    fi
+    git -C "$ATLAS_REPO_DIR" fetch origin --deepen=10 >/dev/null 2>&1 || true
+    git -C "$ATLAS_REPO_DIR" rev-parse "$sha~" >/dev/null 2>&1
+}
+
+for PR_NUM in "${PR_ARGS[@]}"; do
+    # Check if already processed (unless --force)
+    if [ "$FORCE" -eq 0 ] && grep -q "| #$PR_NUM " "$LOG_FILE" 2>/dev/null; then
         echo "PR #$PR_NUM already processed, skipping."
         continue
     fi
 
     echo "Processing PR #$PR_NUM..."
-
-    # Fetch PR metadata via REST API (no auth needed for public repos)
-    PR_JSON=$(curl -sf "$GH_API/pulls/$PR_NUM" 2>/dev/null) || {
-        echo "Error: Could not fetch PR #$PR_NUM" >&2
-        continue
-    }
-
-    TITLE=$(sanitize "$(echo "$PR_JSON" | jq -r '.title')")
-    MERGED_AT=$(echo "$PR_JSON" | jq -r '.merged_at // "not merged"')
-    ADDITIONS=$(echo "$PR_JSON" | jq -r '.additions')
-    DELETIONS=$(echo "$PR_JSON" | jq -r '.deletions')
-    BODY=$(echo "$PR_JSON" | jq -r '.body // ""')
-
-    if [ "$MERGED_AT" = "not merged" ] || [ "$MERGED_AT" = "null" ]; then
-        echo "Warning: PR #$PR_NUM is not merged. Processing anyway for analysis."
-    fi
-
-    MERGED_DATE="${MERGED_AT:0:10}"
-
-    # Save PR body to tmp/ for use during rewrite
     TMP_DIR="$PROJECT_DIR/tmp"
     mkdir -p "$TMP_DIR"
-    if [ -n "$BODY" ]; then
-        echo "$BODY" > "$TMP_DIR/pr-${PR_NUM}-body.md"
-        echo "  → Saved PR body to tmp/pr-${PR_NUM}-body.md"
+
+    DIFF_FILE="$TMP_DIR/pr-${PR_NUM}.diff"
+    META_FILE="$TMP_DIR/pr-${PR_NUM}-meta.json"
+
+    if [ "$FROM_TMP" -eq 1 ]; then
+        # Test path: skip git ops, expect cached diff + meta from a prior run.
+        if [ ! -s "$DIFF_FILE" ] || [ ! -s "$META_FILE" ]; then
+            echo "Error: --from-tmp requires both $DIFF_FILE and $META_FILE to exist" >&2
+            continue
+        fi
+        TITLE=$(jq -r '.title' "$META_FILE")
+        AUTHOR_DATE=$(jq -r '.merged_at' "$META_FILE")
+        ADDITIONS=$(jq -r '.additions' "$META_FILE")
+        DELETIONS=$(jq -r '.deletions' "$META_FILE")
+        MERGED_DATE="${AUTHOR_DATE:0:10}"
+        echo "  → Using cached diff + meta from tmp/"
+    else
+        # 1. Locate the PR's merge commit in the local atlas-repo
+        if [ ! -d "$ATLAS_REPO_DIR/.git" ]; then
+            echo "Error: .atlas-repo not found. Run scripts/core/setup.sh first." >&2
+            continue
+        fi
+        MERGE_SHA=$(find_pr_merge_sha "$PR_NUM") || {
+            echo "Error: PR #$PR_NUM not found in atlas-repo history (deepening exhausted)" >&2
+            continue
+        }
+        echo "  → Found merge commit: ${MERGE_SHA:0:8}"
+
+        if ! ensure_parent_available "$MERGE_SHA"; then
+            echo "Error: parent of $MERGE_SHA not in shallow clone and could not deepen." >&2
+            echo "       Run 'git -C .atlas-repo fetch --unshallow' from a shell with network access." >&2
+            continue
+        fi
+
+        # 2. Extract metadata from the commit. next-gen-atlas squashes PRs so
+        #    the commit subject is the PR title with " (#N)" appended; the body
+        #    is the PR body verbatim.
+        SUBJECT=$(git -C "$ATLAS_REPO_DIR" log --format=%s -n 1 "$MERGE_SHA")
+        BODY=$(git -C "$ATLAS_REPO_DIR" log --format=%b -n 1 "$MERGE_SHA")
+        AUTHOR_DATE=$(git -C "$ATLAS_REPO_DIR" log --format=%aI -n 1 "$MERGE_SHA")
+        TITLE=$(echo "$SUBJECT" | sed -E "s/ \\(#${PR_NUM}\\)\$//")
+        TITLE=$(sanitize "$TITLE")
+        BODY=$(sanitize "$BODY")
+        MERGED_DATE="${AUTHOR_DATE:0:10}"
+
+        # 3. Build the unified diff and counts. Use `diff sha~..sha` rather
+        #    than `show sha` so it works whether the parent is the immediate
+        #    predecessor or a deepened ancestor.
+        git -C "$ATLAS_REPO_DIR" diff --no-color "${MERGE_SHA}~..${MERGE_SHA}" > "$DIFF_FILE"
+        SHORTSTAT=$(git -C "$ATLAS_REPO_DIR" diff --shortstat "${MERGE_SHA}~..${MERGE_SHA}")
+        ADDITIONS=$(echo "$SHORTSTAT" | grep -oE '[0-9]+ insertion' | grep -oE '^[0-9]+' || echo 0)
+        DELETIONS=$(echo "$SHORTSTAT" | grep -oE '[0-9]+ deletion' | grep -oE '^[0-9]+' || echo 0)
+        [ -z "$ADDITIONS" ] && ADDITIONS=0
+        [ -z "$DELETIONS" ] && DELETIONS=0
+        echo "  → Diff: +${ADDITIONS}/-${DELETIONS} lines"
+
+        # 4. Cache PR body + meta JSON (consumed by enrich.py)
+        [ -n "$BODY" ] && echo "$BODY" > "$TMP_DIR/pr-${PR_NUM}-body.md"
+        python3 - "$META_FILE" "$PR_NUM" "$TITLE" "$AUTHOR_DATE" "$ADDITIONS" "$DELETIONS" "$BODY" "$MERGE_SHA" <<'PYEOF'
+import json, sys
+out_path, pr, title, merged_at, adds, dels, body, sha = sys.argv[1:9]
+json.dump({
+    "number": int(pr), "title": title, "merged_at": merged_at,
+    "additions": int(adds), "deletions": int(dels),
+    "body": body, "merge_sha": sha,
+}, open(out_path, "w"), indent=2)
+PYEOF
     fi
 
-    # Fetch the diff and save to tmp/
-    DIFF=$(curl -sf -H "Accept: application/vnd.github.v3.diff" "$GH_API/pulls/$PR_NUM" 2>/dev/null) || {
-        echo "Error: Could not fetch diff for PR #$PR_NUM" >&2
+    # 5. Stage 1 — classify-diff
+    MANIFEST_FILE="$TMP_DIR/pr-${PR_NUM}-manifest.json"
+    python3 "$SCRIPT_DIR/classify-diff.py" "$DIFF_FILE" > "$MANIFEST_FILE" || {
+        echo "Error: classify-diff failed for PR #$PR_NUM" >&2
         continue
     }
-    echo "$DIFF" > "$TMP_DIR/pr-${PR_NUM}.diff"
-    echo "  → Saved diff to tmp/pr-${PR_NUM}.diff"
 
-    # Parse diff to find changed documents
-    # Extract UUIDs from added (+) and removed (-) title lines
-    ADDED_UUIDS=$(echo "$DIFF" | grep -E '^\+.*<!-- UUID:' | sed -E 's/.*UUID: ([a-f0-9-]{36}).*/\1/' | sort -u || true)
-    REMOVED_UUIDS=$(echo "$DIFF" | grep -E '^\-.*<!-- UUID:' | sed -E 's/.*UUID: ([a-f0-9-]{36}).*/\1/' | sort -u || true)
-
-    # Classify: new (added only), deleted (removed only), modified (both)
-    NEW_UUIDS=$(comm -23 <(echo "$ADDED_UUIDS") <(echo "$REMOVED_UUIDS") 2>/dev/null || true)
-    DELETED_UUIDS=$(comm -23 <(echo "$REMOVED_UUIDS") <(echo "$ADDED_UUIDS") 2>/dev/null || true)
-    MODIFIED_UUIDS=$(comm -12 <(echo "$ADDED_UUIDS") <(echo "$REMOVED_UUIDS") 2>/dev/null || true)
-
-    # Collect changes grouped by entity
-    declare -A ENTITY_CHANGES
-
-    # Build UUID → name maps from diff title lines, for both removed (-) and added (+).
-    # Used to (a) recover info for deleted docs not in current index, and
-    # (b) detect renames (same UUID, different name in - vs + heading).
-    declare -A DIFF_DOC_INFO
-    declare -A DIFF_DOC_OLD_NAME
-    declare -A DIFF_DOC_NEW_NAME
-    while IFS= read -r line; do
-        if [[ "$line" =~ ^-[#]+\ (A\.[^ ]+|NR-[0-9]+)\ -\ (.+)\ \[([^\]]+)\].*UUID:\ ([a-f0-9-]{36}) ]]; then
-            local_uuid="${BASH_REMATCH[4]}"
-            DIFF_DOC_INFO[$local_uuid]="${BASH_REMATCH[1]}	${BASH_REMATCH[2]}	${BASH_REMATCH[3]}"
-            DIFF_DOC_OLD_NAME[$local_uuid]="${BASH_REMATCH[2]}"
-        elif [[ "$line" =~ ^\+[#]+\ (A\.[^ ]+|NR-[0-9]+)\ -\ (.+)\ \[([^\]]+)\].*UUID:\ ([a-f0-9-]{36}) ]]; then
-            DIFF_DOC_NEW_NAME[${BASH_REMATCH[4]}]="${BASH_REMATCH[2]}"
-        fi
-    done <<< "$DIFF"
-
-    # Detect renames: UUID present in both +/- title lines with different names.
-    declare -A RENAMED_UUIDS
-    for uuid in $MODIFIED_UUIDS; do
-        [ -z "$uuid" ] && continue
-        old_n="${DIFF_DOC_OLD_NAME[$uuid]:-}"
-        new_n="${DIFF_DOC_NEW_NAME[$uuid]:-}"
-        if [ -n "$old_n" ] && [ -n "$new_n" ] && [ "$old_n" != "$new_n" ]; then
-            RENAMED_UUIDS[$uuid]="${old_n}|||${new_n}"
-        fi
-    done
+    NEW_UUIDS=$(jq -r '.added[].uuid' "$MANIFEST_FILE")
 
     # Auto-add routing for new agent-level Core docs (A.6.1.1.X).
     # A new Prime/Launch Agent's artifact shows up as an "Added" Core doc at this
@@ -215,99 +280,101 @@ PYEOF
         fi
     done
 
-    add_change() {
-        local uuid="$1" change_type="$2"
-        # Look up document in index
-        local doc_info
-        doc_info=$(jq -r --arg uuid "$uuid" '.[] | select(.uuid == $uuid) | "\(.number)\t\(.name)\t\(.type)"' "$INDEX" 2>/dev/null)
+    # 6. Stages 2-5: extract → enrich → render → context
+    EXTRACTED_FILE="$TMP_DIR/pr-${PR_NUM}-extracted.json"
+    ENRICHED_FILE="$TMP_DIR/pr-${PR_NUM}-enriched.json"
+    RENDERED_FILE="$TMP_DIR/pr-${PR_NUM}-rendered.json"
+    FINAL_FILE="$TMP_DIR/pr-${PR_NUM}-final.json"
 
-        if [ -z "$doc_info" ]; then
-            # Try the diff-extracted info for deleted docs
-            doc_info="${DIFF_DOC_INFO[$uuid]:-}"
-        fi
-        if [ -z "$doc_info" ]; then
-            doc_info="???\tUnknown (UUID: ${uuid:0:8}...)\t?"
-        fi
+    python3 "$SCRIPT_DIR/extract-values.py" "$DIFF_FILE" --manifest "$MANIFEST_FILE" \
+        > "$EXTRACTED_FILE" || { echo "Error: extract-values failed for PR #$PR_NUM" >&2; continue; }
 
-        local number name doc_type entity
-        number=$(echo "$doc_info" | cut -f1)
-        name=$(sanitize "$(echo "$doc_info" | cut -f2)")
-        doc_type=$(echo "$doc_info" | cut -f3)
-        entity=$(route_to_entity "$number")
+    python3 "$SCRIPT_DIR/enrich.py" --extracted "$EXTRACTED_FILE" --pr-meta "$META_FILE" \
+        > "$ENRICHED_FILE" || { echo "Error: enrich failed for PR #$PR_NUM" >&2; continue; }
 
-        # Renamed: include old → new in the label so finalization can't miss it.
-        if [ "$change_type" = "Renamed" ]; then
-            local old_n new_n
-            old_n=$(sanitize "${DIFF_DOC_OLD_NAME[$uuid]:-?}")
-            new_n=$(sanitize "${DIFF_DOC_NEW_NAME[$uuid]:-$name}")
-            ENTITY_CHANGES[$entity]+="- **Renamed** \`$number\` - \"$old_n\" → \"$new_n\" [$doc_type]
-"
-        else
-            ENTITY_CHANGES[$entity]+="- **${change_type}** \`$number\` - $name [$doc_type]
-"
-        fi
-    }
+    python3 "$SCRIPT_DIR/render.py" --enriched "$ENRICHED_FILE" \
+        > "$RENDERED_FILE" || { echo "Error: render failed for PR #$PR_NUM" >&2; continue; }
 
-    for uuid in $NEW_UUIDS; do [ -n "$uuid" ] && add_change "$uuid" "Added"; done
-    for uuid in $DELETED_UUIDS; do [ -n "$uuid" ] && add_change "$uuid" "Deleted"; done
-    for uuid in $MODIFIED_UUIDS; do
-        [ -z "$uuid" ] && continue
-        if [ -n "${RENAMED_UUIDS[$uuid]:-}" ]; then
-            add_change "$uuid" "Renamed"
-        else
-            add_change "$uuid" "Modified"
-        fi
-    done
+    # auto-context is best-effort — if the LLM call fails, fall back to passthrough
+    if ! python3 "$SCRIPT_DIR/auto-context.py" --rendered "$RENDERED_FILE" > "$FINAL_FILE" 2>/dev/null; then
+        echo "  → auto-context failed; using rendered output without Context paragraph"
+        cp "$RENDERED_FILE" "$FINAL_FILE"
+    fi
 
-    # Also count lines changed in non-title-line content (rough measure of substantive changes)
-    CONTENT_ADDS=$(echo "$DIFF" | grep -c '^\+[^+]' || true)
-    CONTENT_DELS=$(echo "$DIFF" | grep -c '^\-[^-]' || true)
+    # 7. Verify the rendered entry covers every changed UUID
+    if ! python3 "$SCRIPT_DIR/verify-entry.py" --manifest "$MANIFEST_FILE" \
+            --rendered "$FINAL_FILE" --enriched "$ENRICHED_FILE" >&2; then
+        echo "Error: verify-entry reported missing UUIDs for PR #$PR_NUM" >&2
+        continue
+    fi
 
-    # Write to each affected entity's changelog
-    AFFECTED_ENTITIES=""
-    for entity in "${!ENTITY_CHANGES[@]}"; do
-        CHANGELOG="$HISTORY_DIR/$entity/changelog.md"
-        mkdir -p "$(dirname "$CHANGELOG")"
+    # 8. Dry-run: print and stop
+    if [ "$DRY_RUN" -eq 1 ]; then
+        python3 - "$FINAL_FILE" <<'PYEOF'
+import json, sys
+r = json.load(open(sys.argv[1]))
+print(f"\n[dry-run] PR #{r['pr_number']} ({r['type_label']}) — {len(r['entries'])} entit{'y' if len(r['entries'])==1 else 'ies'}\n")
+for entity, text in r["entries"].items():
+    print(f"=== {entity} ===")
+    print(text)
+    print()
+PYEOF
+        continue
+    fi
 
-        # Create changelog if it doesn't exist
-        if [ ! -f "$CHANGELOG" ]; then
-            echo "# ${entity} — Change History" > "$CHANGELOG"
-            echo "" >> "$CHANGELOG"
-            echo "---" >> "$CHANGELOG"
-        fi
+    # 9. Write entries to changelogs (with --force, overwrite an existing
+    #    matching block first so re-runs don't duplicate)
+    AFFECTED=$(python3 - "$FINAL_FILE" "$HISTORY_DIR" "$PR_NUM" "$FORCE" <<'PYEOF'
+import json, os, re, sys
+final_path, history_dir, pr_num, force = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
+r = json.load(open(final_path))
+header_pat = re.compile(rf'^## PR #{re.escape(pr_num)}( |\n|$)')
 
-        cat >> "$CHANGELOG" << ENTRY
+affected = []
+for entity, text in r["entries"].items():
+    cl = os.path.join(history_dir, entity, "changelog.md")
+    os.makedirs(os.path.dirname(cl), exist_ok=True)
+    if not os.path.exists(cl):
+        with open(cl, "w") as f:
+            f.write(f"# {entity} — Change History\n\n---\n")
+    existing = open(cl).read()
 
-## PR #$PR_NUM — $TITLE
-**Merged:** $MERGED_DATE | **+$ADDITIONS/-$DELETIONS lines**
+    # If --force, drop any prior entry block for this PR before appending
+    if force:
+        # Split on the standard --- separator that bounds entries
+        parts = existing.split("\n---\n")
+        kept = [p for p in parts if not header_pat.match(p.strip())]
+        existing = "\n---\n".join(kept)
+        with open(cl, "w") as f:
+            f.write(existing.rstrip() + "\n")
 
-### Raw Changes (rewrite with /atlas-track)
-${ENTITY_CHANGES[$entity]}
-<!-- REWRITE THIS ENTRY: Read the diff and current Atlas to classify changes as
-     Material (with before→after values) vs Housekeeping (one-line summaries).
-     Replace this section with ### Material Changes and ### Housekeeping.
-     See /atlas-track skill for the target format. -->
+    with open(cl, "a") as f:
+        # Ensure exactly one blank line between prior content and the new entry
+        if not existing.endswith("\n"):
+            f.write("\n")
+        f.write("\n" + text + "\n")
+    affected.append(entity)
 
----
-ENTRY
+print(",".join(affected))
+PYEOF
+)
+    if [ -z "$AFFECTED" ]; then
+        echo "Warning: no entries were written for PR #$PR_NUM" >&2
+        continue
+    fi
+    echo "  → Wrote entries to: $AFFECTED"
 
-        echo "  → Updated $CHANGELOG"
-        AFFECTED_ENTITIES+="$entity, "
-    done
-
-    # Clean up trailing comma
-    AFFECTED_ENTITIES="${AFFECTED_ENTITIES%, }"
-
-    # Format affected entities for log (strip prefix paths, just show names)
-    LOG_ENTITIES=$(echo "$AFFECTED_ENTITIES" | sed 's/A\.[0-9.]*--//g; s/_other/other/g')
-
-    # Append to master log (status = skeleton until rewritten via /atlas-track)
-    echo "| #$PR_NUM | $TITLE | $MERGED_DATE | $LOG_ENTITIES | skeleton |" >> "$LOG_FILE"
+    # 10. Update _log.md (status=auto for fully-pipeline-generated entries)
+    LOG_ENTITIES=$(echo "$AFFECTED" | tr ',' '\n' | sed 's|A\.[0-9.]*--||g; s|_other|other|g' | paste -sd ', ' -)
+    if [ "$FORCE" -eq 1 ]; then
+        # Drop any existing row for this PR
+        grep -v "| #$PR_NUM " "$LOG_FILE" > "$LOG_FILE.tmp" && mv "$LOG_FILE.tmp" "$LOG_FILE"
+    fi
+    echo "| #$PR_NUM | $TITLE | $MERGED_DATE | $LOG_ENTITIES | auto |" >> "$LOG_FILE"
     echo "  → Updated $LOG_FILE"
 
-    # Clean up associative array for next PR
-    unset ENTITY_CHANGES
-    declare -A ENTITY_CHANGES
+    # 11. Re-sort all changelogs (most-recent-first)
+    python3 "$PROJECT_DIR/scripts/core/sort-changelogs.py" >/dev/null 2>&1 || true
 
     echo "Done with PR #$PR_NUM."
     echo ""

@@ -1,33 +1,51 @@
-# Sky Atlas Explorer
+# Sky Governance Companion
 
 Personal tooling for navigating the Sky Atlas and tracking governance changes over time.
 
 ## What is the Sky Atlas?
 
-The governing document for the Sky ecosystem (formerly MakerDAO). A single ~3MB markdown file (~9,800 documents) in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas), updated through two distinct governance flows:
+The governing document for the Sky ecosystem (formerly MakerDAO). ~10,200 documents stored as a folder tree under `content/A/x/y/z/document.md` in [sky-ecosystem/next-gen-atlas](https://github.com/sky-ecosystem/next-gen-atlas), each with YAML frontmatter (`id`, `docNo`, `name`, `type`, `depth`, `childType`). Updated through three distinct governance flows:
 
 - **Flow 1 (text edits):** Forum → ratification poll → Atlas PR merged (same day poll ends). Covers weekly edits, AEPs, SAEPs. No on-chain execution involved.
 - **Flow 2 (spell recording):** Executive spell executes on-chain → Atlas PR records the changes (4-11 days later). These PRs document what already happened.
+- **Flow 3 (Active Data Direct Edit):** Designated Controller (typically Core Facilitator) directly edits an `Active Data` document and merges the PR same-day. No poll, no spell — authority comes from the parent doc's Controller designation. Covers registry updates: AD breach records, AD roster changes, Authorized Forum Accounts list, etc.
 
-Both flows produce PRs in the same repo. See `docs/governance-reference.md` for the full pipeline and how to distinguish them. **`main` is canonical** — open PRs are proposals only ("this PR proposes...", not "the Atlas says...").
+All three flows produce PRs in the same repo. See `docs/governance-reference.md` for the full pipeline and how to distinguish them. **`main` is canonical** — open PRs are proposals only ("this PR proposes...", not "the Atlas says...").
 
 ## Session startup
 
 Responsibilities are split:
 
-- **SessionStart hook** (`scripts/core/atlas-sync.sh`) — pulls the latest Atlas and rebuilds `data/index.json` + address map. This is the only thing that touches `.atlas-repo/`; Claude's sandbox denies writes there.
-- **`/refresh` skill** (`scripts/core/refresh.sh`) — user-invoked. Refreshes all data caches (voting, forum, delegates, market, open PRs), auto-processes any unprocessed merged PRs into `history/` skeletons, then prints the session briefing.
+- **SessionStart hook** (`scripts/core/atlas-sync.sh`) — pulls the latest Atlas (depth 20 so `process-pr.sh` can diff against parent) and rebuilds `data/index.json` + address map. This is the only thing that touches `.atlas-repo/`; Claude's sandbox denies writes there.
+- **`/refresh` skill** (`scripts/core/refresh.sh`) — user-invoked. Refreshes all data caches (voting, forum, delegates, market, open PRs), auto-processes any unprocessed merged PRs into `history/`, then prints the session briefing.
 
 `/refresh` does **not** re-sync the Atlas. If the user needs fresh Atlas commits mid-session, they should restart Claude.
 
-A **skeleton** is a merged PR whose raw changes are recorded in `history/` but whose Material/Housekeeping/Context sections haven't been written. Only merged PRs ever become skeletons.
+### Auto-changelog pipeline
 
-If the `/refresh` output shows `Skeleton PRs awaiting finalization: <numbers>`, **proactively run `/atlas-track` then `/atlas-analyze`** on that list to finalize them, before doing other work. If the line reads `(5 most recent of N)` with N > 5, a backlog has accumulated across sessions — don't auto-finalize; just flag the count and let the user decide whether to batch-process.
+`scripts/atlas/process-pr.sh` is the orchestrator for converting merged PRs into per-entity changelog entries. It runs five stages plus a verification gate, emitting fully-rendered Material/Housekeeping bullets with no skeleton intermediate:
+
+1. `classify-diff.py` — per-doc add/delete/modify/rename classification (atomized-aware)
+2. `extract-values.py` — word-level body diffs; numerics, addresses, UUID refs, terminology sweeps, Solidity-identifier sweeps
+3. `enrich.py` — poll/spell lookup, governance-flow classification (1/2/3), routing via `entity-routing.conf` (NR docs route by their `targets[0]` parent)
+4. `render.py` — template-based markdown emission per entity; addition trees, deletion bullets, modification bullets, sweep groupings
+5. `auto-context.py` — optional Context paragraph via `claude -p` (Max OAuth); gated by `ATLAS_AUTO_CONTEXT`, falls through if unavailable
+6. `verify-entry.py` — asserts every changed UUID is accounted for in the rendered output
+
+PR data comes from local git ops against `.atlas-repo/` (squash-merge subject = title, body = body, `git diff sha~..sha` = unified diff). No GitHub API calls.
+
+**Flags:** `--dry-run` (print, don't write), `--force` (re-process, overwrite existing entry), `--from-tmp` (use cached `tmp/pr-<N>.diff` and meta — for development).
+
+**Status in `_log.md`:** `auto` for fully-pipeline-generated, `skeleton` for legacy entries from the old workflow, `complete` once a human has reviewed/edited.
+
+**Caveat:** the `claude -p` step hangs when run inside an active Claude Code session (nested CLI can't read parent OAuth through the sandbox). Run `process-pr.sh` from a regular shell, or set `ATLAS_AUTO_CONTEXT=0` to skip the Context fill.
+
+If `/refresh` reports `Skeleton PRs awaiting finalization: <numbers>`, those are legacy entries from the pre-pipeline workflow. Proactively re-process via `bash scripts/atlas/process-pr.sh --force <PR>` to upgrade them to auto-rendered entries.
 
 ## Project layout
 
 - `.atlas-repo/` — shallow clone of next-gen-atlas (gitignored, auto-refreshed)
-- `data/index.json` — parsed document index with line offsets (gitignored, rebuilt on refresh)
+- `data/index.json` — parsed document index keyed by UUID and number, with per-doc file paths (gitignored, rebuilt on refresh)
 - `data/forum/` — cached forum posts and search index (gitignored, fetched on refresh)
 - `data/forum/registry.json` — Authorized Forum Accounts registry (gitignored, rebuilt on refresh from Atlas `A.2.7.1.1.1.1.4.0.6.1`). Maps forum handles to entities and roles. Schema: `entities` (forward map), `by_handle` (case-insensitive reverse map with `entity`/`role`/`type`/`display_handle`), `transitive_refs` for parenthetical "(and their authorized representatives)" expansions. Consumed by `/forum-search` for author enrichment and by `scripts/forum/check-roster-vs-registry.py`
 - `data/delegates/` — cached AD vote rationales from RSS feeds (gitignored, fetched on refresh)
@@ -47,11 +65,11 @@ If the `/refresh` output shows `Skeleton PRs awaiting finalization: <numbers>`, 
 
 ## History structure
 
-Changes are tracked per-scope in `history/` with changelogs routed by the most specific matching prefix in `entity-routing.conf`. Agents have their own subdirectories under `A.6--agents/`. Article-level splits within a scope follow the same pattern (e.g., `A.2--support/A.2.7.1.1.1.1--forum-accounts/` for the Authorized Forum Accounts registry, which is Active Data and mutates between weekly cycles via Direct Edit). The directory may be incomplete — new agents and article splits can be added via governance at any time.
+Changes are tracked per-scope in `history/` with changelogs routed by the most specific matching prefix in `entity-routing.conf`. Agents have their own subdirectories under `A.6--agents/`. Article-level splits within a scope follow the same pattern (e.g., `A.2--support/A.2.7.1.1.1.1--forum-accounts/` for the Authorized Forum Accounts registry, `A.1--governance/A.1.5.6.1.3--ad-breaches/` for the AD Breach Registry — both Active Data nodes that mutate between weekly cycles via Flow 3 Direct Edit). The directory may be incomplete — new agents and article splits can be added via governance at any time.
 
-**Entry format:** entries are optimized for RAG / grep retrieval — terse, self-contained, predictable structure. `## PR #N — Title` header, `**Merged:** date | **Type:** governance-path` metadata, then `### Material Changes` (specific before→after values for parameter changes, capital allocation, new entities, authority changes) and/or `### Housekeeping` (renames, linting, renumbering, collapsed to one line), then `### Context` (1-2 sentences max — skip if nothing worth saying). Trivial housekeeping PRs (whitespace, typos) collapse to a single 1-2 sentence block with no subsections. No address dumps, no UUID lists — the diff is the source of truth, the changelog is an index into it. Governance path labels: "Weekly edit (Atlas Axis)", "AEP-N", "SAEP-N (Spark proposal)", "Spell recording (date)", "Housekeeping". Target length: 5-15 lines substantive, 3-5 trivial. See `/atlas-track` for full schema.
+**Entry format:** entries are optimized for RAG / grep retrieval — terse, self-contained, predictable structure. `## PR #N — Title` header, `**Merged:** date | **Type:** governance-path` metadata, then `### Material Changes` (specific before→after values for parameter changes, capital allocation, new entities, authority changes) and/or `### Housekeeping` (renames, linting, renumbering, collapsed to one line), then `### Context` (1-2 sentences max — skip if nothing worth saying). Trivial housekeeping PRs (whitespace, typos) collapse to a single 1-2 sentence block with no subsections. No address dumps, no UUID lists — the diff is the source of truth, the changelog is an index into it. Governance path labels: "Weekly edit (Atlas Axis)", "AEP-N", "SAEP-N (Spark proposal)", "Spell recording (date)", "Active Data update (Designated Controller)", "Housekeeping". Target length: 5-15 lines substantive, 3-5 trivial. See `/atlas-track` skill for the full schema and template list.
 
-**Ordering:** each changelog is sorted most-recent-first (by merge date). `/atlas-track` handles sort on insert; `scripts/core/sort-changelogs.py` can re-sort everything if order drifts.
+**Ordering:** each changelog is sorted most-recent-first (by merge date). `process-pr.sh` runs `scripts/core/sort-changelogs.py` after each write; the same script can re-sort everything from scratch if order drifts.
 
 ## Skills and how to compose them
 

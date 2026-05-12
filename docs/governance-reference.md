@@ -99,9 +99,9 @@ This is useful when a PR claims "currently X, changing to Y" and you want to con
 - **Monthly cycle:** larger AEPs may follow a monthly cadence
 - **Active Data updates:** can happen independently of the governance cycle when the controller authorizes them
 
-## Two distinct change flows
+## Three distinct change flows
 
-Atlas PRs arrive through two different pipelines with different timing:
+Atlas PRs arrive through three different pipelines with different timing and authority sources:
 
 ### Flow 1: Atlas text edits (rules, structure, roles, annotations)
 ```
@@ -119,6 +119,19 @@ The executive spell executes on-chain first, then a separate PR updates the Atla
 
 **Monitoring signal:** Executive lifecycle tracking (hat/cast events) gives 4-11 days advance notice before the recording PR appears. Polls for the underlying action give even earlier signal.
 
+### Flow 3: Active Data Direct Edit (registry updates by Designated Controller)
+```
+Designated Controller authorizes change → Atlas PR merged (same day, no poll, no spell)
+```
+A Designated Controller — typically the Core Facilitator, sometimes a specific Ecosystem Actor named in the parent document — directly edits an `Active Data` document and merges the PR. Authority comes from the parent document's designation of the Controller; no ratification poll or executive spell is required. PRs typically touch a single `type: Active Data` document and append/replace a row in a registry table.
+
+**Examples:** Aligned Delegate breach records (PR #241 — Core Facilitator filing a Tier 1 notice); Authorized Forum Accounts list updates; ERG membership changes; Aligned Delegate roster updates after recognition/derecognition.
+
+**Monitoring signal:** None — these can land at any time. The Forum is the practical advance notice when present (e.g., the breach reasoning post links to the PR).
+
+**Telltale signs in PR titles/diffs:** descriptive titles ("Add breach record for X", "Update registered multisig for Y"); only `type: Active Data` documents modified; no matching `atlas_pr` in any open or recently-ended poll; no matching `atlas_prs` reference in `lifecycle.json`.
+
 ### How to distinguish them in PR titles
-- **Text edits:** "Atlas Edit Proposal", "Weekly Cycle", "AEW Proposal", "AEP-N", "SAEP-N"
-- **Spell recordings:** "spell changes", "executive changes", "Exec", spell dates in title
+- **Text edits (Flow 1):** "Atlas Edit Proposal", "Weekly Cycle", "AEW Proposal", "AEP-N", "SAEP-N"
+- **Spell recordings (Flow 2):** "spell changes", "executive changes", "Exec", spell dates in title
+- **Active Data Direct Edit (Flow 3):** descriptive titles naming the registry change ("Add breach record…", "Update list of…")

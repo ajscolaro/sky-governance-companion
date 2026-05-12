@@ -20,7 +20,8 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 | `data/voting/delegation-history/` | vote.sky.money API | No | On-demand | `scripts/voting/fetch-delegation-history.py` |
 | `data/voting/executive/lifecycle.json` | vote.sky.money API + executive-votes repo | No | `/refresh` | `scripts/voting/fetch-executive-proposals.py` |
 | `delegates/` | Processed forum data | **Yes** | On `/ad-track` or `/governance-data enrich` | Agent-driven |
-| `history/` | Processed PR data | **Yes** | Auto-skeleton on `/refresh`; finalized by `/atlas-track` | Agent-driven |
+| `history/` | Processed PR data | **Yes** | Auto-rendered on `/refresh` (5-stage pipeline); status=`auto` | `scripts/atlas/process-pr.sh` |
+| `tmp/` | Per-PR pipeline artifacts | No | Each `process-pr.sh` run | `scripts/atlas/process-pr.sh` |
 
 ## Key concepts
 
@@ -34,12 +35,29 @@ Master index of all data directories, their sources, and refresh behavior. Read 
 
 **On `/refresh` (user-invoked):** `scripts/core/refresh.sh` runs:
 1. Parallel fetches: forum, delegate RSS, voting delegates/polls/executive, market data, open PRs, unprocessed-PR discovery
-2. Auto-process any unprocessed merged PRs via `scripts/atlas/process-pr.sh` (writes skeleton entries to `history/`)
+2. Auto-process any unprocessed merged PRs via `scripts/atlas/process-pr.sh` (5-stage pipeline → fully-rendered entries in `history/<entity>/changelog.md`, status=`auto` in `_log.md`)
 3. Session briefing (reads fresh data, prints sections with content only)
 
 `/refresh` does **not** re-sync the Atlas git repo or rebuild the index — that's owned by the SessionStart hook. If the user needs fresh Atlas commits mid-session, restart Claude to re-trigger the hook.
 
 Background fetches always exit 0 — failures are advisory, not blocking.
+
+## Auto-changelog pipeline artifacts (`tmp/`)
+
+Each `process-pr.sh` run produces these files in `tmp/` for the duration of the session (gitignored, cleared by the SessionStart hook):
+
+| File | Producer | Contents |
+|------|----------|----------|
+| `pr-<N>.diff` | `process-pr.sh` (via `git diff sha~..sha`) | Unified diff of the PR |
+| `pr-<N>-body.md` | `process-pr.sh` | Squash-merge commit body (= PR body) |
+| `pr-<N>-meta.json` | `process-pr.sh` | `number`, `title`, `merged_at`, `additions`, `deletions`, `body`, `merge_sha` |
+| `pr-<N>-manifest.json` | `classify-diff.py` | Per-doc add/delete/modify/rename + UUIDs + targets |
+| `pr-<N>-extracted.json` | `extract-values.py` | Body-level deltas (numerics, addresses, sweeps, paired changes) |
+| `pr-<N>-enriched.json` | `enrich.py` | Manifest + governance flow + poll/spell + entity routing |
+| `pr-<N>-rendered.json` | `render.py` | Per-entity markdown entries (Material/Housekeeping bullets) |
+| `pr-<N>-final.json` | `auto-context.py` | Same as rendered, plus filled Context paragraphs (or stripped) |
+
+The pipeline is idempotent — re-running on the same PR with `--force` regenerates all artifacts and overwrites the changelog entry block.
 
 ## Poll data fields
 

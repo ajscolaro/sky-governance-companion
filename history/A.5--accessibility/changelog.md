@@ -4,6 +4,17 @@ Atlas path: `A.5` — The Accessibility Scope
 
 ---
 
+## PR #237 — Atlas Edit Proposal — 2026-05-04
+**Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Article A.5.5 deleted: Short-Term Transitionary Measures** — entire Article removed along with Section `A.5.5.1` and document `A.5.5.1.1` "Sky Ecosystem Liquidity Bootstrapping" (UUID `cd4ae79c…d955`). Eliminates the "up to 20M USDS and 320M SKY" liquidity bootstrapping mandate previously authorizing Accessibility Facilitators to deploy assets into liquidity programs/integration costs. Companion cross-references in Spark transfer records and the Legacy Accounts list were cleaned up in `A.2--support` (see PR #237 entry there).
+
+### Context
+Bootstrapping program declared no longer active; with `A.5.5` gone, A.5 collapses from five Articles to four (Brand Identity, Communication Channels, Campaigns, Location Resilience). The Spark Liquidity Bootstrapping transfer records (`A.2.8.2.2.2.7.4.1`/`.2`, $2M + $2.4M USDS already advanced against Spark Genesis Capital) remain in the Atlas as historical records — only the inbound link to `A.5.5.1.1` was removed. Ratified by Poll #1631 (10-0, non-voters: excel, opex, tango).
+
+---
+
 ## PR #78 — October 13 edit
 **Merged:** 2025-10-16 | **Type:** Weekly edit (Atlas Axis)
 
