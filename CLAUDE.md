@@ -45,7 +45,7 @@ If `/refresh` reports `Skeleton PRs awaiting finalization: <numbers>`, those are
 ## Project layout
 
 - `.atlas-repo/` — shallow clone of next-gen-atlas (gitignored, auto-refreshed)
-- `data/index.json` — parsed document index with line offsets (gitignored, rebuilt on refresh)
+- `data/index.json` — parsed document index keyed by UUID and number, with per-doc file paths (gitignored, rebuilt on refresh)
 - `data/forum/` — cached forum posts and search index (gitignored, fetched on refresh)
 - `data/forum/registry.json` — Authorized Forum Accounts registry (gitignored, rebuilt on refresh from Atlas `A.2.7.1.1.1.1.4.0.6.1`). Maps forum handles to entities and roles. Schema: `entities` (forward map), `by_handle` (case-insensitive reverse map with `entity`/`role`/`type`/`display_handle`), `transitive_refs` for parenthetical "(and their authorized representatives)" expansions. Consumed by `/forum-search` for author enrichment and by `scripts/forum/check-roster-vs-registry.py`
 - `data/delegates/` — cached AD vote rationales from RSS feeds (gitignored, fetched on refresh)

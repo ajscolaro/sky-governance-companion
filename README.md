@@ -4,7 +4,7 @@ A Claude Code workspace for analyzing Sky ecosystem governance over time, built 
 
 ## Why this exists
 
-The [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas) is the single \~3MB markdown document (\~9,800 sections) that defines every rule, parameter, role, and structure in the Sky ecosystem (formerly MakerDAO). It's already well-suited to AI tooling on its own — clean markdown, stable identifiers, governance-approved PRs as the unit of change.
+The [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas) is a corpus of \~10,200 governance documents — every rule, parameter, role, and structure in the Sky ecosystem (formerly MakerDAO) — stored as a folder tree of `content/A/x/y/z/document.md` files with YAML frontmatter. It's already well-suited to AI tooling on its own — clean markdown, stable UUIDs, governance-approved PRs as the unit of change.
 
 But the Atlas only tells you **what's true right now**. To actually reason about Sky governance you also need:
 
@@ -14,11 +14,11 @@ But the Atlas only tells you **what's true right now**. To actually reason about
 - **Rationale** — forum discussions and delegate vote explanations that capture the *why*
 - **Market context** — price and supply movements aligned to governance events
 
-This repo is the workspace that ties all of it together. It indexes the Atlas for efficient lookup (so you don't dump 3MB into every session), maintains per-entity change history, mirrors onchain governance state, caches forum and delegate activity, and exposes everything through a small set of slash commands. The output is governance research that fits in a working session — and a long-term institutional memory in `history/` that grows every time you run it.
+This repo is the workspace that ties all of it together. It indexes the Atlas for efficient lookup (so you don't load every document into every session), maintains per-entity change history, mirrors onchain governance state, caches forum and delegate activity, and exposes everything through a small set of slash commands. The output is governance research that fits in a working session — and a long-term institutional memory in `history/` that grows every time you run it.
 
 ## What you get
 
-- **Indexed Atlas** — Document lookup by name, path, type, or UUID without loading the full file into context
+- **Indexed Atlas** — Document lookup by name, path, type, or UUID without loading every document file into context
 - **Per-entity change history** — Curated changelogs in `history/`, optimized for RAG/grep retrieval (terse, predictable structure, stable identifiers, sorted most-recent-first)
 - **PR analysis** — Diff-based analysis of open and merged Atlas PRs against current state and prior history
 - **Auto-processing on `/refresh`** — Newly merged PRs become skeleton changelog entries automatically; the agent finalizes them into full Material/Housekeeping/Context entries
@@ -79,7 +79,7 @@ Refreshes all data sources (voting portal, forum, delegates, market, open PRs), 
 
 ### `/atlas-navigate` — Search and read Atlas documents
 
-Find documents by keyword, path prefix, type, or UUID, then read their content without loading the full 3MB file.
+Find documents by keyword, path prefix, type, or UUID, then read their content without loading every document file.
 
 ```
 /atlas-navigate Grove genesis capital
@@ -158,7 +158,7 @@ The registry (`data/forum/registry.json`) is rebuilt on `/refresh` from Atlas `A
   settings.json       Sandbox config, hooks, permissions
   skills/             Skill definitions for all slash commands
 data/                 Generated caches (gitignored, rebuilt on refresh)
-  index.json          Parsed document index with line offsets
+  index.json          Parsed document index keyed by UUID and number
   market.db           SQLite market database (optional, requires Messari API key)
   forum/              Cached forum posts and search index
   delegates/          Cached AD vote rationales from RSS feeds
@@ -195,7 +195,8 @@ scripts/
     check-write-path.sh         PreToolUse hook for write protection
   atlas/
     search-index.sh             Query the index by prefix/name/type/UUID
-    read-section.sh             Extract document content by line range
+    read-section.sh             Read a document or subtree by number/UUID
+    compose-subtree.py          Compose a subtree into single-file Atlas.md format (continuous-prose reading)
     process-pr.sh               Analyze a merged PR diff and route to changelogs
     backfill-prs.sh             Batch-generate skeleton changelog entries
   forum/

@@ -2,7 +2,7 @@
 name: atlas-navigate
 description: >
   Search and read Sky Atlas documents locally. Find documents by name, path prefix,
-  type, or UUID, then read their content without loading the full 3MB file.
+  type, or UUID, then read individual document.md files without loading the entire corpus.
 argument-hint: "<search term, document number, or UUID>"
 allowed-tools: Bash, Read, Grep, Glob
 ---
@@ -59,7 +59,7 @@ If none of the above return results, report that clearly rather than looping.
 
 ## Reading document content
 
-Use `scripts/atlas/read-section.sh` to extract content by line range:
+Use `scripts/atlas/read-section.sh` to read a document or subtree by number/UUID:
 
 ```bash
 # Single document by number
@@ -77,6 +77,17 @@ bash scripts/atlas/read-section.sh A.6.1.1.2 --subtree --depth 2
 
 **Important:** Large subtrees (Spark, Grove) have thousands of documents. Always use `--depth` to limit output, then drill deeper into specific areas.
 
+### Continuous-prose reading
+
+`read-section.sh --subtree` concatenates raw `document.md` files (frontmatter and all), which is fine for grep but rough for human reading. For an end-to-end continuous-prose view of an Atlas area — proper `# A.X.Y - Name` heading lines, NRs inserted at their target docs, no per-doc frontmatter — use:
+
+```bash
+python3 scripts/atlas/compose-subtree.py A.6.1.1.2
+# -> tmp/compose/A.6.1.1.2.md
+```
+
+Use this when you want to read an unfamiliar area top-to-bottom, or share a slice with someone used to the legacy single-file Atlas format. For PR review, use `/atlas-analyze` instead — per-doc diffs are the natural unit after atomization.
+
 ## Complex queries via jq
 
 For queries the scripts don't cover, query `data/index.json` directly:
@@ -92,29 +103,29 @@ jq '.[] | select(.number | startswith("A.6.1.1.1")) | select(.type == "Active Da
 jq '.[] | select(.number == "A.6.1.1.2.2.6.1.3.1.13") | .ancestors' data/index.json
 ```
 
-Index entry fields: `uuid`, `number`, `name`, `type`, `depth`, `heading_level`, `line_start`, `line_end`, `ancestors`, `parent_uuid`.
+Index entry fields: `uuid`, `number`, `name`, `type`, `depth`, `heading_level`, `path`, `body_length`, `body_hash`, `lead_sentence`, `is_scaffold`, `is_active_data`, `parent_uuid`, `ancestors`.
 
-## Reading the raw Atlas file
+## Reading raw document files
 
-When you need more context than the index provides, read the Atlas file directly:
+The Atlas is atomized — each document lives in its own `document.md` file with YAML frontmatter. The index's `path` field points directly at the file:
 
 ```bash
-# The file path
-.atlas-repo/Sky Atlas/Sky Atlas.md
-
-# Use Read tool with line offsets from the index for targeted access
-# (avoids loading the full 3MB file)
+# Resolve a number/UUID to its file path, then Read it
+jq -r '.[] | select(.number == "A.6.1.1.2") | .path' data/index.json
+# -> .atlas-repo/content/A/6/1/1/2/document.md
 ```
+
+`read-section.sh` does this lookup for you. Use raw Read only when you need to see the YAML frontmatter or process the file's exact bytes.
 
 ## Atlas format reference
 
-The full format spec is at `.atlas-repo/ATLAS_MARKDOWN_SYNTAX.md`. Key points:
+Each `document.md` has YAML frontmatter (`id`, `docNo`, `name`, `type`, `depth`, `childType`, plus `targets` for NRs) followed by the document body. Key points:
 
-- Every document starts with: `{#...} {Number} - {Name} [{Type}]  <!-- UUID: {uuid} -->`
 - Document types: Scope > Article > Section > Core, plus Annotation, Action Tenet, Active Data Controller, Active Data, Scenario, Needed Research
-- UUIDs are permanent; document numbers can shift when content is inserted/removed
-- Heading levels cap at h6; the document number encodes the true depth
+- UUIDs (`id` in frontmatter) are permanent; document numbers (`docNo`) shift when content is inserted/removed
+- The document number encodes true depth; when composed back to single-file form, heading levels cap at h6
 - Internal cross-references link by UUID: `[A.1.2.3 - Name](uuid-here)`
+- Needed Research docs live under `content/NR/` and attach to their target documents via the `targets` frontmatter list
 
 ## Complementary skills
 

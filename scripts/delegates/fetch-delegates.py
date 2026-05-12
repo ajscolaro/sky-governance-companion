@@ -119,8 +119,8 @@ def extract_topic_info(forum_url: str) -> tuple[str, int] | None:
 def build_roster_from_atlas() -> list[dict]:
     """Parse the Atlas index to find the AD roster and extract forum URLs.
 
-    Reads the Active Data table at A.1.5.1.5.0.6.1 from the Atlas source file
-    using line offsets from the index.
+    Reads the Active Data table at A.1.5.1.5.0.6.1 by resolving its path from
+    the index and opening the per-document file directly.
     """
     if not INDEX_FILE.exists():
         print("Error: Atlas index not found. Run scripts/setup.sh first.", file=sys.stderr)

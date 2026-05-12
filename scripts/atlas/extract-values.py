@@ -112,17 +112,26 @@ def is_doc_block(a: str, b: str) -> bool:
 
 
 _HUNK_RE = re.compile(r"^@@\s+-(\d+)(?:,(\d+))?\s+\+(\d+)(?:,(\d+))?\s+@@")
-# Atomized Atlas docs always have an 8-line frontmatter block (---, 6 fields, ---)
-# followed by a blank line. Body content begins at line 9.
-_FRONTMATTER_LINES = 8
+# Standard docs: 8-line frontmatter (---, 6 fields, ---). NR docs add a
+# `targets:` field, making theirs 9 lines.
+_FRONTMATTER_LINES_STANDARD = 8
+_FRONTMATTER_LINES_NR = 9
 
 
-def split_frontmatter_from_body(block: str) -> tuple[list[str], list[str]]:
+def frontmatter_lines_for(a_path: str, b_path: str) -> int:
+    """Return frontmatter line count for an atomized Atlas doc block."""
+    is_nr = a_path.startswith("content/NR/") or b_path.startswith("content/NR/")
+    return _FRONTMATTER_LINES_NR if is_nr else _FRONTMATTER_LINES_STANDARD
+
+
+def split_frontmatter_from_body(
+    block: str, frontmatter_lines: int = _FRONTMATTER_LINES_STANDARD
+) -> tuple[list[str], list[str]]:
     """Return (added_body_lines, removed_body_lines), excluding frontmatter changes.
 
     Body membership is determined by tracking the current line position within
     each hunk and skipping any line whose old or new position lies within the
-    frontmatter (lines 1-8). This handles both partial hunks (where git omits
+    frontmatter window. This handles both partial hunks (where git omits
     unchanged context) and whole-file adds/deletes where the entire document
     appears in one hunk.
     """
@@ -158,11 +167,11 @@ def split_frontmatter_from_body(block: str) -> tuple[list[str], list[str]]:
         prefix = line[0]
         rest = line[1:]
         if prefix == "+":
-            if new_line > _FRONTMATTER_LINES:
+            if new_line > frontmatter_lines:
                 added_body.append(rest)
             new_line += 1
         elif prefix == "-":
-            if old_line > _FRONTMATTER_LINES:
+            if old_line > frontmatter_lines:
                 removed_body.append(rest)
             old_line += 1
         elif prefix == " ":
@@ -433,7 +442,8 @@ def main() -> int:
         if not manifest_entry:
             continue
 
-        added_body, removed_body = split_frontmatter_from_body(block)
+        fm_lines = frontmatter_lines_for(a_path, b_path)
+        added_body, removed_body = split_frontmatter_from_body(block, fm_lines)
         fm_changes = extract_frontmatter_changes(block)
 
         extracted = {
