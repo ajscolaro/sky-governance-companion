@@ -3,16 +3,40 @@
 # Data fetches and the session briefing live in the /refresh skill, which the
 # user invokes when they want the full picture.
 #
-# Must always exit 0 so the SessionStart hook doesn't report a failure.
+# Emits a single JSON hook response at exit so the message lands in both:
+#   - systemMessage             → user-visible in the Claude Code TUI
+#   - hookSpecificOutput.additionalContext → Claude's session context
+# Always exits 0 so the SessionStart hook doesn't report a failure.
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 REPO_DIR="$PROJECT_DIR/.atlas-repo"
 
-if [ ! -d "$REPO_DIR/.git" ]; then
-    echo "Atlas repo not found. Run scripts/core/setup.sh first."
+MESSAGE=""
+
+emit_and_exit() {
+    if [ -n "$MESSAGE" ]; then
+        if command -v jq >/dev/null 2>&1; then
+            jq -nc --arg msg "$MESSAGE" '{
+                systemMessage: $msg,
+                hookSpecificOutput: {
+                    hookEventName: "SessionStart",
+                    additionalContext: $msg
+                }
+            }'
+        else
+            # Fallback: plain stdout reaches Claude's context but may not
+            # render in the user's terminal.
+            printf '%s\n' "$MESSAGE"
+        fi
+    fi
     exit 0
+}
+
+if [ ! -d "$REPO_DIR/.git" ]; then
+    MESSAGE="Atlas repo not found. Run scripts/core/setup.sh first."
+    emit_and_exit
 fi
 
 # Clear ephemeral working files from previous session
@@ -22,25 +46,28 @@ cd "$REPO_DIR"
 # depth=20 covers ~1 month of merges so process-pr.sh can diff against the
 # parent of recently-merged PRs without needing to deepen the clone every run.
 # Older PRs trigger on-demand deepening in process-pr.sh.
-git fetch origin main --depth 20 2>/dev/null || { echo "Atlas sync failed: could not fetch from GitHub."; exit 0; }
-git reset --hard origin/main >/dev/null 2>&1 || { echo "Atlas sync failed: could not reset to origin/main."; exit 0; }
+if ! git fetch origin main --depth 20 2>/dev/null; then
+    MESSAGE="Atlas sync failed: could not fetch from GitHub."
+    emit_and_exit
+fi
+if ! git reset --hard origin/main >/dev/null 2>&1; then
+    MESSAGE="Atlas sync failed: could not reset to origin/main."
+    emit_and_exit
+fi
 
 LATEST_SHA=$(git rev-parse --short HEAD)
 LATEST_MSG=$(git log --format='%s' -1)
 cd "$PROJECT_DIR"
 
-python3 "$SCRIPT_DIR/build-index.py" >/dev/null 2>&1 || { echo "Atlas sync failed: index rebuild errored."; exit 0; }
+if ! python3 "$SCRIPT_DIR/build-index.py" >/dev/null 2>&1; then
+    MESSAGE="Atlas sync failed: index rebuild errored."
+    emit_and_exit
+fi
 
 if [ -f "$SCRIPT_DIR/build-address-map.py" ]; then
     python3 "$SCRIPT_DIR/build-address-map.py" >/dev/null 2>&1 || true
 fi
 
-# Emit the summary to both stdout (Claude's context via SessionStart hook) and
-# /dev/tty (user-visible in terminal). The leading blank lines pad the tty
-# write up into the scrollback so the TUI input prompt doesn't overwrite it.
-{
-    printf '\n\n\n'
-    echo "Atlas synced: $LATEST_SHA ($LATEST_MSG)"
-    echo "Run /refresh to update governance/market/forum data and see what's changed."
-} | tee /dev/tty
-exit 0
+MESSAGE="Atlas synced: $LATEST_SHA ($LATEST_MSG)
+Run /refresh to update governance/market/forum data and see what's changed."
+emit_and_exit
