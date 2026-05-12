@@ -39,8 +39,13 @@ if [ ! -d "$REPO_DIR/.git" ]; then
     emit_and_exit
 fi
 
-# Clear ephemeral working files from previous session
+# Clear per-session ephemeral working files
 rm -f "$PROJECT_DIR"/tmp/pr-*.diff "$PROJECT_DIR"/tmp/pr-*-body.md 2>/dev/null
+
+# Age out pipeline intermediates older than 30 days. Atlas PRs typically
+# merge well within that window, so anything older is debugging cruft from
+# past pipeline runs (manifest/extracted/enriched/rendered/final/meta JSON).
+find "$PROJECT_DIR/tmp" -maxdepth 1 -type f -name 'pr-*.json' -mtime +30 -delete 2>/dev/null
 
 cd "$REPO_DIR"
 # depth=20 covers ~1 month of merges so process-pr.sh can diff against the

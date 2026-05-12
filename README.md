@@ -1,4 +1,4 @@
-# Sky Atlas Explorer
+# Sky Governance Companion
 
 A Claude Code workspace for analyzing Sky ecosystem governance over time, built around the [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas).
 
@@ -31,8 +31,8 @@ This repo is the workspace that ties all of it together. It indexes the Atlas fo
 ## Setup
 
 ```bash
-git clone https://github.com/ajscolaro/sky-atlas-explorer.git
-cd sky-atlas-explorer
+git clone https://github.com/ajscolaro/sky-governance-companion.git
+cd sky-governance-companion
 claude
 ```
 

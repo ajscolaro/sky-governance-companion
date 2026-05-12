@@ -1,4 +1,4 @@
-# Sky Atlas Explorer
+# Sky Governance Companion
 
 Personal tooling for navigating the Sky Atlas and tracking governance changes over time.
 
