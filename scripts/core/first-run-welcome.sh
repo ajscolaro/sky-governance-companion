@@ -21,13 +21,12 @@ spell lifecycle, forum discussions, delegate vote rationales — over time.
 
 ▸ Complete one-time setup (clones the Sky Atlas, ~30s):
 
-  Option A — from your shell:
-    bash scripts/core/setup.sh
-    then restart Claude
+  1. Exit this session (type /exit or press Ctrl+C twice)
+  2. Run from your shell:  bash scripts/core/setup.sh
+  3. Restart Claude in this directory
 
-  Option B — from this Claude session:
-    ! bash scripts/core/setup.sh
-    then run /refresh
+After setup, every \`claude\` start auto-syncs the Atlas. Run /refresh
+in-session to fetch governance data and see the briefing.
 
 Skills available after setup:
   /refresh            Update caches, auto-process merged PRs, show briefing
@@ -49,12 +48,10 @@ greeting, or asks how to start, proactively orient them with the
 welcome above.
 
 CRITICAL: do NOT attempt to run \`bash scripts/core/setup.sh\` yourself
-via the Bash tool — the sandbox denies writes to .atlas-repo, so the
-\`git clone\` step would fail. The user must run setup themselves, either
-from their shell directly or via \`! bash scripts/core/setup.sh\` in
-their next Claude prompt (the \`!\` prefix runs the command in the shell
-and surfaces its output in the conversation). Most skills will error
-until setup completes."
+via the Bash tool — the sandbox denies writes to .atlas-repo. The \`!\`
+prefix is also sandboxed and won't work. The user must exit this
+Claude session, run setup.sh from their shell, then restart Claude.
+Most skills will error until setup completes."
 
 if command -v jq >/dev/null 2>&1; then
     jq -nc --arg msg "$WELCOME" --arg ctx "$CONTEXT" '{

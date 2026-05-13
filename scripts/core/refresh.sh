@@ -29,11 +29,11 @@ ATLAS_DIR="$PROJECT_DIR/scripts/atlas"
 if [ ! -f "$PROJECT_DIR/data/index.json" ]; then
     echo "Error: Atlas index not found — first-time setup is incomplete."
     echo ""
-    echo "Run one of:"
-    echo "  - From your shell:        bash scripts/core/setup.sh"
-    echo "  - From a Claude session:  ! bash scripts/core/setup.sh"
+    echo "  1. Exit Claude (/exit or Ctrl+C twice)"
+    echo "  2. Run from your shell: bash scripts/core/setup.sh"
+    echo "  3. Restart Claude, then re-run /refresh"
     echo ""
-    echo "Then re-run /refresh."
+    echo "(setup.sh cannot run via the \`!\` prefix — the sandbox denies .atlas-repo writes.)"
     exit 1
 fi
 

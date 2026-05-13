@@ -2,14 +2,18 @@
 # First-time setup: clone the Atlas repo, build the index, create
 # history dirs.
 #
-# Run this once after cloning sky-governance-companion. Either from your
-# shell directly, or from inside an existing Claude session via:
-#   ! bash scripts/core/setup.sh
+# Run this once from your shell after cloning sky-governance-companion.
+# Then restart Claude in this directory so the SessionStart hook can take
+# the normal atlas-sync path on subsequent sessions.
 #
 # This is no longer invoked by the SessionStart hook — the hook does a
 # fast welcome instead (scripts/core/first-run-welcome.sh) so the message
 # renders reliably. Running setup explicitly means you also see clone
 # progress and any errors directly.
+#
+# Note: this script cannot be run via Claude's `!` prefix because the
+# project sandbox denies writes to .atlas-repo. Run it from a normal
+# shell outside the Claude session.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -48,6 +52,4 @@ fi
 echo ""
 echo "Setup complete."
 echo ""
-echo "Next steps:"
-echo "  - If you ran this from your shell: restart Claude in this directory."
-echo "  - If you ran this via \`!\` inside Claude: run /refresh to fetch governance data and see the briefing."
+echo "Next step: restart Claude in this directory, then run /refresh to fetch governance data and see the briefing."

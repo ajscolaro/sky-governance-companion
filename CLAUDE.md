@@ -16,7 +16,7 @@ All three flows produce PRs in the same repo. See `docs/governance-reference.md`
 
 Responsibilities are split:
 
-- **One-time setup** (`scripts/core/setup.sh`) — clones the Atlas, builds the index, seeds `history/` directories. The user runs this once after cloning the repo (either from their shell or via `! bash scripts/core/setup.sh` inside a Claude session). It's deliberately *not* invoked by the SessionStart hook because the 30s clone falls outside the window where Claude Code reliably renders hook messages.
+- **One-time setup** (`scripts/core/setup.sh`) — clones the Atlas, builds the index, seeds `history/` directories. The user runs this once from their shell after cloning the repo, then restarts Claude. It's deliberately *not* invoked by the SessionStart hook because the 30s clone falls outside the window where Claude Code reliably renders hook messages. It also can't run inside a Claude session (including via the `!` prefix) because the project sandbox denies writes to `.atlas-repo`.
 - **SessionStart hook** — branches on `.atlas-repo/.git` existence:
   - **Healthy state** (`scripts/core/atlas-sync.sh`) — pulls the latest Atlas (depth 20 so `process-pr.sh` can diff against parent) and rebuilds `data/index.json` + address map. This is the only thing that touches `.atlas-repo/`; Claude's sandbox denies writes there.
   - **First-run state** (`scripts/core/first-run-welcome.sh`) — emits a fast welcome JSON pointing the user to `setup.sh`. Sets a first-run flag in `additionalContext` so Claude can proactively orient the user. **Never** attempt to run `setup.sh` via the Bash tool when this flag is set — the sandbox blocks writes to `.atlas-repo` and the clone will fail.
