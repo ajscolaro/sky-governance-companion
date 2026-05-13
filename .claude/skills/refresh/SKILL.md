@@ -23,7 +23,8 @@ You are updating all cached data sources and surfacing what's changed since the 
    - Open Atlas PRs from GitHub
    - Discovery of merged PRs that aren't yet in `history/_log.md`
 2. **Auto-process merged PRs** — runs `scripts/atlas/process-pr.sh` on each unprocessed merged PR. Pipeline (classify-diff → extract-values → enrich → render → auto-context → verify) writes fully-rendered Material/Housekeeping bullets to the affected `history/<entity>/changelog.md` files (status=`auto`). The optional Context paragraph is filled by `claude -p` when available; falls through cleanly otherwise.
-3. **Session briefing** — prints only sections that have content: market (daily), spells (current + pending), polls (ended since last session + active), atlas proposals (new open PRs in last 7 days), forum activity (new posts).
+3. **AD pipeline detection** — rebuilds `data/delegates/roster.json` from Atlas (so new ADs are picked up), then diffs it against `delegates/_roster.md` to surface roster drift, and counts cached forum posts not yet rendered into each `delegates/<slug>/comms.md`. The summarization itself is judgment work, so it's not done in-script — refresh surfaces the queue and the session processes it via `/ad-track` (see follow-up below).
+4. **Session briefing** — prints only sections that have content: market (daily), spells (current + pending), polls (ended since last session + active), atlas proposals (new open PRs in last 7 days), forum activity (new posts).
 
 `/refresh` does **not** re-sync the Atlas git repo or rebuild the index — that's handled by the SessionStart hook (`scripts/core/atlas-sync.sh`). If the user asks for fresh Atlas commits mid-session, tell them to restart Claude.
 
@@ -35,6 +36,15 @@ Run the refresh script and surface its output to the user:
 bash scripts/core/refresh.sh
 ```
 
+
+## Follow-up: AD roster drift and unprocessed rationales
+
+After all fetches finish, refresh.sh surfaces two AD pipeline signals before the briefing. Both are suppressed when there's nothing to do — if you don't see them, skip this follow-up entirely.
+
+- **`AD roster drift vs delegates/_roster.md:`** — the Atlas roster contains ADs not in `_roster.md`, or vice versa. Invoke `/ad-track sync` to update `_roster.md`, create/derecognize delegate directories, and fetch any new ADs' RSS history.
+- **`AD rationales awaiting processing (N across M delegate(s)):`** — cached forum posts in `data/delegates/<slug>/` that aren't yet rendered into `delegates/<slug>/comms.md`. Invoke `/ad-track` to summarize and append them. If the total is large (say > 50 across all delegates), mention the count once and offer to process in batches rather than firing off one massive run.
+
+When invoking `/ad-track` for processing, follow the schema in `delegates/<slug>/comms.md` exactly — newest entry at the **top** (right after the header's `---`), each entry headed by `## YYYY-MM-DD — <topic>`, with the source forum URL embedded as a footnote line (`*Source: <link>*`) so `find-unprocessed.py` can detect it as processed on the next refresh.
 
 ## Follow-up: legacy skeleton PRs
 

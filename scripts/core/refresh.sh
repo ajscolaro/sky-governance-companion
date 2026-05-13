@@ -62,7 +62,10 @@ if [ -f "$FORUM_DIR/build-account-registry.py" ]; then
     python3 "$FORUM_DIR/build-account-registry.py" --quiet 2>/dev/null &
 fi
 if [ -f "$DELEGATES_DIR/fetch-delegates.sh" ]; then
-    bash "$DELEGATES_DIR/fetch-delegates.sh" --quiet 2>/dev/null &
+    # --rebuild-roster on every refresh so new ADs added to Atlas A.1.5.1.5.0.6.1
+    # propagate into data/delegates/roster.json (and subsequent RSS fetches). Without
+    # this flag, fetch-delegates.py only rebuilds when roster.json is missing.
+    bash "$DELEGATES_DIR/fetch-delegates.sh" --quiet --rebuild-roster 2>/dev/null &
 fi
 if [ -f "$MARKET_DIR/fetch-market.py" ]; then
     python3 "$MARKET_DIR/fetch-market.py" --quiet 2>/dev/null &
@@ -175,6 +178,40 @@ if [ -n "$ALL_SKELETON_LINES" ]; then
         echo "Skeleton PRs awaiting finalization: $RECENT_SKELETONS"
     else
         echo "Skeleton PRs awaiting finalization (5 most recent of $TOTAL_SKELETONS): $RECENT_SKELETONS"
+    fi
+fi
+
+# === Phase 3c: Surface AD roster drift and unprocessed rationales ===
+# Roster drift: compare Atlas-derived data/delegates/roster.json (just rebuilt above)
+# against the human-curated delegates/_roster.md. New / removed ADs are surfaced so
+# the session can run /ad-track sync to reconcile.
+ROSTER_JSON="$PROJECT_DIR/data/delegates/roster.json"
+ROSTER_MD="$PROJECT_DIR/delegates/_roster.md"
+if [ -f "$ROSTER_JSON" ] && [ -f "$ROSTER_MD" ]; then
+    DATA_SLUGS=$(jq -r '.[].slug' "$ROSTER_JSON" 2>/dev/null | sort)
+    MD_SLUGS=$(grep -oE '^\| [^|]+ \| [a-z0-9-]+ \| topic' "$ROSTER_MD" \
+        | awk -F'|' '{gsub(/^ +| +$/,"",$3); print $3}' | sort)
+    if [ -n "$DATA_SLUGS" ] && [ -n "$MD_SLUGS" ]; then
+        NEW_ADS=$(comm -23 <(echo "$DATA_SLUGS") <(echo "$MD_SLUGS"))
+        REMOVED_ADS=$(comm -13 <(echo "$DATA_SLUGS") <(echo "$MD_SLUGS"))
+        if [ -n "$NEW_ADS" ] || [ -n "$REMOVED_ADS" ]; then
+            echo ""
+            echo "AD roster drift vs delegates/_roster.md:"
+            [ -n "$NEW_ADS" ] && echo "$NEW_ADS" | sed 's/^/  new in Atlas: /'
+            [ -n "$REMOVED_ADS" ] && echo "$REMOVED_ADS" | sed 's/^/  removed from Atlas: /'
+            echo "  → run /ad-track sync to reconcile"
+        fi
+    fi
+fi
+
+# Unprocessed rationales: cached forum posts whose source URL is not present in
+# the corresponding delegates/<slug>/comms.md. Suppress output if zero.
+if [ -f "$DELEGATES_DIR/find-unprocessed.py" ]; then
+    PENDING_OUT=$(python3 "$DELEGATES_DIR/find-unprocessed.py" 2>/dev/null || true)
+    if [ -n "$PENDING_OUT" ]; then
+        echo ""
+        echo "$PENDING_OUT"
+        echo "  → run /ad-track to process"
     fi
 fi
 
