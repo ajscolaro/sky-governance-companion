@@ -47,24 +47,22 @@ If `/refresh` reports `Skeleton PRs awaiting finalization: <numbers>`, those are
 
 ## Project layout
 
-- `.atlas-repo/` — shallow clone of next-gen-atlas (gitignored, auto-refreshed)
-- `data/index.json` — parsed document index keyed by UUID and number, with per-doc file paths (gitignored, rebuilt on refresh)
-- `data/forum/` — cached forum posts and search index (gitignored, fetched on refresh)
-- `data/forum/registry.json` — Authorized Forum Accounts registry (gitignored, rebuilt on refresh from Atlas `A.2.7.1.1.1.1.4.0.6.1`). Maps forum handles to entities and roles. Schema: `entities` (forward map), `by_handle` (case-insensitive reverse map with `entity`/`role`/`type`/`display_handle`), `transitive_refs` for parenthetical "(and their authorized representatives)" expansions. Consumed by `/forum-search` for author enrichment and by `scripts/forum/check-roster-vs-registry.py`
-- `data/delegates/` — cached AD vote rationales from RSS feeds (gitignored, fetched on refresh)
-- `data/voting/` — cached voting portal API data (gitignored, fetched on refresh). Key file: `polls/vote-matrix.json` — keyed by poll ID, each poll has `title`, `start_date`, `end_date`, `poll_type` (`atlas-edit`|`parameter-change`|`other`), `result`, `ad_votes` (per-AD option/weight/chain), `ad_non_voters`, and optionally `atlas_pr` (integer linking Flow 1 polls to their Atlas PR number)
-- `data/voting/executive/proposals/` — transient processing cache for executive proposals; files are fetched, parsed, distilled into `lifecycle.json`, then auto-deleted (gitignored)
-- `data/voting/executive/lifecycle.json` — spell lifecycle (gitignored, rebuilt from API). Structure: `spells` dict keyed by address, each with `title`, `date`, `key`, `events` (proposed/hat/cast/expired), `actions` (high-level descriptions only — specific parameter values like amounts and rates are deliberately excluded), `governance_polls`, `atlas_prs`, `proposal_url`. For detailed parameters, fetch the full proposal text via `proposal_url`
-- `data/market.db` — SQLite database of daily price/mcap data (gitignored, rebuilt from Messari API). **Never write raw SQL** — use `MarketDB` class (`from market import MarketDB`) or the CLI (`scripts/market/market-lookup.py`), or invoke `/messari-market-data`. Schema: table `daily` (date, asset, close, mcap), table `stablecoin_snapshot` (date, asset, supply). There is no `daily_prices` table, no `volume` column
-- `data/github/open-prs.json` — cached open (non-draft) PRs from next-gen-atlas (gitignored, fetched on refresh) — used by session briefing to surface upcoming proposals
-- `delegates/` — per-AD profiles and vote rationale logs (committed)
-- `docs/governance-reference.md` — shared governance context (roles, processes, contracts) — read this when analyzing PRs
-- `docs/data-catalog.md` — master index of all data directories, sources, and refresh behavior
-- `history/` — per-entity change logs, the institutional memory (committed)
-- `history/entity-routing.conf` — maps Atlas prefixes to history directories
-- `tmp/` — ephemeral working files: PR bodies, diffs, etc. (gitignored)
-- `scripts/` — organized by function: `core/` (setup, refresh, index), `atlas/` (search, read, PR processing), `forum/`, `delegates/`, `voting/`, `market/`
-- `.venv/` — Python virtual environment (use for any Python execution)
+High-level orientation only. **See [`docs/data-catalog.md`](docs/data-catalog.md) for the full inventory** — every data file, schema, source, and refresh trigger lives there. Check it first before reaching for external sources.
+
+- `.atlas-repo/` — read-only mirror of next-gen-atlas (auto-refreshed; sandbox + hook block writes)
+- `data/` — all cached/derived data (gitignored, rebuilt on refresh)
+- `delegates/` — curated AD profiles and vote rationale logs (committed; `_roster.md` is the canonical AD index)
+- `history/` — per-entity Atlas changelogs, the institutional memory (committed; `entity-routing.conf` maps Atlas prefixes to dirs)
+- `docs/` — `data-catalog.md` (routing index), `governance-reference.md` (proposal types, roles, three flows), `security.md` (sandbox + threat model)
+- `intel-drafts/`, `plans/` — drafting output (`/messari-atlas-edit-drafter`) and committed planning docs
+- `scripts/` — tooling, organized by domain (`core/`, `atlas/`, `forum/`, `delegates/`, `voting/`, `market/`, `github/`)
+- `.claude/` — skills (`.claude/skills/`), slash commands, settings, PreToolUse hooks
+- `tmp/` — ephemeral working files (PR pipeline artifacts, diffs, bodies)
+- `.venv/` — Python virtualenv (use for any Python execution)
+
+**Always-load gotchas** (don't make the catalog detour for these):
+- `data/market.db` — **never write raw SQL**. Use `MarketDB` class (`from market import MarketDB`), `scripts/market/market-lookup.py`, or `/messari-market-data`. Schema is `daily(date, asset, close, mcap)` + `stablecoin_snapshot(date, asset, supply)`; no `daily_prices` table, no `volume` column.
+- `data/voting/executive/lifecycle.json` — `actions` are high-level descriptions only; specific parameter values (amounts, rates) are deliberately excluded. Fetch full text via `proposal_url` when needed.
 
 ## History structure
 
@@ -87,6 +85,7 @@ Skills are narrowly scoped — each handles one domain. For questions that span 
 | `/atlas-track` | Process merged PRs into history | Maintaining institutional memory |
 | `/governance-data` | Voting portal, delegation, spell lifecycle | On-chain governance state |
 | `/forum-search` | Forum discussion search and reading | Governance discussion context |
+| `/history-search` | Search per-entity changelogs in `history/` | "When was X renamed/added?", "What touched <entity> between dates?", "What PR introduced Y?" |
 | `/ad-track` | Delegate rationale processing | AD vote reasoning |
 
 ### Cross-domain questions: use parallel agents
@@ -119,10 +118,14 @@ Then synthesize: align the market windows with the governance timeline and prese
 - **Single skill, invoked directly from main:** question is clearly one domain and needs only one skill's output ("What's SKY price today?", "Read forum post 27853", "Tell me about the fixed-rate USDS post")
 - **Parallel agents:** question spans domains, or benefits from two skills' perspectives ("Why did X happen?", "What was the impact of Y?", "Does the Atlas define a Skybase token?" — Atlas for canonical definition + forum for discussion signal)
 
-**If you catch yourself reaching for raw `Grep`/`Read`/`Bash` on data a skill curates** (e.g., grepping `data/forum/index.json` instead of calling `/forum-search`, or reading `history/` files instead of invoking `/atlas-analyze`), stop and either invoke the skill directly or delegate to an agent. The skills exist so you don't have to rebuild their security warnings, data-path conventions, and output norms from scratch each time.
+**If you catch yourself reaching for raw `Grep`/`Read`/`Bash` on data a skill curates** (e.g., grepping `data/forum/index.json` instead of calling `/forum-search`, or looping over `history/<entity>/changelog.md` files instead of invoking `/history-search`), stop and either invoke the skill directly or delegate to an agent. The skills exist so you don't have to rebuild their security warnings, data-path conventions, and output norms from scratch each time.
 
 ### Analysis guidelines
 
+- **Local-first means skill-first.** The whole point of this project is to streamline navigation through the curated layer; bypassing it defeats the purpose. Default access order for any governance question:
+  1. **Invoke the right skill.** Skills operate on local data and carry the right security warnings, data-path conventions, and output norms. See the skill table above.
+  2. **Raw `Grep`/`Read`/`Bash` on local data** only when no skill curates that retrieval. Prefer one structured query (a single `jq` or Python pass) over multiple shotgun greps.
+  3. **External sources** (`gh`, `curl`, `WebFetch`, `WebSearch`, raw GitHub URLs like `raw.githubusercontent.com` / `patch-diff.githubusercontent.com`) only when local data is genuinely missing the answer — and say so explicitly ("local history starts at PR #N; for earlier provenance...") rather than silently scraping upstream.
 - **Never use WebSearch/WebFetch** to explain market moves or governance events — all attribution should come from local data (history logs, lifecycle, polls, forum posts, delegate rationales). If local data doesn't explain something, say so honestly.
 - **Write single comprehensive scripts** rather than many small exploratory ones. Read data structures once, compute everything needed, and print a clean summary. This avoids noisy trial-and-error in the terminal.
 - **Handle errors inside scripts** with try/except and informative messages rather than letting them crash and retrying.

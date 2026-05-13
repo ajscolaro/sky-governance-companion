@@ -13,8 +13,8 @@ Configured in `.claude/settings.json`. Every Claude Code session in this repo is
 - `.atlas-repo/` is deny-write
 - `~/.ssh`, `~/.gnupg`, `~/.aws` are deny-read
 
-**Network:**
-- Only `github.com`, `api.github.com`, and `forum.skyeco.com` are reachable
+**Network** (configured under `permissions.network.allowedDomains` in `.claude/settings.json`):
+- Only the following hosts are reachable: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`
 - `enableWeakerNetworkIsolation` is on so network-dependent tools (curl, git) can verify TLS certificates via macOS trust service
 
 **Command restrictions:**
@@ -27,6 +27,27 @@ The sandbox only wraps Bash commands and their subprocesses. Claude's Read, Writ
 
 - A prompt injection could convince Claude to use Write/Edit to modify files that Bash can't touch
 - The sandbox filesystem rules don't apply to Claude's file tools
+
+### Skill auto-approval
+
+Read-only skills are pre-approved in `.claude/settings.json` (`permissions.allow`) so they run without per-invocation prompts:
+
+| Skill | Why safe to auto-allow |
+|-------|------------------------|
+| `/atlas-navigate` | Reads `data/index.json` and `.atlas-repo/`; no writes |
+| `/atlas-analyze` | Reads PR diffs and Atlas docs; no writes |
+| `/history-search` | Reads committed `history/<entity>/changelog.md` files |
+| `/forum-search` | Reads cached forum data (already sanitized at fetch time) |
+| `/governance-data` | Reads `data/voting/` caches |
+| `/messari-market-data` | Queries local `data/market.db` SQLite database |
+
+**Write-side skills still prompt** so cache rebuilds and processing runs stay intentional:
+
+- `/refresh` — triggers all cache rebuilds and auto-processes newly merged PRs into `history/`
+- `/atlas-track` — writes to `history/`
+- `/ad-track` — writes to `delegates/`
+
+The PreToolUse hook (below) continues to gate all writes to `.claude/`, `CLAUDE.md`, and `scripts/` regardless of skill approval, so an auto-approved skill still cannot silently modify trusted config or instructions.
 
 ### PreToolUse hook (protects against self-modification)
 

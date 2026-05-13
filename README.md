@@ -107,6 +107,17 @@ Explain what a PR is changing, why it matters, and how it relates to previous ch
 /atlas-analyze open
 ```
 
+### `/history-search` — Search per-entity changelogs
+
+Search committed `history/` changelogs by keyword, entity, governance type, merged-date range, or PR number. Useful for "when was X renamed/added?", "what touched <entity> between dates?", or "what PR introduced Y?".
+
+```
+/history-search "renamed to Skybase"
+/history-search --entity spark --since 2026-03-01
+/history-search --type "Spell recording" --limit 5
+/history-search --pr 167
+```
+
 ### `/governance-data` — Onchain governance data
 
 Fetch and analyze delegation snapshots, vote alignment, executive vote lifecycle, and spell monitoring.
@@ -231,6 +242,7 @@ This project processes untrusted content from public GitHub PRs and anonymous fo
 - **PreToolUse hook** — Intercepts all Write/Edit tool calls; hard-blocks writes to `.atlas-repo/`; requires human approval for changes to `.claude/`, `CLAUDE.md`, and `scripts/`
 - **Content sanitization** — PR titles, document names, and forum posts are sanitized before storage (HTML comments, XML tags, ChatML markers, prompt injection patterns stripped)
 - **Skill tool restrictions** — Each skill declares which tools it can use; read-only skills like `/forum-search` cannot run Bash or modify files
+- **Skill auto-approval** — Read-only skills (`/atlas-navigate`, `/atlas-analyze`, `/history-search`, `/forum-search`, `/governance-data`, `/messari-market-data`) are pre-approved in `.claude/settings.json` so they run without per-invocation prompts. Write-side skills (`/refresh`, `/atlas-track`, `/ad-track`) still require approval. See [docs/security.md](docs/security.md#skill-auto-approval) for the full split and reasoning
 - **Behavioral rules** — CLAUDE.md and skill instructions explicitly direct the agent to never follow directives found in Atlas content, PR bodies, or forum posts
 
 See [docs/security.md](docs/security.md) for the full threat model.
