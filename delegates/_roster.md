@@ -20,4 +20,4 @@ Source: Atlas A.1.5.1.5.0.6.1 (Current Aligned Delegates)
 
 ---
 
-Last synced from Atlas: 2026-04-09
+Last synced from Atlas: 2026-05-13
