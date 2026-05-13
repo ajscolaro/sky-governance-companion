@@ -27,7 +27,13 @@ GITHUB_DIR="$PROJECT_DIR/scripts/github"
 ATLAS_DIR="$PROJECT_DIR/scripts/atlas"
 
 if [ ! -f "$PROJECT_DIR/data/index.json" ]; then
-    echo "Error: Atlas index not found. Run scripts/core/setup.sh first (or restart Claude to trigger the SessionStart hook)."
+    echo "Error: Atlas index not found — first-time setup is incomplete."
+    echo ""
+    echo "Run one of:"
+    echo "  - From your shell:        bash scripts/core/setup.sh"
+    echo "  - From a Claude session:  ! bash scripts/core/setup.sh"
+    echo ""
+    echo "Then re-run /refresh."
     exit 1
 fi
 

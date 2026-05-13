@@ -16,8 +16,11 @@ All three flows produce PRs in the same repo. See `docs/governance-reference.md`
 
 Responsibilities are split:
 
-- **SessionStart hook** (`scripts/core/atlas-sync.sh`) — pulls the latest Atlas (depth 20 so `process-pr.sh` can diff against parent) and rebuilds `data/index.json` + address map. This is the only thing that touches `.atlas-repo/`; Claude's sandbox denies writes there.
-- **`/refresh` skill** (`scripts/core/refresh.sh`) — user-invoked. Refreshes all data caches (voting, forum, delegates, market, open PRs), auto-processes any unprocessed merged PRs into `history/`, then prints the session briefing.
+- **One-time setup** (`scripts/core/setup.sh`) — clones the Atlas, builds the index, seeds `history/` directories. The user runs this once after cloning the repo (either from their shell or via `! bash scripts/core/setup.sh` inside a Claude session). It's deliberately *not* invoked by the SessionStart hook because the 30s clone falls outside the window where Claude Code reliably renders hook messages.
+- **SessionStart hook** — branches on `.atlas-repo/.git` existence:
+  - **Healthy state** (`scripts/core/atlas-sync.sh`) — pulls the latest Atlas (depth 20 so `process-pr.sh` can diff against parent) and rebuilds `data/index.json` + address map. This is the only thing that touches `.atlas-repo/`; Claude's sandbox denies writes there.
+  - **First-run state** (`scripts/core/first-run-welcome.sh`) — emits a fast welcome JSON pointing the user to `setup.sh`. Sets a first-run flag in `additionalContext` so Claude can proactively orient the user. **Never** attempt to run `setup.sh` via the Bash tool when this flag is set — the sandbox blocks writes to `.atlas-repo` and the clone will fail.
+- **`/refresh` skill** (`scripts/core/refresh.sh`) — user-invoked. Refreshes all data caches (voting, forum, delegates, market, open PRs), auto-processes any unprocessed merged PRs into `history/`, then prints the session briefing. Errors with a setup hint if `data/index.json` is missing.
 
 `/refresh` does **not** re-sync the Atlas. If the user needs fresh Atlas commits mid-session, they should restart Claude.
 

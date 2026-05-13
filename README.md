@@ -33,10 +33,17 @@ This repo is the workspace that ties all of it together. It indexes the Atlas fo
 ```bash
 git clone https://github.com/ajscolaro/sky-governance-companion.git
 cd sky-governance-companion
+bash scripts/core/setup.sh   # one-time, ~30s — clones the Sky Atlas and builds the index
 claude
 ```
 
-That's it. On the first session, the `SessionStart` hook clones the Atlas (shallow), builds the document index, creates the Python virtualenv at `.venv/`, and seeds `history/`. Every subsequent session re-pulls the Atlas (~1s) and rebuilds the index.
+If you're already inside a Claude session and want to run setup without exiting, prefix the command with `!`:
+
+```
+! bash scripts/core/setup.sh
+```
+
+After setup, every `claude` start re-pulls the Atlas (~1s) and rebuilds the index automatically via the `SessionStart` hook (`scripts/core/atlas-sync.sh`).
 
 Once the session is open, run **`/refresh`** to fetch governance, forum, delegate, and market data, and to print the briefing.
 
