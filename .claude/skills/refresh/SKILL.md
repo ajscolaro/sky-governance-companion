@@ -36,21 +36,33 @@ Run the refresh script and surface its output to the user:
 bash scripts/core/refresh.sh
 ```
 
+## Reporting back
 
-## Follow-up: AD roster drift and unprocessed rationales
+**The session briefing is the primary deliverable — print it verbatim every time, even when nothing else fired.** The user wants the exact text from `refresh.sh`'s briefing section (everything from `Session briefing — new activity since ...` onward) — formatted section headers, URLs, percentages, dollar deltas, and all. Do NOT:
 
-After all fetches finish, refresh.sh surfaces two AD pipeline signals before the briefing. Both are suppressed when there's nothing to do — if you don't see them, skip this follow-up entirely.
+- Skip the briefing because no follow-up triggers fired. A "quiet" refresh (no new PRs, no drift, no skeletons) is the *most* common case and the briefing still contains current market / spells / polls / forum activity that the user wants.
+- Summarize or paraphrase ("Market: SKY +5.4%, SPK +6.1%...").
+- Condense sections into bullet points or add your own section headers.
+- Drop URLs or specific values.
+
+Wrap the briefing output in a fenced code block (or print it directly). The briefing is already formatted for human consumption — pass it through, don't re-interpret it.
+
+After the briefing, optionally add one or two lines for follow-up signals only when they actually appeared in the refresh output (see follow-up sections below). If no follow-ups fired, end with the briefing — do not add a "nothing pending" summary.
+
+## Follow-up: AD roster drift and unprocessed rationales (conditional)
+
+Refresh.sh emits these AD pipeline signals *before* the briefing only when there is work to do. If neither appears in the output, skip this section entirely — do not mention them.
 
 - **`AD roster drift vs delegates/_roster.md:`** — the Atlas roster contains ADs not in `_roster.md`, or vice versa. Invoke `/ad-track sync` to update `_roster.md`, create/derecognize delegate directories, and fetch any new ADs' RSS history.
 - **`AD rationales awaiting processing (N across M delegate(s)):`** — cached forum posts in `data/delegates/<slug>/` that aren't yet rendered into `delegates/<slug>/comms.md`. Invoke `/ad-track` to summarize and append them. If the total is large (say > 50 across all delegates), mention the count once and offer to process in batches rather than firing off one massive run.
 
 When invoking `/ad-track` for processing, follow the schema in `delegates/<slug>/comms.md` exactly — newest entry at the **top** (right after the header's `---`), each entry headed by `## YYYY-MM-DD — <topic>`, with the source forum URL embedded as a footnote line (`*Source: <link>*`) so `find-unprocessed.py` can detect it as processed on the next refresh.
 
-## Follow-up: legacy skeleton PRs
+## Follow-up: legacy skeleton PRs (conditional)
 
-Most freshly-processed PRs land at status=`auto` (fully rendered by the pipeline). Legacy entries from before the pipeline existed are still marked `skeleton` and need rewriting.
+This appears only if refresh.sh printed `Skeleton PRs awaiting finalization: <numbers>`. If you don't see that line, skip this section entirely.
 
-Look for `Skeleton PRs awaiting finalization: <numbers>` in the refresh output. If it appears, those are pre-pipeline entries — re-process them through the auto pipeline:
+When it does appear, those are pre-pipeline entries — re-process them through the auto pipeline:
 
 ```bash
 bash scripts/atlas/process-pr.sh --force <PR numbers>
@@ -60,18 +72,6 @@ bash scripts/atlas/process-pr.sh --force <PR numbers>
 
 If the line reads `(5 most recent of N)` with N > 5, a backlog has accumulated. Mention the count once and offer to batch-process on request rather than auto-running for all of them.
 
-Skip this follow-up entirely if the line doesn't appear.
+## Follow-up: auto-processed PRs (conditional)
 
-## Reporting back
-
-**Print the briefing output verbatim.** The user wants the exact text from `refresh.sh` — formatted section headers, URLs, percentages, dollar deltas, and all. Do NOT:
-- Summarize or paraphrase ("Market: SKY +5.4%, SPK +6.1%...")
-- Condense sections into bullet points ("Highlights:")
-- Drop the URLs or specific values
-- Add your own section headers ("Highlights")
-
-Instead: wrap the briefing output in a fenced code block (or print it directly) and add only one or two optional lines after it:
-- If `Auto-processing merged PRs: <numbers>` appeared, a note that those PRs were rendered by the auto pipeline (status=`auto`) and are ready unless the briefing also flagged legacy skeletons.
-- If a section the user expected is missing (e.g., no market data), a brief flag — otherwise stay silent.
-
-The briefing is already formatted for human consumption. Your job is to pass it through, not to re-interpret it.
+If `Auto-processing merged PRs: <numbers>` appeared in the refresh output, add a one-line note after the briefing that those PRs were rendered by the auto pipeline (status=`auto`) and are ready unless the briefing also flagged legacy skeletons. Skip if the line didn't appear.
