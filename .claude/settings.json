@@ -24,6 +24,14 @@
     ]
   },
   "permissions": {
+    "allow": [
+      "Skill(atlas-navigate)",
+      "Skill(atlas-analyze)",
+      "Skill(history-search)",
+      "Skill(forum-search)",
+      "Skill(governance-data)",
+      "Skill(messari-market-data)"
+    ],
     "deny": [
       "Bash(eval *)",
       "Bash(exec *)",
