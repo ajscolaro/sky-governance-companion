@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
-# First-time setup: clone Atlas repo, build index, create history dirs.
+# First-time setup: clone the Atlas repo, build the index, create
+# history dirs.
+#
+# Run this once from your shell after cloning sky-governance-companion.
+# Then restart Claude in this directory so the SessionStart hook can take
+# the normal atlas-sync path on subsequent sessions.
+#
+# This is no longer invoked by the SessionStart hook — the hook does a
+# fast welcome instead (scripts/core/first-run-welcome.sh) so the message
+# renders reliably. Running setup explicitly means you also see clone
+# progress and any errors directly.
+#
+# Note: this script cannot be run via Claude's `!` prefix because the
+# project sandbox denies writes to .atlas-repo. Run it from a normal
+# shell outside the Claude session.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -7,19 +21,16 @@ PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 REPO_DIR="$PROJECT_DIR/.atlas-repo"
 ATLAS_REPO="https://github.com/sky-ecosystem/next-gen-atlas.git"
 
-# Clone if not present
 if [ ! -d "$REPO_DIR/.git" ]; then
-    echo "Cloning Atlas repo (shallow)..."
+    echo "Cloning Sky Atlas (shallow, ~30s)..."
     git clone --depth 1 "$ATLAS_REPO" "$REPO_DIR"
 else
     echo "Atlas repo already cloned at $REPO_DIR"
 fi
 
-# Build index
-echo "Building index..."
+echo "Building Atlas index..."
 python3 "$SCRIPT_DIR/build-index.py"
 
-# Create history dirs if missing
 HISTORY_DIR="$PROJECT_DIR/history"
 for dir in \
     "A.0--preamble" \
@@ -34,9 +45,11 @@ for dir in \
     mkdir -p "$HISTORY_DIR/$dir"
 done
 
-# Show first-run orientation
-if [ -f "$SCRIPT_DIR/session-briefing.py" ]; then
-    python3 "$SCRIPT_DIR/session-briefing.py" --first-run 2>/dev/null || true
+if [ -f "$SCRIPT_DIR/build-address-map.py" ]; then
+    python3 "$SCRIPT_DIR/build-address-map.py" >/dev/null 2>&1 || true
 fi
 
+echo ""
 echo "Setup complete."
+echo ""
+echo "Next step: restart Claude in this directory, then run /refresh to fetch governance data and see the briefing."
