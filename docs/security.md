@@ -13,8 +13,8 @@ Configured in `.claude/settings.json`. Every Claude Code session in this repo is
 - `.atlas-repo/` is deny-write
 - `~/.ssh`, `~/.gnupg`, `~/.aws` are deny-read
 
-**Network:**
-- Only `github.com`, `api.github.com`, and `forum.skyeco.com` are reachable
+**Network** (configured under `permissions.network.allowedDomains` in `.claude/settings.json`):
+- Only the following hosts are reachable: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`
 - `enableWeakerNetworkIsolation` is on so network-dependent tools (curl, git) can verify TLS certificates via macOS trust service
 
 **Command restrictions:**
