@@ -2,6 +2,10 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #245 | Add script for composing and hashing Atlas file | 2026-05-16 | — | non-content |
+| #244 | Edit breach registry with new entries | 2026-05-15 | governance | auto |
+| #242 | Atlas Edit Proposal — 2026-05-11 | 2026-05-15 | preamble,governance support,stability protocol,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/launch-agent-6 agents/launch-agent-7 | auto |
+| #239 | update bridge rate limits after spell | 2026-05-15 | governance | auto |
 | #241 | Add breach record for Kuzmich on 2026-05-08 | 2026-05-08 | governance/ad-breaches | complete |
 | #237 | Atlas Edit Proposal — 2026-05-04 | 2026-05-08 | support, agents/spark, governance, agents/grove, stability, accessibility, agents/pattern, agents/keel, agents/obex | complete |
 | #235 | Restructure ALCS Directory: move Blackrock + Centrifuge to Completed, align Active with ICD numbering | 2026-05-01 | agents/spark | complete |

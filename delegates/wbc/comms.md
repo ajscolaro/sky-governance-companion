@@ -7,6 +7,18 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-18 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/184*
+
+*Relates to: Poll #1633 / PR #246 | Vote: **Yes***
+
+Key rationale points:
+
+- **No substantial concerns** — Supports all three items in the bundle: EPL/Strategic Team role definitions plus Prime Agents in the Executive Process Section, Launch Agent 6 → Osero rebrand, and stale cross-reference label/quote/title-case cleanup.
+- **Role definitions are most useful** — Highlights the EPL and Strategic Team additions as helpful for reducing ambiguity around who participates in the executive process and how Prime Agents fit into that workflow, making role boundaries and process ownership easier to follow in future execution.
+
+---
 ## 2026-05-11 — Weekly Cycle Vote: Atlas Edit Proposal — May 11, 2026
 
 *Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/183*

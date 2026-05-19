@@ -154,8 +154,10 @@ rm -f "$DISCOVERY_WARN_FILE"
 
 # === Phase 3: Auto-process unprocessed merged PRs ===
 # Runs the full process-pr.sh pipeline (classify-diff → extract-values →
-# enrich → render → auto-context → verify). Output is fully-rendered entries
-# in history/<entity>/changelog.md with status=auto in _log.md.
+# enrich → render → verify). Output is fully-rendered Material/Housekeeping
+# bullets in history/<entity>/changelog.md with status=auto in _log.md. The
+# `### Context` section is left as `<!-- context: pending -->` for the in-session
+# agent to fill after refresh.sh returns (see the /refresh skill).
 if [ -s "$UNPROCESSED_FILE" ]; then
     PR_NUMS=$(tr '\n' ' ' < "$UNPROCESSED_FILE")
     echo ""

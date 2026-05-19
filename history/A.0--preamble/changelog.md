@@ -4,6 +4,17 @@ Atlas path: `A.0` — Definitions, foundational concepts, and structural rules
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Conformance** (`A.0.1.1.53`, UUID `cb66c28b…8b9c`): Conformance characterizes the state in which a Synome Document accurately operationalizes the principles, rules, and processes specified by the Atlas Documents.
+
+### Context
+Glossary addition supports the Synome Documents framework introduced in the same PR at A.1.3.1 — a Synome Document is "Conformant" when it accurately operationalizes Atlas-specified rules.
+
+---
+
 ## PR #219 — Atlas Edit Proposal — 2026-04-06
 
 **Merged:** 2026-04-09 | **Type:** Weekly edit (Atlas Axis)

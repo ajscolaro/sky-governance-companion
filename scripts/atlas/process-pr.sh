@@ -6,19 +6,18 @@
 #   1. classify-diff.py   → tmp/pr-<N>-manifest.json   (per-doc add/delete/modify/rename)
 #   2. extract-values.py  → tmp/pr-<N>-extracted.json  (numerics, addresses, sweeps)
 #   3. enrich.py          → tmp/pr-<N>-enriched.json   (poll/spell, routing, type label)
-#   4. render.py          → tmp/pr-<N>-rendered.json   (per-entity markdown entries)
-#   5. auto-context.py    → tmp/pr-<N>-final.json      (Context filled by `claude -p`,
-#                                                       or passthrough if ATLAS_AUTO_CONTEXT=0)
-#   6. verify-entry.py    → exit non-zero if the entry doesn't account for every changed UUID
-#   7. Append entry to history/<entity>/changelog.md, update history/_log.md
+#   4. render.py          → tmp/pr-<N>-rendered.json   (per-entity markdown entries with
+#                                                       a `<!-- context: pending -->` placeholder)
+#   5. verify-entry.py    → exit non-zero if the entry doesn't account for every changed UUID
+#   6. Append entry to history/<entity>/changelog.md, update history/_log.md
+#
+# Context paragraphs are not filled by this script. The /refresh skill (or any other
+# in-session caller) is responsible for replacing the `<!-- context: pending -->`
+# placeholders after this script returns, using the surrounding session's full context.
 #
 # Flags:
 #   --dry-run   Run pipeline but do not modify any history/* files (prints rendered entries)
 #   --force     Re-process even if PR is already in history/_log.md (overwrites prior entry)
-#
-# Env vars (all optional):
-#   ATLAS_AUTO_CONTEXT=0          Skip the LLM Context-fill step
-#   ATLAS_AUTO_CONTEXT_MODEL=...  Override model passed to `claude -p`
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -187,8 +186,11 @@ for PR_NUM in "${PR_ARGS[@]}"; do
         # 3. Build the unified diff and counts. Use `diff sha~..sha` rather
         #    than `show sha` so it works whether the parent is the immediate
         #    predecessor or a deepened ancestor.
-        git -C "$ATLAS_REPO_DIR" diff --no-color "${MERGE_SHA}~..${MERGE_SHA}" > "$DIFF_FILE"
-        SHORTSTAT=$(git -C "$ATLAS_REPO_DIR" diff --shortstat "${MERGE_SHA}~..${MERGE_SHA}")
+        # -c diff.renameLimit=0 = unlimited rename detection. The Atlas tree has
+        # >1000 files so large PRs otherwise emit "exhaustive rename detection was
+        # skipped" warnings and lose rename signal we depend on downstream.
+        git -C "$ATLAS_REPO_DIR" -c diff.renameLimit=0 diff --no-color "${MERGE_SHA}~..${MERGE_SHA}" > "$DIFF_FILE"
+        SHORTSTAT=$(git -C "$ATLAS_REPO_DIR" -c diff.renameLimit=0 diff --shortstat "${MERGE_SHA}~..${MERGE_SHA}")
         ADDITIONS=$(echo "$SHORTSTAT" | grep -oE '[0-9]+ insertion' | grep -oE '^[0-9]+' || echo 0)
         DELETIONS=$(echo "$SHORTSTAT" | grep -oE '[0-9]+ deletion' | grep -oE '^[0-9]+' || echo 0)
         [ -z "$ADDITIONS" ] && ADDITIONS=0
@@ -214,6 +216,25 @@ PYEOF
         echo "Error: classify-diff failed for PR #$PR_NUM" >&2
         continue
     }
+
+    # Short-circuit non-content PRs (infra, CI, tooling under sync/, .gitignore,
+    # etc.). classify-diff filters to content/<path>/document.md, so an empty
+    # manifest means the PR touched no Atlas docs. Log it as non-content so the
+    # next refresh doesn't rediscover and reprocess it.
+    TOUCHED=$(jq '(.added|length) + (.deleted|length) + (.modified|length) + (.renamed|length)' "$MANIFEST_FILE")
+    if [ "$TOUCHED" = "0" ]; then
+        echo "  → PR #$PR_NUM touched no Atlas content; recording no-op."
+        if [ "$DRY_RUN" -eq 0 ]; then
+            if [ "$FORCE" -eq 1 ]; then
+                grep -v "| #$PR_NUM " "$LOG_FILE" > "$LOG_FILE.tmp" && mv "$LOG_FILE.tmp" "$LOG_FILE"
+            fi
+            echo "| #$PR_NUM | $TITLE | $MERGED_DATE | — | non-content |" >> "$LOG_FILE"
+            echo "  → Updated $LOG_FILE"
+        fi
+        echo "Done with PR #$PR_NUM."
+        echo ""
+        continue
+    fi
 
     NEW_UUIDS=$(jq -r '.added[].uuid' "$MANIFEST_FILE")
 
@@ -280,11 +301,10 @@ PYEOF
         fi
     done
 
-    # 6. Stages 2-5: extract → enrich → render → context
+    # 6. Stages 2-4: extract → enrich → render
     EXTRACTED_FILE="$TMP_DIR/pr-${PR_NUM}-extracted.json"
     ENRICHED_FILE="$TMP_DIR/pr-${PR_NUM}-enriched.json"
     RENDERED_FILE="$TMP_DIR/pr-${PR_NUM}-rendered.json"
-    FINAL_FILE="$TMP_DIR/pr-${PR_NUM}-final.json"
 
     python3 "$SCRIPT_DIR/extract-values.py" "$DIFF_FILE" --manifest "$MANIFEST_FILE" \
         > "$EXTRACTED_FILE" || { echo "Error: extract-values failed for PR #$PR_NUM" >&2; continue; }
@@ -295,22 +315,16 @@ PYEOF
     python3 "$SCRIPT_DIR/render.py" --enriched "$ENRICHED_FILE" \
         > "$RENDERED_FILE" || { echo "Error: render failed for PR #$PR_NUM" >&2; continue; }
 
-    # auto-context is best-effort — if the LLM call fails, fall back to passthrough
-    if ! python3 "$SCRIPT_DIR/auto-context.py" --rendered "$RENDERED_FILE" > "$FINAL_FILE" 2>/dev/null; then
-        echo "  → auto-context failed; using rendered output without Context paragraph"
-        cp "$RENDERED_FILE" "$FINAL_FILE"
-    fi
-
     # 7. Verify the rendered entry covers every changed UUID
     if ! python3 "$SCRIPT_DIR/verify-entry.py" --manifest "$MANIFEST_FILE" \
-            --rendered "$FINAL_FILE" --enriched "$ENRICHED_FILE" >&2; then
+            --rendered "$RENDERED_FILE" --enriched "$ENRICHED_FILE" >&2; then
         echo "Error: verify-entry reported missing UUIDs for PR #$PR_NUM" >&2
         continue
     fi
 
     # 8. Dry-run: print and stop
     if [ "$DRY_RUN" -eq 1 ]; then
-        python3 - "$FINAL_FILE" <<'PYEOF'
+        python3 - "$RENDERED_FILE" <<'PYEOF'
 import json, sys
 r = json.load(open(sys.argv[1]))
 print(f"\n[dry-run] PR #{r['pr_number']} ({r['type_label']}) — {len(r['entries'])} entit{'y' if len(r['entries'])==1 else 'ies'}\n")
@@ -324,7 +338,7 @@ PYEOF
 
     # 9. Write entries to changelogs (with --force, overwrite an existing
     #    matching block first so re-runs don't duplicate)
-    AFFECTED=$(python3 - "$FINAL_FILE" "$HISTORY_DIR" "$PR_NUM" "$FORCE" <<'PYEOF'
+    AFFECTED=$(python3 - "$RENDERED_FILE" "$HISTORY_DIR" "$PR_NUM" "$FORCE" <<'PYEOF'
 import json, os, re, sys
 final_path, history_dir, pr_num, force = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
 r = json.load(open(final_path))

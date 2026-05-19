@@ -4,6 +4,26 @@ Atlas path: `A.6.1.1.5` (509 docs)
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Root Edit Voting Process in Emergency Situations** (`A.6.1.1.5.2.2.2.2.1.2.3.1`): `8` → `9`
+- **Required Number Of Signers** (`A.6.1.1.5.2.6.1.2.1.2.2.3.2`): `4` → `5`
+- **Signers** (`A.6.1.1.5.2.6.1.2.1.2.2.3.3`): `4` → `3`
+
+### Housekeeping
+- `A.6.1.1.5.2.6.1.2.1.2.2.3.4` (Usage Standards): removed `The usage standards for the Freezer Multisig will be specified in a future iteration of the Obex Artifact.`
+- `A.6.1.1.5.2.6.1.2.1.2.2.3.5` (Modification): `` → `Any changes to the Multisig signers that do not fall within the two exceptions listed above, or that have not been ratified by Sky Governance, should be questioned immediately and treated as malicious. Where malicious activity is suspected, the Core Facilitator must prepare an expedited Executive Vote so that Sky Governance can vote on removing external security access from the Multisig.`
+- `A.6.1.1.5.2.6.1.2.1.2.2.3` (Freezer Multisig): removed `and is controlled by Obex`
+- `8` → `9` across 1 doc.
+- `4` → `5` across 1 doc.
+
+### Context
+Raises the Freezer Multisig signing threshold from 2/4 to 2/5, broadening control from Obex alone to include the Operational Executor Agent. Concurrently adds explicit modification-protection language directing the Core Facilitator to treat unsanctioned signer changes as malicious and trigger an expedited Executive Vote.
+
+---
+
 ## PR #237 — Atlas Edit Proposal — 2026-05-04
 **Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
 

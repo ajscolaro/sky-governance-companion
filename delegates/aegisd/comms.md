@@ -7,6 +7,22 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-14 — Executive Spell May 7, 2026 + Weekly Cycle Vote: Atlas Edit Proposal — May 11, 2026
+
+*Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/79*
+
+*Relates to: Spell 2026-05-07-solana-bridge-unpause-gsm-increase-msc-staking-rewards-update + PR #242 | Vote: **Yes (both)***
+
+Key rationale points:
+
+- **Spell technical verification** — Confirmed on-chain contract matches GitHub deployment using the standard verification procedure; all items align with prior governance polls and the relevant Atlas sections.
+- **Solana SkyLink unpause + bridge rate limits** — Supports unpausing the Solana SkyLink with 5,000,000 USDS/day Ethereum↔Solana OFT rate limits, enabling the Solana governance relay path, and disabling Ethereum→Avalanche USDS flow until Avalanche receive flow is restored.
+- **GSM Pause Delay + Settlement Cycle** — Backs raising GSM Pause Delay from 24h to 48h (Poll 1630, Atlas A.1.9.2) to give governance more review time, and the April 2026 MSC including the 3,144,308 USDS Treasury transfer to Core Council Buffer.
+- **Staking + Prime Agent updates** — Supports the LSSKY→SKY staking rewards update distributing 239,982,804 SKY over 90 days, plus whitelisting Spark and Grove proxy spells in their respective StarGuards.
+- **Agent Termination + Synome Documents** — On PR #242, supports specifying Agent Termination Process in the Root Edit Primitive (incorporation deadline September 1, 2026) and defining Synome Documents and the delegated authority update process as part of the Laniakea upgrade.
+- **Obex multisig + Prime Spell Process** — Backs the Obex Freezer Multisig threshold change from 2/4 to 2/5 to align with other Agents' configurations, and codifying the four-week Prime Spell Process for improved predictability and coordination between Prime Agents and Sky Core.
+
+---
 ## 2026-05-07 — Weekly Cycle Vote: Atlas Edit Proposal — May 4, 2026
 
 *Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/78*

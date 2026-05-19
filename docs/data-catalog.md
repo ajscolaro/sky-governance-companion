@@ -150,8 +150,7 @@ Each `process-pr.sh` run produces these files in `tmp/` (gitignored, cleared by 
 | `pr-<N>-manifest.json` | `classify-diff.py` | Per-doc add/delete/modify/rename + UUIDs + targets |
 | `pr-<N>-extracted.json` | `extract-values.py` | Body-level deltas (numerics, addresses, sweeps, paired changes) |
 | `pr-<N>-enriched.json` | `enrich.py` | Manifest + governance flow + poll/spell + entity routing |
-| `pr-<N>-rendered.json` | `render.py` | Per-entity markdown entries (Material/Housekeeping bullets) |
-| `pr-<N>-final.json` | `auto-context.py` | Same as rendered, plus filled Context paragraphs (or stripped) |
+| `pr-<N>-rendered.json` | `render.py` | Per-entity markdown entries (Material/Housekeeping bullets, with `<!-- context: pending -->` placeholder under `### Context` for the in-session agent to fill via `/atlas-track`) |
 
 The pipeline is idempotent — re-running on the same PR with `--force` regenerates all artifacts and overwrites the changelog entry block.
 

@@ -4,6 +4,18 @@ Atlas path: `A.6.1.1.6` (353 docs)
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Root Edit Voting Process In Emergency Situations** (`A.6.1.1.6.2.2.2.2.1.2.3.1`): `8` → `9`
+
+### Housekeeping
+- `8` → `9` across 1 doc.
+- `Facilitators` → `Core Facilitator` across 1 doc.
+
+---
+
 ## PR #237 — Atlas Edit Proposal — 2026-05-04
 **Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
 

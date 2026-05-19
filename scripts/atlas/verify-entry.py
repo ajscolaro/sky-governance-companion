@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -35,12 +36,28 @@ def short_uuid(uuid: str) -> str:
 
 
 def doc_referenced(doc: dict, all_text: str) -> bool:
-    """Is this doc identifiable in the rendered text, by docNo, name, or short UUID?"""
+    """Is this doc identifiable in the rendered text, by docNo, name, or short UUID?
+
+    docNo matching has two layers:
+    1. Strict boundary match: `A.6.1.1` must NOT be followed by another digit
+       or dot, so a parent doesn't silently pass via a child's deeper docNo
+       (which used to mask scaffold-drop bugs — see PR #242 regression).
+    2. Ancestral coverage: a scaffold parent counts as referenced if at least
+       one of its descendant docNos appears in the text. The renderer
+       intentionally elides scaffold parents whose children carry the
+       substance (e.g., the 1inch ICD subtree's "Operational Process
+       Definition" container), so we accept that pattern explicitly. A genuine
+       dropped leaf has no descendants in the rendered text, so this layer
+       doesn't reintroduce the masking pathology.
+    """
     number = (doc.get("number") or "").strip()
     name = (doc.get("name") or "").strip()
     uuid = doc.get("uuid", "")
-    if number and number in all_text:
-        return True
+    if number:
+        if re.search(re.escape(number) + r"(?![\d.])", all_text):
+            return True
+        if re.search(re.escape(number) + r"\.\d", all_text):
+            return True
     if name and name in all_text:
         return True
     if uuid and short_uuid(uuid) in all_text:

@@ -26,24 +26,23 @@ Responsibilities are split:
 
 ### Auto-changelog pipeline
 
-`scripts/atlas/process-pr.sh` is the orchestrator for converting merged PRs into per-entity changelog entries. It runs five stages plus a verification gate, emitting fully-rendered Material/Housekeeping bullets with no skeleton intermediate:
+`scripts/atlas/process-pr.sh` is the orchestrator for converting merged PRs into per-entity changelog entries. It runs four stages plus a verification gate, emitting fully-rendered Material/Housekeeping bullets:
 
 1. `classify-diff.py` — per-doc add/delete/modify/rename classification (atomized-aware)
 2. `extract-values.py` — word-level body diffs; numerics, addresses, UUID refs, terminology sweeps, Solidity-identifier sweeps
 3. `enrich.py` — poll/spell lookup, governance-flow classification (1/2/3), routing via `entity-routing.conf` (NR docs route by their `targets[0]` parent)
-4. `render.py` — template-based markdown emission per entity; addition trees, deletion bullets, modification bullets, sweep groupings
-5. `auto-context.py` — optional Context paragraph via `claude -p` (Max OAuth); gated by `ATLAS_AUTO_CONTEXT`, falls through if unavailable
-6. `verify-entry.py` — asserts every changed UUID is accounted for in the rendered output
+4. `render.py` — template-based markdown emission per entity; addition trees, deletion bullets, modification bullets, sweep groupings. The `### Context` section is emitted as a `<!-- context: pending -->` placeholder.
+5. `verify-entry.py` — asserts every changed UUID is accounted for in the rendered output
 
 PR data comes from local git ops against `.atlas-repo/` (squash-merge subject = title, body = body, `git diff sha~..sha` = unified diff). No GitHub API calls.
 
+**Context paragraphs are filled by the session agent, not the pipeline.** After `process-pr.sh` returns, the `/atlas-track` skill replaces each `<!-- context: pending -->` placeholder with 1-2 sentences using the surrounding session's full context (or strips the section if there's nothing notable). `/refresh` delegates this to `/atlas-track` automatically for newly-processed PRs. This is deliberate — an earlier design shelled out to a nested `claude -p` from inside the pipeline, which broke any time `process-pr.sh` was invoked from within a Claude Code session (and that's the only way this project is ever invoked).
+
 **Flags:** `--dry-run` (print, don't write), `--force` (re-process, overwrite existing entry), `--from-tmp` (use cached `tmp/pr-<N>.diff` and meta — for development).
 
-**Status in `_log.md`:** `auto` for fully-pipeline-generated, `skeleton` for legacy entries from the old workflow, `complete` once a human has reviewed/edited.
+**Status in `_log.md`:** `auto` for fully-pipeline-generated, `skeleton` for legacy entries from the old workflow, `complete` once a human has reviewed/edited, `non-content` for PRs that touched no Atlas docs (infra/tooling/CI) and were intentionally skipped.
 
-**Caveat:** the `claude -p` step hangs when run inside an active Claude Code session (nested CLI can't read parent OAuth through the sandbox). Run `process-pr.sh` from a regular shell, or set `ATLAS_AUTO_CONTEXT=0` to skip the Context fill.
-
-If `/refresh` reports `Skeleton PRs awaiting finalization: <numbers>`, those are legacy entries from the pre-pipeline workflow. Proactively re-process via `bash scripts/atlas/process-pr.sh --force <PR>` to upgrade them to auto-rendered entries.
+If `/refresh` reports `Skeleton PRs awaiting finalization: <numbers>`, those are legacy entries from the pre-pipeline workflow. Proactively re-process via `bash scripts/atlas/process-pr.sh --force <PR>` to upgrade them to auto-rendered entries, then fill Context via `/atlas-track`.
 
 ## Project layout
 

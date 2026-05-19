@@ -7,6 +7,20 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-19 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/249*
+
+*Relates to: Poll #1633 / PR #246 | Vote: **Yes***
+
+Key rationale points:
+
+- **Executive Process role gap closure** — Notes the PR #242 codification of `prime_spell_process` left `executiveProcessLiaison` and `strategicTeam` referenced but undefined; this edit fills the gap with three new docs: A.1.10.2.1.13 (Executive Process Liaison, UUID abd8ac0d-1265-4a71-aaea-2fff6670eac5), A.1.10.2.1.14 (Strategic Team, UUID f5decc3b-f22e-4ee8-a55d-d14eed218916), and A.1.10.2.2.5 (Prime Agents under roles-in-the-exec-process-section, UUID 1d5adab9-2c90-4b52-bf4c-38e4ff9edd95).
+- **Definitions content** — EPL defined as the liaison between Prime Agents and Sky Core during the Prime Spell Process; Strategic Team responsible for reviewing/approving the scope of Prime Agent content advancing through the process using business-needs-and-strategic-alignment as criteria.
+- **Osero rebrand thoroughness** — Aligned edit covering full Osero artifact subtree, Ecosystem Accord 6, genesis agent list, phased_out genesis capital tracking, Allocator Vault parameters, actor-pioneer-primes registry, Plasma SkyLink Freezer Multisig signer attributions, token symbol change AGENT6→Osero, and on-chain disclosures (Osero Foundation 0xfDD055D3CCEE0D955031CF1FD76c8Db9317cCC58, Osero_SubProxy 0x24fdcd3bFA5C2553e05B2f9AD0365EBC296278D3).
+- **Editorial housekeeping** — Three clean sub-fixes: stale cross-reference labels normalized to canonical short form, curly quotes/apostrophes normalized to straight forms, and the Ecosystem Accord 7 title fix.
+
+---
 ## 2026-05-12 — Atlas Edit Weekly Cycle Proposal — May 11, 2026
 
 *Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/248*

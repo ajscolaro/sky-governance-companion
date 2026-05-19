@@ -4,6 +4,48 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Agent Termination Process** (`A.2.2.5.2.2.2.8.1`, UUID `82f9f4b9…3b75`): The Agent Termination Process, as specified in `A.1.14.5`, deviates from the general Artifact Edit Process and follows the special voting process specified in the documents.
+  - **Voting Period** (`A.2.2.5.2.2.2.8.1.1`): The Root Edit Primitive must specify a voting period of at least 14 days.
+  - **Quorum Requirement** (`A.2.2.5.2.2.2.8.1.2`): The Root Edit Primitive must specify a minimum quorum of at least 20% of outstanding tokens.
+  - **Approval Threshold** (`A.2.2.5.2.2.2.8.1.3`): The Root Edit Primitive must specify a supermajority approval threshold where at least two-thirds (2/3) of votes cast are in favor.
+  - **Required Notice** (`A.2.2.5.2.2.2.8.1.4`): The Root Edit Primitive must require the Operational Facilitator to issue advance notice of the Agent's proposed termination and the subsequent Agent vote in the Sky Forum.
+  - **Compliance Deadline For Existing Prime Agents** (`A.2.2.5.2.2.2.8.1.5`): Existing Prime Agents whose Root Edit Primitive does not already incorporate the requirements specified in `A.2.2.5.2.2.2.8.1` must update their Agent Artifact to include the.
+- **New: Short Term SKY Staking Rewards Rate** (`A.2.3.1.4.1`, UUID `de233df4…dd3c`): Pending activation of the USDS Staking Rewards specified in `A.2.3.1.2.4`, no Step 4 Capital is allocated to SKY Staking Rewards.
+- **Included In An Executive Vote** (`A.2.10.1.5.3.0.3.1`): `10` → `11`
+- **Emergency Communication Readiness Requirement** (`A.2.11.1.3.2.1.1.6.3`): `8` → `9`
+- **Core GovOps Validates Executor Accord Primitive Inputs** (`A.2.2.1.1.13`): `13` → `14`
+- **Short Term Suspension of “Founder Access”** (`A.2.2.1.1.3.2.1`): `10` → `11`; `11` → `12`
+- **Prohibition On Deactivating Executor Accord And Root Edit Primitives** (`A.2.2.1.2.4.2.1.2`): `13` → `14`
+- **Changing Primitive Instance Status** (`A.2.2.1.3.3`): `13` → `14`
+- **Agent Inputs** (`A.2.2.5.2.1.1.1`): `13` → `14`
+- **Limitations On Usage Of Root Edit Primitive Prior To Tokens Being Publicly Held** (`A.2.2.5.2.3.1`): `10` → `11`; `11` → `12`
+- **Atlas Edit Proposal Process For Prime Agents** (`A.2.2.5.2.3.2`): `10` → `11`
+- **Instance Setup Deployments** (`A.2.2.9.1.1.2.3`): `9` → `10`
+- **Operationalization Of Allocation Instances** (`A.2.2.9.1.1.3.1`): `13` → `14`
+
+### Housekeeping
+- `A.2.11.1.3.2.2.1.1.1` (Signer Rotation Requirement): `Core GovOps` → `the Protocol Security Workstream Lead`
+- `A.2.11.1.3.2.2.1.1.2` (Signer Composition Documentation Requirement): `Core GovOps` → `the Protocol Security Workstream Lead`
+- `A.2.11.1.3.2.2.1.1.3` (Threshold Preservation Requirement): `Core GovOps` → `the Protocol Security Workstream Lead`
+- `A.2.8.2.5.2.2.2` (Use Of Genesis Capital): `spell` → `Spell`
+- `A.2.9.1.1.1.4.1.6` (Resilience Fund Approval Process And Verifiability): `spell` → `Spell`
+- `9` → `10` across 1 doc.
+- `spell` → `Spell` across 2 docs.
+- `8` → `9` across 1 doc.
+- `10` → `11` across 4 docs.
+- `11` → `12` across 2 docs.
+- `13` → `14` across 5 docs.
+- `Core GovOps` → `the Protocol Security Workstream Lead` across 3 docs.
+
+### Context
+Three substantive support-scope additions from the May 11 weekly cycle (Poll #1632): a special-voting Agent Termination Process all Prime Agents must incorporate into their Root Edit Primitive by Sep 1, 2026 (14-day vote, 20% quorum, 2/3 approval); restoration of the Short Term SKY Staking Rewards rate at 50% of Step 2 Capital (A.2.3.1.4.1); and rerouting signer-rotation notifications and threshold-reduction approvals from Core GovOps to the Protocol Security Workstream Lead.
+
+---
+
 ## PR #237 — Atlas Edit Proposal — 2026-05-04
 **Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
 
