@@ -159,6 +159,11 @@ def render_addition(doc: dict, descendants: list[dict]) -> tuple[str, list[str]]
         for ref_uuid, info in ext.get("uuid_refs_resolved", {}).items():
             uuid_ref_set.add((ref_uuid, info["name"]))
 
+    # Doc numbers in this addition tree — used to distinguish true scaffolds
+    # (have children in the added set) from leaves that happen to use
+    # scaffold-style phrasing.
+    desc_numbers = {d.get("number") or "" for d in descendants if d.get("number")}
+
     # Per-descendant child bullets, only when the lead sentence carries a value
     for desc in sorted(descendants, key=lambda d: d.get("number") or ""):
         d_lead = (desc["extracted"].get("lead_sentence") or "").strip()
@@ -166,11 +171,18 @@ def render_addition(doc: dict, descendants: list[dict]) -> tuple[str, list[str]]
         d_number = desc.get("number") or ""
         if not d_lead:
             continue
-        # Skip pure scaffold parents (those whose children carry the substance)
+        # Skip pure scaffold parents — but only if this doc actually has
+        # children in the added set that will carry the substance. A leaf doc
+        # with scaffold-style phrasing ("The documents herein...") would
+        # otherwise be silently dropped (see PR #242 regression).
         if d_lead.lower().startswith(("the subdocuments herein",
                                       "the documents herein",
                                       "the subdocuments")):
-            continue
+            has_added_children = d_number and any(
+                n.startswith(d_number + ".") for n in desc_numbers
+            )
+            if has_added_children:
+                continue
         d_lead = _clean_lead(d_lead, desc["extracted"].get("uuid_refs_resolved", {}))
         d_lead = d_lead.rstrip(".;: ")
         subs.append(f"**{d_name}** (`{d_number}`): {d_lead}.")
@@ -501,9 +513,10 @@ def render_entity_entry(entity: str, enriched: dict) -> tuple[str, dict]:
         for b in housekeeping:
             lines.append(f"- {b}")
         lines.append("")
-    # Context section is left empty; auto-context.py optionally fills it
+    # Context section is left as a placeholder for the in-session agent to fill
+    # (or strip) after this pipeline returns. See /refresh skill for the workflow.
     lines.append("### Context")
-    lines.append("<!-- context: pending auto-context -->")
+    lines.append("<!-- context: pending -->")
     lines.append("")
     lines.append("---")
 

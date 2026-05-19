@@ -4,6 +4,22 @@ Atlas path: `A.4` — The Protocol Scope
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Operator Execution** (`A.4.4.1.3.8.5.2.2`): `11` → `12`
+- **Vesting Stream Parameter Modification** (`A.4.4.1.4.2.1.3.3`): `2` → `4`; `4` → `1`
+
+### Housekeeping
+- `A.4.4.1.4.2` (Short Term SKY Rewards For SKY Stakers): added refs to `A.2.3.1.4.1`, `A.2.3.1.2.4`
+- `11` → `12` across 1 doc.
+
+### Context
+Cross-link added in A.4.4.1.4.2 points to the Short Term SKY Staking Rewards rate restored in the same PR (A.2.3.1.4.1). Otherwise, numbering ripples only.
+
+---
+
 ## PR #227 — Atlas Edit Proposal — 2026-04-27
 **Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
 

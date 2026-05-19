@@ -7,6 +7,18 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-19 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
+
+*Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/49*
+
+*Relates to: Poll #1633 / PR #246 | Vote: **Yes***
+
+Key rationale points:
+
+- **Cleaner governance process** — Supports the three edits (Executive Process Liaison/Strategic Team definitions, Launch Agent 6 → Osero rebrand, stale cross-reference/naming fixes) as introducing "a cleaner governance process with clearer organizational definitions, naming updates, and housekeeping updates."
+- **Maintenance + clarification** — Notes the changes are mainly maintenance and clarification in character rather than substantive policy shifts.
+
+---
 ## 2026-04-28 — Weekly Cycle Vote: Atlas Edit Proposal — April 27, 2026
 
 *Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/48*

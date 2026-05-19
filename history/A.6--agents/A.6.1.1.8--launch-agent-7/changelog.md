@@ -4,6 +4,18 @@ Atlas path: `A.6.1.1.8` (352 docs)
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Root Edit Voting Process In Emergency Situations** (`A.6.1.1.8.2.2.2.2.1.2.3.1`): `8` → `9`
+- **In Progress Invocations Directory** (`A.6.1.1.8.2.6.1.1.4`): `d0c5ad5f` → `952b34e6`; `ffe6` → `7983`; `469b` → `4dd0`; `b4e8` → `a46f`; `1f77b1a24739` → `e3622c2346de`
+
+### Housekeeping
+- `8` → `9` across 1 doc.
+
+---
+
 ## PR #224 — Atlas Edit Proposal — 2026-04-20
 **Merged:** 2026-04-24 | **Type:** Weekly edit (Atlas Axis)
 

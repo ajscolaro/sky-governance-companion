@@ -7,6 +7,19 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-18 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/212*
+
+*Relates to: Poll #1633 / PR #246 | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Maintenance-class proposal** — Characterizes the bundle as "mainly role-definition, naming, and documentation consistency updates."
+- **Osero rebrand worth highlighting** — Notes that "bringing Launch Agent 6 out of stealth and updating the Atlas accordingly should make future governance references cleaner and reduce confusion between the public-facing identity of the agent and the legacy placeholder name."
+- **Topics in vote** — Lists the three edits: EPL/Strategic Team definitional docs plus Prime Agents in the Executive Process Section, the Osero rebrand across the Atlas, and stale cross-reference label/naming-inconsistency fixes.
+
+---
 ## 2026-05-11 — Weekly Cycle Vote: Atlas Edit Proposal — May 11, 2026
 
 *Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/211*

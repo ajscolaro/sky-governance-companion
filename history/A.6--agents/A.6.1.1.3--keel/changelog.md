@@ -4,6 +4,36 @@ Atlas path: `A.6.1.1.3` (874 docs)
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: 1inch Instance Configuration Document Location** (`A.6.1.1.3.2.5.1.1.2.2`, UUID `60982fac…d4a5`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.3.2.5.1.2.2`.
+- **New: 1inch Instance Configuration Document** (`A.6.1.1.3.2.5.1.2.2`, UUID `eca1c14e…a1d2`): The documents herein contain the Instance Configuration Document for the 1inch Distribution Reward Primitive Instance.
+  - **Reward Code** (`A.6.1.1.3.2.5.1.2.2.1.1`): `4011`.
+  - **Tracking Methodology** (`A.6.1.1.3.2.5.1.2.2.1.2`): This Instance uses the Tracking Methodology specified in `A.2.2.8.1.2.1.2.2.1`.
+  - **Custom Instance Parameters** (`A.6.1.1.3.2.5.1.2.2.1.3`): The documents herein define the custom parameters of the 1inch Instance of the Distribution Reward Primitive, if any.
+  - **Routine Protocol** (`A.6.1.1.3.2.5.1.2.2.2.1`): This document defines the protocol for routine ongoing management of the 1inch Instance.
+  - **Agent Customizations** (`A.6.1.1.3.2.5.1.2.2.2.1.1`): The Prime Agent may define instance-specific customization of the routine protocol to extend the baseline functionality defined in the Sky Core Atlas.
+  - **Non-Routine Protocol** (`A.6.1.1.3.2.5.1.2.2.2.2`): The documents herein define the protocol for non-routine ongoing management of the 1inch Instance of this Distribution Reward Primitive.
+  - **Emergency Protocol** (`A.6.1.1.3.2.5.1.2.2.2.3`): The documents herein define the protocol for handling emergency situations in the ongoing management of the 1inch Instance of this Distribution Reward Primitive.
+  - **Initial Planning** (`A.6.1.1.3.2.5.1.2.2.3.1`): The materials associated with initial planning of the Invocation of this Instance are contained herein.
+  - **Operational GovOps Review** (`A.6.1.1.3.2.5.1.2.2.3.2`): The materials associated with Operational GovOps Review during the Invocation of this Instance are contained herein.
+  - **Artifact Edit Proposal** (`A.6.1.1.3.2.5.1.2.2.3.3`): The materials associated with preparing the Artifact Edit Proposal during the Invocation of this Instance are contained herein.
+  - **Distribution Reward Payments** (`A.6.1.1.3.2.5.1.2.2.3.4`): The Distribution Reward payments for the 1inch Instance of the Distribution Reward Primitive are defined as Active Data.
+  - **List Of Distribution Reward Payments** (`A.6.1.1.3.2.5.1.2.2.3.4.0.6.1`): The Distribution Reward Payments are.
+- **Root Edit Voting Process in Urgent and Emergency Situations** (`A.6.1.1.3.2.2.2.2.1.2.3.1`): `8` → `9`
+
+### Housekeeping
+- `A.6.1.1.3.2.5.3.2.1.1.2.2` (Terms): removed refs to `A.2.8.2.3`
+- `8` → `9` across 1 doc.
+- `Facilitators` → `Core Facilitator` across 2 docs.
+
+### Context
+Adds the 1inch Distribution Reward Instance Configuration Document at `A.6.1.1.3.2.5.1.2.2` (reward code 4011) — the latest Distribution Reward Primitive instance under Keel — as one of nine edits bundled in the May 11 weekly cycle (Poll #1632).
+
+---
+
 ## PR #237 — Atlas Edit Proposal — 2026-05-04
 **Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
 

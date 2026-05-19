@@ -22,7 +22,7 @@ You are updating all cached data sources and surfacing what's changed since the 
    - Market prices/supply (if `MESSARI_API_KEY` is set)
    - Open Atlas PRs from GitHub
    - Discovery of merged PRs that aren't yet in `history/_log.md`
-2. **Auto-process merged PRs** — runs `scripts/atlas/process-pr.sh` on each unprocessed merged PR. Pipeline (classify-diff → extract-values → enrich → render → auto-context → verify) writes fully-rendered Material/Housekeeping bullets to the affected `history/<entity>/changelog.md` files (status=`auto`). The optional Context paragraph is filled by `claude -p` when available; falls through cleanly otherwise.
+2. **Auto-process merged PRs** — runs `scripts/atlas/process-pr.sh` on each unprocessed merged PR. Pipeline (classify-diff → extract-values → enrich → render → verify) writes fully-rendered Material/Housekeeping bullets to the affected `history/<entity>/changelog.md` files (status=`auto`). The `### Context` section is emitted as a `<!-- context: pending -->` placeholder — `/atlas-track` fills these in afterward (see follow-up below).
 3. **AD pipeline detection** — rebuilds `data/delegates/roster.json` from Atlas (so new ADs are picked up), then diffs it against `delegates/_roster.md` to surface roster drift, and counts cached forum posts not yet rendered into each `delegates/<slug>/comms.md`. The summarization itself is judgment work, so it's not done in-script — refresh surfaces the queue and the session processes it via `/ad-track` (see follow-up below).
 4. **Session briefing** — prints only sections that have content: market (daily), spells (current + pending), polls (ended since last session + active), atlas proposals (new open PRs in last 7 days), forum activity (new posts).
 
@@ -74,4 +74,10 @@ If the line reads `(5 most recent of N)` with N > 5, a backlog has accumulated. 
 
 ## Follow-up: auto-processed PRs (conditional)
 
-If `Auto-processing merged PRs: <numbers>` appeared in the refresh output, add a one-line note after the briefing that those PRs were rendered by the auto pipeline (status=`auto`) and are ready unless the briefing also flagged legacy skeletons. Skip if the line didn't appear.
+This appears only if refresh.sh printed `Auto-processing merged PRs: <numbers>`. Each of those PRs landed with fully-rendered Material/Housekeeping bullets but a `<!-- context: pending -->` placeholder in its `### Context` section. Invoke `/atlas-track` to fill those placeholders in — pass the PR numbers explicitly so the skill knows which entries it owns:
+
+```
+/atlas-track <PR numbers>
+```
+
+`/atlas-track` will locate the pending placeholders, gather governance metadata from the cached `tmp/pr-<N>-*.json` artifacts, write 1-2 sentences of Context per affected entity (or strip the section if there's nothing worth adding), and `Edit` the changelog files in place. Skip if no `Auto-processing` line appeared.

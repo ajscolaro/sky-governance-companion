@@ -7,6 +7,34 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-19 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/205*
+
+*Relates to: Poll #1633 / PR #246 | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Executive Process role definitions** — Adds definitional documents for the Executive Process Liaison and Strategic Team and adds Prime Agents to the Roles in the Executive Process Section; notes the Atlas already references these roles, so this "fills a documentation gap within the Atlas."
+- **Osero rebrand** — Now that Launch Agent 6 has come out of stealth, its placeholder name is updated to Osero across the Atlas.
+- **Cross-reference cleanup** — Frames the stale-label/canonical-short-format/quote-normalization/Ecosystem Accord 7 title-case fix as "a minor housekeeping update."
+
+---
+## 2026-05-14 — Weekly Cycle Vote: Atlas Edit Proposal — May 11, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/204*
+
+*Relates to: PR #242 | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Agent Termination + Synome Documents** — Specifies the Agent Termination Process each Prime Agent must incorporate into its Root Edit Primitive by September 1, 2026, closing a gap where the Atlas already referred to "special voting requirements prescribed in the Root Edit Primitive for the Agent's termination"; defines Synome Documents and the delegated authority update process as part of the Laniakea upgrade.
+- **Obex Freezer Multisig** — Updates threshold from 2/4 to 2/5, broadening control from the agent to include the Operational Executor Agent; also populates previously-placeholder Usage Standards and Modification docs. Notes this mirrors other Agents' configurations.
+- **Distribution Reward + Signer Rotation fixes** — Adds 1inch as Distribution Reward recipient under Keel Artifact; removes Multisig Registry update instructions from Signer Rotation sections, routing signer change notifications and threshold-reduction approvals to the Protocol Security Workstream Lead instead of Core GovOps (since the Multisig Registry does not include signers).
+- **Staking + Prime Spell Process** — Redefines Short Term SKY Staking Rewards rate to 50% of Step 2 Capital; codifies the four-week Prime Spell Process, while noting the "Strategic Team" referenced "should be explicitly defined in a future Atlas Edit Proposal" (a gap PR #246 then fills).
+- **Atlas housekeeping** — Capitalizes "Spell"/"Spells" throughout as formally defined terms; fixes "Core Facilitators" singular form, removes redundant "Sky" qualifier from many "Sky Core Facilitator" instances, reassigns one Prime-Agent responsibility from Core Facilitators to Operational Facilitator, and fixes typos/UUID/citation errors.
+
+---
 ## 2026-05-08 — Executive Spell: Unpause Solana SkyLink Bridge, Increase GSM Pause Delay — May 7, 2026
 
 *Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/203*

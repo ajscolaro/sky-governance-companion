@@ -4,6 +4,26 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #242 — Atlas Edit Proposal — 2026-05-11
+**Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Relationship To Base Rate** (`A.3.1.2.5.1`): `9` → `10`
+- **Conservatorship For Breach Of Capital Requirements** (`A.3.2.2.7.2.1.4`): `8` → `9`
+- **Termination Of Executor Accord** (`A.3.2.2.7.2.2.2`): `8` → `9`
+- **Requirements** (`A.3.7.1.5.4.1`): `8` → `9`
+- **Implementation** (`A.3.7.1.6.1`): `9` → `10`; `8` → `9`; `9` → `10`
+
+### Housekeeping
+- `9` → `10` across 2 docs.
+- `Facilitators` → `Facilitator` across 1 doc.
+- `8` → `9` across 4 docs.
+
+### Context
+Renumbering ripples only — bullet shifts propagate from new sub-articles added elsewhere in the May 11 weekly cycle (Poll #1632). No substantive stability-scope changes.
+
+---
+
 ## PR #237 — Atlas Edit Proposal — 2026-05-04
 **Merged:** 2026-05-08 | **Type:** Weekly edit (Atlas Axis)
 
