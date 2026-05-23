@@ -4,6 +4,30 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #246 — Atlas Edit Proposal — 2026-05-18
+**Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.2.2.8.3.1.2.1.0.6.1` (List of Active Pioneer Primes): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.1.1.2` (Osero Details): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.1.1` (Parties To The Accord): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.2.1.1` (Total Token Supply): `AGENT6` → `OSERO`
+- `A.2.8.2.6.2.1.2.1` (Osero Prime Treasury): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.2.1.2.2` (Sky Retained Tokens And Reward Pools): `AGENT6` → `OSERO`
+- `A.2.8.2.6.2.2.1` (Osero Initial Allocation): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.2.2.2.1` (Transfer Of Genesis Capital Allocation To Osero Foundation): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.2.2.2.2` (Transfer Of Genesis Capital Allocation To Osero SubProxy): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6.2.2.2` (Initial Allocation Distribution): `Launch Agent 6` → `Osero`
+- `A.2.8.2.6` (Ecosystem Accord 6: Sky And Osero): `Launch Agent 6` → `Osero`
+- `A.2.8.2.7` (Ecosystem Accord 7: Sky And Skybase): `and` → `And`
+- `Launch Agent 6` → `Osero` across 9 docs.
+- `AGENT6` → `OSERO` across 3 docs.
+
+### Context
+Public-name reveal for Launch Agent 6 (now Osero); Ecosystem Accord 6 retitled and all party, treasury, and Pioneer Prime references updated. Ratified by Poll #1633 (10-0, non-voters: axislegati, excel, opex).
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

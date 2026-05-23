@@ -78,7 +78,7 @@ history/
     ├── A.6.1.1.4--skybase/changelog.md
     ├── A.6.1.1.5--obex/changelog.md
     ├── A.6.1.1.6--pattern/changelog.md
-    ├── A.6.1.1.7--launch-agent-6/changelog.md
+    ├── A.6.1.1.7--osero/changelog.md
     └── A.6.1.1.8--launch-agent-7/changelog.md
 ```
 

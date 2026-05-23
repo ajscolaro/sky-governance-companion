@@ -40,7 +40,7 @@ for dir in \
     "A.6--agents/A.6.1.1.1--spark" "A.6--agents/A.6.1.1.2--grove" \
     "A.6--agents/A.6.1.1.3--keel" "A.6--agents/A.6.1.1.4--skybase" \
     "A.6--agents/A.6.1.1.5--obex" "A.6--agents/A.6.1.1.6--pattern" \
-    "A.6--agents/A.6.1.1.7--launch-agent-6" "A.6--agents/A.6.1.1.8--launch-agent-7" \
+    "A.6--agents/A.6.1.1.7--osero" "A.6--agents/A.6.1.1.8--launch-agent-7" \
     "_other"; do
     mkdir -p "$HISTORY_DIR/$dir"
 done
