@@ -4,6 +4,16 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #246 — Atlas Edit Proposal — 2026-05-18
+**Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.1.2.6.1.2.1.3.2` (Spark’s Total Risk Capital (TRC) Management Processes): `’` → `'`
+- `A.6.1.1.1.3.4.2.1.2` (Operational Process): `’` → `'`
+- `’` → `'` across 2 docs.
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

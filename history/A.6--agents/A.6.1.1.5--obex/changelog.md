@@ -4,6 +4,24 @@ Atlas path: `A.6.1.1.5` (509 docs)
 
 ---
 
+## PR #238 — Add Obex StarGuard Contract sections
+**Merged:** 2026-05-20 | **Type:** Housekeeping
+
+### Material Changes
+- **New: StarGuard Max Delay** (`A.6.1.1.5.2.1.1.3.1.1.3.1`, UUID `b037c4fd…1f60`): The Obex StarGuard `maxDelay` is seven (7) days.
+- **New: Custom Instance Parameters** (`A.6.1.1.5.2.1.1.3.1.1.5`, UUID `6b501d73…29da`): The documents herein define the custom parameters of the Single Instance of the Agent Creation Primitive, if any.
+- **StarGuard Contract** (`A.6.1.1.5.2.1.1.3.1.1.3`): address `0x987f1C31f9935e9926555BcFB76516bb2EcEccaD`
+
+### Housekeeping
+- `A.6.1.1.5.2.1.1.3.1.1.4` (Genesis Account): `Custom Instance Parameters` → `Genesis Account`
+- `A.6.1.1.5.2.1.1.3.1.1.5.1` renumbered (UUID stable: `57b0ac97…3806`)
+- `A.6.1.1.5.2.1.1.3.1.1.5.2` renumbered (UUID stable: `44a4e626…0773`)
+
+### Context
+Documents Obex's deployed StarGuard security contract (`0x987f…ccaD`) and its 7-day `maxDelay`, populating the Agent Creation Primitive's previously-empty parameters section. No ratification poll or spell — merged same-day as a documentation edit to record the on-chain binding.
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

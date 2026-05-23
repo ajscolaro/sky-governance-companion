@@ -2,9 +2,11 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #246 | Atlas Edit Proposal — 2026-05-18 | 2026-05-21 | governance,support stability,agents/spark agents/osero | auto |
+| #238 | Add Obex StarGuard Contract sections | 2026-05-20 | agents/obex | auto |
 | #245 | Add script for composing and hashing Atlas file | 2026-05-16 | — | non-content |
 | #244 | Edit breach registry with new entries | 2026-05-15 | governance | auto |
-| #242 | Atlas Edit Proposal — 2026-05-11 | 2026-05-15 | preamble,governance support,stability protocol,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/launch-agent-6 agents/launch-agent-7 | auto |
+| #242 | Atlas Edit Proposal — 2026-05-11 | 2026-05-15 | preamble,governance support,stability protocol,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/osero agents/launch-agent-7 | auto |
 | #239 | update bridge rate limits after spell | 2026-05-15 | governance | auto |
 | #241 | Add breach record for Kuzmich on 2026-05-08 | 2026-05-08 | governance/ad-breaches | complete |
 | #237 | Atlas Edit Proposal — 2026-05-04 | 2026-05-08 | support, agents/spark, governance, agents/grove, stability, accessibility, agents/pattern, agents/keel, agents/obex | complete |
@@ -17,7 +19,7 @@
 | #214 | SAEP-14: Update Offchain Collateralized Lending Artifact Section | 2026-04-27 | agents/spark | complete |
 | #210 | Spark proposal - Morpho Vault Curation | 2026-04-27 | agents/spark | complete |
 | #209 | SAEP-13: Risk Curation Framework | 2026-04-27 | agents/spark | complete |
-| #224 | Atlas Edit Proposal — 2026-04-20 | 2026-04-24 | governance, support, agents/spark, agents/grove, agents/keel, agents/skybase, agents/obex, agents/pattern, agents/launch-agent-6, agents/launch-agent-7 | complete |
+| #224 | Atlas Edit Proposal — 2026-04-20 | 2026-04-24 | governance, support, agents/spark, agents/grove, agents/keel, agents/skybase, agents/obex, agents/pattern, agents/osero, agents/launch-agent-7 | complete |
 | #222 | Atlas Edit Proposal — 2026-04-13 | 2026-04-16 | support, agents/grove, agents/pattern, agents/keel | complete |
 | #223 | remove non breaking space characters | 2026-04-13 | other | complete |
 | #219 | Atlas Edit Proposal — 2026-04-06 | 2026-04-09 | preamble, governance, support, stability, protocol, spark, grove, keel | complete |

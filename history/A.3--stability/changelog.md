@@ -4,6 +4,19 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #246 — Atlas Edit Proposal — 2026-05-18
+**Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.3.2.1.2.2.1.2.1` (Initial Loss Absorption By "Tip JRC"): `“` → `"`
+- `A.3.7.1.2.1.6` (ALLOCATOR-PRYSM-A Parameters): `Launch Agent 6` → `Osero`
+- `A.3.7.1.6.5` (Genesis Agents): `Launch Agent 6` → `Osero`
+- `A.3.7.1.6.6.1` (Amount Of Capital Contributed By Sky To Agents): `Launch Agent 6` → `Osero`
+- `A.3.7.1.6.6.2.3.0.6.1` (Current Phased-Out Genesis Capital): `Launch Agent 6` → `Osero`
+- `Launch Agent 6` → `Osero` across 4 docs.
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

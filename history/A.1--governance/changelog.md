@@ -4,6 +4,34 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #246 — Atlas Edit Proposal — 2026-05-18
+**Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Executive Process Liaison** (`A.1.10.2.1.13`, UUID `abd8ac0d…eac5`): The Executive Process Liaison is the liaison between each Prime Agent and Sky Core in the Prime Spell Process.
+- **New: Strategic Team** (`A.1.10.2.1.14`, UUID `f5decc3b…8916`): The Strategic Team is the actor responsible for reviewing submitted items and approving the scope of Prime Agent content advancing through the Prime Spell Process.
+- **New: Prime Agents** (`A.1.10.2.2.5`, UUID `1d5adab9…dd95`): Prime Agents (see `A.0.1.1.42`) participate in the Executive Process by submitting their spell items for inclusion in the Executive Vote.
+- **Alternating Between Two Roles In Separate Time Intervals** (`A.1.5.5.0.4.1.1.1`): `- A10 - Alignment Conservers - Accountability And Misalignment Handling` → `.10`
+- **Alternating Between Two Roles In Separate Time Intervals - var. 1** (`A.1.5.5.0.4.1.1.1.var1`): `- A10 - Alignment Conservers - Accountability And Misalignment Handling` → `.10`
+- **On-Call Or Stand-By Role** (`A.1.5.5.0.4.1.1.2`): `- A10 - Alignment Conservers - Accountability And Misalignment Handling` → `.10`
+- **On-Call Or Standby Role - var. 1** (`A.1.5.5.0.4.1.1.2.var1`): `- A10 - Alignment Conservers - Accountability And Misalignment Handling` → `.10`
+- **Resignation Notice Not Received - var. 1** (`A.1.5.5.0.4.1.1.3.var1`): `- A10 - Alignment Conservers - Accountability And Misalignment Handling` → `.10`
+- **Should Ban Against Occupying Two Ecosystem Roles Apply to All Sky Stakeholder Roles?** (`NR-2`): `- A5 - Alignment Conservers - Powers And Constraints` → `.5`
+
+### Housekeeping
+- `A.1.10.2.2` (Roles in the Executive Process): `are categorized into four` → `include the following`
+- `A.1.10.4.1.4.3.1.1.3` (Plasma SkyLink Freezer Multisig Signers): `Launch Agent 6` → `Osero`
+- `A.1.10.4.1.4.3.1.1.5` (Plasma SkyLink Freezer Multisig Modification): `Launch Agent 6` → `Osero`
+- `A.1.6.4.4.2.1.1.0.3.1` (One Month's Budget Allocation - Element Annotation): `’` → `'`
+- `Launch Agent 6` → `Osero` across 2 docs.
+- `- A10 - Alignment Conservers - Accountability And Misalignment Handling` → `.10` across 5 docs.
+- `’` → `'` across 1 doc.
+
+### Context
+Formalizes two new roles in the Prime Spell Process: the Executive Process Liaison (each Prime Agent's interface to Sky Core) and the Strategic Team (approves the scope of Prime Agent content advancing through the Executive Vote). Ratified by Poll #1633 (10-0, non-voters: axislegati, excel, opex).
+
+---
+
 ## PR #244 — Edit breach registry with new entries
 **Merged:** 2026-05-15 | **Type:** Active Data update (Designated Controller)
 
