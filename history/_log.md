@@ -16,7 +16,7 @@
 | #239 | update bridge rate limits after spell | 2026-05-15 | governance | auto |
 | #241 | Add breach record for Kuzmich on 2026-05-08 | 2026-05-08 | governance/ad-breaches | complete |
 | #237 | Atlas Edit Proposal — 2026-05-04 | 2026-05-08 | support, agents/spark, governance, agents/grove, stability, accessibility, agents/pattern, agents/keel, agents/obex | complete |
-| #236 | Atomic Atlas: decompose Sky Atlas.md into one-folder-per-document tree + sync tooling | 2026-05-05 | — | non-content |
+| #236 | Atomic Atlas: decompose Sky Atlas.md into one-folder-per-document tree + sync tooling | 2026-05-05 | other | complete |
 | #235 | Restructure ALCS Directory: move Blackrock + Centrifuge to Completed, align Active with ICD numbering | 2026-05-01 | agents/spark | complete |
 | #227 | Atlas Edit Proposal — 2026-04-27 | 2026-04-30 | support, governance, protocol, agents/grove, stability | complete |
 | #226 | Update April 23 Parameters | 2026-04-30 | stability | complete |
@@ -34,9 +34,9 @@
 | #217 | Atlas Edit Proposal — 2026-03-30 | 2026-04-02 | governance, agents/keel | complete |
 | #213 | Update Sky forum URL | 2026-04-02 | preamble, governance, support | complete |
 | #208 | Atlas Edit Proposal — 2026-03-23 | 2026-03-27 | governance, support, agents/spark | complete |
-| #206 | Lint Lists | 2026-03-26 | — | non-content |
-| #199 | Global linting - Remove extra spaces | 2026-03-23 | — | non-content |
-| #207 | Add /explain-edit skill for community proposal analysis | 2026-03-20 | — | non-content |
+| #206 | Lint Lists | 2026-03-26 | other | complete |
+| #199 | Global linting - Remove extra spaces | 2026-03-23 | other | complete |
+| #207 | Add /explain-edit skill for community proposal analysis | 2026-03-20 | other | complete |
 | #204 | Spark proposal - Add USAT and USDT transferAsset Rate Limits to Anchorage | 2026-03-20 | agents/spark | complete |
 | #203 | SAEP-12: Document Savings Liquidity Intent Capability in Spark Savings | 2026-03-20 | agents/spark | complete |
 | #200 | 2026-03-16 Weekly Edit Proposal | 2026-03-20 | support, stability, agents/grove, agents/keel, agents/obex, agents/osero, agents/launch-agent-7 | complete |
@@ -96,13 +96,13 @@
 | #121 | Nov 24 Atlas edit | 2025-11-30 | agents/obex, agents, governance (rename backfill only) | partial |
 | #120 | SAEP-06: SubDAO Proxy Management Plan | 2025-11-28 | agents/spark | complete |
 | #129 | Always run the `validate` check to satisfy branch protection rules | 2025-11-27 | other | complete |
-| #128 | Add visual illustrations for Atlas Markdown Syntax and Atlas Document Numbering Rules | 2025-11-27 | — | non-content |
+| #128 | Add visual illustrations for Atlas Markdown Syntax and Atlas Document Numbering Rules | 2025-11-27 | other | complete |
 | #124 | Remove duplicate articles | 2025-11-27 | agents/spark | complete |
-| #127 | Atlas Validator GitHub action: fix permission error by removing the auto-comment feature | 2025-11-26 | — | non-content |
-| #123 | Add comprehensive Atlas Markdown syntax documentation | 2025-11-25 | — | non-content |
+| #127 | Atlas Validator GitHub action: fix permission error by removing the auto-comment feature | 2025-11-26 | other | complete |
+| #123 | Add comprehensive Atlas Markdown syntax documentation | 2025-11-25 | other | complete |
 | #116 | Fix article title: Bootstrapping Phase > Delegate Onboarding Process | 2025-11-22 | agents/spark | complete |
-| #118 | Enable Atlas Validator GitHub Action on Atlas Pull Requests | 2025-11-21 | — | non-content |
-| #117 | Migrate To Markdown File | 2025-11-21 | — | non-content |
+| #118 | Enable Atlas Validator GitHub Action on Atlas Pull Requests | 2025-11-21 | other | complete |
+| #117 | Migrate To Markdown File | 2025-11-21 | other | complete |
 | #115 | Atlas Edit Weekly Proposal 2025-11-17 | 2025-11-20 | agents/keel, agents/grove, support, governance, stability, accessibility | complete |
 | #114 | Upgrade controller to v1.8 | 2025-11-20 | agents/spark | complete |
 | #113 | SAEP-05 | 2025-11-20 | agents/spark | complete |
@@ -117,7 +117,7 @@
 | #101 | Spark proposal: SAEP-03 | 2025-11-07 | agents/spark | complete |
 | #100 | Spark proposal - Increase Rate Limits for SparkLend USDC and USDT | 2025-11-07 | agents/spark | complete |
 | #98 | Adjust stUSDS Beam step parameters | 2025-11-07 | stability | complete |
-| #97 | Correct tags | 2025-10-31 | — | non-content |
+| #97 | Correct tags | 2025-10-31 | other | complete |
 | #96 | October 27 edit | 2025-10-31 | governance, support, stability, accessibility, agents/grove, agents/keel, agents/spark | complete |
 | #95 | Spark Proposal: Enable Grove to deploy in Aave Core RLUSD | 2025-10-31 | agents/spark | complete |
 | #81 | Spark Proposal - [Ethereum] SparkLend - Increase tBTC Supply and Borrow Caps | 2025-10-29 | agents/spark | complete |
