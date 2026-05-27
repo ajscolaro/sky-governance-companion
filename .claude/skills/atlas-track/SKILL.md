@@ -61,7 +61,7 @@ Then batch process. The script skips already-processed PRs.
 history/
 ├── _log.md                    # master PR processing log
 ├── entity-routing.conf        # prefix → directory mapping
-├── _other/changelog.md        # catch-all for unrouted changes
+├── _non-content/changelog.md  # non-content PRs (infra/tooling/CI/linting/docs) + unrouted fragments
 │
 ├── A.0--preamble/changelog.md
 ├── A.1--governance/changelog.md
@@ -87,7 +87,7 @@ history/
 1. **Every scope gets a directory** with a `changelog.md`
 2. **Agents each get their own subdirectory** under `A.6--agents/`
 3. **Changes route to the most specific prefix** in `entity-routing.conf`
-4. **Unmatched changes go to `_other/`** — review periodically for mis-routing
+4. **Unmatched / non-content changes go to `_non-content/`** — review periodically for mis-routing
 
 ### Splitting a scope changelog
 
@@ -117,7 +117,7 @@ A.6	A.6--agents
 ## Detecting and adding new entities
 
 **Watch for these signals:**
-- Changes routed to `_other/changelog.md` — may indicate a new entity needs its own directory
+- A *content* change routed to `_non-content/changelog.md` (vs a genuine infra/tooling PR) — may indicate a new entity needs its own directory
 - Changes routed to `A.6--agents/changelog.md` (the scope-level catch-all) — may be a new agent
 - New documents appearing under `A.6.1.1` with a previously unseen number
 - PR titles mentioning new agents or organizational structures
@@ -145,7 +145,7 @@ A.6	A.6--agents
 
 3. Update the history structure in `CLAUDE.md`.
 
-4. If the creation PR was already processed, move relevant entries from `_other/changelog.md` or `A.6--agents/changelog.md` to the new file.
+4. If the creation PR was already processed, move relevant entries from `_non-content/changelog.md` or `A.6--agents/changelog.md` to the new file.
 
 ## Governance context
 
