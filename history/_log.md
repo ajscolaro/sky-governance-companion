@@ -10,7 +10,7 @@
 | #220 | Spark proposal - [Ethereum] Spark Savings - Raise Deposit Caps for spWETH, spUSDC, spUSDT; Lower Caps for Spark Savings USDC/USDT/ETH | 2026-05-25 | agents/spark | complete |
 | #246 | Atlas Edit Proposal — 2026-05-18 | 2026-05-21 | governance,support stability,agents/spark agents/osero | auto |
 | #238 | Add Obex StarGuard Contract sections | 2026-05-20 | agents/obex | auto |
-| #245 | Add script for composing and hashing Atlas file | 2026-05-16 | — | non-content |
+| #245 | Add script for composing and hashing Atlas file | 2026-05-16 | other | complete |
 | #244 | Edit breach registry with new entries | 2026-05-15 | governance | auto |
 | #242 | Atlas Edit Proposal — 2026-05-11 | 2026-05-15 | preamble,governance support,stability protocol,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/osero agents/launch-agent-7 | auto |
 | #239 | update bridge rate limits after spell | 2026-05-15 | governance | auto |

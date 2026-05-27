@@ -4,6 +4,13 @@ Changes that do not match any tracked entity prefix.
 
 ---
 
+## PR #245 — Add script for composing and hashing Atlas file
+**Merged:** 2026-05-16 | **Type:** Housekeeping
+
+Repo tooling: added a script to compose the decomposed Atlas tree back into a single file and hash it (integrity check that the per-document tree reassembles correctly). Tooling only; no Atlas content changes.
+
+---
+
 ## PR #236 — Atomic Atlas: decompose Sky Atlas.md into one-folder-per-document tree + sync tooling
 **Merged:** 2026-05-05 | **Type:** Housekeeping
 
