@@ -1,6 +1,10 @@
-# Other Changes — Change History
+# Non-Content Changes — Change History
 
-Changes that do not match any tracked entity prefix.
+PRs that change no Atlas governance content — infrastructure, CI, tooling,
+linting/whitespace, contributor docs, and format migrations — plus the
+occasional unrouted fragment of an otherwise-routed content PR (e.g. a
+deleted Needed Research stub). These are recorded here (rather than dropped)
+so every merged PR has a home in the history index.
 
 ---
 

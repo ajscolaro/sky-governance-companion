@@ -55,11 +55,11 @@ def load_routing() -> list[tuple[str, str]]:
 def route_doc(number: str | None, rules: list[tuple[str, str]]) -> str:
     """Match a doc number against routing rules; first prefix wins."""
     if not number:
-        return "_other"
+        return "_non-content"
     for prefix, dirname in rules:
         if number == prefix or number.startswith(prefix + "."):
             return dirname
-    return "_other"
+    return "_non-content"
 
 
 def routing_number(doc: dict, by_uuid: dict) -> str | None:
@@ -83,7 +83,7 @@ def routing_number(doc: dict, by_uuid: dict) -> str | None:
         if idx_entry:
             targets = idx_entry.get("targets") or []
     if not targets:
-        return number  # falls through to _other via route_doc
+        return number  # falls through to _non-content via route_doc
 
     target_entry = by_uuid.get(targets[0])
     if target_entry and target_entry.get("number"):
@@ -263,20 +263,20 @@ def main() -> int:
     uuid_to_entity = {d["uuid"]: d["entity"] for d in extracted["documents"]}
     for sweep in extracted["patterns"]["terminology_sweeps"]:
         global_count = len(set(sweep["uuids"]))
-        entities = {uuid_to_entity.get(u, "_other") for u in sweep["uuids"]}
+        entities = {uuid_to_entity.get(u, "_non-content") for u in sweep["uuids"]}
         for e in entities:
             entity_uuids = [u for u in sweep["uuids"] if uuid_to_entity.get(u) == e]
             sweeps_by_entity[e]["terminology_sweeps"].append(
                 {**sweep, "uuids": entity_uuids, "global_uuid_count": global_count})
     for sweep in extracted["patterns"]["solidity_identifier_fixes"]:
         global_count = len(set(sweep["uuids"]))
-        entities = {uuid_to_entity.get(u, "_other") for u in sweep["uuids"]}
+        entities = {uuid_to_entity.get(u, "_non-content") for u in sweep["uuids"]}
         for e in entities:
             entity_uuids = [u for u in sweep["uuids"] if uuid_to_entity.get(u) == e]
             sweeps_by_entity[e]["solidity_identifier_fixes"].append(
                 {**sweep, "uuids": entity_uuids, "global_uuid_count": global_count})
     for art in extracted["patterns"]["article_deletions"]:
-        entity = uuid_to_entity.get(art["article_uuid"], "_other")
+        entity = uuid_to_entity.get(art["article_uuid"], "_non-content")
         sweeps_by_entity[entity]["article_deletions"].append(art)
 
     # Build a UUID set that's covered by entity-level patterns so the renderer

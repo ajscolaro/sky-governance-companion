@@ -40,7 +40,7 @@ PR data comes from local git ops against `.atlas-repo/` (squash-merge subject = 
 
 **Flags:** `--dry-run` (print, don't write), `--force` (re-process, overwrite existing entry), `--from-tmp` (use cached `tmp/pr-<N>.diff` and meta — for development).
 
-**Status in `_log.md`:** `auto` for fully-pipeline-generated, `skeleton` for legacy entries from the old workflow, `complete` once a human has reviewed/edited, `non-content` for PRs that touched no Atlas docs (infra/tooling/CI) and were intentionally skipped.
+**Status in `_log.md`:** `auto` for fully-pipeline-generated, `skeleton` for legacy entries from the old workflow, `complete` once a human has reviewed/edited. PRs that touch no Atlas docs (infra/tooling/CI/linting/docs/format migrations) are **not skipped** — `process-pr.sh` records a terse Housekeeping entry in `history/_non-content/changelog.md` (sections `non-content`, status `auto`) so every merged PR has a home in the index. (The legacy `non-content` skip status — a bare `_log` row with no entry — is retired; `/refresh` discovery is gap-proof so nothing is silently dropped.)
 
 If `/refresh` reports `Skeleton PRs awaiting finalization: <numbers>`, those are legacy entries from the pre-pipeline workflow. Proactively re-process via `bash scripts/atlas/process-pr.sh --force <PR>` to upgrade them to auto-rendered entries, then fill Context via `/atlas-track`.
 
