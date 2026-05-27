@@ -75,18 +75,16 @@ if [ -f "$GITHUB_DIR/fetch-open-prs.sh" ]; then
 fi
 
 # Discover unprocessed merged PRs (write numbers to file for Phase 3).
-# Paginates closed PRs sorted by updated_at DESC and stops once a page's
-# oldest updated_at falls below LAST_MERGED_DATE — any older, untouched PR
-# is either already processed or hasn't changed, so safe to skip. Visible
-# warnings on fetch/parse failure so silent drops stop happening
+# Gap-proof: paginate ALL closed PRs and flag every merged PR whose number is
+# absent from _log.md, regardless of date. (An earlier high-water-mark design
+# only considered PRs updated since the latest processed merge date, so any PR
+# that slipped through a gap below that mark — content or non-content — was
+# never rediscovered. That blind spot is what required the 2026-05 historical
+# backfill.) Visible warnings on fetch/parse failure so silent drops stop
 # (prior single-page-30 fetch silently dropped #66/#121/#167/#176).
 UNPROCESSED_FILE=$(mktemp "${TMPDIR:-/tmp}/unprocessed-prs.XXXXXX")
 DISCOVERY_WARN_FILE=$(mktemp "${TMPDIR:-/tmp}/pr-discovery-warn.XXXXXX")
 (
-    LAST_MERGED_DATE=$(grep -E '^\| #[0-9]+ ' "$LOG_FILE" 2>/dev/null \
-        | sed -E 's/.*\| ([0-9]{4}-[0-9]{2}-[0-9]{2}) \|.*/\1/' \
-        | sort -r | head -1)
-
     GH_API="https://api.github.com/repos/sky-ecosystem/next-gen-atlas"
     PAGE=1
     MAX_PAGES=20   # 20 * 100 = 2000 PRs; covers any plausible backlog
@@ -111,13 +109,8 @@ DISCOVERY_WARN_FILE=$(mktemp "${TMPDIR:-/tmp}/pr-discovery-warn.XXXXXX")
         if [ -n "$PAGE_MERGED" ]; then
             ALL_MERGED+="$PAGE_MERGED"$'\n'
         fi
-        OLDEST_UPDATED=$(echo "$RESULT" | jq -r '.[].updated_at' 2>/dev/null | sort | head -1)
-        if [ -n "$LAST_MERGED_DATE" ] && [ -n "$OLDEST_UPDATED" ]; then
-            OLDEST_DATE="${OLDEST_UPDATED:0:10}"
-            if [[ "$OLDEST_DATE" < "$LAST_MERGED_DATE" ]]; then
-                break
-            fi
-        fi
+        # No early-stop on date — we must see every page to catch gaps anywhere
+        # in history. Bounded by MAX_PAGES; a short page means we hit the end.
         if [ "$PAGE_COUNT" -lt 100 ]; then
             break
         fi
@@ -128,11 +121,9 @@ DISCOVERY_WARN_FILE=$(mktemp "${TMPDIR:-/tmp}/pr-discovery-warn.XXXXXX")
         echo "WARNING: PR discovery reached max-pages cap ($MAX_PAGES); backlog may extend further." >> "$DISCOVERY_WARN_FILE"
     fi
 
-    if [ -n "$LAST_MERGED_DATE" ]; then
-        MERGED_PRS=$(echo "$ALL_MERGED" | awk -F'\t' -v since="$LAST_MERGED_DATE" '$1 != "" && $2 >= since {print $1}')
-    else
-        MERGED_PRS=$(echo "$ALL_MERGED" | awk -F'\t' '$1 != "" {print $1}')
-    fi
+    # Every merged PR number found, regardless of date; the _log membership
+    # check below is the sole filter, so any gap anywhere in history surfaces.
+    MERGED_PRS=$(echo "$ALL_MERGED" | awk -F'\t' '$1 != "" {print $1}')
 
     while IFS= read -r pr_num; do
         [ -z "$pr_num" ] && continue

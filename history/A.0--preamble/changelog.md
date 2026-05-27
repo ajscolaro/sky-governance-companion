@@ -30,6 +30,13 @@ Pure terminology maintenance. The pluralized "Scope Facilitators" language dates
 
 ---
 
+## PR #213 — Update Sky forum URL
+**Merged:** 2026-04-02 | **Type:** Housekeeping
+
+`forum.sky.money` → `forum.skyeco.com` in `A.0.1.1.38` (Sky Forum definition).
+
+---
+
 ## PR #110 — Nov 10 edit
 
 **Merged:** 2025-11-13 | **Type:** Weekly edit (Atlas Axis)

@@ -90,6 +90,43 @@ The Target Backstop Capital raise and the Phase-Out mechanism are complementary:
 
 ---
 
+## PR #213 — Update Sky forum URL
+**Merged:** 2026-04-02 | **Type:** Housekeeping
+
+`forum.sky.money` → `forum.skyeco.com` in one reference inside A.3 (Sky vault user notification context).
+
+---
+
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **ACRDX exposure cap** (`A.3.2.2.1.1.1.5.3.1.2`): new restriction — total ACRDX exposure may not increase beyond **50.97 million USDS** and should be reduced to zero over time.
+
+---
+
+## PR #189 — Feb 26 Exec Update
+**Merged:** 2026-03-05 | **Type:** Spell recording (2026-02-26)
+
+### Material Changes
+- **ALLOCATOR-PRYSM-A Parameters** (`A.3.7.1.2.1.6`): new section — Launch Agent 6 Allocator Vault. `duty` set by SP-BEAM; `line` controlled by DC-IAM with `gap` 10M USDS, `line` 10M USDS, `ttl` 24 hours.
+- **ALLOCATOR-INTERVAL-A Parameters** (`A.3.7.1.2.1.7`): new section — Launch Agent 7 Allocator Vault (parameters body added).
+- **ALLOCATOR-PRYSM-A SP-BEAM Parameters** (`A.3.7.1.3.3.6`): new — `max` 3,000 bps, `min` 0 bps, `step` 400 bps, `tau` per global value.
+- **ALLOCATOR-INTERVAL-A SP-BEAM Parameters** (`A.3.7.1.3.3.7`): new — same structure as PRYSM-A.
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **ALLOCATOR vault parameters** (`A.3.7.1.2.1.2–.5`): intro text whitespace corrected.
+- **Update Process** (`A.3.7.1.2.2`): cross-reference to Prime Allocator Vault Risk Parameters converted to UUID link.
+- **Genesis Agents list** (`A.3.7.1.6.5`): whitespace normalization (no entries changed).
+- **Instance Financial CRRs** (`A.3.2.2.1.1.1.5.3.1`): indentation/whitespace normalization.
+
+---
+
 ## PR #182 — remove ALLOCATOR-NOVA-A from DC-IAM and set `line` to 0
 **Merged:** 2026-02-17 | **Type:** Weekly edit (Atlas Axis)
 
@@ -98,6 +135,69 @@ The Target Backstop Capital raise and the Phase-Out mechanism are complementary:
 
 ### Context
 Removing ALLOCATOR-NOVA-A from DC-IAM and zeroing the line closes off an allocator vault that was no longer active. Companions to the allocator vault management process documented in A.3.7. Forum: https://forum.sky.money/t/allocator-nova-a-parameter-changes/27692. SKY ~$0.063, USDS supply ~$9.8B.
+
+---
+
+## PR #180 — Feb 9 edit
+**Merged:** 2026-02-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Capital Types → Capital Targets** (`A.3.5.3.2`): section renamed (UUID unchanged).
+- **Allocator Vault parameters** (`A.3.7.1.2.1.2–.5`): minor whitespace in intro text (no parameter value change).
+- **Update Process** (`A.3.7.1.2.2`): cross-reference to Prime Allocator Vault Risk Parameters section converted from plain text to UUID hyperlink.
+- **Uniswap V3** (`A.3.2.2.1.1.1.1.3.9`): stray leading-space removed from heading.
+
+---
+
+## PR #170 — 2026-01-29 spell changes
+**Merged:** 2026-02-02 | **Type:** Spell recording (2026-01-29)
+
+### Material Changes
+- **ALLOCATOR-PATTERN-A BPEAM parameters** (`A.3.7.1.2.3.5`, new): Stability Parameter Bounded External Access Module parameters for the ALLOCATOR-PATTERN-A Allocator Vault: `max` 3,000 bps, `min` 0 bps, `step` 400 bps, `tau` as globally defined at `A.3.7.1.2.1.4.1`.
+
+### Context
+Records the January 29, 2026 Executive Spell. Adds on-chain BPEAM configuration for the Pattern-A allocator vault to the Atlas.
+
+---
+
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Morpho Vaults Instance Financial CRRs added** (`A.3.2.2.1.1.1.1.3.8`, new):
+  - Grove x Steakhouse High Yield USDC Vault: PT-USDe/USDC 91.5% CRR 4%; PT-sUSDe/USDC 91.5% CRR 4%; PT-cUSD0/USDC 91.5% CRR 1%; mF-One/USDC 91.5% CRR 100%.
+  - Grove x Steakhouse High Yield AUSD Vault (via FalconX): CRR 5%; combined FalconX cap 100M USDS.
+  - Uniswap V3 AUSD/USDC (via FalconX, Monad): CRR 3%; combined FalconX cap 100M USDS.
+- **Superstate Instance Financial CRRs** (`A.3.2.2.1.1.1.5.3.1`): Added STAC on Ethereum (1.6% CRR) and GACLO-1 on Ethereum (0.85% CRR); formatting changed from `◦` to `-` bullets.
+
+---
+
+## PR #156 — January 12 edit
+**Merged:** 2026-01-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Maple instance** (`A.3.2.2.1.1.1.1.3.1`): Alternative BTC/SOL slippage parameter docs removed; replaced with Instance Financial CRR of 3% for Maple SyrupUSDC. Max exposure text updated to "will be specified in future iteration."
+
+---
+
+## PR #143 — 2025-12-15 Edit
+**Merged:** 2026-01-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Anchorage offchain lending CRR** (`A.3.2.2.1.1.1.1.3.7`) — new: 3.5% CRR, max $200M, native BTC collateral, Initial LTV 80%, Margin Call 85%/24h, Liquidation 90%, ~6-month maturity
+- `A.3.2.2.1.1.1.1.3.5` (formerly "Drift", UUID 05036471) renumbered to `.3.6`; new `.3.7` is Anchorage
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Kamino CRR parameters** (`A.3.2.2.1.1.1.1.3.5`) — new article added:
+  - JLP market: USDG 4.98%, USDC 4.94%, USDT 4.91%, PYUSD 4.87%
+  - Main market: USDG 1.60%, USDC 1.58%, EURC 1.48%, PYUSD 0.91%
+- **Anchorage offchain lending CRR** (`A.3.2.2.1.1.1.1.3.7`) — new article added: 3.5% CRR, max exposure $200M, native BTC collateral, Initial LTV 80%, Margin Call 85%/24h, Liquidation 90%, ~6-month maturity
+- `A.3.2.2.1.1.1.1.3.5` (formerly "Drift", UUID 05036471) renumbered to `.3.6`
 
 ---
 
@@ -117,6 +217,30 @@ The Sky Capital framework formalizes a balance-sheet view of the protocol's safe
 
 ---
 
+## PR #126 — Add ALLOCATOR-OBEX-A SP-BEAM parameters
+**Merged:** 2025-12-03 | **Type:** Spell recording
+
+### Material Changes
+- **ALLOCATOR-OBEX-A SP-BEAM parameters** (`A.3.7.1.2.3.4`) — new article added:
+  - `max`: **3,000 basis points**
+  - `min`: **0 basis points**
+  - `step`: **400 basis points**
+  - `tau`: globally defined (references `A.3.7.1.2.1.4.1`)
+
+### Context
+Records the Stability Parameter Bounded External Access Module configuration for the ALLOCATOR-OBEX-A Allocator Vault, enabling automated rate adjustments within these bounds.
+
+---
+
+## PR #115 — Atlas Edit Weekly Proposal 2025-11-17
+**Merged:** 2025-11-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.3.2` Agent Rate — sUSDS Treatment: "0.1% Distribution Reward Fee + 0.1% Prime Agent Management Fee" → "Distribution Reward Rate (see A.2.4)" (terminology alignment)
+- `A.3.3` srUSDS section renamed: "srUSDS Accessibility Reward" → "srUSDS Distribution Reward"; SKY Borrow Minimum Rate formula updated: "stUSDS Accessibility Reward" → "stUSDS Distribution Reward"
+
+---
+
 ## PR #110 — Nov 10 edit
 **Merged:** 2025-11-13 | **Type:** Weekly edit (Atlas Axis)
 
@@ -129,6 +253,47 @@ The Sky Capital framework formalizes a balance-sheet view of the protocol's safe
 
 ### Context
 The ASC Incentive compensates Primes for the opportunity cost of maintaining liquid stablecoin buffers — the spread between the Sky Base Rate and risk-free T-bill rate. Combined with the Spell Security Registry linkage to credit ratings, this creates a dual incentive: maintain liquidity (ASC Incentive) and maintain spell quality (favorable credit rating).
+
+---
+
+## PR #103 — 2025-11-02 Weekly Cycle Edit Proposal
+**Merged:** 2025-11-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- "Accessibility Reward Fee" → "Distribution Reward Fee" across A.3.2 (SSR / Agent Rate relationship docs) and A.3.3 (Sky Spread, srUSDS reward)
+- "Risk Tolerance Ratio" → "Encumbrance Ratio" in A.3.3 Spark Centrifuge v3 parameters and Agent Credit Line Borrow Rate
+- "Long Term Application To Real World Assets" reference → "Legal Recourse Assets" in Direct Ethena Exposures and Superstate CRR docs
+
+---
+
+## PR #98 — Adjust stUSDS Beam step parameters
+**Merged:** 2025-11-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **stUSDS Beam step (first instance)**: 4,000 basis points → **500 basis points**
+- **stUSDS Beam step (second instance)**: 4,000 basis points → **500 basis points**
+
+### Context
+Both stUSDS Beam instances had their `step` parameter reduced from 4,000 to 500 bps. The `max` and `min` bounds were unchanged.
+
+---
+
+## PR #96 — October 27 edit
+**Merged:** 2025-10-31 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Minimum Actively Stabilizing Collateral** (A.3.4): 25% → **5%** minimum ASC for Prime Agents
+- **Penalties for failing to satisfy ASC requirement**: 200% APY penalty removed; replaced with near-term "no penalties" + reporting requirement — Core Council Risk Advisor must develop automated detection tool; each violation reported within 24 hours to Core Facilitator, Core GovOps, Operational Facilitator/GovOps, and Prime Agent; summary included in each Independent Calculation
+- **Near Term Exemption For Keel** added: Keel exempt from Minimum ASC requirement due to Solana infrastructure limitations
+- **Peg Defense penalties**: 20 bps penalty removed; replaced with "will be specified in a future iteration"
+- **Sky Core ALM Rules** simplified: previous 30%/20%/25% PSM band + LRRWAs rules deleted; replaced with "allocates capital to the Lite PSM" (A.3.4)
+- **PSM ASC adjustment guidelines** (A.3.2): "total ASC" → **"PSM ASC"** (defined as Lite PSM ASC as % of Sky Collateral Portfolio); same band thresholds kept
+- **Smart Burn Engine** (A.3.6): Surplus Buffer Splitter Parameters renamed to Smart Burn Engine Parameters; new Kicker Module added:
+  - `kicker.khump`: -200,000,000 USDS (negative threshold enables burns even when surplus buffer is negative)
+  - `kicker.kbump`: 10,000 USDS; `splitter.hop`: 2,880 seconds
+  - 100% → SKY accumulation (0% to SKY stakers); `burn` = 100% (WAD × 1)
+  - LSEV2-SKY-A USDS `rewardsDuration`: 2,880 seconds (must match hop)
+  - Kicker Module activation authorized directly to October 30, 2025 Executive Vote (no prior Governance Poll required)
 
 ---
 

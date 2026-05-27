@@ -15,6 +15,19 @@ Public-name reveal for LA5. See pattern changelog. Rename-only backfill — full
 
 ---
 
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Operational Executor Agent Amatsu** (`A.6.1.2.1`, new): Operational Facilitator: Endgame Edge; Operational GovOps: Amatsu GovOps. Full Artifact deferred to future iteration.
+- **Operational Executor Agent Ozone** (`A.6.1.2.2`, new): Operational Facilitator: Redline Facilitation Group; Operational GovOps: Soter Labs. Full Artifact deferred to future iteration.
+- **Core Council Executor Agent 1** (`A.6.1.2.3`, new): Core Executor Facilitator: JanSky; Core GovOps: Atlas Axis. Full Artifact deferred to future iteration.
+
+### Context
+Three new Executor Agent entries formally added to the Atlas. Amatsu and Ozone are Operational Executor Agents; Core Council Executor Agent 1 handles core protocol operations.
+
+---
+
 ## PR #167 — 2026-01-19 edit
 **Merged:** 2026-01-22 | **Type:** Weekly edit (Atlas Axis)
 

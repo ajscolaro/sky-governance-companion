@@ -23,6 +23,14 @@ Atlas path: `A.6.1.1.4` (722 docs)
 
 ---
 
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 242 sections (~282 additions / 226 deletions): the dominant bulk of this PR. Systematic link-text conversion across entire Skybase (`A.6.1.1.4`) Artifact — bare UUID references to `A.x.y.z - Name` format, markdown list normalization. No parameter values changed.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 
@@ -47,6 +55,22 @@ Atlas path: `A.6.1.1.4` (722 docs)
 ### Context
 
 Skybase's Integration Boost Primitive grows from a single Euler instance to three with the addition of Curve and Morpho — the two largest DeFi venues for USDS liquidity after Aave. The shared reward address across Curve and Morpho suggests a common distribution contract, and the Core Council Risk Advisor is designated Data Submission Responsible Actor for both, consistent with the role's scope established by PR #89. Operational logic is entirely inherited from the Sky Core base class, meaning rate-adjustment methodology is uniform across Skybase's Integration Boost instances. The empty Integration Boost Payments lists indicate the instances are configured but not yet paying out at merge. SKY ~$0.065, USDS supply ~$9.9B at merge.
+
+---
+
+## PR #180 — Feb 9 edit
+**Merged:** 2026-02-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 39 sections (~100 +/- lines): link-text fixes converting bare UUID references to fully-qualified `A.x.y.z - Name` format throughout Skybase (`A.6.1.1.4`) Liquidity Layer instance config documents. No parameter values changed.
+
+---
+
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **USDS Demand Subsidies Multisig signers** (`A.6.1.1.4.3.4.2`): Changed from 3/3 Soter Labs control to **2 Soter Labs + 1 Skybase Foundation**; modification rule updated accordingly (requires at least 2 SL + 1 Skybase Foundation, 2/3 threshold maintained).
 
 ---
 

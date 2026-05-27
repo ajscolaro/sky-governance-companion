@@ -135,6 +135,24 @@ This PR marks a significant expansion of Grove's operational scope: it simultane
 
 ---
 
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Centrifuge ACRDX instance** (`A.6.1.1.2.2.6.1.3.1.1.3`): new Instance Configuration Document added for Ethereum Mainnet Centrifuge ACRDX deployment via Grove Liquidity Layer, with full parameter set (identifiers, contract addresses, rate limits, max exposure).
+- **Sentora PYUSD Morpho Vault V2** (`A.6.1.1.2.2.6.1.3.1.7.6`): new Instance Configuration Document added (Ethereum Mainnet; max exchange rate specified).
+- **Sentora RLUSD Morpho Vault V2** (`A.6.1.1.2.2.6.1.3.1.7.7`): new Instance Configuration Document added (Ethereum Mainnet).
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 48 sections, ~59 additions / 52 deletions: systematic link-text conversion from bare UUID references to `A.x.y.z - Name` format in Grove Liquidity Layer instance config documents. No parameter values changed.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 
@@ -167,6 +185,54 @@ Grove's GLL footprint expands with a new Galaxy Warehouse USDC Mainnet instance 
 
 ---
 
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Morpho AUSD vault instance locator renamed** (`A.6.1.1.2.2.6.1.1.2.1.7.2`): "Morpho Grove x Steakhouse High Yield Vault AUSD" → "Ethereum Mainnet - Monad Morpho Grove x Steakhouse High Yield Vault AUSD".
+- **Morpho AUSD ICD — Maximum Exposure removed** (`A.6.1.1.2.2.6.1.3.1.7.2.2.5.1`): 100M USDS cap doc deleted.
+- **Morpho AUSD ICD — CRR removed** (`A.6.1.1.2.2.6.1.3.1.7.2.2.5.2`): 5% CRR doc deleted (now governed via `A.3` stability CRR entries).
+- **Monad Morpho AUSD withdrawal rate limits swapped** (`A.6.1.1.2.2.6.1.3.1.11.1.2.4.2`): `maxAmount` 100M → **10M AUSD**; `slope` 10M → **100M AUSD/day** (transposed).
+- **Morpho Vault `.12` Maximum Exposure removed** (`A.6.1.1.2.2.6.1.3.1.12.1.2.5.1`): 100M USDS cap deleted.
+
+---
+
+## PR #156 — January 12 edit
+**Merged:** 2026-01-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Allocator Vault parameters added** (`A.6.1.1.2.2.6.1.2.1.1.4.1`, new): ALLOCATOR-BLOOM-A parameters: duty 0, gap 250M USDS, maxLine 5B USDS, ttl 24 hours.
+- **Prime Relayer Multisig renamed** to "Prime Primary Relayer Multisig" (`A.6.1.1.2.2.6.1.2.1.2.2.1`); address unchanged (`0x0eEC…F85f`), 4/7 signing.
+- **Prime Secondary Relayer Multisig added** (`A.6.1.1.2.2.6.1.2.1.2.2.2`, new): 1/2 signing, address `0x9187…9179`; controlled by Grove, used for `RELAYER_ROLE`.
+- **Core Operator Relayer Multisig renumbered** from `.2.2.2` to `.2.2.3`.
+- **Freezer Multisig** (`A.6.1.1.2.2.6.1.2.1.2.2.4`): signers changed from VoteWizard/JanSky/LDR/CivicSage (named) to 2× Amatsu GovOps + 2× Endgame Edge + 1× Grove; threshold 2/4 → **2/5**.
+
+---
+
+## PR #150 — 2026 01 05 edit branch
+**Merged:** 2026-01-09 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **CCTP upgrade: Mainnet↔Base** (`A.6.1.1.2.2.6.1.2.1.1.1.1.2.3/.4`): CCTP v1 → Circle CCTP v2; Mainnet-to-Base and Base-to-Mainnet contract addresses both updated to `0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d`
+- **ALM Controller (MainnetController)** (`A.6.1.1.2.2.6.1.2.1.1.1.2.1.1`): address `0x3048386E09c72C20FB268a37d2B630D7f2Ee9138` → `0xfd9dEA9a8D5B955649579Af482DB7198A392A9F5`
+- **ALM Controller Contract Version** (new `A.6.1.1.2.2.6.1.2.1.1.1.2.1.2`): version **1.8.0** (Mainnet)
+- **ALM Relayer Multisig** (`A.6.1.1.2.2.6.1.2.1.1.1.2.3.4`): renamed to plural "Addresses"; second relayer added: `0x9187807e07112359C481870feB58f0c117a29179` alongside existing `0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f`
+- **Base ALM Controller** (`A.6.1.1.2.2.6.1.2.1.1.1.2.3.1`): `0x08b045609a673996ca10fedbAFAE2395A21ba539` → `0x7f8408eBbBC3504F83eeDa52910dd75Eba92C955`; version also updated to **1.8.0**
+- **USDC CCTP label correction** (`A.6.1.1.2.2.6.1.2.1.1.3.3.3`): renamed from "USDC Base ALM Proxy CCTP Maximum" to "USDC Ethereum Mainnet ALM Proxy CCTP Maximum"
+- Subsection renumbering: Freezer Multisig `.1.2` shifted to `.1.3`; Relayer `.1.3` → `.1.4`; Proxy `.1.4` → `.1.5`; Rate Limits `.1.5` → `.1.6`
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **DAO Resolution: Project Grove** (`A.6.1.1.2.3.6.6`) — new: 2025-12-11 DAO Resolution authorizing Grove Foundation and Grove (BVI) Ltd to act on Project Grove (IPFS: bafkreiamufzul447ja3prczy7cfxccvsij73vmareedlqag2xxpcwtcgxu)
+- **DAO Resolution: Galaxy CLO notes** (`A.6.1.1.2.3.6.7`) — new: 2025-12-11 DAO Resolution authorizing Grove Foundation and Cedar Grove Ltd to subscribe for Class B notes in Galaxy CLO 2025-1 LLC
+- Galaxy Interim Deployment articles (`.9.1.2.5.1`, `.5.1.1`, `.5.1.2`) removed — Interim Deployment status graduated
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **Type:** Weekly edit (Atlas Axis)
 
@@ -183,6 +249,14 @@ Grove's GLL footprint expands with a new Galaxy Warehouse USDC Mainnet instance 
 
 ### Context
 PR #133 is a significant expansion of Grove's liquidity layer — four new instances in a single edit, including cross-chain (Monad) and new asset classes (RLUSD, AUSD). The Galaxy CLO and Agora/Ripple stablecoin additions reflect Grove's strategy of diversifying beyond traditional DeFi protocols into institutional and stablecoin counterparties.
+
+---
+
+## PR #115 — Atlas Edit Weekly Proposal 2025-11-17
+**Merged:** 2025-11-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **DAO Resolution — Onboard with Ripple, Agora, and Paxos** added: On 2025-11-20, DAO Resolution passed authorizing Grove Foundation and Bamboo Grove Ltd to onboard with Ripple, Agora, and Paxos. IPFS: `bafkreia7…`
 
 ---
 
@@ -206,6 +280,24 @@ These 5 Grove instances completed their constrained testing period and are now o
 
 ### Context
 Formalizes Grove's cross-chain USDC operations on Base with symmetric 50M USDC rate limits.
+
+---
+
+## PR #96 — October 27 edit
+**Merged:** 2025-10-31 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Relayer Multisig** renamed to **Prime Relayer Multisig** (`0x0eEC…5f`); 7 signers controlled by Grove; majority signing required; Grove may change signers at any time (min 2 signers, majority required)
+- **Core Operator Relayer Multisig** added: separate multisig for fallback relayer operations
+- **Freezer Multisig usage standards** added: detail on when to exercise freeze authority (non-compliance with Risk Capital or ALM rules, or emergency); consultation with Amatsu except when delay would risk fund loss
+- **Aave Core v3 RLUSD Instance Configuration Document** added: RLUSD supplied; token `aEthRLUSD` (`0xFa82…c0`); deposit limit: `maxAmount` 50M RLUSD, `slope` 25M/day; withdrawal: unlimited
+- **Aave Horizon Interim Deployment** sections removed from two instances (JAAA and one other) — Interim Deployment caps and rate-limit references deleted, replaced with structured ICDs
+- **"Governance Facilitators"** → **"Core Facilitator"** in Atlas GitHub update process references
+- Spark Artifact also corrected: "Governance Facilitators" → "Core Facilitator" for Atlas GitHub update reference
+- Duplicate `<tr>` tag fixed in Spark (Curve pyUSD/USDC section); `<dfn>Avalanche/dfn>` → `<dfn>Avalanche</dfn>` tag fixed in Spark
+
+### Housekeeping
+- Grove: "Governance Facilitators" → "Core Facilitator" in update process reference
 
 ---
 

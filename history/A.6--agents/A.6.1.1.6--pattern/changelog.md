@@ -72,6 +72,14 @@ Pattern's Liquidity Layer goes live in this PR — analogous to the Grove Liquid
 
 ---
 
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 177 sections (~117 additions / 117 deletions): link-text normalization sweep across Pattern (`A.6.1.1.6`) Artifact. No parameter values changed.
+
+---
+
 ## PR #176 — 2026-02-02 Edit
 **Merged:** 2026-02-05 | **Type:** Weekly edit (Atlas Axis)
 

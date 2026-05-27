@@ -61,6 +61,22 @@ Same compile-correctness sweep applied to Keel and Pattern in this PR. Ratified 
 
 ---
 
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core Operator Relayer Multisig** (`A.6.1.1.5.2.6.1.2.1.2.2.2`): operational GovOps reference updated (Ozone listed as GovOps provider).
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 1 section: minor link-text fix in Obex. No substantive change.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 

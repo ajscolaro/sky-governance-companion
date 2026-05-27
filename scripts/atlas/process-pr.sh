@@ -90,7 +90,7 @@ route_to_entity() {
             fi
         done < "$ROUTING_FILE"
     fi
-    echo "_other"
+    echo "_non-content"
 }
 
 # Locate a PR's merge commit in the local atlas-repo. next-gen-atlas
@@ -217,19 +217,39 @@ PYEOF
         continue
     }
 
-    # Short-circuit non-content PRs (infra, CI, tooling under sync/, .gitignore,
-    # etc.). classify-diff filters to content/<path>/document.md, so an empty
-    # manifest means the PR touched no Atlas docs. Log it as non-content so the
-    # next refresh doesn't rediscover and reprocess it.
+    # Short-circuit non-content PRs (infra, CI, tooling, linting, docs, format
+    # migrations, .gitignore, etc.). classify-diff filters to
+    # content/<path>/document.md, so an empty manifest means the PR touched no
+    # Atlas docs. Record a terse Housekeeping entry in history/_non-content/ so
+    # the PR is preserved in the history index (not silently dropped) and the
+    # next refresh doesn't rediscover it. (See entity-routing fallback: every
+    # merged PR gets a home, content or not.)
     TOUCHED=$(jq '(.added|length) + (.deleted|length) + (.modified|length) + (.renamed|length)' "$MANIFEST_FILE")
     if [ "$TOUCHED" = "0" ]; then
-        echo "  → PR #$PR_NUM touched no Atlas content; recording no-op."
+        echo "  → PR #$PR_NUM touched no Atlas content; recording in _non-content."
         if [ "$DRY_RUN" -eq 0 ]; then
             if [ "$FORCE" -eq 1 ]; then
                 grep -v "| #$PR_NUM " "$LOG_FILE" > "$LOG_FILE.tmp" && mv "$LOG_FILE.tmp" "$LOG_FILE"
             fi
-            echo "| #$PR_NUM | $TITLE | $MERGED_DATE | — | non-content |" >> "$LOG_FILE"
-            echo "  → Updated $LOG_FILE"
+            python3 - "$HISTORY_DIR/_non-content/changelog.md" "$PR_NUM" "$TITLE" "$MERGED_DATE" "$FORCE" <<'PYEOF'
+import os, re, sys
+cl, pr, title, date, force = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], int(sys.argv[5])
+os.makedirs(os.path.dirname(cl), exist_ok=True)
+if not os.path.exists(cl):
+    open(cl, "w").write("# Non-Content Changes — Change History\n\n---\n")
+t = open(cl).read()
+if force:
+    parts = re.split(r'(?=^## PR #)', t, flags=re.M)
+    t = "".join(p for p in parts if not re.match(rf'## PR #{re.escape(pr)}( |\n|$)', p))
+entry = (f"\n## PR #{pr} — {title}\n"
+         f"**Merged:** {date} | **Type:** Housekeeping\n\n"
+         "No Atlas governance content changed (infrastructure / tooling / CI / "
+         "linting / docs / format migration). See the PR for specifics.\n")
+open(cl, "w").write(t.rstrip() + "\n" + entry)
+PYEOF
+            echo "| #$PR_NUM | $TITLE | $MERGED_DATE | non-content | auto |" >> "$LOG_FILE"
+            python3 "$PROJECT_DIR/scripts/core/sort-changelogs.py" "$HISTORY_DIR/_non-content/changelog.md" >/dev/null 2>&1 || true
+            echo "  → Recorded #$PR_NUM in _non-content + $LOG_FILE"
         fi
         echo "Done with PR #$PR_NUM."
         echo ""
@@ -379,7 +399,7 @@ PYEOF
     echo "  → Wrote entries to: $AFFECTED"
 
     # 10. Update _log.md (status=auto for fully-pipeline-generated entries)
-    LOG_ENTITIES=$(echo "$AFFECTED" | tr ',' '\n' | sed 's|A\.[0-9.]*--||g; s|_other|other|g' | paste -sd ', ' -)
+    LOG_ENTITIES=$(echo "$AFFECTED" | tr ',' '\n' | sed 's|A\.[0-9.]*--||g; s|_non-content|non-content|g' | paste -sd ', ' -)
     if [ "$FORCE" -eq 1 ]; then
         # Drop any existing row for this PR
         grep -v "| #$PR_NUM " "$LOG_FILE" > "$LOG_FILE.tmp" && mv "$LOG_FILE.tmp" "$LOG_FILE"

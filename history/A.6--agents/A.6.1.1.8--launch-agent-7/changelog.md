@@ -24,6 +24,28 @@ Atlas path: `A.6.1.1.8` (352 docs)
 
 ---
 
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **SubProxy Account** (`A.6.1.1.8.2.1.1.3.1.1.2`): address set — `0x56a9bA5FE133EF4Ab1131E8ac7c4312a52284f5B` (Ethereum Mainnet).
+- **StarGuard Contract** (`A.6.1.1.8.2.1.1.3.1.1.3`): new section — address `0xB36e88c02E4619Ef34C0Db76C5BCb6655747FB28` (Ethereum Mainnet); prior "Genesis Account" heading removed (UUID preserved).
+- Additional new sections: Pioneer Chain / Allocation System / Junior Risk Capital / ALM Rental / Core Governance Reward Primitive directory scaffolding for Launch Agent 7's Liquidity Layer; existing instance directory link-text fixes.
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Active Instances / Completed Instances / In Progress Invocations typo fixes** (`A.6.1.1.8.2.1.1.1.2`, `.1.1.3`, `.2.2.1.1.4`, `.2.6.2.1.5.1`): section title typos corrected ("Intances" → "Instances", "Invocactions" → "Invocations", "Invoecations" → "Invocations").
+- **Agent-Specific Emergency Response** (`A.6.1.1.8.2.3.1.3` removed, `A.6.1.1.8.3.1.3` added): section moved from `.2.3.1.3` to `.3.1.3` (renumbering fix; UUID `3581ec81` preserved).
+
+### Housekeeping
+- Additional link-text fixes across 7 other sections.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 

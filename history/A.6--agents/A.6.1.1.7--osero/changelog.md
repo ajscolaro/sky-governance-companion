@@ -123,3 +123,53 @@ Public-name reveal: Launch Agent 6 is now Osero, with token symbol AGENT6 → OS
 - Distribution Requirement Primitive (`A.6.1.1.7.2.3.1`) renamed to "Ecosystem Upkeep Fee Primitive"; Market Cap Fee Primitive subtree (`A.6.1.1.7.2.3.2`) deleted; Upkeep Rebate references updated.
 
 ---
+
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **SubProxy Account** (`A.6.1.1.7.2.1.1.3.1.1.2`): address set — `0x24fdcd3bFA5C2553e05B2f9AD0365EBC296278D3` (Ethereum Mainnet).
+- **StarGuard Contract** (`A.6.1.1.7.2.1.1.3.1.1.3`): new section — address `0xBfA2D1dA838E55A74c61699e164cDFF8cF0cF0e2` (Ethereum Mainnet); prior "Genesis Account" heading removed (UUID preserved).
+- Additional new sections: Pioneer Chain Primitive directories (Active/Completed/In Progress), Allocation System / Junior Risk Capital / ALM Rental Primitives directory scaffolding, Core Governance Reward Primitive — all empty placeholder directories for Osero's Liquidity Layer.
+- **Ecosystem Accord 6** (`A.6.1.1.7.3.2.1`): structural fix — "Governance Information Unrelated To Root Edit Primitive" paragraph moved to correct location; Ecosystem Accord 6 cross-reference now uses UUID link.
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 510 sections (~302 additions / 302 deletions): link-text normalization sweep across Osero (`A.6.1.1.7`) Artifact — largest single agent touched. No parameter values changed.
+
+---
+
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Ecosystem Accord 6 cross-reference added** (`A.6.1.1.7.3.2`, new): Osero formally records agreement to Ecosystem Accord 6, located at `A.2.8.2.6`.
+
+### Context
+Ecosystem Accord 6 provisions in `A.2--support` also updated in this PR — see support changelog.
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Full Launch Agent 6 (Osero) artifact added** (`A.6.1.1.7`) — 344 new sections, 1,386 lines:
+  - Genesis Primitives (Agent Creation, Prime Transformation, Executor Transformation, Agent Token) — all with Primitive Hub Documents and lifecycle directories
+  - Agent Token instance active: AGENT6, total supply 1,000,000,000; allocated 777,777,778 to LA6 Prime Treasury
+  - Executor Accord Primitive active instance: Ozone (Operational Executor Agent)
+  - Root Edit Primitive active instance with full governance protocol (routine/non-routine/emergency, StarGuard-based)
+  - Ecosystem Upkeep Primitives: Distribution Requirement, Market Cap Fee, Upkeep Rebate (all with active instances)
+  - SkyLink, Demand Side Stablecoin (Distribution Reward, Integration Boost, Pioneer Chain), Supply Side Stablecoin (Allocation System, Junior Risk Capital Rental, Asset Liability Management), Core Governance Reward — all inactive
+  - Omni Documents: Sky Forum category "Launch Agent 6 Prime"; emergency response protocols (to be specified later)
+  - Launch Agent 6 Foundation + Development Company as parties alongside Prime Agent
+  - Duration of Accord: indefinite from 2025-12-18
+
+### Context
+Osero (Launch Agent 6) is a new Sky ecosystem agent introduced in this edit alongside its Ecosystem Accord (Accord 6, recorded in A.2 support). This is the first LA6 artifact entry; Genesis Capital of 10M USDS is contingent on a future agreement.
+
+---
