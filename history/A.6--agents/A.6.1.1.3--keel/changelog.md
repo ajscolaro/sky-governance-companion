@@ -93,6 +93,68 @@ The Solana Instance Configuration Document formalizes what was previously only e
 
 ---
 
+## PR #217 — Atlas Edit Proposal — 2026-03-30
+**Merged:** 2026-04-02 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Keel operating company renamed: Matariki Labs → Elodin** (`A.2.8.2.3.1.1.2` Keel Details): the party "Keel" now comprises the Keel Prime Agent, Keel Foundation, and **Elodin** (previously Matariki Labs).
+- **Pre-Pioneer Incentive Pool → Pioneer Incentive Pool** (Ecosystem Accord 3, `A.2.8.2.3`): Keel's eligibility restructured from a Pre-Pioneer Incentive Pool to the standard Pioneer Incentive Pool (`A.2.2.8.3.1.4`), with a Keel-specific carve-out — Keel **retains 100%** of allocated funds and is not required to distribute any to third parties; use is supervised by the Operational Executor Agent. Monthly payments now sourced from the **Demand Side Buffer** rather than the Integration Boost wallets. Pioneer Incentive Pool wallet on Solana unchanged: `8JmDPG5BFQ6gpUPJV9xBixYJLqTKCSNotkXksTmNsQfj`.
+
+### Context
+First appearance of "Elodin" as Keel's operating company (rebrand from Matariki Labs, which was introduced in PR #66). Part of a larger weekly edit that also migrated the Emergency Response and Spell framework to the Agent Framework (see `../../A.1--governance/changelog.md`). Precedes the March 26 Genesis Capital transfer recorded in PR #219, which closed out Keel's bespoke bootstrapping provisions.
+
+---
+
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core Operator Relayer Multisig** (`A.6.1.1.3.2.6.1.2.1.2.2.2`, `.2.3.3`, `.2.3.3.4`, `.2.3.3.6`): "Operational GovOps Amatsu" → **"Operational GovOps Soter Labs"** throughout (relayer role holder and multisig signer/modifier).
+- **Freezer Multisig Signers** (`A.6.1.1.3.2.6.1.2.1.2.3.4.4`): "Operational GovOps Amatsu" → "Operational GovOps Soter Labs."
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 6 sections: link-text normalization in Keel instance config documents. No parameter values changed.
+
+---
+
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Global "Launch Agent 2" → "Keel" rename across all subdocs in `A.6.1.1.3`: token/doc descriptions, buy-back references, Upkeep Rebate, Market Cap Fee, SkyLink, Demand Side Stablecoin Primitives, Omni Documents. No parameter changes. (~27 docs updated.)
+
+---
+
+## PR #156 — January 12 edit
+**Merged:** 2026-01-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Freezer Multisig (`A.6.1.1.3.2.6.1.2.1.2.3.4`): threshold 2/4 → **2/5**; signers now 2× Amatsu + 2× Endgame Edge + 1× Keel (previously "will be specified in future iteration"); "on the Solana" → "on Solana" minor fix; usage-standards text simplified.
+
+---
+
+## PR #150 — 2026 01 05 edit branch
+**Merged:** 2026-01-09 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Solana ALM Controller USDC TokenAccount** (new `A.6.1.1.3.2.6.1.2.1.1.1.2.2.5`): `4UA2CC9fQDTbX1SnJcanYn2QU5PtyB1MGfezDvGFPVwd`
+- Subsection renumbering: Freezer Multisig `.2.5` → `.2.6`; Relayer Multisig `.2.6` → `.2.7`
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- 9 Interim Deployment subtrees removed across Kamino instances (`.3.1.1.1.2.5.1`, `.1.2.2.5.1`, `.1.3.2.5.1`, `.1.4.2.5.1`, `.1.5.2.5.1`) and Solend instances (`.3.1.2.1.2.5.1`, `.2.2.2.5.1`, `.2.3.2.5.1`, `.2.4.2.5.1`) — 27 sections, 108 lines removed. All Keel Interim Deployments graduated; CRR 100% test parameters no longer apply.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **Type:** Weekly edit (Atlas Axis)
 
@@ -103,6 +165,33 @@ The Solana Instance Configuration Document formalizes what was previously only e
 
 ### Context
 Raising the Freezer threshold from 2/4 to 2/5 while specifying actual signer identities (Amatsu, Endgame Edge, Keel) formalizes Keel's emergency governance structure. The 2/5 threshold with five named signer groups mirrors other Freezer Multisig configurations used across agents in this era.
+
+---
+
+## PR #115 — Atlas Edit Weekly Proposal 2025-11-17
+**Merged:** 2025-11-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Keel Artifact restructured**: "Allocation System Primitive" references renamed to "Keel Liquidity Layer" throughout; Active/Completed/In-Progress Instances directories reformatted with `<code>` tags
+- **Keel Liquidity Layer Architecture section added**: full contract address registry for Ethereum Mainnet — Allocator Buffer (`0x065E…640c`), Allocator Oracle (`0xc7B9…bB7`), Allocator Registry (`0xCdCF…3B`), Allocator Roles (`0x9A86…803`), Allocator Vault/Nova (`0xe447…e77`); ALM Controller v1.7.0 (`0xEF26…3`)
+- **Solana Instance directories added** (new protocol coverage):
+  - Kamino on Solana: USDS, USDC, USDT, USDG, PYUSD instances (ICDs referenced)
+  - Drift on Solana: USDS, USDC, USDT, PYUSD instances — Drift flagged as Interim Deployment (max $25M); deposit limit for Drift PYUSD: `maxAmount` 25M, `slope` 10M/day; withdrawals: unlimited
+
+### Context
+PR 115 substantially expands the Keel Artifact from a skeletal framework into a fully populated Liquidity Layer document, adding all Solana instance directories and on-chain contract addresses.
+
+---
+
+## PR #96 — October 27 edit
+**Merged:** 2025-10-31 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Keel Liquidity Bootstrapping Budget transfer**: 500,000 USDS transferred from Sky Ecosystem Liquidity Bootstrapping Budget to Keel (corrected from "Launch Agent 2") for Solana DeFi liquidity; treated as advance against Genesis Capital Allocation; Solana multisig: `6cTVPDJ8…vmn`
+- **Near Term Exemption For Keel** (A.3.4): Keel exempt from Minimum Actively Stabilizing Collateral requirement due to Solana infrastructure limitations
+
+### Context
+The reference correction from "Launch Agent 2" to "Keel" appears to formalize Keel's identity in the liquidity bootstrapping record.
 
 ---
 

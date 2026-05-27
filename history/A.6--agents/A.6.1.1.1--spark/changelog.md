@@ -4,6 +4,79 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #240 — Spark artifact changes (2026-04-22 exec)
+**Merged:** 2026-05-25 | **Type:** Spell recording (2026-04-22)
+
+### Material Changes
+- **rETH** (`A.6.1.1.1.3.2.1.1.2.1.11` SparkLend risk params): LTV: 79% → **0%**; Reserve State: Active → **Frozen**.
+- **WETH** (`A.6.1.1.1.3.2.1.1.2.1.4` SparkLend risk params): Slope 1 Spread: -0.30% → **-0.10%**; Slope 2: 120% → **75%**.
+- **USDT** (`A.6.1.1.1.3.2.1.1.2.1.5` SparkLend risk params): Slope 1: SSR value + 1.25% → **SSR value + 0.5%**.
+
+### Context
+Records SparkLend parameter changes from the 2026-04-22 executive spell: rETH is effectively offboarded as collateral (LTV zeroed, reserve frozen); WETH borrow rates tightened; USDT borrow spread over SSR reduced.
+
+---
+
+## PR #232 — Spark proposal - Update Spark Blue Chip USDT Morpho Vault
+**Merged:** 2026-05-25 | **Type:** Spark proposal (new conduit + parameter update)
+
+### Material Changes
+- **Spark Blue Chip USDT Vault** (`A.6.1.1.1.2.6.1.3.1.8.5` — new): Full instance configuration document added for a new Morpho USDT vault. Target Protocol: Morpho; Asset: USDT; sparkUSDT token: `0xb0c424…B891`; Underlying: `0xdac17f…ec7`; Allocator Role: `0x9Ad878…8`; Curator Role: `0x0f963…A3`; Guardian Role: `0xf5748b…8B`; Timelock: 240 hours (10 days). Inflow rate limits: `maxAmount` 100,000,000 USDT / `slope` 1,000,000,000 USDT per day. Outflow: unlimited / unlimited. RRC Framework: Pending. Directory pointer added at `A.6.1.1.1.2.6.1.1.2.1.8.5`.
+- **Morpho USDT Vault inflow** (`A.6.1.1.1.2.6.1.3.1.8.4.2.4.1`): `maxAmount` 100,000,000 USDT → **0** (existing Morpho USDT vault inflow closed; replaced by the new Blue Chip vault).
+
+### Context
+Replaces the existing Morpho USDT conduit (inflow set to 0) with a new Spark Blue Chip USDT Vault configuration including explicit Curator/Guardian roles and a 10-day timelock on operational parameters.
+
+---
+
+## PR #229 — Spark proposal - [Avalanche] Spark Liquidity Layer - Offboard Aave Avalanche USDC
+**Merged:** 2026-05-25 | **Type:** Spark proposal (conduit offboarding)
+
+### Material Changes
+- **Aave Avalanche directory status** (`A.6.1.1.1.2.6.1.1.2.4.1`): `Active` → **`Completed`** (Aave Avalanche instances moved from active to completed status).
+- **Avalanche Aave USDC conduit rate limits** (`A.6.1.1.1.2.6.1.3.4.1.1.2.4`): Inflow `maxAmount` 20,000,000 USDC → **0**; `slope` 10,000,000 USDC/day → **0**. Outflow `maxAmount` Unlimited → **0**; `slope` Unlimited → **0**.
+
+### Context
+Completes the offboarding of the Aave Avalanche USDC conduit from the Spark Liquidity Layer by zeroing rate limits and reclassifying the Avalanche Aave directory as Completed.
+
+---
+
+## PR #228 — Spark proposal - Spark Liquidity Layer - Offboard Aave Core USDT
+**Merged:** 2026-05-25 | **Type:** Spark proposal (conduit offboarding)
+
+### Material Changes
+- **Aave Core USDT conduit** (`A.6.1.1.1.2.6.1.3.1.2.4.2` rate limits): Inflow `maxAmount` 100,000,000 USDT → **0**; `slope` 1,000,000,000 USDT/day → **0**. Outflow `maxAmount` Unlimited → **0**; `slope` Unlimited → **0**.
+
+### Context
+Closes the Aave Core USDT Spark Liquidity Layer conduit by zeroing both inflow and outflow rate limits, effectively offboarding this allocation venue.
+
+---
+
+## PR #225 — Assorted Spark artifact fixes
+**Merged:** 2026-05-25 | **Type:** Spark proposal (artifact fix)
+
+### Housekeeping
+- **`A.6.1.1.1.2.6.1.3.1.1.3.2.3`** (Aave Core USDT conduit) renamed "Rate Limits" → "Rate Limit IDs" with new UUID; content changed to placeholder "RateLimitID(s) for this conduit's inflow and outflow will be specified in a future iteration of the Spark Artifact." Inflow/Outflow Rate Limits sub-documents renumbered from `.3.1`/`.3.2` to `.4.1`/`.4.2` (under a new `.4` Rate Limits parent). New `.5` Off-chain Operational Parameters document added.
+- **`A.6.1.1.1.2.6.1.3.1.4.2.2`** (another Aave conduit): Off-chain Operational Parameters document `.5` added (struct fix — childCount 4 → 5).
+
+---
+
+## PR #220 — Spark proposal - [Ethereum] Spark Savings - Raise Deposit Caps for spWETH, spUSDC, spUSDT; Lower Caps for Spark Savings USDC/USDT/ETH
+**Merged:** 2026-05-25 | **Type:** Spark proposal (parameter update)
+
+### Material Changes
+- **spWETH** (SLL Superstate instance, `A.6.1.1.1.2.6.1.3.1.9.1` area) supply cap: 250,000 → **500,000 WETH**
+- **spUSDC** (SLL Superstate instance, `A.6.1.1.1.2.6.1.3.1.9.2` area) supply cap: 1,000,000,000 → **2,000,000,000 USDC**
+- **spUSDT** (SLL Superstate instance, `A.6.1.1.1.2.6.1.3.1.9.3` area) supply cap: 2,000,000,000 → **4,000,000,000 USDT**
+- **Spark Savings USDC on Ethereum** (`A.6.1.1.1.3.5.2.2.1`) supply cap: 10 billion → **2 billion**
+- **Spark Savings USDT on Ethereum** (`A.6.1.1.1.3.5.2.2.2`) supply cap: 10 billion → **4 billion**
+- **Spark Savings ETH on Ethereum** (`A.6.1.1.1.3.5.2.2.3`) supply cap: 1 million → **500,000**
+
+### Context
+Raises caps on the SLL-side Superstate instances (spWETH ×2, spUSDC ×2, spUSDT ×2) while simultaneously reducing caps on the Spark Savings product-side parameters — a rebalancing that aligns the Spark Savings product supply caps with actual liquidity/demand conditions following the large increases in PR #216.
+
+---
+
 ## PR #246 — Atlas Edit Proposal — 2026-05-18
 **Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
 
@@ -161,6 +234,89 @@ Pure cosmetic rename following the SLL/GLL abbreviation expansion policy introdu
 
 ---
 
+## PR #208 — Atlas Edit Proposal — 2026-03-23
+**Merged:** 2026-03-27 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **SparkLend Risk Parameters Modification** (`A.6.1.1.1.3.2.1.2.1`): Stability Facilitators removed from recommendation authority for SparkLend parameter changes; "Core Council Risk Advisor, in consultation with Phoenix Labs" is now the sole recommender. The two exceptions requiring a Governance Poll prior to Executive Vote — Liquidation Threshold (`A.6.1.1.1.3.2.1.1.1.5`) and Liquidation Bonus (`A.6.1.1.1.3.2.1.1.1.7`) — removed; all parameter modifications now follow the general Operational Weekly Cycle (direct Executive Vote).
+- **Arkis Maximum Exposure** (`A.6.1.1.1.2.6.1.3.1.10.1.2.5.1`): Document renamed from "Interim Deployment" to "Maximum Exposure"; UUID changed from `e3cf4dc4…` to `baf1fbad…`. Interim Deployment framing removed; Maximum Exposure set to $50 million (previously $20M across all Arkis interim deployments). Instance Capital Requirement Ratio: 100% → **50%** (renumbered from `.5.1.2` to `.5.2`).
+- **Sentora RLUSD** (`A.6.1.1.2.2.6.1.3.1.7` area): `setMaxExchangeRate` parameter corrected — `3e6` → `3e18` (ensuring 1 share can represent at most 3 RLUSD).
+
+---
+
+## PR #204 — Spark proposal - Add USAT and USDT transferAsset Rate Limits to Anchorage
+**Merged:** 2026-03-20 | **Type:** Spark proposal (new conduit onboarding)
+
+### Material Changes
+- **Anchorage directory entry** (`A.6.1.1.1.2.6.1.1.2.1.14` — new): Added Anchorage to the Ethereum Mainnet Active Instances Directory under the Allocation System Primitive.
+- **Anchorage USAT Instance** (`A.6.1.1.1.2.6.1.3.1.12.1` — new): Full configuration document added. Network: Ethereum Mainnet; Token: USAT (`0x07041…a8b68`); Destination: `0x49506…6872`; transferAsset rate limits: `maxAmount` 5,000,000 USAT / `slope` 250,000,000 USAT per day. RRC Framework Full Implementation: Pending. Rate Limit IDs to be specified in a future Spark Artifact iteration.
+- **Anchorage USDT Instance** (`A.6.1.1.1.2.6.1.3.1.12.2` — new): Network: Ethereum Mainnet; Token: USDT (`0xdAC17…1ec7`); Destination: `0x49506…6872`; transferAsset rate limits: `maxAmount` 5,000,000 USDT / `slope` 250,000,000 USDT per day. RRC Framework Full Implementation: Pending.
+
+### Context
+Onboards Anchorage Digital as a new institutional borrower in the Spark Liquidity Layer, adding both USAT (Maple Finance USD stablecoin) and USDT conduits. Both instances share the same destination address and start at 5M USAT/USDT max with 250M/day slope.
+
+---
+
+## PR #203 — SAEP-12: Document Savings Liquidity Intent Capability in Spark Savings
+**Merged:** 2026-03-20 | **Type:** SAEP-12 (Spark proposal)
+
+### Material Changes
+- **Savings Liquidity Intents** (`A.6.1.1.1.3.5.3.1.2.1` — new): New Core document added. Users may submit signed withdrawal intents to redeem Spark Savings vault tokens in amounts exceeding the standard Target Liquidity buffer. The Spark Liquidity Layer planner may automatically trigger transactions through the Spark Prime Relayer to fulfill such intents. Fulfillment is not guaranteed; intents may be replaced or cancelled via a superseding signed intent with the same nonce; intents past their deadline may not execute.
+
+### Context
+Formalises the Savings Liquidity Intent mechanism already in development, providing the Atlas-level backing for large-withdrawal support in Spark Savings. Inserted between `A.6.1.1.1.3.5.3.1.2` (Prime Relayer Liquidity Management) and `A.6.1.1.1.3.5.3.1.3` (Target Liquidity Current Configuration).
+
+---
+
+## PR #193 — Spark proposal - SparkLend - Upgrade Cap Automators to v1.1
+**Merged:** 2026-03-20 | **Type:** Spark proposal (cap automator upgrade)
+
+### Material Changes
+- **SparkLend Cap Automator Authorized Parties** (`A.6.1.1.1.3.2.1.1.3.3`): new section — only authorized party: `0x9Ad87668d49ab69EEa0AF091de970EF52b0D5178` (ALM Proxy Freezable).
+- **SparkLend Cap Automator Version** (`A.6.1.1.1.3.2.1.1.3.4`): new section — version set to `1.1`.
+
+---
+
+## PR #192 — Spark proposal - SparkLend - Add Assets to Killswitch Oracle Mechanism
+**Merged:** 2026-03-20 | **Type:** Spark proposal (killswitch oracle update)
+
+### Material Changes
+- **Kill Switch oracle asset coverage** (`A.6.1.1.1.3.2.1.1.4` area): five new asset/price-feed pairs added to the killswitch oracle mechanism:
+  - wstETH/ETH — threshold 0.95
+  - weETH/ETH — threshold 0.95
+  - rETH/ETH — threshold 0.95
+  - cbBTC/BTC — threshold 0.95
+  - WBTC/BTC — threshold 0.95
+  - (STETH/ETH removed from the list)
+
+---
+
+## PR #191 — Spark proposal - SLL - Upgrade Mainnet Controller to v1.10
+**Merged:** 2026-03-20 | **Type:** Spark proposal (SLL controller upgrade)
+
+### Material Changes
+- **ALM Controller (MainnetController) Contract Version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.1.2`): `1.9` → **`1.10`**.
+
+---
+
+## PR #188 — SAEP-11: Update Spark Savings Configuration
+**Merged:** 2026-03-20 | **Type:** SAEP-11 (Spark proposal)
+
+### Material Changes
+- **Target Liquidity — Spark Savings USDC on Ethereum** (`A.6.1.1.1.3.5.3.1.3.1`): added maximum cap of **10 million USDC** (was floor-only: "greater of 10% of deposits or 1M USDC").
+- **Target Liquidity — Spark Savings USDT on Ethereum** (`A.6.1.1.1.3.5.3.1.3.2`): added maximum cap of **10 million USDT**.
+- **Target Liquidity — Spark Savings ETH on Ethereum** (`A.6.1.1.1.3.5.3.1.3.3`): added maximum cap of **2,500 ETH**.
+- **Target Liquidity — Spark Savings USDC on Avalanche** (`A.6.1.1.1.3.5.3.1.3.4`): added maximum cap of **10 million USDC**.
+- **Target Liquidity — Spark Savings PYUSD on Ethereum** (`A.6.1.1.1.3.5.3.1.3.5`): new section added — "greater of 10% of deposits or 1M PYUSD, up to 10M PYUSD."
+- **Rewards Rate — Spark Savings USDT on Ethereum** (`A.6.1.1.1.3.5.3.2.3.2`): changed from "equal to Sky Savings Rate" → "Aave Ethereum Core USDT supply rate plus Spark Savings USDT Spread" (range: -0.5% to 2%, set via ALM Planner).
+- **Rewards Rate — Spark Savings ETH on Ethereum** (`A.6.1.1.1.3.5.3.2.3.3`): changed from "90% of SparkLend ETH supply rate" → supply-weighted average yield of ETH assets in SLL adjusted by instant-redemption backing fraction plus **Spark Savings ETH Spread** (range: -0.5% to 2%, set via ALM Planner).
+- **Rewards Rate — Spark Savings PYUSD on Ethereum** (`A.6.1.1.1.3.5.3.2.3.5`): new section added — rate equal to Sky Savings Rate.
+
+### Context
+SAEP-11 adds maximum Target Liquidity caps to all Spark Savings products and adds PYUSD as a new asset. USDT and ETH reward rates now track market yields rather than the SSR, enabling dynamic spread-setting through the ALM Planner.
+
+---
+
 ## PR #185 — SAEP-10: Update Offchain Collateralized Lending Artifact Section
 
 **Merged:** 2026-03-20 | **Type:** SAEP-10 (Spark proposal) | **+7/-5 lines**
@@ -228,6 +384,189 @@ Forum discussion: [https://forum.sky.money/t/february-26-2026-proposed-changes-t
 These three parameter adjustments were bundled with PR #184 (Morpho v2 USDT Vault onboarding) and originate from the same February 26, 2026 Spark proposal. The slope expansions on SparkLend and Aave USDT inflows indicate strong USDT demand — SparkLend's 10x slope increase to 2B USDT/day is the most aggressive individual rate-limit change in Spark's Ethereum SLL to date. The Aave Core correction is noteworthy: the prior values were denominated in USDC, which appears to have been an error carried from the instance template; this PR both expands the cap and corrects the denomination. The new Request Redemption Parameters section for Maple operationalizes the redemption-request mechanics specific to syrupUSDT's queued-withdrawal model. SKY ~$0.074, USDS supply ~$11.5B, BTC ~$70.5K at merge.
 
 Forum discussion: [https://forum.sky.money/t/february-26-2026-proposed-changes-to-spark-for-upcoming-spell/27719](https://forum.sky.money/t/february-26-2026-proposed-changes-to-spark-for-upcoming-spell/27719)
+
+---
+
+## PR #177 — Spark proposal - Initiate DssVest for SPK Contributor Vesting
+**Merged:** 2026-03-20 | **Type:** Spark proposal (SPK vesting initiation)
+
+### Material Changes
+- **SPK Contributor Vesting** (`A.6.1.1.1.3.4.2.4`): new subsection added defining Spark's SPK contributor vesting policy.
+  - **Definition** (`A.6.1.1.1.3.4.2.4.1`): 4-year linear vesting schedule compensating Spark contributors.
+  - **Parameters** (`A.6.1.1.1.3.4.2.4.2`): DssVest stream initiated with recipient `0xEFF097C5CC7F63e9537188FE381D1360158c1511`; start 17 Jun 2025; cliff 17 Jun 2026; end 16 Jun 2029; linear-per-block with cliff; permissionless claim.
+
+### Context
+Records initiation of the first on-chain SPK contributor vesting stream via DssVest, with a 1-year cliff followed by linear vesting through June 2029.
+
+---
+
+## PR #165 — Spark Proposal - SLL - Onboard with Paxos
+**Merged:** 2026-03-20 | **Type:** Spark proposal (SLL protocol onboarding)
+
+### Material Changes
+- **Paxos Active Instances Directory added** (`A.6.1.1.1.2.6.1.1.2.1.14`): 4 new instance locator docs for Paxos swap pairs on Ethereum Mainnet:
+  - Transfer USDC to Paxos (receive PYUSD) — ICD at `A.6.1.1.1.2.6.1.3.1.12.1`
+  - Transfer PYUSD to Paxos (receive USDC) — ICD at `A.6.1.1.1.2.6.1.3.1.12.2`
+  - Transfer PYUSD to Paxos (receive USDG) — ICD at `A.6.1.1.1.2.6.1.3.1.12.3`
+  - Transfer USDG to Paxos (receive PYUSD) — ICD at `A.6.1.1.1.2.6.1.3.1.12.4`
+- **Paxos ICD section created** (`A.6.1.1.1.2.6.1.3.1.12`, new, UUID `e01f0c20…`): Previously held Anchorage, now holds Paxos instances. Key addresses:
+  - USDC token: `0xa0b8…eb48`; Paxos deposit address: `0xFb1F…dF37`
+  - Rate limits deferred (TransferAsset type); Rate Limit IDs deferred to future Atlas iteration.
+- **Anchorage section renumbered** from `.12` to `.13` (locator links updated accordingly).
+
+### Context
+Adds Paxos stablecoin swap infrastructure (USDC/PYUSD/USDG) to SLL. The renumbering of Anchorage from `.12` to `.13` was required to accommodate the new Paxos section.
+
+---
+
+## PR #197 — Fixing diffs found by CoolCat (WIP)
+**Merged:** 2026-03-12 | **Type:** Housekeeping
+
+98 sections touched, all within Spark's SLL Active Lending Capital Sources (`A.6.1.1.1.2.6.1`) tree. Changes are purely structural:
+- Uniswap v4 subtree renumbered: `.10` → `.11` (PYUSD/USDS and USDT/USDS pool instance config docs), preserving all UUIDs; Arkis `.10.1` item moved to correct slot under `.11`.
+- Instance Config Document Location references updated to match new numbering.
+- Cross-reference link text updated from bare doc names to `A.x.y.z - Name` format in ~50 sections.
+- Minor punctuation/period additions in "Instance Identifiers" headers.
+No rate limits, addresses, or parameter values were changed.
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Operational Executor Agent** (`A.6.1.1.1.2.2.1.2.1.1.1`): inline Amatsu role description replaced with cross-reference to `A.6.1.2.1`.
+- **Core Operator Relayer Multisig** (`A.6.1.1.1.2.6.1.2.1.2.2.2`): reference updated from standalone text to UUID link.
+
+### Housekeeping
+- Link-text and cross-reference fixes across 4 other Spark sections; no parameter changes.
+
+---
+
+## PR #171 — SAEP-09: Adjust SubDAO Proxy Management
+**Merged:** 2026-02-02 | **Type:** SAEP-9 (Spark proposal)
+
+### Material Changes
+- **Target SubDAO Proxy Value parameters** (`A.6.1.1.1.3.4.2.2`):
+  - RRC Lookback Period: 12 months → **3 months**
+  - Spark Product Backstop: 5 million → **1 million USDS**
+  - Target Runway: 24 months → **12 months**
+- **SPK Buyback Policy** (`A.6.1.1.1.3.4.2.3`):
+  - Standard Buyback rate: 10% → **25%**
+  - Buyback recipient added: `0x3300…8c4` (new field, previously absent)
+  - Enhanced Buyback rate (100%), Enhanced Buyback threshold (200%), and executor address unchanged.
+
+### Context
+SAEP-09 significantly tightens the SubDAO Proxy cash reserve targets — the product backstop drops 5× and the target runway halves — and raises the standard SPK buyback rate to 25% while formalizing the buyback recipient address.
+
+---
+
+## PR #166 — Spark Proposal - Product update proposals 6, 7, 8
+**Merged:** 2026-02-02 | **Type:** Spark proposal (SLL onboarding + contract version)
+
+### Material Changes
+- **ALM Controller contract version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.1.2`): 1.8 → **1.9**.
+- **Uniswap v4 PYUSD/USDS pool onboarded** (`A.6.1.1.1.2.6.1.3.1.10.1`): Ethereum Mainnet. Token `PYUSDUSDS` (`0xa632…C1f`); Pool ID `0xe63e…d45`. Rate limits: inflow maxAmount 10M / slope 100M/day; outflow maxAmount 50M / slope 200M/day; swap maxAmount 5M / slope 50M/day; max slippage 0.1%; swap fee 0.0005%; tick range ±0.1% (276,314–276,334), max width 10 ticks.
+- **Uniswap v4 USDT/USDS pool onboarded** (`A.6.1.1.1.2.6.1.3.1.10.2`): Ethereum Mainnet. Rate limits: inflow maxAmount 5M / slope 50M/day; outflow maxAmount 50M / slope 200M/day; swap maxAmount 5M / slope 50M/day; max slippage 0.2%; swap fee 0.0005%; tick range ±0.2% (276,304–276,344), max width 10 ticks.
+- Both instances: RRC Framework Full Implementation `Pending`; Rate Limit IDs deferred to future Atlas iteration.
+
+### Context
+Onboards two Uniswap v4 liquidity positions (PYUSD/USDS and USDT/USDS) as SLL instances, part of a batch of three product updates merged on the same day as PRs #159, #160, #163.
+
+---
+
+## PR #163 — SparkLend Assorted Updates
+**Merged:** 2026-02-02 | **Type:** Spark proposal (SparkLend structural update)
+
+### Material Changes
+- **SparkLend Ethereum risk parameters restructured** (`A.6.1.1.1.3.2.1.1.2.1`): Container node renamed from "GNO Risk Parameters" to "SparkLend Ethereum Risk Parameters" (new UUID `b370fb72…`). Ethereum assets (GNO, Dai, USDS, WETH, USDT, WBTC, sDai, wstETH, USDC, weETH, rETH, LBTC, tBTC, ezETH, rsETH, cbBTC, sUSDS, pyUSD, flash loan fees) moved to per-asset subdocs `.1.1`–`.1.20`.
+- **SparkLend Gnosis risk parameters added** (`A.6.1.1.1.3.2.1.1.2.2`, new container "SparkLend Gnosis Risk Parameters", UUID `1ecdd683…`): Added 9 assets (GNO, WETH, USDT, sDai, wstETH, USDC, USDC.e, WXDAI, EURe) with full LTV/LT/E-mode/Liquidation Bonus parameters. Sample values: GNO LTV 40% / LT 50% / Liq Bonus 12%; WETH LTV 70% / LT 75% / ETH e-mode / 5% bonus; wstETH LTV 65% / LT 72.5% / ETH e-mode / 8% bonus.
+- Old flat Ethereum per-asset docs (`.2`–`.20`) deleted and replaced by the new nested structure.
+
+### Context
+Structural reorganization that splits a single flat Ethereum list into a two-chain hierarchy (Ethereum + Gnosis) with explicit per-asset subdocuments. No parameter value changes to existing Ethereum assets — pure reorganization plus addition of Gnosis market coverage.
+
+---
+
+## PR #160 — Spark Proposal - Spark Savings - Increase spUSDT Supply Cap
+**Merged:** 2026-02-02 | **Type:** Spark proposal (parameter update)
+
+### Material Changes
+- **spUSDT supply cap** (Spark Savings, Ethereum): 500,000,000 USDT → **2,000,000,000 USDT** (4× increase).
+
+---
+
+## PR #159 — Spark Proposal - SparkLend - Claim Accumulated Reserves and Send to Spark ALM Proxy
+**Merged:** 2026-02-02 | **Type:** Spark proposal (reserve management)
+
+### Material Changes
+- **Token Claim Authorization** (`A.6.1.1.1.2.6.1.2.1.2.3`): Expanded to cover non-USD-denominated and non-SLL-supported USD reserve assets — these can now be transferred to the Spark Operations Multisig (`0x2E1b…3CBaeDfC`) for liquidation into USDS, with proceeds sent to the Spark SubDAO Proxy. Previously, only SLL-compatible reserve transfers were mentioned.
+
+---
+
+## PR #155 — Spark proposal - Ethereum - SLL - Onboard Curve weETH/WETH-ng for Swaps
+**Merged:** 2026-01-21 | **Type:** Spark proposal (SLL swap instance onboarding)
+
+### Material Changes
+- **New SLL swap instance onboarded** (`A.6.1.1.1.2.6.1.3.1.7.5`): Ethereum Mainnet — Curve weETH/WETH-ng for Swaps. Token: `crv2pool` (`0xDB74…3dEd5`); weETH underlying `0xCd5f…7ee`; WETH underlying `0xC02a…Cc2`; pool address `0xDB74…3dEd5`.
+- **Swap rate limits** (`A.6.1.1.1.2.6.1.3.1.7.5.2.4.3`): `maxAmount` 100, `slope` 1,000/day, max slippage 0.25%. Inflow/outflow N/A (swap-only instance).
+- **Rate Limit IDs**: deferred to future Atlas iteration.
+- **RRC Framework Full Implementation**: `Pending`.
+
+---
+
+## PR #154 — Spark proposal - Morpho Vault Configuration
+**Merged:** 2026-01-21 | **Type:** Spark proposal (parameter update)
+
+### Material Changes
+- **Morpho vault instance `.8.2` Instance-specific Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.8.2.4`) — new subtree added:
+  - Curator Role Address: `0x0f963A8A8c01042B69054e787E5763ABbB0646A3`
+  - Guardian Role Address: `0xf5748bBeFa17505b2F7222B23ae11584932C908B`
+  - Timelock: **240 hours (10 days)**
+- **Morpho vault instance `.8.3` Instance-specific Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.8.3.4`) — new subtree added (same addresses and timelock as `.8.2`)
+- **Morpho SLL instance `.3.2.1.1` Contract Addresses** (`A.6.1.1.1.2.6.1.3.2.1.1.4.2`) — new subtree added (same curator and guardian addresses, Timelock 240 hours)
+
+### Context
+Formally records curator, guardian, and timelock configuration for two new Morpho vault instances and one SLL Morpho instance as part of Spark's Liquidity Layer expansion.
+
+---
+
+## PR #147 — Spark proposal - Increasing Savings Capacity
+**Merged:** 2026-01-21 | **Type:** Spark proposal (parameter update)
+
+### Material Changes
+- **WETH supply cap**: **100,000 → 250,000 WETH** (max yield 5%, current yield at launch 0%)
+- **USDC supply cap (instance 1)**: **500,000,000 → 1,000,000,000 USDC** (max yield 10%, current yield at launch 0%)
+- **USDC supply cap (instance 2)**: **150,000,000 → 500,000,000 USDC** (max yield 10%, current yield at launch 0%)
+
+### Context
+Raises supply caps across three Spark Savings instances — 2.5× for WETH, 2× and ~3.3× for two USDC pools — expanding available deposit capacity.
+
+---
+
+## PR #145 — Spark proposal - Add LBTC to Oracle Kill Switch
+**Merged:** 2026-01-21 | **Type:** Spark proposal (parameter update)
+
+### Material Changes
+- **SparkLend Oracle Kill Switch asset list** (`A.6.1.1.1.3.2.1.1`): LBTC/BTC added at threshold **0.95** (same as existing STETH/ETH entry)
+
+### Context
+LBTC (Lombard's liquid Bitcoin) added to the oracle kill switch coverage, triggering automatic market shutdown if LBTC/BTC depegs below 0.95.
+
+---
+
+## PR #168 — Fixing Arkis entry in the Spark Active Instances Directory
+**Merged:** 2026-01-20 | **Type:** Housekeeping
+
+Corrected the Arkis Active Instances Directory structure: the misplaced doc `A.6.1.1.1.2.6.1.1.2.1.11.5` (standalone Arkis ICD locator) was removed and replaced with a proper container entry `A.6.1.1.1.2.6.1.1.2.1.12 - Arkis` (UUID `8e76f6f2…`) plus a correctly nested instance locator at `A.6.1.1.1.2.6.1.1.2.1.12.1`. UUID preserved. No parameter changes.
+
+---
+
+## PR #157 — Add Spark Delegate TheMoon
+**Merged:** 2026-01-14 | **Type:** Active Data update (Core Facilitator)
+
+### Material Changes
+- **New Spark Aligned Delegate recognized** (`A.6.1.1.1.3.1.3.x`): TheMoon added to the Spark Delegate List. Wallet: `0xF80A…06A9`. Effective Date: 2026-01-14. Status: Active.
 
 ---
 
@@ -354,6 +693,66 @@ Three Spark Savings v2 instance location documents (ETH, USDC, USDT at `A.6.1.1.
 
 ---
 
+## PR #120 — SAEP-06: SubDAO Proxy Management Plan
+**Merged:** 2025-11-28 | **Type:** SAEP-6 (Spark proposal)
+
+### Material Changes
+- **Target SubDAO Proxy Value framework** (`A.6.1.1.1.3.4.2.2`) — new subtree added defining minimum target balance policy:
+  - RRC Lookback Period: **12 months**
+  - Spark Product Backstop: **5 million USDS**
+  - Target Runway: **24 months**
+  - Evaluation method: max(RRC/Risk-Tolerance-Ratio + Product Backstop, OpEx × Target Runway)
+- **Excess SubDAO Proxy Funds Disposition Policy** (`A.6.1.1.1.3.4.2.3`) — new subtree added:
+  - Standard Buyback Rate: **10%** of excess up to Enhanced Buyback Threshold
+  - Enhanced Buyback Rate: **100%** of excess above threshold
+  - Enhanced Buyback Threshold: **200%** of Target SubDAO Proxy Value
+  - Buyback Executor: `0x2E1b01adABB8D4981863394bEa23a1263CBaeDfC` (Spark Operations Multisig initially)
+  - SubDAO Proxy address for Current Value measurement: `0x3300f198988e4C9C63F75dF86De36421f06af8c4`
+
+### Context
+Establishes Spark's first formal policy for managing its SubDAO Proxy balance — when to hold, when to buy back SPK, and at what rate. Introduced as SAEP-06 after SAEP-05 covered related risk capital topics.
+
+---
+
+## PR #124 — Remove duplicate articles
+**Merged:** 2025-11-27 | **Type:** Housekeeping
+
+Collapsed duplicate entries in the ForeignController ERC-4626 withdraw/redeem section (`A.6.1.1.1.2.6.1.2.2.1.2.2.2.1`): removed duplicate "Withdraw ERC-4626 Tokens" article (`.1.2`) and the standalone "Redeem ERC-4626 Tokens" article (`.1.4`); renumbered `.1.3` → rename to "Redeem ERC-4626 Tokens" with updated UUID, and dropped orphan `.1.5`. Net −10/+2 lines.
+
+---
+
+## PR #116 — Fix article title: Bootstrapping Phase > Delegate Onboarding Process
+**Merged:** 2025-11-22 | **Type:** Housekeeping
+
+Article `A.6.1.1.1.3.1.3.4.1` renamed: "Bootstrapping Phase" → "Delegate Onboarding Process". UUID `d08b9b32-bce9-45f4-b8db-9301556ac8db` preserved. Body text unchanged — only the heading was corrected to match its content.
+
+---
+
+## PR #114 — Upgrade controller to v1.8
+**Merged:** 2025-11-20 | **Type:** Spell recording (2025-11-20)
+
+### Material Changes
+- **ALM_CONTROLLER (MainnetController)** version: 1.7 → **1.8**
+- **ALM_CONTROLLER (ForeignController)** version: 1.7 → **1.8** (applied across all 5 foreign-chain instances)
+
+---
+
+## PR #113 — SAEP-05
+**Merged:** 2025-11-20 | **Type:** SAEP-5 (Spark Delegate program overhaul)
+
+### Material Changes
+- **Delegate Onboarding Process** (`A.6.1.1.1.3.1.3.4.1`): Prior SRC-based bootstrap process replaced with Spark Foundation-managed onboarding — Foundation has sole discretion to approve/deny; minimum requirements: identity+contact, wallet address, signed acceptance of Delegate Responsibilities
+- **Acceptance Discretion** clause added: Spark Foundation may deny any application for any reason including legal, sanctions, risk, or capacity considerations even if minimum requirements are met
+- **Minimum Term** (`A.6.1.1.1.3.1.3.x`): Open-ended guarantee (≥6 months unless violation) replaced with fixed 6-month terms aligned to calendar half-years (Jan–Jun / Jul–Dec); first re-approval checkpoint: Jul 1, 2026 for all current delegates (auto-rolled to H1 2026)
+- **Term-End Automatic Offboarding** doc added: delegates not re-approved by Foundation are automatically offboarded at 00:00 UTC on day after term end
+- **Compensation**: Changed from "pro-bono stewardship" to USD 4,000 per active Delegate per month, effective Dec 1, 2025 (first payment Jan 2026); clawback provision for non-performance
+- **Registry of Delegates** Active Data update procedure clarified: trigger now explicitly includes onboarding, renewal/re-approval, term-end offboarding, and discretionary offboarding notices from Foundation
+
+### Context
+SAEP-5 shifts Spark Delegate management from the Spark Risk Council to the Spark Foundation and introduces a paid, term-limited model — a significant structural change from the inaugural open-ended volunteer framework.
+
+---
+
 ## PR #109 — SAEP-04: Strategic Investment in Arkis
 
 **Merged:** 2025-11-19 | **Type:** SAEP-04 (Spark proposal) | **+94/-0 lines**
@@ -391,6 +790,17 @@ Corrective housekeeping — the Target Liquidity text for three Spark Savings in
 
 ---
 
+## PR #111 — Update SRC Membership Registry List
+**Merged:** 2025-11-14 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Spark Risk Council (SRC) membership registry** populated (previously blank): 3 members added:
+  - Blockworks Advisory — Domain: Risk — Start: 2025-10-03 — Active Term / Active
+  - L2 Beat — Domain: Risk — Start: 2025-10-03 — Active Term / Active
+  - Aragon — Domain: Risk — Start: 2025-10-03 — Active Term / Active
+
+---
+
 ## PR #106 — Spark proposal: Onboard cbETH and ETH market exposure to Morpho USDC vault
 
 **Merged:** 2025-11-07 | **Type:** Spark proposal (new market exposure) | **+42/-0 lines**
@@ -424,6 +834,44 @@ Forum discussion: [https://forum.sky.money/t/november-13-2025-proposed-changes-t
 A straightforward doubling of deposit caps across all three Spark Savings v2 vaults launched in PR #90, likely in response to vaults approaching their initial caps faster than expected. The increases signal strong demand for Spark's yield products. At the time, SKY was trading around $0.043–0.055 and USDS supply was ~$9.1–9.4B.
 
 Forum discussion: [https://forum.sky.money/t/november-13-2025-proposed-changes-to-spark-for-upcoming-spell/27354](https://forum.sky.money/t/november-13-2025-proposed-changes-to-spark-for-upcoming-spell/27354)
+
+---
+
+## PR #101 — Spark proposal: SAEP-03
+**Merged:** 2025-11-07 | **Type:** SAEP-3 (Spark Savings Configuration)
+
+### Material Changes
+- **Spark Savings Configuration** section added under Spark's Artifact (new governance framework for Spark Savings protocols):
+  - Onchain parameter definitions added: Default Admin Role, Setter Role, Taker Role, Take Rate Limit, Min Yield, Max Yield, Supply Cap
+  - **Spark Savings USDC on Ethereum** initial parameters: admin `0x3300…4364`, setter `0x2E1b…7E`, taker `0x1601…7E`, take limit: unlimited, min yield: 0%, max yield: 10%, supply cap: 250M
+  - **Spark Savings USDT on Ethereum**: same multisig addresses, max yield: 10%, supply cap: 250M
+  - **Spark Savings ETH on Ethereum**: max yield: 5%, supply cap: 50,000 ETH
+  - **Spark Savings USDC on Avalanche**: admin `0x7566…A843`, setter/taker shared, max yield: 10%, supply cap: 150M
+  - **Target Liquidity** policy added: 10% of deposits or fixed floor per vault (USDC/USDT: 1M; ETH: 250 ETH)
+  - **Rewards Rate** policy added: USDC/USDT/Avalanche USDC track Sky Savings Rate; ETH tracks 90% of SparkLend ETH supply rate
+
+### Context
+SAEP-3 establishes the formal Atlas governance framework for the Spark Savings product line (spUSDC, spUSDT, spETH on Ethereum; spUSDC on Avalanche), covering contract roles, supply caps, and liquidity policies. Prior to this PR the section was absent from the Artifact.
+
+---
+
+## PR #100 — Spark proposal - Increase Rate Limits for SparkLend USDC and USDT
+**Merged:** 2025-11-07 | **Type:** Spark proposal (rate limit update)
+
+### Material Changes
+- **SparkLend USDC inflow** `maxAmount`: 20,000,000 USDC → **100,000,000 USDC**; `slope`: 10,000,000 → **200,000,000 USDC/day**
+- **SparkLend USDT inflow** `slope`: 100,000,000 → **200,000,000 USDT/day** (maxAmount unchanged at 100M)
+
+---
+
+## PR #95 — Spark Proposal: Enable Grove to deploy in Aave Core RLUSD
+**Merged:** 2025-10-31 | **Type:** Spark proposal (Right of First Refusal)
+
+### Material Changes
+- **Spark forwent its Right of First Refusal** to enable Grove to deploy in Aave Core RLUSD. Two records added to Spark's Agent Scope Database: "Right of First Refusal Activity" (logs Spark's RoFR activity) and "Right of First Refusal Forgoing" (Spark declined to exercise its RoFR for the RLUSD deployment). Governed by Ecosystem Accord 1 (Grove and Spark Agents).
+
+### Context
+First recorded exercise of the Right of First Refusal mechanism between Spark and Grove under Ecosystem Accord 1 — Spark stepping aside so Grove could take the Aave Core RLUSD deployment. (Backfill note: this PR predates the Markdown migration and diffed against the legacy `Sky Atlas.html`.)
 
 ---
 

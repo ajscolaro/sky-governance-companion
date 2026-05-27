@@ -194,6 +194,47 @@ The three-stage staking rewards framework is a structural precursor to full SKY 
 
 ---
 
+## PR #208 — Atlas Edit Proposal — 2026-03-23
+**Merged:** 2026-03-27 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Spark Foundation Grant Authorization: Q2 2026** (`A.2.8.2.2.2.5.5.3` — new): Sky Governance authorises 1,100,000 USDS/month to the Spark Foundation from the SubDAO Proxy for Q2 2026 (3 months), plus 100,000 USDS/month to the Spark Asset Foundation for Q2 2026. Forum: https://forum.skyeco.com/t/march-26-2026-proposed-changes-to-spark-for-upcoming-spell/27770
+
+### Housekeeping
+- Multiple forum links across A.2 updated from `forum.sky.money` → `forum.skyeco.com` (including Ecosystem Accord dispute reference at `A.2.8.1.2`; Spark Foundation Q1 2026 grant at `A.2.8.2.2.2.5.5.2`; Grove RWA Conduit at `A.6.1.1.2.3.2.2`).
+
+---
+
+## PR #200 — 2026-03-16 Weekly Edit Proposal
+**Merged:** 2026-03-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Keel Genesis Capital Allocation** (`A.2.8.2.3.2.5`): new — **10,000,000 USDS** to be transferred in Mar 26, 2026 Executive Vote; SubProxy address at `A.6.1.1.3.2.1.1.3.1.1.2`.
+- **Keel Tokenomics** (`A.2.8.2.3.2.4`): new placeholder — "will be specified in a future iteration."
+- **Launch Agent 6 (Osero) Genesis Capital Transfer** (`A.2.8.2.6.2.2.2.2`): "future Executive Vote, contingent on future agreement" → Mar 26, 2026 Executive Vote; SubProxy address added: `0x24fdcd3bFA5C2553e05B2f9AD0365EBC296278D3`.
+- **Ecosystem Accord 8: Sky And Amatsu** (`A.2.8.2.8`): new accord record. Genesis Capital Allocation: **25,000,000 USDS**, Mar 26, 2026 Executive Vote; SubProxy address TBD via Technical Scope Forum Post. Indefinite duration, commencing 2026-03-19.
+- **Ecosystem Accord 9: Sky And Ozone** (`A.2.8.2.9`): new accord record. Genesis Capital Allocation: **25,000,000 USDS**, Mar 26, 2026 Executive Vote; SubProxy address TBD via Technical Scope Forum Post. Indefinite duration, commencing 2026-03-19.
+
+### Context
+Sets up the Mar 26, 2026 Executive Vote framework for four Genesis Capital transfers: Keel (10M USDS), Launch Agent 6/Osero (10M USDS), Amatsu (25M USDS), and Ozone (25M USDS). Ecosystem Accords 8 and 9 formalize Amatsu and Ozone as Operational Executor Agents.
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Distribution Reward** (`A.2.2.8.1.2.1.4.3.1`): "Amatsu calculates" → "Denna Labs calculates" (same as PR #180 — confirms Denna Labs is the new calculator).
+- **SKY Buybacks allocation** (`A.2.3.1.4.2.1`): 300,000 USDS/day → **37,600 USDS/day** of Step 4 Capital.
+- **Safe Harbor agreement address** (`A.2.11.1.2.1`, `A.2.11.1.2.2.2`): `0x9E5Cf4a9C806fE1F4392788b21342a442E14Cc20` → `0xf17bB418B4EC251f300Aa3517Cb37349f17697A1`.
+- **Safe Harbor protocol name** (`A.2.11.1.2.2.3.5`): "Sky Ecosystem" → "Sky."
+- **RRC Dashboard/API** (`A.2.2.9.1.1.3.2.1.1`): renamed "Dashboard And API" → "Dashboard"; Blockanalitica URL removed; URL updated to `https://info.sky.money/required-risk-capital`.
+
+### Housekeeping
+- Link-text fixes across A.2.2.9, A.2.2.10; whitespace and markdown list normalization.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 
@@ -213,6 +254,90 @@ Safe Harbor is the headline A.2 change of this AEW — it transitions Sky's Bug 
 
 ---
 
+## PR #180 — Feb 9 edit
+**Merged:** 2026-02-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Amatsu Distribution Reward** (`A.2.2.8.1.2.1.4.3.1`): "Amatsu calculates the Distribution Reward" → "Denna Labs calculates the Distribution Reward."
+- **Core Governance Reward recipients** (`A.2.2.10.1.2.1`): Skybase entry reformatted with bold name (no substantive change).
+- **Grove Token Generation Event** added: first date SKY Staking users can earn GROVE Token Rewards; cross-referenced to `A.4.4.1`.
+- **Token Launch Penalty Settlement** (`A.2.8.2.2.2.8.1.2`): new section added — penalty paid at last Capital Transfer to a Genesis Agent.
+- **Ecosystem Accord 7** (`A.2.8.2.7.x`): minor whitespace/punctuation corrections.
+- **Safe Harbor chains parameter** (`A.2.11.1.2.2.3.3`): chain list replaced by reference to subdocuments.
+- **A.2.3.1.4.1.1.1.6.3 → .6.4** renumbering (section header shift, UUID preserved).
+
+### Housekeeping
+- Trailing double-space removal across A.2.2.10 subsections; minor link-text fixes.
+
+---
+
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Monthly Settlement Cycle — Independent Calculation** (`A.2.4.1.2.1.2.2`): Core Council Risk Advisor calculation must now also include amounts for Core Council and Aligned Delegates Buffers per `A.2.3.1.4.1`.
+- **Monthly Settlement Cycle — Final Calculation** (`A.2.4.1.2.1.3`): Same addition — Final Calculation must include final amounts for CC/AD Buffers.
+- **Launch Agent 6 Prime Treasury** (`A.2.8.2.6.2.1.2.1`): 777,777,778 → **677,777,778 AGENT6** to Prime Treasury; 100M AGENT6 earmarked for incentives.
+- **Sky Retained Tokens (Launch Agent 6)** (`A.2.8.2.6.2.1.2.2`): 222,222,222 → **322,222,222 AGENT6** retained by Sky.
+- **Launch Agent 6 Initial Allocation** (`A.2.8.2.6.2.2.1`): 10,000,000 → **10,500,000 USDS**.
+- **Transfer of Genesis Capital — LA6 Foundation** (`A.2.8.2.6.2.2.2.1`, renamed + new UUID `4fd99f26…`): Records transfer of 500,000 USDS from Core Council Buffer to Launch Agent 6 Foundation (`0xfDD0…3CC58`).
+- **Transfer of Genesis Capital — LA6 SubProxy** (`A.2.8.2.6.2.2.2.2`, new): New sub-doc added.
+- **Transfer of Genesis Capital — USDS Demand Multisig** (`A.2.8.2.7.2.2.2.2`, new): 5,000,000 USDS from Surplus Buffer to USDS Demand Subsidies Multisig to be included in January 29, 2026 Executive Vote; no prior Governance Poll required.
+
+### Context
+Ecosystem Accord 6 (Osero) cross-referenced — see Osero changelog. The LA6 AGENT6 reallocation (100M to incentives) comes with a proportional increase in Sky's retained share.
+
+---
+
+## PR #156 — January 12 edit
+**Merged:** 2026-01-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **"Accessibility Reward" renamed to "Distribution Reward"** (`A.2.9.2.2.2.3`, `A.2.3.8.1.2.1.6.1.0.6.1`, `A.2.3.8.2.2.1.4.1`): global rename of the reward type across all references.
+- **Grove Token Reward Distribution Schedule** (`A.2.9.2.2.2.1.2.2.1`): Fixed annual schedule table removed; replaced with "distributed over time as determined by Sky Governance."
+- **SPK Token Reward Distribution Schedule** (`A.2.9.2.2.2.1.2.2.2`): Fixed table retained for USDS-user tranche; text updated to note all other SPK reserved for future rewards at governance discretion.
+- **Subsequent Allocation Mechanism** (`A.2.9.2.2.2.5.5`): Condition "before SPK/GROVE decentralized enough" removed; now grants are subject to the Root Edit Primitive limitations at `A.2.3.5.2.3.1`.
+- **Spark Foundation Grant Authorization: October 2025** (`A.2.9.2.2.2.5.5.1`): Renamed (new UUID `12425328…`); framing updated to historical.
+- **Spark Foundation Grant Authorization: December 2025** (`A.2.9.2.2.2.5.5.2`, new): 1,100,000 USDS/month Q1 2026 from SubDAO Proxy + 150,000 USDS one-time for Spark Asset Foundation Q1 2026 expenses; Sky Governance consent recorded.
+
+### Context
+The removal of the fixed GROVE distribution schedule and relaxation of the subsequent-grant trigger condition are significant — governance no longer commits to a multi-year token emission table for GROVE.
+
+---
+
+## PR #143 — 2025-12-15 Edit
+**Merged:** 2026-01-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core Council Buffer multisig** (`A.2.4.1.4.1.1.1.2–.3`):
+  - Signing requirement: **4/6 → 5/6**
+  - Signers revised: CF (×2) + GovOps (**×3**) + Soter Labs (×1) — Amatsu removed vs. Dec 8 edit
+- **Keel Senior Risk Capital** (`A.2.9.2.3.2.3`): 7.5 million USDS short-term Senior Risk Capital for Keel (credited to TRC, not transferred)
+- **Ecosystem Accord 6: Sky and Launch Agent 6** (`A.2.9.2.6`) — accord terms added: AGENT6 total supply 1B, LA6 Prime Treasury 777.8M, Sky retained 222.2M; Initial Allocation 10M USDS to LA6 SubProxy (contingent on future agreement); duration indefinite from 2025-12-18
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core Council Buffer multisig** (`A.2.4.1.4.1.1.1`):
+  - Signing requirement: **3/4 → 4/6**
+  - Signers expanded from CF (×2) + GovOps (×2) to CF (×2) + GovOps (×2) + Operational GovOps Amatsu (×1) + Operational GovOps Soter Labs (×1)
+  - Modification rule updated: exactly 6 signers required (was: minimum 4, equal split)
+  - New docs added: "Consolidation Of Funds Into Core Council Buffer" (`A.2.4.1.4.1.1.1.6`) requiring Legacy Accounts (Distribution Reward Controller, Integration Boost Wallets, Liquidity Bootstrapping Budget) to be moved into the Core Council Buffer
+- **November/December 2025 settlement** (`A.2.5.1.2.1.6.4`): Jan 2026 settlement covers two months; Spark calculations separated — only Spark uses standard resolution process, all other amounts treated as Agreed Amounts from Initial Calculation
+- **Keel Senior Risk Capital** (`A.2.9.2.3.2.3`): 7.5 million USDS short-term Senior Risk Capital provisioned for Keel (credited to TRC, not transferred)
+- **Ecosystem Accord 6: Sky and Launch Agent 6** (`A.2.9.2.6`) — new accord added:
+  - Duration: indefinite from 2025-12-18
+  - AGENT6 total supply: **1,000,000,000** — LA6 Prime Treasury: 777,777,778; Sky retained: 222,222,222
+  - Initial USDS allocation: **10,000,000 USDS** to LA6 SubProxy (transfer contingent on future agreement on terms)
+
+### Context
+Core Council Buffer expansion reflects addition of Operational GovOps executors (Amatsu, Soter Labs) as signers. Ecosystem Accord 6 formalizes Launch Agent 6 (Osero) joining the Sky ecosystem; see Osero changelog for the full artifact addition.
+
+---
+
 ## PR #133 — 2025-12-01 AEW Proposal
 **Merged:** 2025-12-04 | **Type:** Weekly edit (Atlas Axis)
 
@@ -222,6 +347,25 @@ Safe Harbor is the headline A.2 change of this AEW — it transitions Sky's Bug 
   - **LitePSM Income** (A.2.4.1.2.1.2.6.2): all income from the LitePSM
 - **Net Revenue cash-basis accounting added** (A.2.4.1.2.1.2): "All items of Income and Expense are recognized on a 'cash basis' based on when USDS/DAI enter or leave the Sky Surplus Buffer, Core Council Buffer, or Aligned Delegates Buffer."
 - **Sky Savings Rate Expense broadened** (A.2.4.1.2.1.3.1): was "interest to sUSDS holders and sDai holders" → now covers "all savings-related expenses (other than Integration Boost), including Dai Savings Rate and stUSDS interest."
+
+---
+
+## PR #115 — Atlas Edit Weekly Proposal 2025-11-17
+**Merged:** 2025-11-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Distribution Reward Primitive** (A.2.4): "Accessibility Reward" terminology replaced with "Distribution Reward" across multiple docs (Reward Payment formula, Pioneer Prime Benefits, Integration Boost process flow, Distribution Rewards section); Pioneer Prime Benefits now references Distribution Reward for tagging purposes
+- **Boosted Distribution Reward**: 0.3% rate clarified as commencing January 2026
+- **Monthly Settlement Cycle** (A.2.6) restructured:
+  - New step: "Forum Post By Core GovOps" must be created by end of each month (replaces "Initial Calculation by Operational Executor Agent" as first step)
+  - Initial Calculation deadline extended: 5 → **7 calendar days** post month-end
+  - Independent Calculation (Core Council Risk Advisor): 5 days after IC posting → **7 calendar days** post month-end (combined with IC)
+  - "Resolution Of Differences By Core GovOps Atlas Axis" → **"Final Calculation By Core GovOps"** (new consolidated step; Core GovOps has 12 calendar days from month-end)
+  - Interim scope: "September 2025" section → **"July/August 2025"** (initial cycle); "October 2025" → **"September 2025"** content; new "November/December 2025" section: no December cycle, January 2026 covers Nov–Dec combined
+  - Revenue Sharing for Sky Direct Exposures: simplified — Prime Agents not required to pay ACL Borrow Rate for Sky Direct Exposure funds; all yield flows exclusively to Sky
+
+### Context
+The Monthly Settlement Cycle restructure consolidates the calculation workflow under Core GovOps, introduces a forum post anchor step, and shifts the baseline timeline to 7+12 days from month-end. Also corrects the interim-cycle naming that was referencing future months by name.
 
 ---
 
@@ -249,6 +393,51 @@ See A.0--preamble changelog for comprehensive description. The expansion of Dire
 
 ### Context
 Launch Agent 4 (Rubicon) onboarded as a new Prime Agent with 21M USDS Genesis Capital — the second-largest allocation after Spark's 25M.
+
+---
+
+## PR #103 — 2025-11-02 Weekly Cycle Edit Proposal
+**Merged:** 2025-11-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **"Accessibility Reward" → "Distribution Reward" global rename** across A.2.4 and related sections:
+  - Section title: "Accessibility Reward Primitive" → "Distribution Reward Primitive"
+  - Purpose, Allowed Instances, Multi-Instance Coordinator, Global Specification, Base Elements, Integrator Program docs all updated
+  - Compliance With Local Laws condition precedent renamed
+  - All cross-references to "Accessibility Reward Code", "Accessibility Reward Rate", "Accessibility Reward Fee" updated
+  - Pioneer Prime Benefits and Pioneer Incentive Pool references updated
+  - Distribution Reward reimbursement amounts Active Data cross-references updated
+  - Governance/Treasury allocation step descriptions updated (0.5% allocated to Integrators; 0.5% to Prime Agents managing Integrator rewards — terminology alignment)
+  - Stage 1 settlement calculation: "Accessibility Reward" → "Distribution Reward" references
+  - SkyLink settlement cycle text updated
+- **A.2.10** restructured: "Accessibility Reward" → "Distribution Reward" section renamed; "Accessibility Reward Rate" → "Distribution Reward Rate"; split specification (Frontend Portion 50% / Prime Portion 50%) subsections deleted from A.2.10 and consolidated into the rate doc; 2025 Bonus and Bonus Limitation docs updated
+- **Ecosystem Entity Grants** (A.2.14 → A.2.15): section restructured from a single Executive Vote authorization doc into discrete historical grant records:
+  - Sky Frontier Foundation August 2025 grant recorded: 50M USDS, 1,977,443,914 SKY, 28,829,858.44 UNI-V2 LP, 35.41 DAI, 46,362.27 ENS, 1,467.08 stkAAVE, 643.73 COMP, 60 AAVE, 0.0296 WETH (`0xca51…A0`, tx `0x9dff…3f`)
+  - Fortification Foundation August 2025 grant recorded: 10M USDS, 200M SKY (`0x4834…C6`, same tx)
+  - Section number renumbered A.2.14 → A.2.15
+
+### Context
+PR 103 is the primary rename PR completing the "Accessibility Reward" → "Distribution Reward" terminology transition across the Core Atlas. The Ecosystem Entity Grants restructuring converts the section from a forward-looking authorization to an historical record.
+
+---
+
+## PR #96 — October 27 edit
+**Merged:** 2025-10-31 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Sky Direct Exposures** (A.2.4) renamed from "Direct Sky Exposures"; governance authority shifted from Atlas Edit Proposal process to Core Facilitator direct designation via Sky Forum posts; list converted to Active Data (Responsible Party: Core Facilitator, Direct Edit update process)
+- **Current Sky Direct Exposures** Active Data record added:
+  - Treasury Bills — BUIDL, JTRSY, USTB on Ethereum Mainnet by Grove
+  - CLOs — JAAA on Ethereum Mainnet by Grove
+- **JAAA Direct Exposure Through Grove** entry deleted (replaced by the new Active Data list)
+- **Revenue Sharing for Sky Direct Exposures**: previous text about ACL Borrow Rate exception replaced — Prime Agents not required to pay ACL Borrow Rate on Sky Direct Exposure funds; all yield exclusively due to Sky
+- **Treasury Management Short-Term Measures** (A.2.5) substantially expanded:
+  - Allocation changed: Net revenue now allocated through modified steps (not manually via Executive Votes)
+  - **Step 1 Capital**: 21% allocated: 20% → Core Council Buffer (3/4 multisig at `0x210C…4364`, CF + Core GovOps signers); 1% → Aligned Delegates Buffer (3/4 multisig at `0x37FC…a3A3`, CF + Core GovOps signers)
+  - **Step 4 Capital** (remaining 79% of Step 1): 300,000 USDS/day → SKY buybacks; remainder → Surplus Buffer
+  - **Implementation**: retroactive to Sep 1, 2025; next Executive Vote must include transfers of 3,876,387 USDS to Core Council Buffer and 193,820 USDS to Aligned Delegates Buffer for Sep 2025
+- **Monthly Settlement Cycle** (A.2.6): Stage 2 timing updated (see governance entry); "Resolution Of Differences By Core GovOps Atlas Axis" → "Core GovOps" throughout; "Accessibility Reward" reference in Stage 1 calc clarified as "Distribution Reward"; Integration Boost Wallet cross-reference fix (near-term → near-term)
+- **Distribution Reward Primitive** (A.2.4): multiple "an Distribution Reward" → "a Distribution Reward" copy fixes; "Accessibility Reward" → "Distribution Reward" sweep across Pioneer Prime Benefits, Integration Boost process flow, Distribution Rewards section, Reward Payment formula
 
 ---
 

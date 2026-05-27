@@ -1116,6 +1116,104 @@ The Avalanche bridge deployment is coordinated with two Grove-specific changes i
 
 ---
 
+## PR #217 — Atlas Edit Proposal — 2026-03-30
+**Merged:** 2026-04-02 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Emergency Response & Spell framework migrated to the Agent Framework**: across the Emergency Response Article (`A.1.8`) and Emergency Spells / Protego (`A.1.9.5`), authority was reassigned from the legacy "Support Scope Facilitators" / "Governance Facilitators" to the **Core Facilitator** (decision authority) and **Core GovOps** (authenticity validation). "Facilitators' Roles And Responsibilities" → "Emergency Response Roles And Responsibilities" (`A.1.8.1.4`); new `A.1.9.5.2.3.1` "The Core Facilitator Role In Standby Spells"; "Support Facilitators'/Governance Facilitators' Role" docs across Standby Spells and Protego usage renamed to Core Facilitator / Core GovOps.
+- **Demand Side Buffer established** as a standalone account (in the `A.2.2.8` stablecoin-primitives scope) — becomes the funding source for Keel's Pioneer Incentive Pool (see keel changelog).
+
+### Context
+Part of the broad Facilitators → Core Facilitator / Core GovOps role consolidation under the Agent Framework. The same PR renamed Keel's operating company (Matariki Labs → Elodin) and restructured its incentive pool — see `../A.6--agents/A.6.1.1.3--keel/changelog.md`. (The Demand Side Buffer change technically sits in the A.2 support scope and is noted here only for its link to the emergency/agent-framework rework; a dedicated support-scope entry is a follow-up.)
+
+---
+
+## PR #213 — Update Sky forum URL
+**Merged:** 2026-04-02 | **Type:** Housekeeping
+
+`forum.sky.money` → `forum.skyeco.com` across multiple A.1 documents: AD derecognition annotation (`A.1.4.10` area), all 10 derecognised AD entries in the Derecognized Conservers registry (`A.1.4.10` Active Data table), and all 13 current AD entries in the AD Roster (`A.1.5.1.5` Active Data table).
+
+---
+
+## PR #208 — Atlas Edit Proposal — 2026-03-23
+**Merged:** 2026-03-27 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Emergency Declaration Procedure** (`A.1.8.1.5.5`): Authority to declare an emergency shifted from "Support Facilitators" to "Core Facilitator" (singular). Obligation to post on Sky Forum and discretion over public declarations now attributed to Core Facilitator. The optional clause "Creating a signal request thread or Governance Poll is optional" removed.
+- **Spell post-execution step** (`A.1.9.2.4.13.5` → new `A.1.9.2.4.13.5`): New Core document added — "Facilitator Updates Atlas To Reflect Spell Outcome". Core Facilitator is responsible for updating Sky Core Atlas documents after a spell executes; Operational Facilitator of the affected Agent handles Artifact follow-ups. All existing retrospective/follow-up sub-documents renumbered `.13.5.*` → `.13.6.*` accordingly.
+- **Non-Standard Weekly Poll** (`A.1.10.1.2.2`): Definition of Non-Standard Weekly Poll removed; former `A.1.10.1.2.3` (Executive Vote definition) renumbered to `A.1.10.1.2.2`.
+- **Use of Non-standard Weekly Poll** (`A.1.10.1.5`): Section "Use Of Non-Standard Weekly Poll" (former `.1.5`) removed. Former `A.1.10.1.6` ("Core Facilitators' Authority To Create Proposals") renumbered to `A.1.10.1.5`; housekeeping-item sub-docs renumbered from `.1.6.1.*` to `.1.5.1.*`.
+- **Signal Requests** (`A.1.10.1.7`): "Signal Requests" section removed — Signal Requests are now entirely prohibited except where specifically triggered and required by the Atlas (this restriction was the entire content; removing the section eliminates the permissive framing).
+- **Bootstrapping poll terminology**: `Facilitators' Bootstrapping Poll` → `Bootstrapping Governance Poll` in two documents (`A.1.12.1.2`, `A.1.12.1.3`).
+- **Chainlog cross-reference** (`A.1.9.1.2`): Internal link to housekeeping items updated from `A.1.10.1.6.1.1`/`A.1.10.1.6.1.2` to `A.1.10.1.5.1.1`/`A.1.10.1.5.1.2` (renumbering consequence).
+
+### Housekeeping
+- SparkLend Risk Parameters Modification (`A.6.1.1.1.3.2.1.2.1`): Stability Facilitators removed from recommendation authority; "Core Council Risk Advisor, in consultation with Phoenix Labs" now the sole recommender. The two exceptions requiring a Governance Poll before Executive Vote (Liquidation Threshold and Liquidation Bonus) removed — all SparkLend parameter changes now follow the general Operational Weekly Cycle rule.
+
+---
+
+## PR #196 — March 9 edit
+**Merged:** 2026-03-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **AC breach annotation ordering** (`A.1.5.6.0.3.1`, `.0.3.2`): "Credible Evidence" and "Act Swiftly" element annotations swapped positions (numbers exchanged, UUIDs travel with content — content is now correctly ordered).
+- **Facilitators' Authority to Raise Formal Allegation** (`A.1.5.6.0.4.1`): whitespace normalization (double-space before "Upon receiving" removed; content unchanged).
+- **Solana LayerZero Freezer Multisig Signers/Modification** (`A.1.9.4.1.3.1.2.3`, `.2.5`): "Keel" → "Operational Facilitator Endgame Edge" as co-signer authority (follow-on to PR #180's Soter Labs change).
+
+===DEST: A.2--support===
+
+---
+
+## PR #196 — March 9 edit
+**Merged:** 2026-03-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **SKY Buybacks allocation** (`A.2.3.1.4.2.1`): 300,000 USDS/day → **37,600 USDS/day** of Step 4 Capital.
+- **Safe Harbor agreement address** (`A.2.11.1.2.1`, `.1.2.2.2`): `0x9E5Cf4a9C806fE1F4392788b21342a442E14Cc20` → **`0xf17bB418B4EC251f300Aa3517Cb37349f17697A1`**.
+- **Safe Harbor protocol name** (`A.2.11.1.2.2.3.5`): "Sky Ecosystem" → "Sky."
+- **RRC Dashboard** (`A.2.2.9.1.1.3.2.1.1`): "Dashboard And API" → "Dashboard"; URL updated to `https://info.sky.money/required-risk-capital` (removes Blockanalitica sphere-api endpoint).
+
+### Housekeeping
+- RRC Dashboard section titles updated throughout (`A.2.2.9.1.1.3.2.1.1.1`, `.1.2`); markdown list formatting normalized.
+
+===DEST: A.4--protocol===
+
+---
+
+## PR #196 — March 9 edit
+**Merged:** 2026-03-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Source of SKY Rewards** (`A.4.4.1.4.2.2`): vesting stream can now be funded by "SKY acquired through buybacks **or SKY reserves**" (previously buybacks only).
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Ranked Delegate Budget annotation** (`A.1.5.4.3.1.0.3.1`): copy-paste error corrected — voting-activity and voting-communication annotation bodies had each other's text; now correct.
+- **AD Buffer payout limitation** (`A.1.5.4.4.2.1`): reference to "Atlas Edit Weekly Cycle Proposal" expanded to include "or Atlas Edit Monthly Cycle Proposal."
+- **One Month's Budget Allocation annotation** (`A.1.5.4.4.1.0.3.1`): new annotation added (`UUID: 48a2c0f5…`); duplicate header `A.1.5.4.4.1.1` removed (same UUID, now only one reference).
+- **Solana LayerZero Freezer Multisig** (`A.1.9.4.1.3.1.2.3`, `.2.5`): signer authority updated from "Amatsu and Keel" → "Operational GovOps Soter Labs and Keel."
+- **Responsibility to Maintain Agent Artifact** (`A.1.13.2.10.1`): reformatted from `◦` bullets to standard `- ` markdown bullets; A.2.2 cross-reference updated from URL to UUID link.
+
+### Housekeeping
+- `A.1.5.4.1.2.2`, `A.1.5.4.1.3.2`, `A.1.5.4.3.1.0.3.1`: trailing double-space removed from section headers.
+- Cross-reference link text converted from bare names to `A.x.y.z - Name` format across multiple AD budget docs.
+
+===DEST: A.1--governance/A.1.5.1.5--ad-roster===
+
+---
+
+## PR #187 — 2026-02-23 Atlas Edit Weekly Cycle Proposal
+**Merged:** 2026-03-05 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Current Aligned Delegates link** (`A.1.5.1.5`): cross-reference corrected from `A.1.5.1.4.0.6.1` → `A.1.5.1.5.0.6.1` (UUID unchanged — was a typo in the doc number).
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 
@@ -1150,6 +1248,19 @@ This AEW represents the **largest structural change to AD governance since the C
 
 ---
 
+## PR #180 — Feb 9 edit
+**Merged:** 2026-02-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Short-Term Transitionary Measures** (`A.1.5.3.5`, `A.1.5.3.5.1`): removed (sunset — covered period prior to 1 Jan 2026, now elapsed).
+- **Emergency declaration consultation** (`A.1.8.1.4`, `A.1.8.1.5.1`): "any relevant Scope Advisor(s)" → "the Core Council Risk Advisor" — terminology update.
+- **Linear Interpolation Module** (`A.1.9.3.2.13.2.1`): same Scope Advisor → Core Council Risk Advisor substitution.
+
+### Housekeeping
+- Terminology sweep: "Scope Advisor(s)" → "Core Council Risk Advisor" across governance/emergency sections.
+
+---
+
 ## PR #181 — Add AxisLegati
 **Merged:** 2026-02-10 | **Type:** Weekly edit (Atlas Axis)
 
@@ -1158,6 +1269,57 @@ This AEW represents the **largest structural change to AD governance since the C
   - Cold wallet: `0x9B4AF496CC72c432586e85a1D8264A2708c4dcb6` (verified sig #301787)
   - Hot wallet: `0x7bc5a420b6524Fa925F1321A01825438369E3c2e` (verified sig #301786)
   - Recognition submission: https://forum.sky.money/t/axislegati-ad-recognition-submission/27677
+
+---
+
+## PR #174 — Adjust Order of NR Docs and Update Markdown Syntax
+**Merged:** 2026-02-02 | **Type:** Housekeeping
+
+Reordered Needed Research (NR) subdocs within `A.1.4` governance sections: `A.1.4.4.0.4.1` (Highest Standard Tenet) moved to follow NR-1; NR-3 expanded with additional research questions (contributor scarcity, cross-team experience); NR docs shuffled to align with updated section ordering. Also updates `ATLAS_MARKDOWN_SYNTAX.md` (syntax reference file, not Atlas content) with additional blank lines for readability. No Atlas content values changed.
+
+---
+
+## PR #172 — Jan 26 Edit
+**Merged:** 2026-01-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Highest Standard — AC Adjudication** (`A.1.4.4.0.4.1`): Reduced in scope — the 51% evidence standard and maximal-accountability paragraphs removed; shortened to a single principle statement.
+- **AC Role Exclusivity NR docs added** (`A.1.4.5`): NR-2 ("Should ban apply to all stakeholder roles?") and NR-3 ("Should team contributors be subject to the ban?") added as Needed Research subdocs.
+- **Operational Security Tenet** (`A.1.4.7.0.4.1`): Text preserved; minor formatting only.
+- **Facilitator Anonymity Exemption** (`A.1.4.7.1`): Shortened — citations to specific Atlas provisions removed from the exemption statement.
+- **Swift Action NR doc added** (`A.1.4.8`): NR-5 ("Derecognition Procedure") added.
+- **Mandated Derecognition For Severe Breaches** (`A.1.4.9.2.2`): Converted from NR (research stub) to active **Core** doc; defines derecognition requirement for Governance Attacks; NR-7 ("Defining Severe Actions/Governance Attack") added as subdoc.
+- **AC Derecognition NR doc added** (`A.1.4.10`): NR-9 ("Derecognition Uncertainty Due To Anonymous Actors") added.
+
+### Context
+Significant governance-framework update: the 51% standard for AC derecognition is removed from the active doc layer (moved/superseded), and the "Mandated Derecognition" article is elevated from research to active Core status. The three NR docs signal active research tracks for governance design.
+
+---
+
+## PR #156 — January 12 edit
+**Merged:** 2026-01-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Sky Core Spell Executes Agent Spell** (`A.1.9.2.3.2.3.2.1`): "Prime's SubProxy contract" → "Agent's SubProxy contract" — terminology fix clarifying that the SubProxy is agent-specific.
+
+---
+
+## PR #143 — 2025-12-15 Edit
+**Merged:** 2026-01-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- "Prime Spell" → "Agent Spell" terminology sweep across all StarGuard subsections (`A.1.9.2.3.2.2.3` → `A.1.9.2.3.2.3`): 29 sections updated. StarGuard deployment process (`A.1.9.2.3.2.3.1.1.1`) respecified: deploy and initialize StarGuard per new SubProxy in same Spell; StarGuard Functionality split into dedicated article (`.1.1.2`). "Sky Core Spell Executes Prime Spell" renamed to "Sky Core Spell Executes Agent Spell" (`A.1.9.2.3.2.3.2.1`).
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Execution Of Prime Spells** (`A.1.9.2.3.2.2.3`): clause "except as specified in Short-term Transitionary Measures" removed — no exceptions to the StarGuard preference rule.
+
+### Housekeeping
+- `A.1.9.2.3.2.2.3` section reorganized and renamed to "Execution Of Agent Spells" (`A.1.9.2.3.2.3`); "Prime Spell" terminology replaced with "Agent Spell" throughout 29 subsections. StarGuard Deployment article (`A.1.9.2.3.2.3.1.1.1`) rewritten: now specifies deploy-and-initialize per new SubProxy in same Spell; new StarGuard Functionality article added at `.1.1.2`.
 
 ---
 
@@ -1204,6 +1366,17 @@ Terminology cleanup in the A.1.9 Prime Spell Security Enforcement section. Renam
 
 ---
 
+## PR #115 — Atlas Edit Weekly Proposal 2025-11-17
+**Merged:** 2025-11-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Interim Deployment process** (A.1.9): Two new documents added under "Executive Process Definition":
+  - "Creation Of Public Information Dashboard" — Prime must publish Dune (or equivalent) dashboard showing current Interim Deployment exposure (waived if Core Council Risk Advisor already covers it at info.sky.money)
+  - "Prime Agent Use Of Interim Deployment" — once requirements satisfied, Prime may begin using the Interim Deployment under approved testing parameters
+  - "Completion Of Full Risk Assessment" revised: "Prime" → "Prime will work with Core Council Risk Advisor"; subsequent spell authority shifted to Core GovOps proposal route
+
+---
+
 ## PR #110 — Nov 10 edit
 **Merged:** 2025-11-13 | **Type:** Weekly edit (Atlas Axis)
 
@@ -1212,6 +1385,42 @@ Terminology cleanup in the A.1.9 Prime Spell Security Enforcement section. Renam
 
 ### Context
 See A.0--preamble changelog for comprehensive description. The governance scope additions establish the formal recordkeeping and enforcement authority components.
+
+---
+
+## PR #103 — 2025-11-02 Weekly Cycle Edit Proposal
+**Merged:** 2025-11-07 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Solana LayerZero Bridge governance section added** (A.1.9 Governance Security Culture And Research):
+  - Bridge overview: replaces Wormhole; Token Bridge (USDS Ethereum↔Solana) + Governance Bridge (SKY-issued token control on Solana)
+  - Phase 1 deployment: November 13 Executive Vote; Phase 2: subsequent Out-Of-Schedule Executive Vote
+  - Rate limit: 10,000,000 USDS/day (Core Facilitator + Core Council Risk Advisor can modify via Operational Weekly Cycle directly to Executive Vote)
+  - **Ethereum LayerZero Freezer Multisig** added: `0x381d…776` — 2/4 signing; 2 Amatsu + 2 other signers; can freeze bridge from Ethereum side without standard spell process
+  - **Solana LayerZero Freezer Multisig** added: 2 Amatsu + 2 Keel signers; can freeze bridge from Solana side; min 2 signers, equal Amatsu/Keel representation
+  - Both Freezer Multisig references also added to Governance Security Delay Requirements section (replacing the former Linear Interpolation Module Consideration slot — that doc was relocated, not deleted)
+- **A.5 Location Resilience article** description: "Accessibility Rewards" → "Distribution Rewards"
+
+### Housekeeping
+- Linear Interpolation Module Consideration doc moved to correct position after the Authorization section
+
+---
+
+## PR #96 — October 27 edit
+**Merged:** 2025-10-31 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Execution Of Agent Spells** (A.1.9) — new section added covering StarGuard mechanism:
+  - **StarGuard** contract per-Agent manages whitelisting and execution of Agent Spells; `exec()` triggers SubProxy `exec()`; `maxDelay` recommended 7 days; `drop()` revocation supported
+  - **Permissionless execution** via StarGuardJob keeper
+  - **Short-term transitionary**: only Spark uses StarGuard during transition; other Agents use Direct Execution through Sky Core Spell
+- **Interim Deployment process** (A.1.9 Executive Process Definition): Two additional requirements inserted — dashboard creation (Dune or equivalent) and explicit authorization for Prime to begin using Interim Deployment
+- **Stage 2 timing** (A.2.6 Monthly Settlement Cycle): "expected February 2026" → will be implemented in December 2025 Monthly Settlement Cycle for Nov period; fallback: Jan 2026 if no Dec cycle
+- **Annotations** updated: "Support Facilitators" → "Core GovOps" for "Monitoring And Ensuring" and "Properly Notified" element annotations
+- **Tenets**: "Key Atlas Contributors" funding — "Support Facilitators" → "Core Facilitator"; duplicate "In The Transition To Endgame" tenet added
+
+### Housekeeping
+- `A.3.3` Fluid CRR: duplicate `<tr>` tag removed (stray markup)
 
 ---
 

@@ -47,6 +47,17 @@ These are the Protocol Scope mirror of the Support Scope changes in A.2.3.1.4.2.
 
 ---
 
+## PR #189 — Feb 26 Exec Update
+**Merged:** 2026-03-05 | **Type:** Spell recording (2026-02-26)
+
+### Material Changes
+- **SKY Staking Vesting Total** (`A.4.4.1.4.2.1.3.2.2`): `vestTot` updated from 1,000,000,000 SKY → **838,182,330 SKY**.
+
+### Context
+Records the Feb 26 executive spell: adds ALLOCATOR-PRYSM-A (Launch Agent 6) and ALLOCATOR-INTERVAL-A (Launch Agent 7) vault risk parameters and SP-BEAM configuration, and reduces the SKY staking vesting total to reflect tokens already distributed or burned.
+
+---
+
 ## PR #186 — 2026-02-16 AEW proposal
 **Merged:** 2026-02-22 | **Type:** Weekly edit (Atlas Axis — Poll 1618) | **+2119/-158 lines**
 
@@ -57,6 +68,58 @@ These are the Protocol Scope mirror of the Support Scope changes in A.2.3.1.4.2.
 ### Context
 
 Pure structural reorganization of the stUSDS BEAM documentation — the three sibling sections (Operators / Update Process / Update Methodology) are no longer nested under a single parent, which makes the hierarchy flatter and easier to cross-reference. No functional or parameter changes; the stUSDS BEAM's operator set, thresholds, and calculation methodology all remain identical.
+
+---
+
+## PR #180 — Feb 9 edit
+**Merged:** 2026-02-12 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **stUSDS BEAM operator authority** (`A.4.4.1.3.8.3`, `.3.1.1`, `.3.1.1.3`, `.3.1.1.5`, `.3.1.2`, `.3.1.3`): "Core Executor Agents / Core Executor Agent Atlas Axis" → "Core GovOps" throughout stUSDS BEAM parameter and operator sections.
+
+---
+
+## PR #156 — January 12 edit
+**Merged:** 2026-01-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Deprecated Emissions Mechanisms** (`A.4.1.2.2.4`): Tense shifted to past ("being deprecated" → "has been deprecated"); all related subdocs updated to reflect completed state.
+- **SKY Token Rewards Emissions** (`A.4.1.2.2.4.1`): "are able to earn" → "may be able to earn"; emissions elimination described as completed action.
+- **MKR to SKY Conversion Emissions** (`A.4.1.2.2.4.2`): Legacy conversion contract described as having been disabled; burn action described as completed.
+- **Disabling Legacy Conversion Contract** (`A.4.1.2.2.4.2.1`): "will be executed" → "was executed in the June 26, 2025 Executive Vote."
+- **Savings Rate and Token Reward Mechanism** (`A.4.3`): "benefitting" → "benefiting"; framing updated to reflect USDS users "potentially earn" rather than guaranteed.
+- **Token Reward Mechanism** (`A.4.3.2`): Minor wording update.
+
+---
+
+## PR #142 — Dec 11 Exec Changes
+**Merged:** 2026-01-04 | **Type:** Spell recording (2025-12-11)
+
+### Material Changes
+- **stUSDS `str` parameters** (`A.4.4.1.3.8.2.1`): `step` **500 → 1,500 basis points**
+- **stUSDS `duty` parameters** (`A.4.4.1.3.8.2.2`): `step` **500 → 1,500 basis points**
+
+### Context
+Triple the step size for both stUSDS rate parameters, allowing larger single-adjustment moves. Recorded from the December 11, 2025 executive spell.
+
+---
+
+## PR #141 — Dec 8 edit
+**Merged:** 2025-12-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **stUSDS BEAM parameter update process** (`A.4.4.1.3.8.3.2.2.1`–`.2.3`) overhauled:
+  - CCRA now maintains a public stUSDS Dashboard at `https://stusds.herddefi.com/` with recommended values; operators execute against that dashboard on a regular (not forum-triggered) basis
+  - Old "Request By CCRA" → "Instructions By CCRA"; old "Public Communication" → "Review By Core Facilitator And CCRA"
+  - Operator execution now considers materiality, weekends/holidays, and other factors in consultation with CCRA
+
+---
+
+## PR #115 — Atlas Edit Weekly Proposal 2025-11-17
+**Merged:** 2025-11-20 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.4.4` stUSDS section renamed: "stUSDS Accessibility Reward" → "stUSDS Distribution Reward"; stUSDS Distribution Reward definition updated to reference "USDS Distribution Reward" instead of "USDS Accessibility Reward"
 
 ---
 
@@ -80,6 +143,20 @@ The Gnosis payment resolves a legacy obligation from the DAI-to-USDS transition,
 
 ### Context
 Records the Launch Agent 4 Genesis Capital Allocation in the Protocol Scope capital tracking.
+
+---
+
+## PR #96 — October 27 edit
+**Merged:** 2025-10-31 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Short-term SKY Staking Rewards** (A.4.4) significantly restructured:
+  - Old section ("Short Term Staking SKY Rewards + SKY-Backed Borrowing + MKR Staking/Borrowing") replaced
+  - New **Short Term USDS Rewards For SKY Stakers**: funded by Smart Burn Engine under SBE parameters; discontinued when TMF fully operational
+  - New **Short Term SKY Rewards For SKY Stakers**: funded by SKY from Protocol Treasury via Staking Rewards contract (`0xB44C…0Fc`) + Rewards Distribution contract (`0x675671…Ee`) + Vesting Stream; staking token LSSKY, rewards token SKY; owner = MCD_PAUSE_PROXY
+  - Old MKR staking/borrowing parameters section removed (both Short-Term MKR Staking Rewards and Short-Term MKR-Backed Borrowing)
+- **Genesis Capital** (A.3.9): Spark contribution recorded — 25,000,000 USDS
+- **SKY Staking description**: "In lieu of USDS rewards" → "In lieu of USDS rewards and SKY rewards, SKY stakers can earn Agent Token Rewards"
 
 ---
 
