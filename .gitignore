@@ -30,6 +30,9 @@ intel-drafts/
 # Per-user Claude Code slash commands
 .claude/commands/
 
+# Per-user helper scripts
+.claude/scripts/
+
 # Per-user session timestamp
 .last-session
 
