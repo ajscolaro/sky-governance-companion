@@ -7,6 +7,20 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/213*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Package character** — Describes the bundle as "governance standard updates, process documentation additions, Grove-related maintenance items, and several terminology and formatting fixes."
+- **Grove CCTP documentation highlighted** — Singles out the Grove Circle CCTP governance relay receiver entries as worth noting because adding them to the Grove Artifact "helps keep the Avalanche-side bridge and governance relay setup documented in the same place as the broader Grove operational configuration."
+- **Full scope acknowledged** — Lists the full nine-item scope including the Independent Governance standard (removing the Publicly Held token threshold and Minimum Float requirement), spell checklists, the 500M GROVE transfer, the Wednesday 16:00 UTC pre-risk-review deadline, and the Synome→Archon Tech rename.
+
+---
+
 ## 2026-05-18 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
 
 *Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/212*

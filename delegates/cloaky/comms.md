@@ -7,6 +7,23 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-27 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/206*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Independent Governance standard** — Supports establishing independent governance as the new Root Edit Primitive operation requirement, replacing the "previous, arbitrary 'Publicly Held token' threshold with a more logical prerequisite."
+- **Remove Minimum Float for Spark and Grove** — Backs removing the 10%-of-total-supply circulating requirement that applied only to Spark and Grove, arguing it "establishes a level playing field for all Prime Agents."
+- **Spell Checklists and Reference Materials** — Supports defining Core and Agent Spell Checklist categories, mandating the Agent Spell Reviewer Checklist from the June 18, 2026 Exec Vote, and mandating a standardized Technical Scope Template and Deployment Checklist to "bolster security in the Executive Process."
+- **Grove updates** — Supports the 500M GROVE transfer to the Grove Foundation Multisig (documenting the prior 2.5B GROVE transfer to the Grove Labs Multisig), adding Grove to Current Phased-Out Genesis Capital at 0 USDS, and documenting Grove Circle CCTP (v1+v2) governance relay receivers on Avalanche for "bridge redundancy."
+- **Pre-risk review timing** — Supports moving the Core Council Risk Advisor's pre-risk review deadline to Wednesday 16:00 UTC of week 0 (previously Friday), granting the Strategic Team additional time for its process.
+- **Terminology and formatting** — Backs renaming the Synome Editor to Archon Tech, replacing legacy Support/Stability Facilitator terminology with Core Facilitator or Protocol Security Workstream Lead (completing the cleanup), and fixing eight cross-reference formatting issues.
+
+---
+
 ## 2026-05-19 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
 
 *Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/205*

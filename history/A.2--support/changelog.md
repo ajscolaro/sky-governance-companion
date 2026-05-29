@@ -4,6 +4,31 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.2.2.5.2.3.1.1 deleted: Publicly Held Definition** (UUID `d6265f88…5718`)
+- **Core A.2.8.2.2.2.1.5 deleted: Minimum Float** (UUID `3918317d…a6b5`)
+- **Limitations On Usage Of Root Edit Primitive Prior To Independent Governance** (`A.2.2.5.2.3.1`): `457b` → `4842`; `8958` → `9767`
+
+### Housekeeping
+- `A.2.10.1.5.3` (Approval Process): `Support` → `Core`
+- `A.2.11.1.1.2.1` (Assets In Scope): `Support Facilitator` → `Protocol Security Workstream Lead`
+- `A.2.11.1.1.2.2` (Severity Classification): `Support Facilitator` → `Protocol Security Workstream Lead`
+- `A.2.8.2.2.2.4.5.2.1` (Grove Foundation Grant Authorization: Q2 2026): added `Multisig`
+- `A.2.8.2.2.2.4.5` (Subsequent Allocation Mechanism): `Tokens Being Publicly Held` → `Independent Governance`
+- `A.2.9.1.1.1.1` (Resilience Fund Budget): `Support` → `Core`
+- `A.2.9.1.1.1.2.1` (Resilience Fund Technical Committee Selection And Compensation): `Support` → `Core`
+- `A.2.9.1.1.1.4.2.2.1` (Resilience Fund Claim Approval Payout Claim): `Support` → `Core`
+- `Support Facilitators` → `Core Facilitator` across 12 docs.
+- `Support` → `Core` across 4 docs.
+
+### Context
+Part of the protocol-wide Support/Stability Facilitator → Core Facilitator consolidation running across this edit. The deleted "Publicly Held Definition" and "Minimum Float" docs are superseded by the new Independent Governance definition (A.0.1.1.54), which the subsequent-allocation mechanism now keys off.
+
+---
+
 ## PR #246 — Atlas Edit Proposal — 2026-05-18
 **Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
 

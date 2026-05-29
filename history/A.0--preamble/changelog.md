@@ -4,6 +4,17 @@ Atlas path: `A.0` — Definitions, foundational concepts, and structural rules
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Independent Governance** (`A.0.1.1.54`, UUID `6e1c1d71…532a`): Independent Governance is the state of a Prime Agent that has a token and an established governance process by which the token's holders can produce binding decisions directing the Agent.
+
+### Context
+Defines the milestone — a Prime Agent token plus a binding governance process — that now gates subsequent token allocation, replacing the deleted "Tokens Being Publicly Held" trigger in A.2 and A.6 Grove docs in this same edit.
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

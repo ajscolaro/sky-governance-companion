@@ -7,6 +7,37 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-28 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/81*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes***
+
+Key rationale points:
+
+- **Independent Governance standard** — Supports replacing the prior Publicly Held token and Minimum Float requirements with the new Independent Governance condition for Root Edit Primitive operation, which "focuses on whether a Prime Agent has token-holder governance capable of producing binding decisions"; Prime Agents reaching this standard gain more autonomy over their Agent Artifact.
+- **Spell process documentation** — Backs the Spell Checklists, Spell Checklists Registry, Technical Scope Template and Deployment Checklist as clearer requirements for spell crafting, review and contract deployment, expecting technical proposals to become "easier to review, less ambiguous, and less prone to execution risk."
+- **Pre-risk review deadline** — Supports the Wednesday 16:00 UTC deadline for delivery of Prime Spell items and pre-risk review completion, giving the Core Council Risk Advisor time to flag risks before Strategic Team scope approval.
+- **Grove updates** — Supports the 500M GROVE transfer to the Grove Foundation Multisig, adding Grove to Current Phased-Out Genesis Capital at 0 USDS, and documenting Grove Circle CCTP governance relay receivers on Avalanche as transparency/auditability improvements.
+- **Terminology cleanup** — Backs renaming the Designated Synome Editor from Archon Labs to Archon Tech, replacing legacy Facilitator terminology, and fixing cross-reference formatting as documentation consistency improvements.
+
+---
+
+## 2026-05-20 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
+
+*Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/80*
+
+*Relates to: Poll #1633 / PR #246 | Vote: **Yes***
+
+Key rationale points:
+
+- **Executive Process role definitions** — Supports defining the Executive Process Liaison and Strategic Team roles because it "improves accountability and coordination," clarifying who coordinates the process and reviews scope as more Prime Agent actions advance toward on-chain execution.
+- **Prime Agents in role list** — Backs adding Prime Agents to the Roles in the Executive Process section, since they already submit Spell items requiring on-chain execution and explicit recognition makes the process easier to follow.
+- **Osero rebrand** — Supports updating the Launch Agent 6 reference to Osero across Ecosystem Accord 6, Plasma SkyLink docs, Genesis Capital references and token parameters now that the agent is out of stealth, to avoid placeholder-name confusion.
+- **Documentation hygiene** — Treats the remaining edits (stale cross-reference labels, punctuation normalization, naming fixes) as minor but useful for preserving the Atlas as a reliable source of truth.
+
+---
+
 ## 2026-05-14 — Executive Spell May 7, 2026 + Weekly Cycle Vote: Atlas Edit Proposal — May 11, 2026
 
 *Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/79*

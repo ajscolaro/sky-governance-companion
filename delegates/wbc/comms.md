@@ -7,6 +7,19 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/185*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes***
+
+Key rationale points:
+
+- **No substantial concerns** — Supports all items in the bundle, including the Independent Governance standard (removing the Publicly Held token threshold and Minimum Float requirement), the 500M GROVE transfer, Grove Genesis Capital/CCTP entries, the Synome→Archon Tech rename, and facilitator-terminology and formatting fixes.
+- **Checklists and pre-risk timing most helpful** — Highlights the Spell checklist and pre-risk-review timing additions as "making the Executive Process more explicit," improving coordination between proposal preparation and risk review and reducing ambiguity around what must be prepared before a spell advances.
+
+---
+
 ## 2026-05-18 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
 
 *Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/184*

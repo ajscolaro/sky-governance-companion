@@ -2,6 +2,7 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #251 | Atlas Edit Proposal — 2026-05-25 | 2026-05-29 | preamble,governance support,stability agents/spark,agents/grove agents/skybase,agents/pattern | auto |
 | #240 | Spark artifact changes (2026-04-22 exec) | 2026-05-25 | agents/spark | complete |
 | #232 | Spark proposal - Update Spark Blue Chip USDT Morpho Vault | 2026-05-25 | agents/spark | complete |
 | #229 | Spark proposal - [Avalanche] Spark Liquidity Layer - Offboard Aave Avalanche USDC | 2026-05-25 | agents/spark | complete |

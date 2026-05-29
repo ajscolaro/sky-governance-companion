@@ -4,6 +4,53 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Executive Process Liaison Delivers Items To Core Council Tracker** (`A.1.10.2.3.2.2.3.1.2.1`, UUID `e55cfedb…4527`): The Executive Process Liaison reviews the submitted Prime Spell Form for completeness and clarity, and discusses possible Prime Spell content and potential blockers with the Prime Agent.
+- **New: Core Council Risk Advisor Conducts Pre-Risk Review** (`A.1.10.2.3.2.2.3.1.2.2`, UUID `6bde7e9e…540b`): The `A.1.8.1.1` conducts a pre-risk review of the proposed Prime Spell content.
+- **New: Core Spell Checklists** (`A.1.10.2.5.1.1`, UUID `e3c56b04…6ac8`): The documents herein define Core Spell Checklists.
+  - **Core Spell Crafter Checklist** (`A.1.10.2.5.1.1.1.1`): The Core Spell Crafter Checklist defines standardized steps for Spell Crafters.
+  - **Core Spell Reviewer Checklist** (`A.1.10.2.5.1.1.1.2`): The Core Spell Reviewer Checklist defines the mandatory steps for internal and external Spell Reviewers.
+  - **Module Onboarding Checklists** (`A.1.10.2.5.1.1.1.3`): Module Onboarding Checklists define use-case specific steps that must be followed when a Core Spell includes the onboarding of a new module.
+  - **Core Spell Checklist Update Process** (`A.1.10.2.5.1.1.2`): Updates to Core Spell Checklists are submitted as Pull Requests to the Spell Checklists repository (https://github.com/sky-ecosystem/pe-checklists/tree/master/spell).
+- **New: Agent Spell Checklists** (`A.1.10.2.5.1.2`, UUID `21eb7269…7aff`): The documents herein define Agent Spell Checklists.
+  - **Agent Spell Reviewer Checklist** (`A.1.10.2.5.1.2.1.1`): The Agent Spell Reviewer Checklist defines standardized steps for Agent Spell Reviewers.
+  - **Agent Spell Checklist Update Process** (`A.1.10.2.5.1.2.2`): Agent Spell Crafters and Reviewers, including external auditors, are encouraged to extend and improve Agent Spell Checklists as improvements are identified during Spell crafting.
+- **New: Spell Checklists Registry** (`A.1.10.2.5.1.3`, UUID `13e783a5…717a`): All Spell Checklists must be recorded in the Spell Checklists Registry at `A.1.10.2.5.1.3.2.0.6.1`.
+  - **Spell Checklist Registration Requirements** (`A.1.10.2.5.1.3.1`): Each entry in the Spell Checklists Registry must contain the following information.
+  - **List Of Registered Spell Checklists** (`A.1.10.2.5.1.3.2`): The list of registered Spell Checklists is defined as Active Data in `A.1.10.2.5.1.3.2.0.6.1`.
+  - **Registered Spell Checklists** (`A.1.10.2.5.1.3.2.0.6.1`): The registered Spell Checklists are.
+- **New: Technical Scope Template** (`A.1.10.2.5.2.1`, UUID `b9ba6658…a450`): The Technical Scope Template is a standardized template for announcing any infrastructure changes, whether on-chain or off-chain.
+  - **Technical Scope Template Submission Requirements** (`A.1.10.2.5.2.1.1`): The completed Technical Scope Template must be published as a Forum post on the Sky Forum, providing enough technical detail for an independent external team to review the proposed changes without requiring additional context.
+  - **Technical Scope Template Update Process** (`A.1.10.2.5.2.1.2`): The Technical Scope Template is maintained by Core GovOps.
+- **New: Deployment Checklist** (`A.1.10.2.5.2.2`, UUID `2ac3532b…0fe7`): The Deployment Checklist defines standardized steps for contract deployments, covering deployer hygiene, foundry setup, test deployments, and verification.
+  - **Deployment Checklist Submission Requirements** (`A.1.10.2.5.2.2.1`): The Deployment Checklist must be completed for every contract deployment.
+  - **Deployment Checklist Update Process** (`A.1.10.2.5.2.2.2`): The Deployment Checklist is maintained by Core GovOps.
+- **New: Voting Process For Executive Votes** (`A.1.10.2.6`, UUID `3aa5bc98…2366`): The subdocuments herein provide a high-level summary of the voting process for Executive Votes within the Sky Protocol.
+  - **Voting Requirements** (`A.1.10.2.6.1`): Participation in Executive Votes requires access to SKY for voting, the governance token of the Sky Protocol, whether through direct ownership or delegated authority.
+  - **Voting Validation** (`A.1.10.2.6.2`): Once an Executive Vote is live on the Voting Portal, it enters the Ecosystem Spell Validation Window, a critical period for community review.
+
+### Housekeeping
+- `A.1.10.2.3.2.2.3.1.2` (Delivery And Pre-Risk Review): `Executive Process Liaison Delivers Items To Core Council Tracker` → `Delivery And Pre-Risk Review`; `` → `and the Core Council Risk Advisor conducts a pre-risk review of the items submitted on Monday. Both must be completed`
+- `A.1.10.2.3.2.2.3.1.3` (Strategic Team Approves Spell Scope): `Core Council Risk Advisor Conducts Pre-Risk Review` → `Strategic Team Approves Spell Scope`; `the Core Council Tracker,` → `be advanced through`
+- `A.1.10.2.3.2.2.3.1.4` (Communication Of Approved Scope): `Sky Ecosystem's broader objectives` → `Core Council Risk Advisor`
+- `A.1.10.2.3.2.2.3.1.4` (Communication Of Approved Scope): `Following the Strategic Team's approval as specified in [A.1.10.2.3.2.2.3.1.4 - Strategic Team Approves Spell Scope](05e33459-9ee6-430c-af72-13db2004c505), the Executive Process Liaison should communicate the approved scope to the Prime Agent and the Core Council Risk Advisor.` → ``
+- `A.1.10.2.5.1` (Spell Checklists): removed refs to `A.1.10.2.2.4`
+- `A.1.10.2.5.2` (Operational Reference Materials): removed refs to `A.1.10.2.4.12`
+- `A.1.10.2.5` (Checklists And Reference Materials): `Voting Process For Executive Votes` → `Checklists And Reference Materials`
+- `A.1.2.2.1.0.4.1` (Determine How They Are Modified - Immutable Documents Can Be Amended In The Transition To Endgame): removed `[**`
+- `A.1.3.2.1.1` (Designated Synome Editor): `Labs` → `Tech`
+- `A.1.5.5.0.4.1.1.1.var1` (Alternating Between Two Roles In Separate Time Intervals - var. 1): added `A.1.5.5.0.4.3 -`
+- `A.1.10.2.6.3` renumbered (UUID stable: `9b43b664…d10e`)
+- `A.1.10.2.6.4` renumbered (UUID stable: `9c5cae66…5623`)
+
+### Context
+Formalizes the Core Council spell-crafting pipeline: standardized Core/Agent Spell Checklists (maintained in the pe-checklists repo), a public Technical Scope Template and Deployment Checklist requirement for infrastructure changes, and a high-level Executive Vote voting process section. The Delivery/Pre-Risk Review steps were restructured so delivery and the Risk Advisor pre-risk review must both complete before scope advances.
+
+---
+
 ## PR #246 — Atlas Edit Proposal — 2026-05-18
 **Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
 

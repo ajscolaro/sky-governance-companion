@@ -7,6 +7,21 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/218*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes***
+
+Key rationale points:
+
+- **Independent Governance standard** — Notes the proposal adds Independent Governance as the new Root Edit Primitive operation condition, removing the prior Publicly Held token threshold and Minimum Float requirement.
+- **Spell checklists** — Calls the checklist "a key component for systematically verifying that all steps in the spell process have been completed as intended," valuable for ADs and SKY holders verifying spells and for the spell review team.
+- **Grove maturation** — Supports the 500M GROVE transfer to the Grove Foundation Multisig, the 0 USDS Genesis Capital entry, and the Circle CCTP relay receiver documentation as moving Grove "toward increased independence" and improving accounting transparency.
+- **Reproduced summary verbatim** — Reproduced AtlasAxis's scope summary "verbatim to confirm the exact scope being approved," treating the terminology and formatting fixes as standard items.
+
+---
+
 ## 2026-05-19 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
 
 *Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/217*
