@@ -4,6 +4,22 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.3.3.2.7.1.1.3` (Lite Peg Stability Module Parameter Modification): `Stability Facilitators` → `Facilitator`
+- `A.3.4.3.3.1` (Monthly Arranger Report Requirements): `Stability` → `Core`
+- `A.3.4.5.1` (Implemented By Core Facilitator): `Stability Facilitators` → `Core Facilitator`
+- `A.3.7.1.1.3.3` (Offboarding Other Collateral): `Stability Facilitators deem` → `Core Facilitator deems`
+- `A.3.7.1.6.6.2.3.0.6.1` (Current Phased-Out Genesis Capital): added `- Grove - 0 USDS`
+- `Stability Facilitators` → `Core Facilitator` across 10 docs.
+
+### Context
+Continues the Support/Stability Facilitator → Core Facilitator consolidation (10 docs here). Grove is now recorded at 0 USDS in the Current Phased-Out Genesis Capital list, confirming its full exit from Genesis Capital.
+
+---
+
 ## PR #246 — Atlas Edit Proposal — 2026-05-18
 **Merged:** 2026-05-21 | **Type:** Weekly edit (Atlas Axis)
 

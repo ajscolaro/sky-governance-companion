@@ -4,6 +4,14 @@ Atlas path: `A.6.1.1.4` (722 docs)
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.4.2.7.1.1.2.1` (Sky.money Frontend Instance Configuration Document Location): added `A.6.1.1.4.2.7.1.2.1 -`
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

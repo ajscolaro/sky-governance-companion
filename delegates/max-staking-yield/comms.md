@@ -7,6 +7,20 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/82*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes***
+
+Key rationale points:
+
+- **Independent Governance is the primary item** — Highlights the new Independent Governance standard as "the primary item here," shifting the Root Edit Primitive condition "away from a more mechanical token-distribution standard and toward a governance standard that is intended to stand on its own."
+- **Implementation clarity** — Supports replacing older threshold-based language (Publicly Held token threshold, Minimum Float) with a single governance standard to "reduce the risk of relying on criteria that may become less meaningful over time," conditioned on continued enforcement of the surrounding governance structure.
+- **No concerns on the rest** — Finds the remaining edits (spell checklists, GROVE transfer, pre-risk-review timing, Grove Genesis Capital/CCTP entries, Synome→Archon Tech rename, facilitator terminology, formatting) "logical" with no concerns.
+
+---
+
 ## 2026-05-18 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
 
 *Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/81*

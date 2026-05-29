@@ -7,6 +7,22 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-27 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/250*
+
+*Relates to: Poll #1634 / PR #251 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Independent Governance standard** — Primary PDM voted Yes; verifies the edit replaces the `publicly_held_tokens` + `minimum_float` requirements for Root Edit Primitive operability with a new `independentGov` condition, deletes the prior ">2,000 public holders / 10% genesis supply" definition (UUID `d6265f88…5718`) and the 10% minimum float requirement (UUID `3918317d…a6b5`), and introduces the new definition at A.0.1.1.54 (UUID `6e1c1d71…532a`).
+- **Spell Checklists and Reference Materials** — Confirms A.1.10.2.5 was repurposed from the Executive Vote voting process to checklists/reference materials, with the voting subtree moved intact to A.1.10.2.6 (all four child docs UUID-preserved); notes the Agent Spell Checklist becomes mandatory from the 2026-06-18 Exec Vote and the registry at A.1.10.2.5.1.3.2.0.6.1 lists 8 core + 1 agent + 1 operational checklist.
+- **Technical Scope / Deployment requirements** — Notes the Technical Scope Template (A.1.10.2.5.2) is mandatory for all infrastructure changes and published as a Sky Forum post (sensitive sections withheld to Core GovOps), and the Deployment Checklist (A.1.10.2.5.2.2) is required for every contract deployment; update PRs to the pe-checklists repo need 2 approvals, one per core spell team.
+- **GROVE token transfer** — Verifies A.6.1.1.2.2.1.4.2.1.2.3 was restructured into a parent over two sub-transfers, reusing the prior UUID for the relocated "Transfer Of Tokens To Grove Labs Multisig" and adding "Transfer Of Tokens To Grove Foundation Multisig" (500M GROVE, new UUID `0bff1d91…36a4`).
+- **Atlas alignment** — Cites cross-references to PR #242's Prime Spell Process (A.1.10.2.3.2.2.3) and PR #246's Executive Process Liaison & Strategic Team roles as aligned, with "no internal contradictions."
+
+---
+
 ## 2026-05-19 — Atlas Edit Weekly Cycle Proposal — May 18, 2026
 
 *Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/249*

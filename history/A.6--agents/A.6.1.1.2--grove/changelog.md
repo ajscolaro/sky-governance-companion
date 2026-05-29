@@ -4,6 +4,24 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.6.1.1.2.2.1.4.2.1.2.4 deleted: Transfer Of Tokens To Grove Labs** (UUID `ebca156f…0f39`)
+- **Core A.6.1.1.2.2.1.4.2.1.2.4 deleted: Transfer Of Tokens To Grove Labs** (UUID `ebca156f…0f39`)
+- **New: Transfer Of Tokens To Grove Foundation Multisig** (`A.6.1.1.2.2.1.4.2.1.2.3.2`, UUID `0bff1d91…36a4`): Grove will transfer 500 million GROVE tokens from the Grove SubProxy to the Grove Foundation Multisig. (address: `0xE3EC4CC359E68c9dCE15Bf667b1aD37Df54a5a42`)
+- **New: Grove Circle CCTP Governance Relay Receivers** (`A.6.1.1.2.2.6.1.2.1.1.1.1.3.3`, UUID `fa8dccc5…ebc4`): The Grove Circle CCTP governance relay receivers on Avalanche are. (addresses: `0x26e9512547feC1906C55256e491DfB6673D8C23f`, `0x8Ea8Dff8c29f568eA1E716E2C3AfbD003EB83cfA`)
+
+### Housekeeping
+- `A.6.1.1.2.2.1.4.2.1.2.3` (Transfer Of Tokens To Grove): added `The documents herein specify the subsequent distribution of those tokens from the Grove SubProxy.`
+- `A.6.1.1.2.2.6.1.2.1.1.1.1.3.2` (Grove LayerZero v2 Governance Relay Receiver): added `LayerZero v2 Governance Relay`
+
+### Context
+Redirects the 500M GROVE distribution from Grove Labs to the new Grove Foundation Multisig (`0xE3EC…5a42`), pairing with the Grove Foundation Grant Authorization multisig edit in A.2. Also adds Avalanche Circle CCTP governance relay receivers, extending Grove's cross-chain relay footprint.
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

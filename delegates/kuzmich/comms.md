@@ -7,6 +7,37 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-05-28 — Atlas Edit Weekly Cycle Proposal — May 11, 2026 (late rationale)
+
+*Source: https://forum.skyeco.com/t/ad-recognition-submission/26743/53*
+
+*Relates to: PR #242 | Vote: **Yes***
+
+Key rationale points:
+
+- **Scale concern** — Criticizes reorganizing governance document structure across 2,378 files at once: "Without automated analysis, these changes would have taken weeks to sort through. I think it's a mistake to make such large changes all at once." Still voted Yes after reviewing the substance.
+- **Agent Termination Process** — Views it as a normal process that creates "a clear mechanism for closing ecosystem agents and risking treasury."
+- **Synome Documents** — Supports as reducing governance bureaucracy for operational updates.
+- **Obex Freezer Multisig 2/5** — Opposes; calls it controversial because multisig security is reduced even though it keeps two signatures and cannot move funds, and states he is "rather against this option, and in favor of 3/5."
+- **Incentives and process** — Backs the 1inch Reward Instance (liquidity/incentives), Restore SKY Staking Rewards (temporarily higher staking rewards), the Prime Spell Process (tighter checks reducing error/exploit risk), and Spell Team Anonymity (reduced pressure on developers).
+
+---
+
+## 2026-05-28 — Atlas Edit Weekly Cycle Proposal — May 4, 2026 (late rationale)
+
+*Source: https://forum.skyeco.com/t/ad-recognition-submission/26743/52*
+
+*Relates to: PR #237 | Vote: **Yes***
+
+Key rationale points:
+
+- **Sky–Grove Ecosystem Accord** — Supports Sky formally sharing a portion of revenue with Grove for developing Chronicle rewards, viewing it positively as "an additional source of income" for Grove.
+- **SSR query documentation** — Backs adding instructions for viewing the current sUSDS yield directly from the smart contract as a transparency improvement for users and third-party sites.
+- **Governance Facilitator references + Liquidity Bootstrapping removal** — Supports updating terminology and removing the Sky Ecosystem Liquidity Bootstrapping section as cost reduction.
+- **Housekeeping** — Treats simplifying the Pattern Freezer Multisig description and fixing stray spaces in rate-limit Solidity identifiers as bureaucratic changes with "no controversial issues."
+
+---
+
 ## 2026-05-04 — Atlas Edit Weekly Cycle Proposal — April 27, 2026
 
 *Source: https://forum.skyeco.com/t/ad-recognition-submission/26743/49*

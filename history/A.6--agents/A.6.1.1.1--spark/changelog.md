@@ -4,6 +4,18 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #251 — Atlas Edit Proposal — 2026-05-25
+**Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.1.2.6.1.1.2.1.12.1` (Ethereum Mainnet - Paxos Transfer USDC to Paxos (receive PYUSD) Instance Configuration Document Location): removed `- A.6.1.1.1.2.6.1.3.1.12.1`
+- `A.6.1.1.1.2.6.1.1.2.1.12.2` (Ethereum Mainnet - Paxos Transfer PYUSD to Paxos (receive USDC) Instance Configuration Document Location): removed `- A.6.1.1.1.2.6.1.3.1.12.2`
+- `A.6.1.1.1.2.6.1.1.2.1.12.3` (Ethereum Mainnet - Paxos Transfer PYUSD to Paxos (receive USDG) Instance Configuration Document Location): removed `- A.6.1.1.1.2.6.1.3.1.12.3`
+- `A.6.1.1.1.2.6.1.1.2.1.12.4` (Ethereum Mainnet - Paxos Transfer USDG to Paxos (receive PYUSD) Instance Configuration Document Location): removed `- A.6.1.1.1.2.6.1.3.1.12.4`
+- `Stability Facilitators` → `Core Facilitator` across 5 docs.
+
+---
+
 ## PR #240 — Spark artifact changes (2026-04-22 exec)
 **Merged:** 2026-05-25 | **Type:** Spell recording (2026-04-22)
 
