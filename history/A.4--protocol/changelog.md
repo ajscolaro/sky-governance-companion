@@ -4,6 +4,17 @@ Atlas path: `A.4` — The Protocol Scope
 
 ---
 
+## PR #253 — Atlas Edit Proposal — 2026-06-01
+**Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **stUSDS Distribution Reward** (`A.4.4.1.3.7`): `8` → `9`; `05` → `1`; `1%` → `2`
+
+### Housekeeping
+- `8` → `9` across 1 doc.
+
+---
+
 ## PR #242 — Atlas Edit Proposal — 2026-05-11
 **Merged:** 2026-05-15 | **Type:** Weekly edit (Atlas Axis)
 

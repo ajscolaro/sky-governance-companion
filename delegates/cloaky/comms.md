@@ -7,6 +7,34 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-04 — Executive Spell: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/208*
+
+*Relates to: June 4, 2026 Executive (RWA001-A Offboarding et al.) | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Atlas + prior-poll alignment** — Voted Yes, finding the executive "aligns with the Atlas and is in accordance with the outcomes of prior polls."
+- **Spell review process** — Reviewed contents using VoteWizard's guide and checked for unusual elements per 0xDefensor's guide; confirmed it is not a dark spell, not deployed via CREATE2, and uses the correct optimization settings, EVM version, license, and compiler version.
+- **Tests passed** — Confirms the predefined spell tests "were executed and all tests passed successfully."
+
+---
+
+## 2026-06-04 — Weekly Cycle Vote: Atlas Edit Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/207*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Reward simplification** — Supports the Reward Recipient and Sharing unification routing all Sky Primitive reward payments to the managing Prime Agent with bilateral sharing, plus the supporting document reorganization, arguing it "simplifies the structure of these rewards and allows market-driven, bilateral negotiations to dictate the most effective flow of incentives."
+- **Housekeeping bundle** — Labels the Capital Ratio Requirement rename, the Facilitator Ecosystem exemption removal, and the Immunefi URL update as "minor housekeeping" items.
+- **Grove CCTP** — Frames the Grove Circle CCTP v2 TokenMessenger amendment (adding the Avalanche address, consolidating duplicate Base docs) as a housekeeping update "which adds pertinent missing information."
+
+---
+
 ## 2026-05-27 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/206*

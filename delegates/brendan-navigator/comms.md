@@ -7,6 +7,20 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-02 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/16*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes***
+
+Key rationale points:
+
+- **Disclosure-match review** — Voted Yes after confirming the poll is "procedurally framed," uses the correct three-day window and 480,000,000 SKY positive-participation threshold, and consistently discloses the five actions across the portal summary, canonical proposal, PR body, forum thread, and composed diff; found no material disclosure mismatch justifying No/Abstain.
+- **Composed-PR audit** — Notes the review "covered all 17 batches and all 879 changed Atlas sections, with 3 minted UUIDs, 5 retired UUIDs, and zero dangling references" in the PR-head Atlas, and that Circle's first-party docs corroborate the Grove TokenMessengerV2 address.
+- **Medium assessment** — Retains a "medium" risk rating because reward routing is "a substantive policy consolidation" and the historical Bonapublica AD Buffer eligibility is accepted only as an explicitly consented assumption.
+
+---
+
 ## 2026-05-25 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/15*

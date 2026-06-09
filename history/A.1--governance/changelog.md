@@ -4,6 +4,29 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #253 — Atlas Edit Proposal — 2026-06-01
+**Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.1.5.5.1 deleted: Temporary Exception for Facilitator “Ecosystem”** (UUID `6aa88317…c767`)
+- **Core A.1.5.7.1 deleted: Exemption From Facilitator Anonymity Requirement** (UUID `cb2ae821…c5b5`)
+- **Atlas Edit Proposal Drafting And Submission** (`A.1.10.2.3.2.2.3.2.4`): `5` → `6`
+- **Prime Spell Process Breakdown** (`A.1.10.2.3.2.2.3`): `5` → `6`; `5` → `6`
+- **Root Edit Process** (`A.1.14.2.7.1`): `5` → `6`
+- **Agent Role Delineation** (`A.1.14.3.4`): `9` → `10`
+- **Initiation Of Agent Termination Process** (`A.1.14.5.1`): `5` → `6`
+
+### Housekeeping
+- `A.1.10.2.3.2.2.2.1.2` (Specification Of Testing Parameters By Core Council Risk Advisor): removed `Ratio`
+- `A.1.10.2.3.2.2.2.1.8` (Completion Of Full Risk Assessment): removed `Ratio`
+- `5` → `6` across 4 docs.
+- `9` → `10` across 1 doc.
+
+### Context
+Removes two obsolete exemptions tied to the retired Facilitator "Ecosystem" role, defunct since the scope-facilitator structure gave way to the Agent framework; remaining changes are footnote-reference renumbering. Poll #1635 passed 11–0.
+
+---
+
 ## PR #251 — Atlas Edit Proposal — 2026-05-25
 **Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
 
