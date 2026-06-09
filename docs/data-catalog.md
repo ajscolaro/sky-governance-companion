@@ -29,6 +29,7 @@ Shallow clone (depth 20) of `sky-ecosystem/next-gen-atlas`. **`main` is canonica
 | Path | Source | Refresh trigger | Producer |
 |------|--------|-----------------|----------|
 | `data/index.json` | Parsed Atlas (`.atlas-repo/`) | SessionStart hook + `/refresh` | `scripts/core/build-index.py` |
+| `data/link-graph.json` | `data/index.json` (`uuid_refs`) | SessionStart hook | `scripts/atlas/build-link-graph.py` |
 | `data/voting/address-map.json` | Delegate profiles | SessionStart hook + `/refresh` | `scripts/core/build-address-map.py` |
 | `data/forum/` | Forum RSS (`forum.skyeco.com`) | `/refresh` | `scripts/forum/fetch-forum.py` |
 | `data/forum/registry.json` | Atlas A.2.7.1.1.1.1 (Authorized Forum Accounts) | `/refresh` | `scripts/forum/build-account-registry.py` |
@@ -127,7 +128,7 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 
 ## Refresh chain
 
-**SessionStart hook (automatic, fast):** `scripts/core/atlas-sync.sh` pulls the latest Atlas (or `first-run-welcome.sh` if `.atlas-repo/.git` is absent), rebuilds `data/index.json` and the address map. Nothing else.
+**SessionStart hook (automatic, fast):** `scripts/core/atlas-sync.sh` pulls the latest Atlas (or `first-run-welcome.sh` if `.atlas-repo/.git` is absent), rebuilds `data/index.json`, the link graph (`data/link-graph.json`), and the address map. Nothing else.
 
 **`/refresh` (user-invoked):** `scripts/core/refresh.sh` runs:
 1. Parallel fetches: forum, delegate RSS, voting (delegates/polls/executive), market data, open PRs, unprocessed-PR discovery

@@ -270,6 +270,13 @@ def render_modification(doc: dict, pattern_covered: set | None = None) -> tuple[
     # Skip noisy single-character whitespace deltas — these are diff-format artifacts
     pairs = [p for p in pairs if (p["before"] or p["after"])]
 
+    # Drop reference-renumber noise (dotted cross-reference path segments that
+    # shifted because a linked doc moved). For a doc whose changes are ENTIRELY
+    # such noise, enrich flags reference_renumber_only and the caller skips it
+    # before reaching here; for a MIXED doc we strip the noise so only the real
+    # edit renders.
+    pairs = [p for p in pairs if p.get("pattern") != "reference_renumber"]
+
     # If only the name (frontmatter) changed and no body deltas, render as rename
     if nc and not pairs:
         return render_rename(doc), "housekeeping"
@@ -449,13 +456,26 @@ def render_entity_entry(entity: str, enriched: dict) -> tuple[str, dict]:
 
     # 4. Modified docs
     pattern_covered = set(enriched.get("pattern_covered_uuids", {}).get(entity, []))
+    ref_renumber_docs = 0
     for d in docs:
         if d["kind"] != "modified":
+            continue
+        # Reference-renumber-only docs (flagged by enrich) collapse into one
+        # entity-level summary line below instead of a per-doc bullet.
+        if d.get("reference_renumber_only"):
+            ref_renumber_docs += 1
             continue
         bullet, cls = render_modification(d, pattern_covered=pattern_covered)
         if bullet is None:
             continue
         (material if cls == "material" else housekeeping).append(bullet)
+
+    if ref_renumber_docs:
+        housekeeping.append(
+            f"Reference renumbering across {ref_renumber_docs} doc"
+            f"{'s' if ref_renumber_docs != 1 else ''} "
+            f"(linked docs moved elsewhere in this edit; UUID targets unchanged)."
+        )
 
     # 5. Renamed-only (frontmatter docNo change)
     for d in docs:
@@ -513,10 +533,22 @@ def render_entity_entry(entity: str, enriched: dict) -> tuple[str, dict]:
         for b in housekeeping:
             lines.append(f"- {b}")
         lines.append("")
-    # Context section is left as a placeholder for the in-session agent to fill
-    # (or strip) after this pipeline returns. See /refresh skill for the workflow.
+    # Context section. Normally a placeholder for the in-session agent to fill
+    # (or strip) after the pipeline returns — see /refresh skill. EXCEPTION:
+    # when the entry is *pure* reference-renumber propagation (no material
+    # changes and no housekeeping beyond the single renumber-summary line),
+    # there is nothing for a human to add, so auto-fill a factual one-liner.
+    # This is deliberately conservative — any real edit, terminology sweep,
+    # deletion, or extra housekeeping line keeps the pending placeholder.
+    pure_propagation = (
+        not material and ref_renumber_docs > 0 and len(housekeeping) == 1
+    )
     lines.append("### Context")
-    lines.append("<!-- context: pending -->")
+    if pure_propagation:
+        lines.append("Reference-number propagation from documents renumbered "
+                     "elsewhere in this edit; UUID targets and content unchanged.")
+    else:
+        lines.append("<!-- context: pending -->")
     lines.append("")
     lines.append("---")
 
@@ -524,6 +556,8 @@ def render_entity_entry(entity: str, enriched: dict) -> tuple[str, dict]:
         "material_count": len(material),
         "housekeeping_count": len(housekeeping),
         "doc_count": len(docs),
+        "reference_renumber_docs": ref_renumber_docs,
+        "context_auto_filled": pure_propagation,
         "poll_id": (poll or {}).get("poll_id"),
     }
     return "\n".join(lines), summary

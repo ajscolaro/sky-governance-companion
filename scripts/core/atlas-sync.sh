@@ -69,6 +69,12 @@ if ! python3 "$SCRIPT_DIR/build-index.py" >/dev/null 2>&1; then
     emit_and_exit
 fi
 
+# Derived from the index (uuid_refs → forward+backlinks). Best-effort: a stale
+# or missing graph only disables the /atlas-navigate link-following helpers.
+if [ -f "$PROJECT_DIR/scripts/atlas/build-link-graph.py" ]; then
+    python3 "$PROJECT_DIR/scripts/atlas/build-link-graph.py" >/dev/null 2>&1 || true
+fi
+
 if [ -f "$SCRIPT_DIR/build-address-map.py" ]; then
     python3 "$SCRIPT_DIR/build-address-map.py" >/dev/null 2>&1 || true
 fi

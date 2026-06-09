@@ -64,8 +64,21 @@ Use `--show` for the full entry block (header + meta + body). `--limit` caps mat
 | `--since YYYY-MM-DD` | Merged on or after | `--since 2026-01-01` |
 | `--until YYYY-MM-DD` | Merged on or before | `--until 2026-03-01` |
 | `--pr N` | Exact PR number (any entity) | `--pr 167` |
+| `--uuid U` | Doc UUID (full or 8-char prefix) | `--uuid 6aa88317` |
 
 All filters AND together.
+
+### Finding a document's full history by UUID
+
+`--uuid` is the renumber-proof way to track one document across its whole life. Changelog entries embed each touched doc's short UUID (`<8hex>…<4hex>`), so `--uuid` matches every entry that touched that doc — across renumbers, renames, and eventual deletion — and resolves the UUID against the live index to print where the doc lives in the Atlas *today* (or notes it was deleted):
+
+```bash
+python3 scripts/atlas/search-history.py --uuid 6aa88317-4dc2-4b50-87bd-27cc6de9c767
+# → "UUID … → currently `A.x.y` [Type] Name" (or "not in current index")
+# → every PR that renumbered/modified/deleted it, newest first
+```
+
+Prefer this over keyword search when you have a UUID (e.g. from an Atlas cross-reference link or a prior changelog entry) — numbers drift, UUIDs don't.
 
 ## Governance type vocabulary
 
