@@ -13,11 +13,31 @@ one line per match (most-recent-first); use --show for full entry bodies.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
 
 HISTORY = Path(__file__).resolve().parents[2] / "history"
+INDEX_FILE = Path(__file__).resolve().parents[2] / "data" / "index.json"
+
+
+def resolve_uuid(uuid_query: str) -> dict | None:
+    """Resolve a full-or-prefix UUID against the live index → current location.
+
+    UUIDs are immutable, so this maps a UUID cited in any historical changelog
+    entry to where the doc lives in the Atlas *today*, even after renumbering.
+    """
+    if not INDEX_FILE.exists():
+        return None
+    q = uuid_query.lower()
+    for d in json.loads(INDEX_FILE.read_text()):
+        u = d.get("uuid", "")
+        if u == q or u.startswith(q):
+            return {"uuid": u, "number": d.get("number"),
+                    "name": d.get("name"), "type": d.get("type"),
+                    "path": d.get("path")}
+    return None
 
 ENTRY_HEADER = re.compile(r"^## PR #(\d+)\s+—\s+(.+?)\s*$")
 META_DATE = re.compile(r"\*\*Merged:\*\*\s+(\d{4}-\d{2}-\d{2})")
@@ -104,6 +124,8 @@ def first_match_line(body: str, kw: str | None) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("keyword", nargs="?", help="Case-insensitive keyword (title or body)")
+    ap.add_argument("--uuid", help="Find entries citing this doc UUID (full or 8-char "
+                                   "prefix); resolves to the doc's current Atlas location")
     ap.add_argument("--entity", help="Filter by substring of path under history/")
     ap.add_argument("--type", dest="type_filter", help="Filter by **Type:** substring")
     ap.add_argument("--since", help="Earliest merged date (YYYY-MM-DD)")
@@ -124,10 +146,33 @@ def main() -> int:
 
     kw_pat = re.compile(re.escape(args.keyword), re.IGNORECASE) if args.keyword else None
 
+    # UUID lookup: changelog entries embed the doc's short UUID (`<8hex>…<4hex>`),
+    # so the 8-char prefix is a reliable, renumber-proof match token. Also resolve
+    # the UUID against the live index to print its current Atlas location.
+    uuid_token = None
+    if args.uuid:
+        q = args.uuid.lower()
+        # Changelogs embed the short form `<8hex>…<4hex>`. For a full UUID, match
+        # that exact form (most specific — zero false positives). For a partial
+        # prefix, fall back to the leading hex run.
+        if re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", q):
+            uuid_token = f"{q[:8]}…{q[-4:]}"
+        else:
+            uuid_token = q.replace("-", "")[:8]
+        resolved = resolve_uuid(args.uuid)
+        if resolved:
+            print(f"UUID {resolved['uuid']} → currently `{resolved['number']}` "
+                  f"[{resolved['type']}] {resolved['name']}", file=sys.stderr)
+        else:
+            print(f"UUID {args.uuid}: not in current index (deleted, or partial prefix).",
+                  file=sys.stderr)
+
     matches = []
     for path in iter_changelogs(args.entity):
         for entry in parse_entries(path):
             if args.pr is not None and entry["pr"] != args.pr:
+                continue
+            if uuid_token and uuid_token not in entry["body"].lower():
                 continue
             if kw_pat and not (kw_pat.search(entry["title"]) or kw_pat.search(entry["body"])):
                 continue
@@ -161,7 +206,7 @@ def main() -> int:
             print("---")
             print()
         else:
-            snippet = first_match_line(e["body"], args.keyword)
+            snippet = first_match_line(e["body"], args.keyword or uuid_token)
             if len(snippet) > 160:
                 snippet = snippet[:157] + "..."
             print(f"PR #{e['pr']} | {e['merged']} | {e['entity']} | {e['type']}")

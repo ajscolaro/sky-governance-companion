@@ -382,6 +382,18 @@ def classify_pattern(pair: dict) -> str:
     """Tag what kind of edit a paired change represents."""
     before = pair["before"]
     after = pair["after"]
+    # Reference renumber: a bare-integer segment inside a dotted Atlas doc
+    # number (the display text of a `[A.x.y - Name](uuid)` cross-reference).
+    # When a *linked* doc is renumbered elsewhere in the edit, the display
+    # text shifts (e.g. `…2.5.1` → `…2.6.1`) while the `(uuid)` target is
+    # unchanged — pure propagation noise, not a content change. Distinguished
+    # from a real parameter change ("5 → 6 days") by the dot-delimited context:
+    # the changed digit is bracketed by `.` on at least one side.
+    if (before and after
+            and before.isdigit() and after.isdigit()
+            and (pair.get("context_before", "").rstrip().endswith(".")
+                 or pair.get("context_after", "").lstrip().startswith("."))):
+        return "reference_renumber"
     # Solidity identifier whitespace fix: identifier with internal whitespace
     # becomes the same identifier without the space (keeps all alphanumerics).
     if (before and after
@@ -481,6 +493,11 @@ def main() -> int:
     sweep_buckets: dict[tuple[str, str, str], list[str]] = defaultdict(list)
     for doc in documents:
         for pair in doc["extracted"]["paired_changes"]:
+            # Reference renumbers are per-doc propagation noise, not a semantic
+            # sweep — excluding them stops bogus "`5` → `6` across N docs" lines
+            # (the changed digit is a cross-reference path segment, not a value).
+            if pair["pattern"] == "reference_renumber":
+                continue
             key = (pair["before"], pair["after"], pair["pattern"])
             if pair["before"] and pair["after"]:
                 sweep_buckets[key].append(doc["uuid"])

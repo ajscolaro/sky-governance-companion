@@ -140,6 +140,18 @@ Look for:
 - **Setup**: Did a previous PR create the structure that this one is modifying?
 - **Related decisions**: Did a previous change mention the same Risk Advisor recommendation or governance action?
 
+To trace one document's full history regardless of renumbering, query by UUID: `python3 scripts/atlas/search-history.py --uuid <uuid>`.
+
+### 6b. Assess downstream impact (link graph)
+
+For material changes, check what *other* docs reference the changed ones — they may now be stale or need a reader's attention:
+
+```bash
+python3 scripts/atlas/links.py --impact <changed-uuid> [<changed-uuid> ...]
+```
+
+This lists external dependents (docs outside the changed set that link to a changed doc). A change with many dependents is higher-blast-radius; call that out in the analysis. (`links.py <id>` alone shows one doc's forward links + backlinks.)
+
 ### 7. Look up market context
 
 Run `python3 scripts/market/market-lookup.py --date <merge-date>` (for merged PRs) or `--date <today>` (for open PRs) to understand the market environment. Use `--window <date>` to see price behavior around a governance event (-3d/+7d), or `--range <start> <end>` for trends over a period. Note any significant price or supply movements — especially for material changes to capital allocation, exposure limits, or staking parameters.

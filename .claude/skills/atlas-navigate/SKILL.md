@@ -103,7 +103,21 @@ jq '.[] | select(.number | startswith("A.6.1.1.1")) | select(.type == "Active Da
 jq '.[] | select(.number == "A.6.1.1.2.2.6.1.3.1.13") | .ancestors' data/index.json
 ```
 
-Index entry fields: `uuid`, `number`, `name`, `type`, `depth`, `heading_level`, `path`, `body_length`, `body_hash`, `lead_sentence`, `is_scaffold`, `is_active_data`, `parent_uuid`, `ancestors`.
+Index entry fields: `uuid`, `number`, `name`, `type`, `depth`, `heading_level`, `path`, `body_length`, `body_hash`, `lead_sentence`, `is_scaffold`, `is_active_data`, `parent_uuid`, `ancestors`, `uuid_refs` (outbound cross-reference UUIDs).
+
+## Following cross-references (link graph)
+
+Atlas docs link each other by UUID (`[A.1.2.3 - Name](uuid)`). `scripts/atlas/links.py` queries the persistent link graph (`data/link-graph.json`, built at session start from the index) so you can follow references in **one hop** instead of grepping bodies:
+
+```bash
+# What a doc references (forward) AND what references it (backlinks), by UUID or number
+python3 scripts/atlas/links.py A.2.3.1.2.2.2
+
+# Impact analysis: given a changed set, list EXTERNAL docs that depend on them
+python3 scripts/atlas/links.py --impact A.6.1.1.1.2.5.1 A.2.2.11.1
+```
+
+Use this when a question is about how docs relate ("what depends on the Core Council Allocation?", "what does this primitive reference?") rather than a single doc's text. If the graph is missing, run `scripts/atlas/build-link-graph.py` (or restart Claude to re-sync).
 
 ## Reading raw document files
 

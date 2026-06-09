@@ -100,19 +100,17 @@ When a scope-level changelog grows too large (50+ entries), split it by creating
 
 ## Entity routing
 
-`history/entity-routing.conf` maps Atlas path prefixes to history directory paths (relative to `history/`):
+`history/entity-routing.conf` maps Atlas documents to history directories. Each rule is **three** tab-separated columns — `prefix<TAB>dir<TAB>anchor-uuid`:
 
 ```
-# Agents (most specific — matched before scope catch-all)
-A.6.1.1.1	A.6--agents/A.6.1.1.1--spark
-A.6.1.1.2	A.6--agents/A.6.1.1.2--grove
-...
-# Scopes (catch-all)
-A.1	A.1--governance
-A.6	A.6--agents
+# prefix          directory                                anchor-uuid (immutable root)
+A.6.1.1.1	A.6--agents/A.6.1.1.1--spark	dee2f5a4-279a-488c-9a9d-9583e3216fbf
+A.1	A.1--governance	18ac7dd3-c646-4352-9b0d-d01a2932d7d1
 ```
 
-**Order matters.** Most specific prefixes first. The script walks top to bottom and uses the first match.
+`enrich.py` routes by matching the **anchor UUID** against a changed doc's own/ancestor UUIDs (resolved from its current number via the index). This is renumber-proof: when a subtree is renumbered, the UUID is unchanged so the anchor still matches even though the prefix has gone stale. The prefix is a human hint + fallback. **Order still matters** (most specific first) for both the UUID and fallback passes.
+
+When adding a new entity, fill the anchor UUID from the index (`scripts/atlas/search-index.sh --uuid`, or `number_to_uuid`). If you change the prefix without an anchor, routing degrades to the legacy number-prefix behavior. `enrich.py` prints a warning if an anchor UUID is missing from the index — that means the root doc was deleted/replaced and the rule needs re-anchoring.
 
 ## Detecting and adding new entities
 
@@ -239,6 +237,8 @@ Target length: 5-15 lines substantive, 3-5 lines trivial. If you catch yourself 
 ### Filling the Context section
 
 `process-pr.sh` leaves a `<!-- context: pending -->` placeholder under each entity's `### Context` heading. Replace it with 1-2 sentences that add value beyond the bullets — or strip the entire `### Context` block if there's nothing notable to say. **Don't pad.**
+
+**Pure-propagation entries are already done.** When an entity's whole changeset was reference renumbering (a linked doc moved and dotted cross-reference paths shifted, e.g. `…2.5.1` → `…2.6.1`, UUID targets unchanged), `render.py` collapses it to one `Reference renumbering across N docs` housekeeping line and auto-fills the Context with a factual one-liner — **no pending placeholder**. So `grep "context: pending"` won't surface these, and you don't touch them. You only fill entities that have a real material change. (This is common on weekly edits: a structural reorg in one scope ripples renumbered references into every agent artifact, but only the originating scope needs human Context.)
 
 For each affected entity (the script prints `Wrote entries to: <comma-separated list>` when it finishes):
 
