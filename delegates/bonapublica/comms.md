@@ -7,6 +7,34 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-04 — Ecosystem Spell Validation — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/252*
+
+*Relates to: June 4, 2026 Executive (RWA001-A Offboarding et al.) | Vote: **Validated***
+
+Key rationale points:
+
+- **On-chain spell verification** — Validated the deployed spell at `0x0ae3371e9c4e37515259d124c685fe6722c5e253` (Action `0x89048adf…1FE370`), confirming `action()` matches the expected address, `tag()` equals the keccak256 of the Action runtime bytecode, `sig()` is the `execute()` selector, `expiration()` resolves to July 3 2026, and `done()` is false.
+- **Integrity checks** — Confirmed Etherscan verification present, the spell is "Not a DarkSpell," not deployed via CREATE2, AGPL-3.0-or-later license, and Solc 0.8.16 compiler; the description hash matches the canonical executive.
+- **Test suite** — Reinstalled pinned Foundry (v1.7.1) and ran the spell test suite against the archived commit; Starknet tests passed and the DssSpell suite executed.
+
+---
+
+## 2026-06-02 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/251*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **UUID delta accounting** — Primary PDM voted Yes after diffing the full UUID set between `origin/main` and HEAD: 3 UUIDs minted (the new Reward Recipient And Sharing rule, the Primitive Reward Infrastructure container, and the Avalanche TokenMessenger doc), 5 retired (two subsumed reward docs, the consolidated Base CCTP doc, two Facilitator Ecosystem exemptions), and 0 altered in place.
+- **Moves preserve UUIDs** — Confirms the 578-doc renumbering / 465-doc rename footprint under A.2.2 is "a mechanical cascade from inserting A.2.2.4, not silent re-creation," with every relocated doc retaining its original UUID; the CCTP doc held its UUID through the rename and the Avalanche address `0x28b5a0e9…8cf5d` is unchanged.
+- **Integrity scan** — Reports 0 display-text/UUID mismatches across 10,342 docs and 0 dangling references to any retired UUID, concluding "the accounting is clean and the structural conclusion holds."
+
+---
+
 ## 2026-05-27 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/250*

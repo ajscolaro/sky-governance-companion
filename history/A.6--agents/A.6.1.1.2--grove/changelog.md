@@ -4,6 +4,57 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #253 — Atlas Edit Proposal — 2026-06-01
+**Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.6.1.1.2.2.6.1.2.1.1.1.1.2.4 deleted: Circle CCTP v2 Base To Mainnet** (UUID `16efc874…0706`)
+- **New: Circle CCTP v2 TokenMessenger** (`A.6.1.1.2.2.6.1.2.1.1.1.1.3.4`, UUID `2d54c733…b16d`): The address of the Circle CCTP v2 TokenMessenger contract for transferring USDC between Ethereum Mainnet and Avalanche is: `0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d`.
+- **Agent Creation Primitive** (`A.6.1.1.2.2.1.1`): `4` → `5`
+- **Prime Transformation Primitive** (`A.6.1.1.2.2.1.2`): `4` → `5`
+- **Executor Transformation Primitive** (`A.6.1.1.2.2.1.3`): `4` → `5`
+- **Agent Token Primitive** (`A.6.1.1.2.2.1.4`): `4` → `5`
+- **Genesis Primitives** (`A.6.1.1.2.2.1`): `4` → `5`
+- **Executor Accord Primitive** (`A.6.1.1.2.2.2.1`): `5` → `6`
+- **Root Edit Primitive** (`A.6.1.1.2.2.2.2`): `5` → `6`
+- **Light Agent Primitive** (`A.6.1.1.2.2.2.3`): `5` → `6`
+- **Operational Primitives** (`A.6.1.1.2.2.2`): `5` → `6`
+- **Ecosystem Upkeep Fee Primitive** (`A.6.1.1.2.2.3.1`): `6` → `7`
+- **Upkeep Rebate Primitive** (`A.6.1.1.2.2.3.2`): `6` → `7`
+- **Ecosystem Upkeep Primitives** (`A.6.1.1.2.2.3`): `6` → `7`
+- **Token SkyLink Primitive** (`A.6.1.1.2.2.4.1`): `7` → `8`
+- **SkyLink Primitives** (`A.6.1.1.2.2.4`): `7` → `8`
+- **Tracking Methodology** (`A.6.1.1.2.2.5.1.2.1.1.2`): `8` → `9`; `2` → `1`
+- **Routine Protocol** (`A.6.1.1.2.2.5.1.2.1.2.1`): `8` → `9`; `8` → `9`; `5` → `3`
+- **Distribution Reward Primitive** (`A.6.1.1.2.2.5.1`): `8` → `9`
+- **Integration Boost Primitive** (`A.6.1.1.2.2.5.2`): `8` → `9`
+- **Terms** (`A.6.1.1.2.2.5.3.2.1.1.2.3`): `8` → `9`
+- **Pioneer Chain Primitive** (`A.6.1.1.2.2.5.3`): `8` → `9`
+- **Demand Side Stablecoin Primitives** (`A.6.1.1.2.2.5`): `8` → `9`
+- **Grove Development Company’s Total Risk Capital (TRC) Management Processes** (`A.6.1.1.2.2.6.1.2.1.3.2`): `9` → `10`
+- **Junior Risk Capital Rental Primitive** (`A.6.1.1.2.2.6.2`): `9` → `10`
+- **Asset Liability Management Rental Primitive** (`A.6.1.1.2.2.6.3`): `9` → `10`
+- **Supply Side Stablecoin Primitives** (`A.6.1.1.2.2.6`): `9` → `10`
+- **Core Governance Reward Primitive** (`A.6.1.1.2.2.7.1`): `10` → `11`
+- **Core Governance Primitives** (`A.6.1.1.2.2.7`): `10` → `11`
+
+### Housekeeping
+- `A.6.1.1.2.2.6.1.2.1.1.1.1.2.3` (Circle CCTP v2 TokenMessenger): `Mainnet To Base` → `TokenMessenger`
+- `5` → `6` across 4 docs.
+- `9` → `10` across 4 docs.
+- `10` → `11` across 2 docs.
+- `8` → `9` across 7 docs.
+- `4` → `5` across 5 docs.
+- `7` → `8` across 2 docs.
+- `2` → `1` across 1 doc.
+- `5` → `3` across 1 doc.
+- `6` → `7` across 3 docs.
+
+### Context
+Adds the previously-missing Circle CCTP v2 TokenMessenger address for Avalanche (`0x28b5a0e9…cf5d`) and consolidates two duplicate Base documents recording the same contract into one; the remaining churn is version-reference propagation from the Support Scope (A.2) reorganization.
+
+---
+
 ## PR #251 — Atlas Edit Proposal — 2026-05-25
 **Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
 

@@ -7,6 +7,33 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-05 — Executive Spell Review: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/220*
+
+*Relates to: Executive spell (cast 2026-06-04) — RWA001-A Offboarding, Keeper Network Adjustments, ALLOCATOR-SPARK-A Parameter Updates, MKR→SKY Delayed Upgrade Penalty Increase, Prime Agent Proxy Spells | Vote: **Unspecified***
+
+Key rationale points:
+
+- **Review published, not a stated position** — The delegate posted a "Summary of vote" linking to an external CryptPad review of the June 4 spell (RWA001-A offboarding, keeper network adjustments, ALLOCATOR-SPARK-A parameter updates, MKR→SKY delayed upgrade penalty increase, Prime Agent proxy spells); the post itself states no explicit Yes/No.
+- **Acknowledged collaborator** — Credits @nofreekoolaid for support with the review.
+
+---
+
+## 2026-06-03 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/219*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes***
+
+Key rationale points:
+
+- **Reproduces AtlasAxis scope** — Voted Yes and reproduced the AtlasAxis summary verbatim "to confirm the exact scope being approved," covering reward-recipient unification, the Capital Ratio Requirement rename, removal of two Facilitator Ecosystem exemptions, the Grove CCTP v2 TokenMessenger amendment, and Immunefi URL updates.
+- **Reward framework sets boundaries** — Frames the reward unification as defining "the process and sets boundaries for the reward mechanisms for integrator relationships."
+- **Routine cleanup + Grove integrity** — Characterizes the remainder as routine edits (cleaning up language, deleting outdated features, updating links) and notes the Grove artifact is strengthened "by adding operational details and reducing the risk of misunderstandings."
+
+---
+
 ## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/218*

@@ -4,6 +4,669 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #253 — Atlas Edit Proposal — 2026-06-01
+**Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.2.2.9.1.1.1.1.1 deleted: Designation Process** (UUID `3161489a…5ae9`)
+- **Core A.2.2.9.1.1.2.2.1 deleted: Agent Inputs** (UUID `7a36f228…0121`)
+- **Core A.2.2.9.1.1.2.3.2 deleted: Initial Deployment and Required Risk Capital / Asset Liability Management Execution** (UUID `648bcae7…f90e`)
+- **Core A.2.2.9.1.1.3.2.1.3.2 deleted: Validation of TRC Report In General** (UUID `482fc286…659c`)
+- **Core A.2.2.9.1.1.3.3 deleted: Allocation Instance Adjustments, Scaling, And Settlement** (UUID `93bfb0f9…081e`)
+- **Core A.2.2.10.1.4.2 deleted: Allocation Based On Staked SKY** (UUID `f8d35814…7a5e`)
+- **Core A.2.2.10.1.4.3 deleted: Distribution Through Prime Agents** (UUID `9a723ca1…1da6`)
+- **Core A.2.2.10.1.4.2 deleted: Allocation Based On Staked SKY** (UUID `f8d35814…7a5e`)
+- **Core A.2.2.8.1.2.1.5.4 deleted: Payment Errors** (UUID `1b5edf68…92cc`)
+- **Core A.2.2.8.2.2.1.1.1 deleted: No Obligation To Pass Through Integration Boost Payments** (UUID `dc0bc012…a59a`)
+- **Core A.2.2.8.2.2.1.1 deleted: Integration Boost Partners** (UUID `31cb3b86…cea2`)
+- **Core A.2.2.8.2.2.1.3.3 deleted: Payment Errors** (UUID `8d19b08f…daec`)
+- **Core A.2.2.8.2.2.1.4.3 deleted: Prime Agent May Choose Whether To Share Distribution Reward With Integration Boost Partner** (UUID `c27d41eb…0f60`)
+- **Core A.2.2.8.2.2.1.4 deleted: Distribution Rewards** (UUID `d71a7b9c…26c1`)
+- **Core A.2.2.9.1.1.1.1.1 deleted: Designation Process** (UUID `3161489a…5ae9`)
+- **Core A.2.2.9.1.1.2.2.1 deleted: Agent Inputs** (UUID `7a36f228…0121`)
+- **Core A.2.2.9.1.1.2.3.2 deleted: Initial Deployment and Required Risk Capital / Asset Liability Management Execution** (UUID `648bcae7…f90e`)
+- **Core A.2.2.9.1.1.3.2.1.3.2 deleted: Validation of TRC Report In General** (UUID `482fc286…659c`)
+- **Core A.2.2.9.1.1.3.3 deleted: Allocation Instance Adjustments, Scaling, And Settlement** (UUID `93bfb0f9…081e`)
+- **Core A.2.2.8.1.2.1.5.4 deleted: Payment Errors** (UUID `1b5edf68…92cc`)
+- **Core A.2.2.8.2.2.1.1 deleted: Integration Boost Partners** (UUID `31cb3b86…cea2`)
+- **Core A.2.2.8.2.2.1.3.3 deleted: Payment Errors** (UUID `8d19b08f…daec`)
+- **Core A.2.2.8.2.2.1.4.3 deleted: Prime Agent May Choose Whether To Share Distribution Reward With Integration Boost Partner** (UUID `c27d41eb…0f60`)
+- **Core A.2.2.8.2.2.1.4 deleted: Distribution Rewards** (UUID `d71a7b9c…26c1`)
+- **New: Base Elements** (`A.2.2.10.1.1.1`, UUID `39f3ceee…5cb0`): The documents herein define base elements of the Allocation System Primitive.
+- **New: Allocation Instance Setup Process Definition** (`A.2.2.10.1.1.2`, UUID `f47513f6…70be`): The documents herein define the process for setting up an Allocation Instance as part of the Allocation System Primitive.
+- **New: Allocation Instance Ongoing Management** (`A.2.2.10.1.1.3`, UUID `2db14aa7…4d4c`): The documents herein define the process for managing an Allocation Instance as part of the Allocation System Primitive.
+- **New: Core Allocation Vault Address** (`A.2.2.10.1.2.2`, UUID `4655b643…9b62`): The Prime Agent Artifact must specify the address of the Prime Agent’s Core Allocation Vault.
+- **New: Core Allocation Buffer Address** (`A.2.2.10.1.2.3`, UUID `2cdb447e…e80f`): The Prime Agent Artifact must specify the address of the Prime Agent’s Core Allocation Buffer.
+- **New: Allocation System Core Security Parameters** (`A.2.2.10.1.2.4`, UUID `9c5e2e23…867d`): The Prime Agent Artifact must specify the rate limiters for the Allocation Vault and Core Allocation Buffer, including the address and parameters for each.
+- **New: Junior Risk Capital Rental Primitive** (`A.2.2.10.2`, UUID `d8086dc0…a1ce`): The Junior Risk Capital Rental Primitive is a mechanism enabling Prime Agents to rapidly rent Junior Risk Capital from each other, ensuring that capital gets deployed to where the best opportunities are.
+- **New: Asset Liability Management Rental Primitive** (`A.2.2.10.3`, UUID `bd1f1ce5…b08c`): The Asset Liability Management Rental Primitive is a mechanism enabling Prime Agents to trade Asset Liability Management obligations between each other, providing more flexibility in how capital is deployed through the Allocation System and.
+- **New: Core Governance Primitives** (`A.2.2.11`, UUID `6fa54611…ae5d`): Core Governance Primitives allow Prime Agents to earn incentives for maintaining and securing Sky Governance frontends as well as borrow from the Smart Burn Engine.
+  - **Core Governance Reward Primitive** (`A.2.2.11.1`): The Core Governance Reward Primitive is a reward that Sky pays to Prime Agents that provide SKY holders with secure access to the core Sky Governance features, ensuring that the Governance Security of Sky is maintained over time.
+  - **Reward Pool** (`A.2.2.11.1.1`): The total reward pool for the Core Governance Reward Primitive is 1% of the Net Revenue of Sky, funded out of the Core Council Allocation (see `A.2.3.1.2.2.2`).
+  - **Eligible Recipients** (`A.2.2.11.1.2`): In order for an Integrator and the Prime Agent that manages the relationship with such Integrator to be eligible for the Core Governance Reward, the frontend maintained by the Integrator must satisfy compliance requirements as specified in.
+  - **Current Eligible Recipients** (`A.2.2.11.1.2.1`): The current eligible recipients for the Core Governance Reward Primitive are.
+- **New: Agent Creation Primitive Results In One-Time Creation** (`A.2.2.5.1.1.2.1`, UUID `1ca2f5f3…2ae6`): Because the Agent Creation Primitive is deployed solely to effect the one-time creation of the Agent, no further management process is needed post-deployment.
+- **New: Executor Accord Primitive Setup Process** (`A.2.2.6.1.1.1`, UUID `af7c2593…a163`): The documents herein define the process for setting up an Instance of the Executor Accord Primitive.
+  - **Agent Inputs** (`A.2.2.6.1.1.1.1`): The Prime Agent and Operational Executor Agent must come to a consensus about the details of the Executor Accord.
+  - **Validation** (`A.2.2.6.1.1.1.2`): Core GovOps validates the Agent’s inputs, ensuring that the terms of the Executor Accord are reasonably specific.
+  - **Official Update Of Artifact** (`A.2.2.6.1.1.1.3`): After successful validation, the Executor Accord Primitive is considered successfully Invoked.
+- **New: Executor Accord Primitive Ongoing Management** (`A.2.2.6.1.1.2`, UUID `8fe7d3f4…b562`): The documents herein define the process for the ongoing management of an Instance of the Executor Accord Primitive.
+- **New: Executor Accord Primitive Activation Status** (`A.2.2.6.1.2.1`, UUID `7dcc0b40…f33a`): The Executor Accord Primitive must be Globally Activated.
+- **New: Executor Accord Terms** (`A.2.2.6.1.2.2`, UUID `2ac80f9d…16dc`): The Executor Accord Primitive must include the terms of the Executor Accord between the Prime Agent and Operational Executor Agent.
+- **New: Agent Agreement** (`A.2.2.6.1.2.3`, UUID `bf03d18d…5746`): The Executor Accord Primitive must include independent confirmation from each Agent that they agree to the terms of the Executor Accord.
+- **New: Root Edit Primitive Process Definition** (`A.2.2.6.2.1`, UUID `f543db65…157d`): The documents herein define the Process Definition for initial setup and ongoing management of an Instance of the Root Edit Primitive.
+  - **Agent Inputs** (`A.2.2.6.2.1.1.1`): The Agent must use the Powerhouse interface to specify the process by which Root Edits occur.
+  - **Validation** (`A.2.2.6.2.1.1.2`): Core GovOps validates the Agent’s inputs.
+  - **Official Update Of Artifact** (`A.2.2.6.2.1.1.3`): After successful validation, the Root Edit Primitive is considered successfully Invoked.
+  - **Root Edit Primitive Artifact Edit Proposal** (`A.2.2.6.2.1.2.1`): The process for using the Root Edit Primitive begins with a party presenting a proposal for an Artifact Edit.
+- **New: Root Edit Primitive Required Inputs** (`A.2.2.6.2.2`, UUID `cec43505…c468`): The documents herein define the required inputs for a valid Invocation of the Root Edit Primitive.
+  - **Root Edit Primitive Activation Status** (`A.2.2.6.2.2.1`): The Root Edit Primitive must be Globally Activated.
+  - **Artifact Edit Process** (`A.2.2.6.2.2.2`): The Root Edit Primitive must specify the process by which updates to the Agent Artifact may be made by Agent token holder vote.
+- **New: Light Agent Primitive** (`A.2.2.6.3`, UUID `44028423…2b90`): The Light Agent Primitive enables users to create Light Agents, which are sub-agents operating on top of the Agent’s Executor Accord, conferring the advantages of Sky GovOps at a lower cost, but without direct access to other Sky Primitives.
+- **New: Upkeep Rebate Primitive** (`A.2.2.7.2`, UUID `569e1c2b…2988`): The Upkeep Rebate Primitive allows a Prime Agent ("Holding Agent") to claim a rebate on its Ecosystem Upkeep Fees when it holds any portion of the token supply of another Prime Agent ("Issuing Agent").
+- **Integrator Program** (`A.2.2.4.1`): `3` → `9.2.2.1`; `9204bcaf` → `c398b383`; `4f49` → `4534`; `a115` → `aec6`; `31fad73ebd62` → `4cd8e7292119`
+- **Agent Upkeep Fees** (`A.2.3.1.2.1.2.4`): `6` → `7`
+- **Sky Savings Rate Paid Through Integration Boost** (`A.2.3.1.2.1.3.2`): `8` → `9`
+- **Distribution Rewards** (`A.2.3.1.2.1.3.3`): `8` → `9`
+- **Pioneer Rewards** (`A.2.3.1.2.1.3.5`): `8` → `9`
+- **Legacy Accounts** (`A.2.3.1.2.2.2.1.6.1`): `8` → `4`
+- **Ecosystem Actors Must Consolidate All Funds From Legacy Accounts** (`A.2.3.1.2.2.2.1.6.2`): `8` → `4`
+- **Legacy Accounts Are Replaced** (`A.2.3.1.2.2.2.1.6.3`): `8` → `4`
+- **Expense Recognition For Legacy Account Consolidation** (`A.2.3.1.2.2.2.1.6.4`): `8` → `4`
+- **Consolidation Of Funds From Legacy Accounts** (`A.2.3.1.2.2.2.1.6`): `8` → `4`
+- **Core Council Allocation** (`A.2.3.1.2.2.2`): `10` → `11`
+- **Operational Processes** (`A.2.4.1.1`): `8` → `9`
+- **Demand Side Stablecoin Primitive Recipients** (`A.2.4.1.2.1.2.1.1`): `8` → `9`
+- **Reimbursement Of Payments Made By Operational Executor Agents** (`A.2.4.1.2.1.4.3`): `8` → `9`
+- **Process For July / August 2025 Monthly Settlement Cycle** (`A.2.4.1.2.1.6.2`): `8` → `9`
+- **Amount Due From Sky To Primes With Respect To Distribution Reward** (`A.2.4.1.2.2.1.1.1.1`): `8` → `9`
+- **Revenue Share** (`A.2.8.2.1.2.1`): `9` → `10`
+- **Risk Capital Share** (`A.2.8.2.1.2.9.2`): `9` → `10`
+- **Subsequent Allocation Mechanism** (`A.2.8.2.2.2.4.5`): `5` → `6`
+- **Pioneer Incentive Pool** (`A.2.8.2.3.2.1`): `8` → `9`; `8` → `4`
+
+### Housekeeping
+- `A.2.11.1.1.2.1` (Assets In Scope): `makerdao` → `sky/scope`
+- `A.2.11.1.1.2.3` (Impacts In Scope): `makerdao` → `sky/scope`
+- `A.2.11.1.1.2.4` (Out Of Scope Vulnerabilities And Other Limitations): `makerdao` → `sky/scope`
+- `A.2.11.1.1.3.1` (Rewards For Smart Contract Vulnerabilities): `makerdao` → `sky/information`
+- `A.2.11.1.1.3.2` (Rewards For Website And Application Vulnerabilities): `makerdao` → `sky/information`
+- `A.2.2.10.1.1` (Allocation System Process Definition): `Net Revenue of Sky, funded out of the Core Council` → ``; `2.3.1.2.2.2 - Core Council Allocation](91b281c2-0687-45a3-939d-0480c7c33f9f)). Of this, 0.5% is paid to Integrators that maintain frontends that facilitate accessible governance, with the other 0.5% paid to the Prime Agents that manage the relationship with those Integrators.` → ``
+- `A.2.2.10.1.2.1` (Global Activation Status): `Current Eligible Recipients` → `Global Activation Status`
+- `A.2.2.10.1.2` (Allocation System Input Requirements): removed refs to `A.2.2.11.1.3`
+- `A.2.2.10.1` (Allocation System Primitive): `Core Governance Reward` → `Allocation System`
+- `A.2.2.10` (Supply Side Stablecoin Primitives): `Core Governance` → `Supply Side Stablecoin`
+- `A.2.2.5.1.1.1.1` (Founder Inputs): removed `###### A.2.2.4.1.1.1.1 - Founder Inputs [Core]`
+- `A.2.2.5.1.1.1.2` (Validation): `Core GovOps validates the Founder’s inputs. This includes verifying that all of the documents created by the Founder using Founder Access are well-specified, that the documents are Aligned, and that all necessary Primitives to complete setup have been Activated. The necessary Primitives are the Agent Creation, Prime/Executor Transformation, Agent Token, Executor Accord, Root Edit, and Ecosystem Upkeep Fee Primitives. (See [A.2.2.1.1.3.1 - Founder Required Primitive Activation](1a48e833-d960-4bdf-8f67-0f9d9307e00d).) After confirming these conditions, Core GovOps creates a Genesis Account and a SubProxy Account for the Agent.` → ``
+- `A.2.2.4.1.1.1` (Alignment): `Agent Creation Instance Setup Process` → `Alignment`
+- `A.2.2.4.1.1.2.1` (Consequence For Integrator Non-Compliance With Local Laws And Regulations): `Agent Creation Primitive Results In One-Time Creation` → `Consequence For Integrator Non-Compliance With Local Laws And Regulations`
+- `A.2.2.4.1.1.2` (Compliance With Local Laws And Regulations As A Condition Precedent To Integrators Receiving Distribution Rewards): removed `###### A.2.2.4.1.1.2 - Agent Creation Instance Ongoing Management [Core]`
+- `A.2.2.4.1.1` (Integrator Requirements): `Agent Creation Primitive Process Definition` → `Integrator Requirements`
+- `A.2.2.4.1.2.1` (Near Term Process): `Global Activation Status` → `Near Term Process`
+- `A.2.2.4.1.2.2` (Long Term Process): `Agent Name And Introduction` → `Long Term Process`
+- `A.2.2.4.1.2` (Integrator Applications): `Agent Creation Primitive Input Requirements` → `Integrator Applications`
+- `A.2.2.5.2.1.1.1` (Agent Inputs): removed `###### A.2.2.4.2.1.1.1 - Agent Inputs [Core]`
+- `A.2.2.5.2.1.1.2` (Validation): `Core GovOps validates the Proto-Agent’s inputs, namely, the Agent Type. Additionally, Core GovOps performs a further review to confirm that all the documents created by the Founder using Founder Access are well-specified, that the documents are Aligned, and that all necessary Primitives have been Activated. The necessary Primitives are the Agent Creation, Prime/Executor Transformation, Agent Token, Executor Accord, Root Edit, and Ecosystem Upkeep Fee Primitives. (See [A.2.2.1.1.3.1 - Founder Required Primitive Activation](1a48e833-d960-4bdf-8f67-0f9d9307e00d).)` → ``
+- `A.2.2.4.2` (Reward Recipient And Sharing): `or Executor Agent to gain functionality` → `that manages the relationship with the Integrator`
+- `A.2.2.4.3` (Demand Side Buffer): `Executor Transformation Primitive` → `Demand Side Buffer`; `Executor Transformation Primitive allows` → `Demand Side Buffer is the account used for disbursement of Distribution Reward and Integration Boost payments. The Demand Side Buffer is controlled by a multisig as specified in the documents herein. The balance of this account may be topped up through`
+- `A.2.2.4` (Primitive Reward Infrastructure): `Genesis Primitives` → `Primitive Reward Infrastructure`
+- `A.2.2.5.1.1.1.1` (Founder Inputs): `Prime Agent and Operational Executor Agent must come to a consensus about the details of the Executor Accord. These details must be entered into` → `Founder uses`
+- `A.2.2.5.1.1.1.2` (Validation): `` → `Agent Creation, Prime/Executor Transformation, Agent Token,`
+- `A.2.2.5.1.1.1.3` (Official Update Of Artifact): `Executor Accord` → `Agent Creation`; `Executor Accord` → `Agent Creation`
+- `A.2.2.5.1.2.2` (Agent Name And Introduction): `Executor Accord Terms` → `Agent Name And Introduction`; `Executor Accord` → `Agent Creation`
+- `A.2.2.5.1.2.3` (Agent SubProxy Account): `Executor Accord` → `Agent Creation`; `Executor Accord` → `Agent. This field is populated by Core GovOps`
+- `A.2.2.5.1.2` (Agent Creation Primitive Input Requirements): `Executor Accord` → `Agent Creation`; `Executor Accord` → `Agent Creation`
+- `A.2.2.5.1` (Agent Creation Primitive): `Executor Accord` → `Agent Creation`; `The Executor Accord` → `This`
+- `A.2.2.5.2.1.1.1` (Agent Inputs): removed refs to `A.1.14.2.7`
+- `A.2.2.5.2.1.1.2` (Validation): `` → `Additionally, Core GovOps performs a further review to confirm that all the documents created by the Founder using Founder Access are well-specified, that the documents are Aligned, and that all necessary Primitives have been Activated. The necessary Primitives are the Agent Creation, Prime/Executor Transformation, Agent Token, Executor Accord, Root Edit, and Ecosystem Upkeep Fee Primitives. (See [A.2.2.1.1.3.1 - Founder Required Primitive Activation](1a48e833-d960-4bdf-8f67-0f9d9307e00d).)`
+- `A.2.2.5.2.1.1.3` (Official Update Of Artifact): `Root Edit` → `Prime Transformation`
+- `A.2.2.5.2.1.1` (Prime Transformation Primitive Setup Process): `Root Edit` → `Prime Transformation`
+- `A.2.2.5.2.1.2.1` (Prime Transformation Primitive Results In One-Time Creation): `Root Edit` → `Prime Transformation`
+- `A.2.2.5.2.1.2` (Prime Transformation Primitive Ongoing Management): `Root Edit` → `Prime Transformation`
+- `A.2.2.5.2.1` (Prime Transformation Primitive Process Definition): `Root Edit` → `Prime Transformation`
+- `A.2.2.5.2.2.1` (Global Activation Status): `Root Edit Primitive` → `Global`
+- `A.2.2.5.2.2.2` (Prime Agent Type): `The details of this process may be specified by the Agent, subject to the following conditions: (1) Agent token holders must vote to approve Artifact Edit proposals, (2) the Operational Facilitator must review each proposal for alignment and conformance with the process specified in the Root Edit Primitive, (3) the vote must be conducted by the Operational Facilitator, and (4) the Operational Facilitator must action the Artifact Edit if the vote passes. The process definition must include the elements included in the documents herein.` → ``
+- `A.2.2.5.2.2` (Prime Transformation Primitive Input Requirements): `Root Edit` → `Prime Transformation`
+- `A.2.2.5.2` (Prime Transformation Primitive): `specified in the Executor Accord` → `to gain functionality. The Prime Transformation`
+- `A.2.2.5.3` (Executor Transformation Primitive): `Light Agent` → `Executor Transformation`; `Light` → `Executor Transformation Primitive allows an`
+- `A.2.2.5` (Genesis Primitives): `Operational` → `Genesis`
+- `A.2.2.6.1.1` (Executor Accord Primitive Process Definition): `Sky Core-Designated Address` → `Executor Accord Primitive Process Definition`; `Atlas` → `Executor Accord Primitive`
+- `A.2.2.6.1.2` (Executor Accord Primitive Required Inputs): `Valuation` → `Executor Accord Primitive Required Inputs`; `token over the 24-hour period ending at 23:59 UTC on the last day of each month, immediately preceding the payment event. This value is applied in the rebate calculation under the Upkeep Rebate` → `Executor Accord`
+- `A.2.2.6.1` (Executor Accord Primitive): `Ecosystem Upkeep Fee` → `Executor Accord`; `Ecosystem Upkeep Fee` → `Executor Accord`
+- `A.2.2.6.2` (Root Edit Primitive): `` → `The Root Edit Primitive allows Prime Agents, through a token holder vote, to direct the Operational Executor Agent specified in the Executor Accord Primitive to directly modify the Prime Agent Artifact.`
+- `A.2.2.6` (Operational Primitives): `Ecosystem Upkeep` → `Operational`
+- `A.2.2.8.1.1.1` (Token SkyLink Setup Process Definition): removed `###### A.2.2.7.1.1.1 - Token SkyLink Setup Process Definition [Core]`
+- `A.2.2.8.1.1.2` (Token SkyLink Ongoing Management): removed `###### A.2.2.7.1.1.2 - Token SkyLink Ongoing Management [Core]`
+- `A.2.2.7.1.1` (Sky Core-Designated Address): `Token SkyLink Process Definition` → `Sky Core-Designated Address`
+- `A.2.2.8.1.2.1` (Token SkyLink Activation Status): removed `###### A.2.2.7.1.2.1 - Token SkyLink Activation Status [Core]`
+- `A.2.2.8.1.2.2` (List of Active Token SkyLink Deployments): removed `###### A.2.2.7.1.2.2 - List of Active Token SkyLink Deployments [Core]`
+- `A.2.2.7.1.2` (Valuation): added refs to `A.2.2.7.2`
+- `A.2.2.7.1` (Ecosystem Upkeep Fee Primitive): added refs to `A.2.2.7.1.1`
+- `A.2.2.7` (Ecosystem Upkeep Primitives): `SkyLink` → `Ecosystem Upkeep`
+- `A.2.2.8.1.1.1` (Token SkyLink Setup Process Definition): `Purpose` → `Token SkyLink Setup Process Definition`
+- `A.2.2.8.1.1.2` (Token SkyLink Ongoing Management): `Allowed Number Of Instances` → `Token SkyLink Ongoing Management`
+- `A.2.2.8.1.1` (Token SkyLink Process Definition): `Introduction` → `Token SkyLink Process Definition`
+- `A.2.2.4.1.1.1` (Alignment): removed `###### A.2.2.8.1.2.1.1.1.1 - Alignment [Core]`
+- `A.2.2.4.1.1.2.1` (Consequence For Integrator Non-Compliance With Local Laws And Regulations): removed `###### A.2.2.8.1.2.1.1.1.2.1 - Consequence For Integrator Non-Compliance With Local Laws And Regulations [Core]`
+- `A.2.2.4.1.1.2` (Compliance With Local Laws And Regulations As A Condition Precedent To Integrators Receiving Distribution Rewards): removed `###### A.2.2.8.1.2.1.1.1.2 - Compliance With Local Laws And Regulations As A Condition Precedent To Integrators Receiving Distribution Rewar…`
+- `A.2.2.4.1.1` (Integrator Requirements): removed `###### A.2.2.8.1.2.1.1.1 - Integrator Requirements [Core]`
+- `A.2.2.4.1.2.1` (Near Term Process): removed `###### A.2.2.8.1.2.1.1.2.1 - Near Term Process [Core]`
+- `A.2.2.4.1.2.2` (Long Term Process): removed `###### A.2.2.8.1.2.1.1.2.2 - Long Term Process [Core]`
+- `A.2.2.4.1.2` (Integrator Applications): removed `###### A.2.2.8.1.2.1.1.2 - Integrator Applications [Core]`
+- `A.2.2.4.1` (Integrator Program): removed refs to `A.2.2.9.2.2.1`
+- `A.2.2.4.3` (Demand Side Buffer): removed `###### A.2.2.8.1.2.1.4 - Demand Side Buffer [Core]`
+- `A.2.2.8.1.2.1` (Token SkyLink Activation Status): `Base Elements` → `Token SkyLink Activation Status`
+- `A.2.2.8.1.2.2` (List of Active Token SkyLink Deployments): `Global Activation` → `List of Active Token SkyLink Deployments`
+- `A.2.2.9.1.2.3` (Instance Invocation Protocol): removed `###### A.2.2.8.1.2.3 - Instance Invocation Protocol [Core]`
+- `A.2.2.9.1.2.4` (Instance Ongoing Management Protocol): removed `###### A.2.2.8.1.2.4 - Instance Ongoing Management Protocol [Core]`
+- `A.2.2.8.1.2` (Token SkyLink Input Requirements): `Global Specification` → `Token SkyLink Input Requirements`
+- `A.2.2.8.1` (Token SkyLink Primitive): `Distribution Reward` → `Token SkyLink`
+- `A.2.2.9.2` (Integration Boost Primitive): removed `###### A.2.2.8.2 - Integration Boost Primitive [Core]`
+- `A.2.2.9.3` (Pioneer Chain Primitive): removed `###### A.2.2.8.3 - Pioneer Chain Primitive [Core]`
+- `A.2.2.8` (SkyLink Primitives): `Demand Side Stablecoin` → `SkyLink`
+- `A.2.2.9.1.1.1` (Purpose): `Base Elements` → `Purpose`
+- `A.2.2.9.1.1.2` (Allowed Number Of Instances): `Allocation Instance Setup Process Definition` → `Allowed Number Of Instances`
+- `A.2.2.9.1.1.3` (Multi-Instance Coordinator Document): `Allocation` → `Multi-`
+- `A.2.2.9.1.1` (Introduction): `Allocation System Process Definition` → `Introduction`
+- `A.2.2.9.1.2.1` (Base Elements): `Global Activation Status` → `Base Elements`
+- `A.2.2.9.1.2.2` (Global Activation): `Core Allocation Vault Address` → `Global Activation`
+- `A.2.2.9.1.2.3` (Instance Invocation Protocol): `Core Allocation Buffer Address` → `Instance Invocation Protocol`
+- `A.2.2.9.1.2.4` (Instance Ongoing Management Protocol): `Allocation System Core Security Parameters` → `Instance Ongoing Management Protocol`
+- `A.2.2.9.1.2` (Global Specification): `Allocation System Input Requirements` → `Global Specification`
+- `A.2.2.9.1` (Distribution Reward Primitive): `Allocation System` → `Distribution Reward`
+- `A.2.2.9.2` (Integration Boost Primitive): `Junior Risk Capital Rental` → `Integration Boost`
+- `A.2.2.9.3` (Pioneer Chain Primitive): `Asset Liability Management Rental` → `Pioneer Chain`
+- `A.2.2.9` (Demand Side Stablecoin Primitives): `Supply` → `Demand`
+- `A.2.2.10.1.1.1.1.2.0.6.1` renumbered (UUID stable: `5f368e33…c043`)
+- `A.2.2.10.1.1.1.1.2` renumbered (UUID stable: `1c0410e4…fbec`)
+- `A.2.2.10.1.1.1.1.3.1` renumbered (UUID stable: `8bd63c6b…cd6d`)
+- `A.2.2.10.1.1.1.1.3` renumbered (UUID stable: `cbd64e6c…aef1`)
+- `A.2.2.10.1.1.1.1.4` renumbered (UUID stable: `07e0f716…3f48`)
+- `A.2.2.10.1.1.1.1.5` renumbered (UUID stable: `b683953e…4870`)
+- `A.2.2.10.1.1.1.1.6` renumbered (UUID stable: `bfb8013f…4107`)
+- `A.2.2.10.1.1.1.1` renumbered (UUID stable: `b3fb8653…6703`)
+- `A.2.2.10.1.1.1.2.1` renumbered (UUID stable: `a578830d…50ae`)
+- `A.2.2.10.1.1.1.2.2.1` renumbered (UUID stable: `8b5f1ffd…fadb`)
+- `A.2.2.10.1.1.1.2.2.2` renumbered (UUID stable: `ae8674bc…6e9a`)
+- `A.2.2.10.1.1.1.2.2.3` renumbered (UUID stable: `8d0419a4…3694`)
+- `A.2.2.10.1.1.1.2.2.4` renumbered (UUID stable: `02918cfc…cbac`)
+- `A.2.2.10.1.1.1.2.2` renumbered (UUID stable: `8efb0a11…39b5`)
+- `A.2.2.10.1.1.1.2.3` renumbered (UUID stable: `d59a233c…5fd8`)
+- `A.2.2.10.1.1.1.2.4` renumbered (UUID stable: `e50fd86a…d171`)
+- `A.2.2.10.1.1.1.2.5` renumbered (UUID stable: `b95b3bd8…aea3`)
+- `A.2.2.10.1.1.1.2.6` renumbered (UUID stable: `7c6da187…3ea7`)
+- `A.2.2.10.1.1.1.2` renumbered (UUID stable: `a8a3e54d…9aa3`)
+- `A.2.2.10.1.1.2.1.1` renumbered (UUID stable: `b60b170f…25ba`)
+- `A.2.2.10.1.1.2.1.2` renumbered (UUID stable: `8d3b553c…1c58`)
+- `A.2.2.10.1.1.2.1.3.1` renumbered (UUID stable: `c3b53ee8…8706`)
+- `A.2.2.10.1.1.2.1.3.2` renumbered (UUID stable: `a30447be…d6f5`)
+- `A.2.2.10.1.1.2.1.3.3` renumbered (UUID stable: `a156b120…a102`)
+- `A.2.2.10.1.1.2.1.3` renumbered (UUID stable: `4aa05a21…edba`)
+- `A.2.2.10.1.1.2.1.4` renumbered (UUID stable: `e7d3d696…7cc6`)
+- `A.2.2.10.1.1.2.1` renumbered (UUID stable: `eeeeb5ff…f833`)
+- `A.2.2.10.1.1.2.2.2` renumbered (UUID stable: `dbae3918…aa70`)
+- `A.2.2.10.1.1.2.2.3` renumbered (UUID stable: `2b1612b8…40de`)
+- `A.2.2.10.1.1.2.2` renumbered (UUID stable: `410c84be…8948`)
+- `A.2.2.10.1.1.2.3.1` renumbered (UUID stable: `6899a722…bab0`)
+- `A.2.2.10.1.1.2.3` renumbered (UUID stable: `3766cb8c…0532`)
+- `A.2.2.10.1.1.3.1` renumbered (UUID stable: `989512c2…6024`)
+- `A.2.2.10.1.1.3.2.1.1.1` renumbered (UUID stable: `f7da0f56…7992`)
+- `A.2.2.10.1.1.3.2.1.1.2` renumbered (UUID stable: `18243e7a…5f9d`)
+- `A.2.2.10.1.1.3.2.1.1` renumbered (UUID stable: `4eac2c9e…4d13`)
+- `A.2.2.10.1.1.3.2.1.2.1` renumbered (UUID stable: `9a8120c4…13f5`)
+- `A.2.2.10.1.1.3.2.1.2.2` renumbered (UUID stable: `d034533f…765f`)
+- `A.2.2.10.1.1.3.2.1.2.3.1` renumbered (UUID stable: `7e95efa7…bf31`)
+- `A.2.2.10.1.1.3.2.1.2.3.2` renumbered (UUID stable: `4887e971…0fa0`)
+- `A.2.2.10.1.1.3.2.1.2.3` renumbered (UUID stable: `41ca2085…b6fc`)
+- `A.2.2.10.1.1.3.2.1.2` renumbered (UUID stable: `3af8a3a2…2685`)
+- `A.2.2.10.1.1.3.2.1.3.1` renumbered (UUID stable: `8048bdf0…3c84`)
+- `A.2.2.10.1.1.3.2.1.3.2.1` renumbered (UUID stable: `1ac3e606…98d3`)
+- `A.2.2.10.1.1.3.2.1.3.3` renumbered (UUID stable: `36f3e675…6273`)
+- `A.2.2.10.1.1.3.2.1.3` renumbered (UUID stable: `18d692ce…7987`)
+- `A.2.2.10.1.1.3.2.1.4` renumbered (UUID stable: `12b7d480…c112`)
+- `A.2.2.10.1.1.3.2.1.5` renumbered (UUID stable: `1ec5f16f…554b`)
+- `A.2.2.10.1.1.3.2.1` renumbered (UUID stable: `1c5fb5bb…276e`)
+- `A.2.2.10.1.1.3.2.2` renumbered (UUID stable: `ed10830e…18bb`)
+- `A.2.2.10.1.1.3.2` renumbered (UUID stable: `13eb2346…46ab`)
+- `A.2.2.10.1.1.3.3.1.1` renumbered (UUID stable: `3db4c73f…e166`)
+- `A.2.2.10.1.1.3.3.1.2` renumbered (UUID stable: `235a7317…8dc8`)
+- `A.2.2.10.1.1.3.3.1.3` renumbered (UUID stable: `aee1d848…474a`)
+- `A.2.2.10.1.1.3.3.1.4` renumbered (UUID stable: `e3a00c33…00fa`)
+- `A.2.2.10.1.1.3.3.1` renumbered (UUID stable: `c1b5708c…4f13`)
+- `A.2.2.10.1.2.5` renumbered (UUID stable: `4b8cf927…86be`)
+- `A.2.2.10.1.2.6.1` renumbered (UUID stable: `6ad0fdb4…e0ec`)
+- `A.2.2.10.1.2.6.2.1` renumbered (UUID stable: `3f48dff7…e318`)
+- `A.2.2.10.1.2.6.2.2` renumbered (UUID stable: `2cdd38d7…c275`)
+- `A.2.2.10.1.2.6.2.3` renumbered (UUID stable: `4363d9c4…415e`)
+- `A.2.2.10.1.2.6.2` renumbered (UUID stable: `0e4a5264…b46b`)
+- `A.2.2.10.1.2.6` renumbered (UUID stable: `e4975062…8cb9`)
+- `A.2.2.11.1.3.1` renumbered (UUID stable: `a6ab8a87…989c`)
+- `A.2.2.11.1.3.2` renumbered (UUID stable: `6c53d0a0…4a28`)
+- `A.2.2.11.1.3` renumbered (UUID stable: `068c37b5…dbc3`)
+- `A.2.2.11.1.4.1` renumbered (UUID stable: `dc825d62…f9a6`)
+- `A.2.2.11.1.4.2.1` renumbered (UUID stable: `b16cb8a3…a8e1`)
+- `A.2.2.11.1.4` renumbered (UUID stable: `72ce2c27…7659`)
+- `A.2.2.11.1.5` renumbered (UUID stable: `b3f97303…bd7e`)
+- `A.2.2.4.1.1.2.2` renumbered (UUID stable: `0bdcef8a…dad0`)
+- `A.2.2.4.1.2.1.1.0.6.1` renumbered (UUID stable: `30db9618…ff62`)
+- `A.2.2.4.1.2.1.1` renumbered (UUID stable: `d251bbac…3e19`)
+- `A.2.2.4.1.3.1` renumbered (UUID stable: `fc46821f…6702`)
+- `A.2.2.4.1.3` renumbered (UUID stable: `361e2e68…509e`)
+- `A.2.2.4.3.1` renumbered (UUID stable: `dadf97b5…345f`)
+- `A.2.2.4.3.2` renumbered (UUID stable: `8e341f8c…179c`)
+- `A.2.2.4.3.3` renumbered (UUID stable: `af4edd62…ab0b`)
+- `A.2.2.4.3.4` renumbered (UUID stable: `f489f6b8…14b8`)
+- `A.2.2.4.3.5` renumbered (UUID stable: `379f5e3c…e157`)
+- `A.2.2.4.3.6.1.0.6.1` renumbered (UUID stable: `620715c0…c572`)
+- `A.2.2.4.3.6.1` renumbered (UUID stable: `32e27a27…7b97`)
+- `A.2.2.4.3.6` renumbered (UUID stable: `dfc22e9d…2f77`)
+- `A.2.2.5.1.2.4` renumbered (UUID stable: `761966db…7d26`)
+- `A.2.2.5.4.1.1.1` renumbered (UUID stable: `f74588a5…0612`)
+- `A.2.2.5.4.1.1.2` renumbered (UUID stable: `6f63137d…f54a`)
+- `A.2.2.5.4.1.1.3` renumbered (UUID stable: `309e17ed…a1f8`)
+- `A.2.2.5.4.1.1.4` renumbered (UUID stable: `d26166c3…8ed3`)
+- `A.2.2.5.4.1.1` renumbered (UUID stable: `3e49628d…aa54`)
+- `A.2.2.5.4.1.2.1` renumbered (UUID stable: `0489781a…d41c`)
+- `A.2.2.5.4.1.2` renumbered (UUID stable: `d8f6b024…8850`)
+- `A.2.2.5.4.1` renumbered (UUID stable: `f7a81be7…4010`)
+- `A.2.2.5.4.2.1` renumbered (UUID stable: `fb858d4e…f8f0`)
+- `A.2.2.5.4.2.2` renumbered (UUID stable: `98fa133d…b9bb`)
+- `A.2.2.5.4.2.3` renumbered (UUID stable: `46bbc08e…35f9`)
+- `A.2.2.5.4.2.4` renumbered (UUID stable: `ed342c6e…ba62`)
+- `A.2.2.5.4.2.5` renumbered (UUID stable: `745126ca…e74b`)
+- `A.2.2.5.4.2.6` renumbered (UUID stable: `70e08dd1…37e8`)
+- `A.2.2.5.4.2.7` renumbered (UUID stable: `0f71bdc3…1d27`)
+- `A.2.2.5.4.2.8` renumbered (UUID stable: `3d43ba11…f1eb`)
+- `A.2.2.5.4.2` renumbered (UUID stable: `9d88d70e…61fd`)
+- `A.2.2.5.4` renumbered (UUID stable: `2047c361…2064`)
+- `A.2.2.6.1.1.1.4` renumbered (UUID stable: `8179ca9b…91cf`)
+- `A.2.2.6.2.1.2.2` renumbered (UUID stable: `823cad54…fabd`)
+- `A.2.2.6.2.1.2.3` renumbered (UUID stable: `7e4574c0…0aed`)
+- `A.2.2.6.2.1.2.4` renumbered (UUID stable: `34d06691…ef0f`)
+- `A.2.2.6.2.2.2.1` renumbered (UUID stable: `7a473c50…08d9`)
+- `A.2.2.6.2.2.2.2` renumbered (UUID stable: `b5e21f94…5cf9`)
+- `A.2.2.6.2.2.2.3` renumbered (UUID stable: `0580f68b…0f81`)
+- `A.2.2.6.2.2.2.4` renumbered (UUID stable: `0ca3f0ee…4848`)
+- `A.2.2.6.2.2.2.5` renumbered (UUID stable: `d4ad86a0…be0e`)
+- `A.2.2.6.2.2.2.6` renumbered (UUID stable: `0c36f76d…3982`)
+- `A.2.2.6.2.2.2.7` renumbered (UUID stable: `dda24bc9…d198`)
+- `A.2.2.6.2.2.2.8.1.1` renumbered (UUID stable: `02fb768f…9269`)
+- `A.2.2.6.2.2.2.8.1.2` renumbered (UUID stable: `119efbc0…edd4`)
+- `A.2.2.6.2.2.2.8.1.3` renumbered (UUID stable: `f6dc0c8e…a4d8`)
+- `A.2.2.6.2.2.2.8.1.4` renumbered (UUID stable: `42cedad0…9311`)
+- `A.2.2.6.2.2.2.8.1.5` renumbered (UUID stable: `56c255d4…023c`)
+- `A.2.2.6.2.2.2.8.1` renumbered (UUID stable: `82f9f4b9…3b75`)
+- `A.2.2.6.2.2.2.8` renumbered (UUID stable: `b6fa5678…f689`)
+- `A.2.2.6.2.3.1` renumbered (UUID stable: `8c15762a…9c0f`)
+- `A.2.2.6.2.3.2.1` renumbered (UUID stable: `461272f0…86c7`)
+- `A.2.2.6.2.3.2.2.1` renumbered (UUID stable: `4b37392d…3743`)
+- `A.2.2.6.2.3.2.2` renumbered (UUID stable: `07d1ed44…0acc`)
+- `A.2.2.6.2.3.2.3` renumbered (UUID stable: `afeaa98f…667d`)
+- `A.2.2.6.2.3.2.4` renumbered (UUID stable: `61414e64…53b6`)
+- `A.2.2.6.2.3.2` renumbered (UUID stable: `364e52eb…baeb`)
+- `A.2.2.6.2.3` renumbered (UUID stable: `459f257e…67ff`)
+- `A.2.2.8.1.1.1.1.1` renumbered (UUID stable: `298ee5be…c038`)
+- `A.2.2.8.1.1.1.1.2` renumbered (UUID stable: `eec4c93e…042c`)
+- `A.2.2.8.1.1.1.1.3` renumbered (UUID stable: `aa9f9672…c125`)
+- `A.2.2.8.1.1.1.1` renumbered (UUID stable: `f1836fc1…56b3`)
+- `A.2.2.8.1.1.1.2.1` renumbered (UUID stable: `5027bb60…33e5`)
+- `A.2.2.8.1.1.1.2.2` renumbered (UUID stable: `cac40223…ba00`)
+- `A.2.2.8.1.1.1.2.3` renumbered (UUID stable: `79abf483…e7a8`)
+- `A.2.2.8.1.1.1.2` renumbered (UUID stable: `18ce8e21…66ee`)
+- `A.2.2.8.1.1.1.3.1` renumbered (UUID stable: `af88c454…e209`)
+- `A.2.2.8.1.1.1.3.2` renumbered (UUID stable: `c18d8c58…0f90`)
+- `A.2.2.8.1.1.1.3` renumbered (UUID stable: `21241867…0292`)
+- `A.2.2.8.1.1.2.1` renumbered (UUID stable: `97fb1954…2e0e`)
+- `A.2.2.9.1.2.1.1.1.1` renumbered (UUID stable: `e00e28d1…3b07`)
+- `A.2.2.9.1.2.1.1.1` renumbered (UUID stable: `225454ec…a453`)
+- `A.2.2.9.1.2.1.1.2.1` renumbered (UUID stable: `87fd6861…e3e2`)
+- `A.2.2.9.1.2.1.1.2.2` renumbered (UUID stable: `1b5cc0ee…17dc`)
+- `A.2.2.9.1.2.1.1.2.3` renumbered (UUID stable: `f710bddf…6333`)
+- `A.2.2.9.1.2.1.1.2.4` renumbered (UUID stable: `5eba1c21…5f16`)
+- `A.2.2.9.1.2.1.1.2.5` renumbered (UUID stable: `c0b77312…5a7c`)
+- `A.2.2.9.1.2.1.1.2` renumbered (UUID stable: `ec2c6d8a…cc37`)
+- `A.2.2.9.1.2.1.1.3` renumbered (UUID stable: `75ddec36…e848`)
+- `A.2.2.9.1.2.1.1` renumbered (UUID stable: `cda71b0c…bfe1`)
+- `A.2.2.9.1.2.1.2.1.1` renumbered (UUID stable: `3f3162cc…4261`)
+- `A.2.2.9.1.2.1.2.1.2` renumbered (UUID stable: `ce66fc65…032e`)
+- `A.2.2.9.1.2.1.2.1.3` renumbered (UUID stable: `f2b3688f…abab`)
+- `A.2.2.9.1.2.1.2.1` renumbered (UUID stable: `1d9219cb…4c63`)
+- `A.2.2.9.1.2.1.2` renumbered (UUID stable: `57384c49…4759`)
+- `A.2.2.9.1.2.1.3.1` renumbered (UUID stable: `02d1e35f…a9d1`)
+- `A.2.2.9.1.2.1.3.2` renumbered (UUID stable: `38cb0bfe…d08e`)
+- `A.2.2.9.1.2.1.3.3.1` renumbered (UUID stable: `05fb732b…d2d2`)
+- `A.2.2.9.1.2.1.3.3.2` renumbered (UUID stable: `07953e87…ba94`)
+- `A.2.2.9.1.2.1.3.3` renumbered (UUID stable: `935b90bb…d2f1`)
+- `A.2.2.9.1.2.1.3` renumbered (UUID stable: `8dfabd92…03dc`)
+- `A.2.2.9.1.2.1.4.1.0.6.1` renumbered (UUID stable: `efbe7903…3157`)
+- `A.2.2.9.1.2.1.4.1` renumbered (UUID stable: `883f1b52…3b53`)
+- `A.2.2.9.1.2.1.4.2.0.6.1` renumbered (UUID stable: `eb644108…d9be`)
+- `A.2.2.9.1.2.1.4.2` renumbered (UUID stable: `9a7f47ae…e1cc`)
+- `A.2.2.9.1.2.1.4` renumbered (UUID stable: `f3952cc5…570b`)
+- `A.2.2.9.1.2.1.5.1.0.6.1` renumbered (UUID stable: `169eb312…705e`)
+- `A.2.2.9.1.2.1.5.1` renumbered (UUID stable: `2c0eb02c…f0b7`)
+- `A.2.2.9.1.2.1.5` renumbered (UUID stable: `fd551536…fcaf`)
+- `A.2.2.9.1.2.2.1.1.1` renumbered (UUID stable: `b4271bcd…3629`)
+- `A.2.2.9.1.2.2.1.1.2` renumbered (UUID stable: `e2766ea3…e164`)
+- `A.2.2.9.1.2.2.1.1` renumbered (UUID stable: `090b3f8e…3a33`)
+- `A.2.2.9.1.2.2.1.2` renumbered (UUID stable: `4e4476d8…e01c`)
+- `A.2.2.9.1.2.2.1` renumbered (UUID stable: `776d926e…7ea3`)
+- `A.2.2.9.1.2.2.2` renumbered (UUID stable: `89d26f82…be6d`)
+- `A.2.2.9.1.2.2.3` renumbered (UUID stable: `108c6d9c…5c0c`)
+- `A.2.2.9.1.2.2.4.1` renumbered (UUID stable: `74003afb…c039`)
+- `A.2.2.9.1.2.2.4.2` renumbered (UUID stable: `6af6cd24…badf`)
+- `A.2.2.9.1.2.2.4` renumbered (UUID stable: `faf79404…92ab`)
+- `A.2.2.9.1.2.3.1.1.1.1` renumbered (UUID stable: `dec5be6c…9572`)
+- `A.2.2.9.1.2.3.1.1.1.2` renumbered (UUID stable: `34497a9f…6700`)
+- `A.2.2.9.1.2.3.1.1.1` renumbered (UUID stable: `222fc95e…b0a0`)
+- `A.2.2.9.1.2.3.1.1.2` renumbered (UUID stable: `c89c3cd1…2049`)
+- `A.2.2.9.1.2.3.1.1` renumbered (UUID stable: `005beba7…ef69`)
+- `A.2.2.9.1.2.3.1.2` renumbered (UUID stable: `75ff9b92…918e`)
+- `A.2.2.9.1.2.3.1.3` renumbered (UUID stable: `4d5482ad…27a3`)
+- `A.2.2.9.1.2.3.1.4.1.1` renumbered (UUID stable: `6857396f…6830`)
+- `A.2.2.9.1.2.3.1.4.1` renumbered (UUID stable: `bab05cb6…294b`)
+- `A.2.2.9.1.2.3.1.4.2` renumbered (UUID stable: `11161730…7390`)
+- `A.2.2.9.1.2.3.1.4` renumbered (UUID stable: `1ad17e84…c603`)
+- `A.2.2.9.1.2.3.1` renumbered (UUID stable: `f07b1cca…76f3`)
+- `A.2.2.9.1.2.3.2.1.1.1` renumbered (UUID stable: `d1d3de53…340c`)
+- `A.2.2.9.1.2.3.2.1.1.2` renumbered (UUID stable: `fd211726…e92b`)
+- `A.2.2.9.1.2.3.2.1.1` renumbered (UUID stable: `f89a41b2…19ef`)
+- `A.2.2.9.1.2.3.2.1.2` renumbered (UUID stable: `abb8f0ef…e7c9`)
+- `A.2.2.9.1.2.3.2.1` renumbered (UUID stable: `da868510…9a25`)
+- `A.2.2.9.1.2.3.2.2` renumbered (UUID stable: `ef743f33…1017`)
+- `A.2.2.9.1.2.3.2.3` renumbered (UUID stable: `9c4653fa…9311`)
+- `A.2.2.9.1.2.3.2.4.1` renumbered (UUID stable: `9a94a573…3bb8`)
+- `A.2.2.9.1.2.3.2.4.2.1` renumbered (UUID stable: `66a07769…1575`)
+- `A.2.2.9.1.2.3.2.4.2.2` renumbered (UUID stable: `6f457b50…9627`)
+- `A.2.2.9.1.2.3.2.4.2` renumbered (UUID stable: `ec050d61…8292`)
+- `A.2.2.9.1.2.3.2.4` renumbered (UUID stable: `a7a3e2d3…a5e4`)
+- `A.2.2.9.1.2.3.2` renumbered (UUID stable: `5fd265ef…7636`)
+- `A.2.2.9.1.2.3.3.1.1.1` renumbered (UUID stable: `e379a9d8…c490`)
+- `A.2.2.9.1.2.3.3.1.1.2` renumbered (UUID stable: `94d06bae…873b`)
+- `A.2.2.9.1.2.3.3.1.1` renumbered (UUID stable: `bdc8d447…5aac`)
+- `A.2.2.9.1.2.3.3.1.2` renumbered (UUID stable: `a6f968d6…02db`)
+- `A.2.2.9.1.2.3.3.1` renumbered (UUID stable: `9add3334…cf9a`)
+- `A.2.2.9.1.2.3.3.2` renumbered (UUID stable: `ccb71126…3f32`)
+- `A.2.2.9.1.2.3.3.3` renumbered (UUID stable: `6f4e7971…54af`)
+- `A.2.2.9.1.2.3.3.4.1` renumbered (UUID stable: `264273c8…763d`)
+- `A.2.2.9.1.2.3.3.4.2.1` renumbered (UUID stable: `b37c4266…94d9`)
+- `A.2.2.9.1.2.3.3.4.2` renumbered (UUID stable: `a3294ae2…931e`)
+- `A.2.2.9.1.2.3.3.4` renumbered (UUID stable: `c7ed27ce…976d`)
+- `A.2.2.9.1.2.3.3` renumbered (UUID stable: `240e0e2c…6e59`)
+- `A.2.2.9.1.2.3.4.1.1.1` renumbered (UUID stable: `296a23ca…0bbb`)
+- `A.2.2.9.1.2.3.4.1.1.2` renumbered (UUID stable: `bee5a2d9…1f0f`)
+- `A.2.2.9.1.2.3.4.1.1` renumbered (UUID stable: `48a12682…3b7b`)
+- `A.2.2.9.1.2.3.4.1.2` renumbered (UUID stable: `967572c4…d440`)
+- `A.2.2.9.1.2.3.4.1` renumbered (UUID stable: `4e87663b…f4e7`)
+- `A.2.2.9.1.2.3.4.2` renumbered (UUID stable: `67dce065…2796`)
+- `A.2.2.9.1.2.3.4.3` renumbered (UUID stable: `967f54c6…d91e`)
+- `A.2.2.9.1.2.3.4.4.1` renumbered (UUID stable: `dfdf873a…d9bb`)
+- `A.2.2.9.1.2.3.4.4.2` renumbered (UUID stable: `9cb3ab72…7dd8`)
+- `A.2.2.9.1.2.3.4.4` renumbered (UUID stable: `b63e78d1…54a5`)
+- `A.2.2.9.1.2.3.4` renumbered (UUID stable: `fd9aac63…2bd7`)
+- `A.2.2.9.1.2.3.5.1.1.1` renumbered (UUID stable: `51f50be4…7571`)
+- `A.2.2.9.1.2.3.5.1.1.2` renumbered (UUID stable: `b43edb36…bb2f`)
+- `A.2.2.9.1.2.3.5.1.1` renumbered (UUID stable: `c743c744…9421`)
+- `A.2.2.9.1.2.3.5.1.2` renumbered (UUID stable: `174e41b1…47c3`)
+- `A.2.2.9.1.2.3.5.1` renumbered (UUID stable: `3b38ec56…549c`)
+- `A.2.2.9.1.2.3.5.2` renumbered (UUID stable: `d0ceb4ed…2a62`)
+- `A.2.2.9.1.2.3.5.3` renumbered (UUID stable: `b593ff77…e804`)
+- `A.2.2.9.1.2.3.5.4.1` renumbered (UUID stable: `cc530c80…f4c6`)
+- `A.2.2.9.1.2.3.5.4.2` renumbered (UUID stable: `1efa0fc5…c153`)
+- `A.2.2.9.1.2.3.5.4` renumbered (UUID stable: `1e95dff0…8650`)
+- `A.2.2.9.1.2.3.5` renumbered (UUID stable: `3170b9a1…0ed8`)
+- `A.2.2.9.1.2.3.6.1.1.1` renumbered (UUID stable: `03ec388b…8775`)
+- `A.2.2.9.1.2.3.6.1.1.2` renumbered (UUID stable: `309ac677…e7a7`)
+- `A.2.2.9.1.2.3.6.1.1` renumbered (UUID stable: `9e5fb847…36b7`)
+- `A.2.2.9.1.2.3.6.1.2` renumbered (UUID stable: `d7ec33fc…99bc`)
+- `A.2.2.9.1.2.3.6.1` renumbered (UUID stable: `005830a0…22ab`)
+- `A.2.2.9.1.2.3.6.2` renumbered (UUID stable: `3a23ed21…0f5c`)
+- `A.2.2.9.1.2.3.6.3` renumbered (UUID stable: `6eb0901b…4f37`)
+- `A.2.2.9.1.2.3.6.4.1.1` renumbered (UUID stable: `4287ecd9…108c`)
+- `A.2.2.9.1.2.3.6.4.1.2` renumbered (UUID stable: `1c0708d0…7012`)
+- `A.2.2.9.1.2.3.6.4.1` renumbered (UUID stable: `108174f5…1121`)
+- `A.2.2.9.1.2.3.6.4.2.1` renumbered (UUID stable: `3401c95d…f676`)
+- `A.2.2.9.1.2.3.6.4.2.2` renumbered (UUID stable: `f5b8f596…6c14`)
+- `A.2.2.9.1.2.3.6.4.2` renumbered (UUID stable: `8336c1ad…0457`)
+- `A.2.2.9.1.2.3.6.4` renumbered (UUID stable: `231e3527…bf76`)
+- `A.2.2.9.1.2.3.6` renumbered (UUID stable: `b3ed1e74…d984`)
+- `A.2.2.9.1.2.4.1.1.1.1.1` renumbered (UUID stable: `3e14118d…06a9`)
+- `A.2.2.9.1.2.4.1.1.1.1.2` renumbered (UUID stable: `351bd87e…4854`)
+- `A.2.2.9.1.2.4.1.1.1.1` renumbered (UUID stable: `7a9450db…b4b8`)
+- `A.2.2.9.1.2.4.1.1.1.2` renumbered (UUID stable: `dfd59dc4…ff9b`)
+- `A.2.2.9.1.2.4.1.1.1` renumbered (UUID stable: `a0a60c30…f4b2`)
+- `A.2.2.9.1.2.4.1.1.2` renumbered (UUID stable: `70360ef3…96a1`)
+- `A.2.2.9.1.2.4.1.1.3` renumbered (UUID stable: `57921647…0d76`)
+- `A.2.2.9.1.2.4.1.1.4.1` renumbered (UUID stable: `34264a04…364a`)
+- `A.2.2.9.1.2.4.1.1.4.2` renumbered (UUID stable: `f3ba519f…9b75`)
+- `A.2.2.9.1.2.4.1.1.4` renumbered (UUID stable: `082e5d05…c2cc`)
+- `A.2.2.9.1.2.4.1.1` renumbered (UUID stable: `27229032…142f`)
+- `A.2.2.9.1.2.4.1.2.1.1.1` renumbered (UUID stable: `aa6d4d8e…a55a`)
+- `A.2.2.9.1.2.4.1.2.1.1.2` renumbered (UUID stable: `a66e1d9d…c2c9`)
+- `A.2.2.9.1.2.4.1.2.1.1` renumbered (UUID stable: `18123d66…8247`)
+- `A.2.2.9.1.2.4.1.2.1.2` renumbered (UUID stable: `3741afa3…111b`)
+- `A.2.2.9.1.2.4.1.2.1` renumbered (UUID stable: `a24bf9e6…0d77`)
+- `A.2.2.9.1.2.4.1.2.2` renumbered (UUID stable: `3373c13d…5359`)
+- `A.2.2.9.1.2.4.1.2.3` renumbered (UUID stable: `63ba8de2…f828`)
+- `A.2.2.9.1.2.4.1.2.4.1` renumbered (UUID stable: `810220a0…8299`)
+- `A.2.2.9.1.2.4.1.2.4.2` renumbered (UUID stable: `ede7410d…cef1`)
+- `A.2.2.9.1.2.4.1.2.4` renumbered (UUID stable: `f33e0dee…4739`)
+- `A.2.2.9.1.2.4.1.2` renumbered (UUID stable: `ddd65b02…f1b8`)
+- `A.2.2.9.1.2.4.1.3.1.1.1` renumbered (UUID stable: `97fba609…8519`)
+- `A.2.2.9.1.2.4.1.3.1.1.2` renumbered (UUID stable: `c96dd69d…1579`)
+- `A.2.2.9.1.2.4.1.3.1.1` renumbered (UUID stable: `82b72cd2…4ec2`)
+- `A.2.2.9.1.2.4.1.3.1.2` renumbered (UUID stable: `db7ad152…1093`)
+- `A.2.2.9.1.2.4.1.3.1` renumbered (UUID stable: `e0495e9f…d19a`)
+- `A.2.2.9.1.2.4.1.3.2` renumbered (UUID stable: `8b8308fd…e978`)
+- `A.2.2.9.1.2.4.1.3.3` renumbered (UUID stable: `b55afaef…ef1c`)
+- `A.2.2.9.1.2.4.1.3.4.1` renumbered (UUID stable: `cca17fe9…3690`)
+- `A.2.2.9.1.2.4.1.3.4.2` renumbered (UUID stable: `300fca05…d7c3`)
+- `A.2.2.9.1.2.4.1.3.4` renumbered (UUID stable: `7cb3c11b…6f51`)
+- `A.2.2.9.1.2.4.1.3` renumbered (UUID stable: `dfd65786…0a4f`)
+- `A.2.2.9.1.2.4.1.4.1.1.1` renumbered (UUID stable: `b61d8b1d…b855`)
+- `A.2.2.9.1.2.4.1.4.1.1.2` renumbered (UUID stable: `c298f200…f42f`)
+- `A.2.2.9.1.2.4.1.4.1.1` renumbered (UUID stable: `14d233e1…6e18`)
+- `A.2.2.9.1.2.4.1.4.1.2` renumbered (UUID stable: `ae1c6021…4b60`)
+- `A.2.2.9.1.2.4.1.4.1` renumbered (UUID stable: `f7bc89b8…f2ce`)
+- `A.2.2.9.1.2.4.1.4.2` renumbered (UUID stable: `ffa519f8…d0de`)
+- `A.2.2.9.1.2.4.1.4.3` renumbered (UUID stable: `6b90e3a1…f152`)
+- `A.2.2.9.1.2.4.1.4.4.1.1` renumbered (UUID stable: `0c619a26…2da6`)
+- `A.2.2.9.1.2.4.1.4.4.1` renumbered (UUID stable: `7daf5881…0534`)
+- `A.2.2.9.1.2.4.1.4.4.2` renumbered (UUID stable: `594d3b57…cccb`)
+- `A.2.2.9.1.2.4.1.4.4` renumbered (UUID stable: `d14fff67…ce8b`)
+- `A.2.2.9.1.2.4.1.4` renumbered (UUID stable: `59259360…0f8f`)
+- `A.2.2.9.1.2.4.1` renumbered (UUID stable: `c2abdd22…b701`)
+- `A.2.2.9.1.2.4.2` renumbered (UUID stable: `e852bd1a…b720`)
+- `A.2.2.9.1.2.4.3` renumbered (UUID stable: `81b89dda…8fd3`)
+- `A.2.2.9.2.1.1` renumbered (UUID stable: `a9751ac4…e41e`)
+- `A.2.2.9.2.1.2` renumbered (UUID stable: `7853b196…280c`)
+- `A.2.2.9.2.1.3` renumbered (UUID stable: `71c3bf8e…f45f`)
+- `A.2.2.9.2.1` renumbered (UUID stable: `84b4b5c7…a8e9`)
+- `A.2.2.9.2.2.1.2.1` renumbered (UUID stable: `6a2ec8d3…9792`)
+- `A.2.2.9.2.2.1.2.2` renumbered (UUID stable: `079abfa8…d2dd`)
+- `A.2.2.9.2.2.1.2.3` renumbered (UUID stable: `a26ea73f…e63c`)
+- `A.2.2.9.2.2.1.2` renumbered (UUID stable: `756b466e…5fe2`)
+- `A.2.2.9.2.2.1.3.1` renumbered (UUID stable: `181954b6…b10d`)
+- `A.2.2.9.2.2.1.3.2.1` renumbered (UUID stable: `4ab621b4…33c5`)
+- `A.2.2.9.2.2.1.3.2.2` renumbered (UUID stable: `787276c9…2986`)
+- `A.2.2.9.2.2.1.3.2` renumbered (UUID stable: `e27f2332…056e`)
+- `A.2.2.9.2.2.1.3` renumbered (UUID stable: `3b3914d0…a8ac`)
+- `A.2.2.9.2.2.1.4.1` renumbered (UUID stable: `a4ca2e70…dbc0`)
+- `A.2.2.9.2.2.1.4.2` renumbered (UUID stable: `5828a3a0…c5f5`)
+- `A.2.2.9.2.2.1.5.1.0.6.1` renumbered (UUID stable: `8cbff90b…2535`)
+- `A.2.2.9.2.2.1.5.1` renumbered (UUID stable: `7ed013c9…5133`)
+- `A.2.2.9.2.2.1.5` renumbered (UUID stable: `63ff5ae5…4598`)
+- `A.2.2.9.2.2.1` renumbered (UUID stable: `c398b383…2119`)
+- `A.2.2.9.2.2.2.1.1.1` renumbered (UUID stable: `7457b041…3acb`)
+- `A.2.2.9.2.2.2.1.1.2` renumbered (UUID stable: `a007505e…7588`)
+- `A.2.2.9.2.2.2.1.1` renumbered (UUID stable: `ea3fd0be…10b5`)
+- `A.2.2.9.2.2.2.1.2` renumbered (UUID stable: `befbf1d8…c96b`)
+- `A.2.2.9.2.2.2.1` renumbered (UUID stable: `b68f9009…39a5`)
+- `A.2.2.9.2.2.2.2` renumbered (UUID stable: `163b998a…7604`)
+- `A.2.2.9.2.2.2.3` renumbered (UUID stable: `5e673229…d9c1`)
+- `A.2.2.9.2.2.2.4.1` renumbered (UUID stable: `74f88b57…2e5c`)
+- `A.2.2.9.2.2.2.4.2` renumbered (UUID stable: `35c38264…1066`)
+- `A.2.2.9.2.2.2.4` renumbered (UUID stable: `9a9b56f4…cb60`)
+- `A.2.2.9.2.2.2` renumbered (UUID stable: `4ad2a180…cf52`)
+- `A.2.2.9.2.2.3.1.1.1.1` renumbered (UUID stable: `e06ee9c9…994a`)
+- `A.2.2.9.2.2.3.1.1.1.2` renumbered (UUID stable: `def2ad89…d722`)
+- `A.2.2.9.2.2.3.1.1.1` renumbered (UUID stable: `32cc16f9…1b57`)
+- `A.2.2.9.2.2.3.1.1.2` renumbered (UUID stable: `85a0d037…8f60`)
+- `A.2.2.9.2.2.3.1.1` renumbered (UUID stable: `2645e2f0…8498`)
+- `A.2.2.9.2.2.3.1.2` renumbered (UUID stable: `179cb7a5…c575`)
+- `A.2.2.9.2.2.3.1.3` renumbered (UUID stable: `b91d0eb6…af09`)
+- `A.2.2.9.2.2.3.1.4.1.1` renumbered (UUID stable: `a227491c…ea7f`)
+- `A.2.2.9.2.2.3.1.4.1` renumbered (UUID stable: `991aaf4f…ec0d`)
+- `A.2.2.9.2.2.3.1.4.2` renumbered (UUID stable: `d86e5f9f…bc13`)
+- `A.2.2.9.2.2.3.1.4` renumbered (UUID stable: `c0e07df6…a639`)
+- `A.2.2.9.2.2.3.1` renumbered (UUID stable: `a14cea92…c1f7`)
+- `A.2.2.9.2.2.3.2.1.1.1` renumbered (UUID stable: `ff9674e1…539e`)
+- `A.2.2.9.2.2.3.2.1.1.2` renumbered (UUID stable: `4290c4b4…b755`)
+- `A.2.2.9.2.2.3.2.1.1` renumbered (UUID stable: `cb905fcc…ad7e`)
+- `A.2.2.9.2.2.3.2.1.2` renumbered (UUID stable: `921d945d…8045`)
+- `A.2.2.9.2.2.3.2.1` renumbered (UUID stable: `ef37ff82…39cb`)
+- `A.2.2.9.2.2.3.2.2` renumbered (UUID stable: `0eba9704…f162`)
+- `A.2.2.9.2.2.3.2.3` renumbered (UUID stable: `1eafc42a…b317`)
+- `A.2.2.9.2.2.3.2.4.1` renumbered (UUID stable: `689a6ce6…4e6b`)
+- `A.2.2.9.2.2.3.2.4.2.1` renumbered (UUID stable: `ddcfe438…3823`)
+- `A.2.2.9.2.2.3.2.4.2.2` renumbered (UUID stable: `09ddd2c5…9299`)
+- `A.2.2.9.2.2.3.2.4.2` renumbered (UUID stable: `22166d2b…a905`)
+- `A.2.2.9.2.2.3.2.4` renumbered (UUID stable: `0bce1c09…0584`)
+- `A.2.2.9.2.2.3.2` renumbered (UUID stable: `38c54d2b…89a2`)
+- `A.2.2.9.2.2.3.3.1.1.1` renumbered (UUID stable: `42848ad7…c46c`)
+- `A.2.2.9.2.2.3.3.1.1.2` renumbered (UUID stable: `98b5465e…6410`)
+- `A.2.2.9.2.2.3.3.1.1` renumbered (UUID stable: `428d6e85…7ac0`)
+- `A.2.2.9.2.2.3.3.1.2` renumbered (UUID stable: `a616c3f6…01e7`)
+- `A.2.2.9.2.2.3.3.1` renumbered (UUID stable: `cc3d967c…791d`)
+- `A.2.2.9.2.2.3.3.2` renumbered (UUID stable: `c860168e…e0cb`)
+- `A.2.2.9.2.2.3.3.3` renumbered (UUID stable: `01214a59…a517`)
+- `A.2.2.9.2.2.3.3.4.1` renumbered (UUID stable: `7e4e6528…4f28`)
+- `A.2.2.9.2.2.3.3.4.2.1` renumbered (UUID stable: `e7fc7c2e…4e8e`)
+- `A.2.2.9.2.2.3.3.4.2` renumbered (UUID stable: `f654be61…b277`)
+- `A.2.2.9.2.2.3.3.4` renumbered (UUID stable: `bea2c790…5d26`)
+- `A.2.2.9.2.2.3.3` renumbered (UUID stable: `6a8b5e8b…3ebb`)
+- `A.2.2.9.2.2.3.4.1.1.1` renumbered (UUID stable: `c3b16255…9203`)
+- `A.2.2.9.2.2.3.4.1.1.2` renumbered (UUID stable: `555a08a4…1644`)
+- `A.2.2.9.2.2.3.4.1.1` renumbered (UUID stable: `9fa7d744…1bb6`)
+- `A.2.2.9.2.2.3.4.1.2` renumbered (UUID stable: `f19c7277…a6a2`)
+- `A.2.2.9.2.2.3.4.1` renumbered (UUID stable: `53016a06…f771`)
+- `A.2.2.9.2.2.3.4.2` renumbered (UUID stable: `1b0c0956…526c`)
+- `A.2.2.9.2.2.3.4.3` renumbered (UUID stable: `7f991abf…d97a`)
+- `A.2.2.9.2.2.3.4.4.1` renumbered (UUID stable: `d7e64cf2…3059`)
+- `A.2.2.9.2.2.3.4.4.2` renumbered (UUID stable: `d5cce836…76cc`)
+- `A.2.2.9.2.2.3.4.4` renumbered (UUID stable: `c7436489…ee99`)
+- `A.2.2.9.2.2.3.4` renumbered (UUID stable: `2d1d83ea…3f62`)
+- `A.2.2.9.2.2.3.5.1.1.1` renumbered (UUID stable: `c6ad2b62…3e38`)
+- `A.2.2.9.2.2.3.5.1.1.2` renumbered (UUID stable: `bac65a98…e4e2`)
+- `A.2.2.9.2.2.3.5.1.1` renumbered (UUID stable: `c5db0c30…ca06`)
+- `A.2.2.9.2.2.3.5.1.2` renumbered (UUID stable: `bfdafaa4…c569`)
+- `A.2.2.9.2.2.3.5.1` renumbered (UUID stable: `e5c0a813…b29f`)
+- `A.2.2.9.2.2.3.5.2` renumbered (UUID stable: `185d7f3b…ceab`)
+- `A.2.2.9.2.2.3.5.3` renumbered (UUID stable: `d247fec5…8d64`)
+- `A.2.2.9.2.2.3.5.4.1` renumbered (UUID stable: `43a3722c…d365`)
+- `A.2.2.9.2.2.3.5.4.2` renumbered (UUID stable: `adfb66a3…187c`)
+- `A.2.2.9.2.2.3.5.4` renumbered (UUID stable: `bae40b55…7671`)
+- `A.2.2.9.2.2.3.5` renumbered (UUID stable: `24fa76f6…c2ac`)
+- `A.2.2.9.2.2.3.6.1.1.1` renumbered (UUID stable: `95379a19…ab85`)
+- `A.2.2.9.2.2.3.6.1.1.2` renumbered (UUID stable: `97e2c2b5…bd39`)
+- `A.2.2.9.2.2.3.6.1.1` renumbered (UUID stable: `7ff087ca…22bc`)
+- `A.2.2.9.2.2.3.6.1.2` renumbered (UUID stable: `1c0ce5c0…87f6`)
+- `A.2.2.9.2.2.3.6.1` renumbered (UUID stable: `59306024…ff8e`)
+- `A.2.2.9.2.2.3.6.2` renumbered (UUID stable: `48863e96…4098`)
+- `A.2.2.9.2.2.3.6.3` renumbered (UUID stable: `51ca2399…0d13`)
+- `A.2.2.9.2.2.3.6.4.1.1` renumbered (UUID stable: `847092ba…c480`)
+- `A.2.2.9.2.2.3.6.4.1.2` renumbered (UUID stable: `1b03bc85…c379`)
+- `A.2.2.9.2.2.3.6.4.1` renumbered (UUID stable: `221cde4c…5646`)
+- `A.2.2.9.2.2.3.6.4.2.1` renumbered (UUID stable: `f4323202…9dce`)
+- `A.2.2.9.2.2.3.6.4.2` renumbered (UUID stable: `1ba7ea74…746b`)
+- `A.2.2.9.2.2.3.6.4` renumbered (UUID stable: `bd74388f…5806`)
+- `A.2.2.9.2.2.3.6` renumbered (UUID stable: `182ca3dc…125b`)
+- `A.2.2.9.2.2.3` renumbered (UUID stable: `a1dc075e…a2fa`)
+- `A.2.2.9.2.2.4.1.1.1.1.1` renumbered (UUID stable: `56e6b01b…cb70`)
+- `A.2.2.9.2.2.4.1.1.1.1.2` renumbered (UUID stable: `fa1e98b5…e35a`)
+- `A.2.2.9.2.2.4.1.1.1.1` renumbered (UUID stable: `52fc6ecc…0f22`)
+- `A.2.2.9.2.2.4.1.1.1.2` renumbered (UUID stable: `f8991663…8ee8`)
+- `A.2.2.9.2.2.4.1.1.1` renumbered (UUID stable: `0930f2b1…b0cb`)
+- `A.2.2.9.2.2.4.1.1.2` renumbered (UUID stable: `fa744d67…3d4d`)
+- `A.2.2.9.2.2.4.1.1.3` renumbered (UUID stable: `4c84f0a6…dfcc`)
+- `A.2.2.9.2.2.4.1.1.4.1` renumbered (UUID stable: `273db3f1…2bbd`)
+- `A.2.2.9.2.2.4.1.1.4.2` renumbered (UUID stable: `b785cb0c…6977`)
+- `A.2.2.9.2.2.4.1.1.4` renumbered (UUID stable: `08dd7788…c69f`)
+- `A.2.2.9.2.2.4.1.1` renumbered (UUID stable: `780719e8…83df`)
+- `A.2.2.9.2.2.4.1.2.1.1.1` renumbered (UUID stable: `9c5455f3…779c`)
+- `A.2.2.9.2.2.4.1.2.1.1.2` renumbered (UUID stable: `358d4696…d3bb`)
+- `A.2.2.9.2.2.4.1.2.1.1` renumbered (UUID stable: `fd914a13…d1fa`)
+- `A.2.2.9.2.2.4.1.2.1.2` renumbered (UUID stable: `5cae5183…2fe6`)
+- `A.2.2.9.2.2.4.1.2.1` renumbered (UUID stable: `c12533a4…b95b`)
+- `A.2.2.9.2.2.4.1.2.2` renumbered (UUID stable: `f894a7d2…b535`)
+- `A.2.2.9.2.2.4.1.2.3` renumbered (UUID stable: `862aff47…9e83`)
+- `A.2.2.9.2.2.4.1.2.4.1` renumbered (UUID stable: `7e7e516a…b48d`)
+- `A.2.2.9.2.2.4.1.2.4.2` renumbered (UUID stable: `f1e0fb16…2979`)
+- `A.2.2.9.2.2.4.1.2.4` renumbered (UUID stable: `baa296a6…a9bc`)
+- `A.2.2.9.2.2.4.1.2` renumbered (UUID stable: `16474cb5…cc2b`)
+- `A.2.2.9.2.2.4.1.3.1.1.1` renumbered (UUID stable: `44fb9520…a765`)
+- `A.2.2.9.2.2.4.1.3.1.1.2` renumbered (UUID stable: `30152570…00f4`)
+- `A.2.2.9.2.2.4.1.3.1.1` renumbered (UUID stable: `7ba12eff…f982`)
+- `A.2.2.9.2.2.4.1.3.1.2` renumbered (UUID stable: `8f3b3d8b…d9b2`)
+- `A.2.2.9.2.2.4.1.3.1` renumbered (UUID stable: `0f8e3d69…9fb0`)
+- `A.2.2.9.2.2.4.1.3.2` renumbered (UUID stable: `841497f9…8d4a`)
+- `A.2.2.9.2.2.4.1.3.3` renumbered (UUID stable: `ebbfa305…bb2f`)
+- `A.2.2.9.2.2.4.1.3.4.1.1` renumbered (UUID stable: `0f50e796…0307`)
+- `A.2.2.9.2.2.4.1.3.4.1` renumbered (UUID stable: `1f50ce0e…c017`)
+- `A.2.2.9.2.2.4.1.3.4.2` renumbered (UUID stable: `43aedc35…ea0b`)
+- `A.2.2.9.2.2.4.1.3.4` renumbered (UUID stable: `5a0f038c…77a3`)
+- `A.2.2.9.2.2.4.1.3` renumbered (UUID stable: `d9c13a1a…0717`)
+- `A.2.2.9.2.2.4.1.4.1.1.1` renumbered (UUID stable: `fa1aab6f…ce29`)
+- `A.2.2.9.2.2.4.1.4.1.1.2` renumbered (UUID stable: `ee6adeb0…0074`)
+- `A.2.2.9.2.2.4.1.4.1.1` renumbered (UUID stable: `dea4f41d…ab7a`)
+- `A.2.2.9.2.2.4.1.4.1.2` renumbered (UUID stable: `10cb9c97…aded`)
+- `A.2.2.9.2.2.4.1.4.1` renumbered (UUID stable: `6dac32e6…68ca`)
+- `A.2.2.9.2.2.4.1.4.2` renumbered (UUID stable: `9cb825c8…4d26`)
+- `A.2.2.9.2.2.4.1.4.3` renumbered (UUID stable: `f54de74a…9a0d`)
+- `A.2.2.9.2.2.4.1.4.4.1.1` renumbered (UUID stable: `0ab76a83…0970`)
+- `A.2.2.9.2.2.4.1.4.4.1` renumbered (UUID stable: `9478c3d6…45e1`)
+- `A.2.2.9.2.2.4.1.4.4.2` renumbered (UUID stable: `39aba7ed…b218`)
+- `A.2.2.9.2.2.4.1.4.4` renumbered (UUID stable: `8d00d8df…9e2b`)
+- `A.2.2.9.2.2.4.1.4` renumbered (UUID stable: `c40a0708…9455`)
+- `A.2.2.9.2.2.4.1` renumbered (UUID stable: `04864587…85a4`)
+- `A.2.2.9.2.2.4.2` renumbered (UUID stable: `9cdac621…c27d`)
+- `A.2.2.9.2.2.4.3` renumbered (UUID stable: `0bbeab5f…7a0c`)
+- `A.2.2.9.2.2.4` renumbered (UUID stable: `805381e5…31ba`)
+- `A.2.2.9.2.2` renumbered (UUID stable: `eecfa6ad…484b`)
+- `A.2.2.9.3.1.1` renumbered (UUID stable: `219459b3…6dbb`)
+- `A.2.2.9.3.1.2.1.0.6.1` renumbered (UUID stable: `f2ecf6a4…f82e`)
+- `A.2.2.9.3.1.2.1` renumbered (UUID stable: `65fc0b79…1069`)
+- `A.2.2.9.3.1.2` renumbered (UUID stable: `d6d16076…486c`)
+- `A.2.2.9.3.1.3.1` renumbered (UUID stable: `0c7b0644…15e4`)
+- `A.2.2.9.3.1.3` renumbered (UUID stable: `f0d5ab5e…e604`)
+- `A.2.2.9.3.1.4.1` renumbered (UUID stable: `15e14f25…03c5`)
+- `A.2.2.9.3.1.4` renumbered (UUID stable: `04edac33…7771`)
+- `A.2.2.9.3.1` renumbered (UUID stable: `4aab68fd…22fa`)
+- `5` → `6` across 27 docs.
+- `9` → `10` across 65 docs.
+- `makerdao` → `sky/scope` across 3 docs.
+- `10` → `11` across 8 docs.
+- `8.1.2.1` → `4` across 6 docs.
+- `8` → `9` across 335 docs.
+- `6` → `4` across 13 docs.
+- `8` → `4` across 16 docs.
+- `1.2.1.4` → `3` across 16 docs.
+- `Executor Accord` → `Agent Creation` across 9 docs.
+- `4` → `5` across 19 docs.
+- `Root Edit` → `Prime Transformation` across 9 docs.
+- `7` → `8` across 12 docs.
+- `Allocation System` → `Distribution Reward` across 4 docs.
+- `2` → `1` across 10 docs.
+- `3` → `2` across 6 docs.
+- `5` → `3` across 6 docs.
+- `7` → `5` across 4 docs.
+- `6` → `7` across 1 doc.
+
+### Context
+Unifies reward recipient and sharing across Sky Primitive reward mechanisms — all payments route to the Prime Agent managing the Integrator relationship, with sharing bilaterally negotiated — which drives the large structural renumbering of the Support Scope primitive tree (most additions/deletions are relocations within the reorg, not net-new mechanisms). Also rebrands Immunefi bug-bounty URLs (makerdao → sky).
+
+---
+
 ## PR #251 — Atlas Edit Proposal — 2026-05-25
 **Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
 

@@ -7,6 +7,48 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-08 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/188*
+
+*Relates to: Poll #1636 / PR #255 (Atlas Edit Proposal — 2026-06-08) | Vote: **Yes***
+
+Key rationale points:
+
+- **New Audit Process is the highlight** — Codifying script structure standards, audit intake and delivery, report review and acceptance, findings remediation, and recordkeeping "under a single subsection structure clears up where each step in the audit lifecycle is documented and which artifacts come out of it," giving Spell and risk-review workflows "a stable reference point."
+- **Grove USD→USDS swap supported** — Backs authorizing Grove to swap USD stablecoins in its SubProxy Account to USDS at ~1:1, documented per Technical Scope, for direct inclusion in a Grove Spell without a prior token holder vote.
+- **Remaining items, no concerns** — Single-Core-Facilitator alignment and duplicate-sentence/cross-reference cleanup supported with "no substantial concerns on any of the items."
+
+---
+
+## 2026-06-04 — Executive Vote: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/187*
+
+*Relates to: June 4, 2026 Executive (RWA001-A Offboarding et al.) | Vote: **Yes***
+
+Key rationale points:
+
+- **Everything in order** — Voted Yes, finding "all of the edits are as expected": RWA001-A Spell 1 (USDC→DAI to repay vault debt and start soft liquidation), Keeper Network changes (remove GELATO/KEEP3R lanes, rename MAKER→SKY), ALLOCATOR-SPARK-A DC-IAM (gap → 1.5B USDS, ttl → 12h), and the MKR→SKY penalty +1pp.
+- **Prime Agent proxy whitelisting highlighted** — Singles out routing Spark and Grove spell execution through their StarGuard modules, which "keeps freeze authority over the Spark Savings USDC vault and Spark USDC Morpho vault intact at the higher level" while letting the Sub-DAOs land routine upgrades "inside the StarGuard envelope."
+- **Governance ops rationale** — Frames the mediated execution path as preserving "the separation between Sub-DAO routine operations and the override controls that sit above them," keeping responsibility boundaries clean.
+
+---
+
+## 2026-06-01 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/186*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes***
+
+Key rationale points:
+
+- **No substantial concerns** — Voted Yes "in favor of these changes" across all items: reward-recipient unification to the managing Prime Agent, the Capital Ratio Requirement rename, Facilitator Ecosystem exemption removal, the Grove CCTP v2 TokenMessenger amendment, and Immunefi URL updates.
+- **Facilitator exemption cleanup highlighted** — Singles out removing the two exemptions tied to the prior scope-facilitator structure as keeping "the Atlas aligned with the current Agent framework" and clearing "legacy carve-outs that no longer serve a role."
+- **Governance ops rationale** — Notes residual references to retired frameworks "can create ambiguity in interpretation," so clearing them out "keeps responsibility and process boundaries easier to follow."
+
+---
+
 ## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/185*

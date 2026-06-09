@@ -7,6 +7,48 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-08 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/216*
+
+*Relates to: Poll #1636 / PR #255 (Atlas Edit Proposal — 2026-06-08) | Vote: **Yes***
+
+Key rationale points:
+
+- **Single Core Facilitator alignment highlighted** — Removing references to multiple Core Facilitators in Spell validation reporting and AEP misalignment procedures, plus retiring an Action Tenet that only applied with multiple Core Facilitators, "keeps the Atlas internally consistent with the current single Core Facilitator structure" and clears conditional language no longer mapping to a live configuration.
+- **Grove USD→USDS swap noted** — Lists the Grove SubProxy stablecoin→USDS swap authorization (~1:1, documented per Technical Scope, routed through a Grove Spell) among the supported items.
+- **Audit Process and cleanup** — Supports the new Audit Process codification and the duplicate-sentence/broken-cross-reference fixes without reservation.
+
+---
+
+## 2026-06-04 — Executive Vote: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/215*
+
+*Relates to: June 4, 2026 Executive (RWA001-A Offboarding et al.) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Implements prior approvals** — In support, finding "nothing looks out of the ordinary" and the spell consistent with "implementing prior approved budgets and votes."
+- **Keeper Network cleanup highlighted** — Singles out removing the GELATO and KEEP3R lanes from CRON_SEQUENCER (and disabling their adapter claim paths) as cleaning up "the keeper-side surface where automation flows have already been retired," with the MAKER→SKY lane rename bringing labeling "in line with the current protocol identity."
+- **Full scope** — Lists RWA001-A Spell 1 (USDC→DAI conversion, urn repayment, debt-ceiling reset, soft liquidation start), the ALLOCATOR-SPARK-A DC-IAM update (gap → 1.5B USDS, ttl → 12h, line unchanged at 10B), the MKR→SKY penalty increase 3%→4%, and Prime Agent proxy spell whitelisting for Spark and Grove.
+
+---
+
+## 2026-06-01 — Weekly Cycle Vote: Atlas Edit Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/214*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Package character** — In support of a bundle spanning "reward primitive consolidation, terminology alignment, framework cleanup, Grove Artifact documentation maintenance, and bug bounty URL updates."
+- **Grove CCTP highlighted** — Singles out the Circle CCTP v2 TokenMessenger updates, noting that adding the missing Avalanche address and consolidating two duplicate Base documents "help keep the Grove Artifact contract reference set consistent and easier to maintain."
+- **Full scope** — Lists reward-recipient unification to the managing Prime Agent, the Capital Ratio Requirement rename (Laniakea convention), removal of two legacy Facilitator Ecosystem exemptions, and the Immunefi URL updates for the MakerDAO→Sky rebrand.
+
+---
+
 ## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/213*

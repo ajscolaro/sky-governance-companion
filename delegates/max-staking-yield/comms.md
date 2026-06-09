@@ -7,6 +7,48 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-08 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/85*
+
+*Relates to: Poll #1636 / PR #255 (Atlas Edit Proposal — 2026-06-08) | Vote: **Yes***
+
+Key rationale points:
+
+- **Grove USD→USDS swap authorization is the primary item** — Supports pre-authorizing Grove to convert USD stablecoins in its SubProxy Account to USDS at ~1:1, documented per-swap in a Technical Scope and routed through a Grove Spell rather than a separate token holder vote; frames it as collapsing "a recurring vote cycle for routine stablecoin housekeeping into a Technical Scope documentation step."
+- **Discretion bounded, audit trail preserved** — Notes the authorization is "bounded to USDS conversion specifically and stays within Grove's existing SubProxy account scope," keeping discretion narrow and the failure surface contained while the per-swap Technical Scope keeps the trail complete.
+- **Other items uncontroversial** — Calls the new Audit Process, single-Core-Facilitator alignment, and duplicate-sentence/cross-reference cleanup "logical" with "no concerns."
+
+---
+
+## 2026-06-04 — Executive Spell: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/84*
+
+*Relates to: June 4, 2026 Executive (RWA001-A Offboarding et al.) | Vote: **Yes (Aligned)***
+
+Key rationale points:
+
+- **RWA001-A offboarding is the primary item** — Supports Spell 1 converting the PauseProxy USDC to DAI via LITE-PSM-USDC-A, applying proceeds to the RWA001-A urn debt, setting its debt ceiling to zero, and starting soft liquidation through MIP21_LIQUIDATION_ORACLE; frames this as a "defined wind-down path with the standard 30 day minimum before the follow-up liquidation spell."
+- **Anti-griefing gate** — Highlights that the conversion only fires when the PauseProxy USDC balance is below outstanding debt, which "cleanly prevents a scenario where a partial repayment leaves the spell in an inconsistent state."
+- **Other items** — No concerns on the Keeper Network changes (removing GELATO/KEEP3R lanes, renaming MAKER→SKY), the ALLOCATOR-SPARK-A DC-IAM update (gap 500M→1.5B USDS, ttl 24h→12h, line unchanged at 10B), the MKR→SKY penalty increase 3%→4%, and Prime Agent proxy spell whitelisting; notes the vault should be tracked through the follow-up liquidation spell.
+
+---
+
+## 2026-06-01 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/83*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes***
+
+Key rationale points:
+
+- **Reward unification is the primary item** — Calls the new Reward Recipient and Sharing rule "the primary item here," consolidating reward routing through the Prime Agent layer and replacing "prior pass-through obligations and split rules that lived across multiple subsections" with a single governing standard.
+- **Structural clarity** — Supports the direction because aligning reward attribution with the Prime Agent's operating role "should make reward flow easier to track and easier to evaluate," with "less room for ambiguity than the prior layered obligations."
+- **Bilateral variability acceptable** — Acknowledges bilateral negotiation "introduces some variability across Integrator relationships" but judges that flexibility "appropriate for a primitive whose terms already vary meaningfully by counterparty"; no concerns on the remaining rename/cleanup/Grove/Immunefi edits.
+
+---
+
 ## 2026-05-26 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/82*

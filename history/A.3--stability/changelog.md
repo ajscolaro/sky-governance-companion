@@ -4,6 +4,45 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #253 — Atlas Edit Proposal — 2026-06-01
+**Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Relationship To Base Rate** (`A.3.1.2.2.1`): `8` → `9`; `3` → `2`
+- **Relationship To Base Rate** (`A.3.1.2.3.1`): `8` → `9`; `3` → `2`
+- **Treatment Of sUSDS Balances** (`A.3.1.2.3.3`): `8` → `9`; `3` → `2`
+- **Use Of Funds** (`A.3.1.2.5.3`): `9` → `10`
+- **Prime-External Junior Risk Capital (SEJRC)** (`A.3.2.1.2.2.1.1.2`): `9` → `10`
+- **Prime External JRC Rental System Implementation** (`A.3.2.2.3.1`): `9` → `10`
+- **srUSDS Distribution Reward** (`A.3.2.2.4.2.4`): `8` → `9`
+- **Originated Senior Risk Capital (OSRC) Rental Implementation** (`A.3.2.2.4.4`): `9` → `10`
+- **Agent Collateral Portfolio** (`A.3.3.1.3.1`): `9` → `10`
+- **Asset Liability Management Rental** (`A.3.3.2.5`): `9` → `10`
+
+### Housekeeping
+- `A.3.2.1.1.1` (Capital Ratio Requirement): removed `Ratio`
+- `A.3.2.1.2.2.1.2.1` renamed: "Initial Loss Absorption By "Tip JRC" → "Initial Loss Absorption By \"Tip JRC\"
+- `A.3.2.2.1.1.1.2.1.1.1` (Ethena Capital Ratio Requirement): removed `Ratio`
+- `A.3.2.2.1.1.1.2.1.1.2.1` (Ethena Aggregate Exposure): removed `Ratio`
+- `A.3.2.2.1.1.1.2.1.2.1` (Superstate Capital Ratio Requirement): removed `Ratio`
+- `A.3.2.2.1.1.1.2.1.2.2.1` (Superstate Aggregate Exposure): removed `Ratio`
+- `A.3.2.2.1.2.3.1.1.2` (Calculate Capital Ratio Requirement Using Piecewise Function With F1 Thresholds): removed `Ratio`
+- `A.3.2.2.1.2.3.1.2.3` (Calculate Capital Ratio Requirement Using F1 Piecewise Function): removed `Ratio`
+- `A.3.2.2.1.2.3.1.2.4` (Calculate Capital Ratio Requirement Using F2 Piecewise Function): removed `Ratio`
+- `A.3.2.2.1.2.3.1.2.5.3` (F1 Capital Ratio Requirement): removed `Ratio`
+- `A.3.2.2.1.2.3.1.2.5.4` (F2 Capital Ratio Requirement): removed `Ratio`
+- `A.3.2.2.1.2.3.1.3.2` (Calculate Capital Ratio Requirement Using Piecewise Function With F2 Thresholds): removed `Ratio`
+- `A.3.2.2.1.2.3.1.4.1` (Maximum Capital Ratio Requirement): removed `Ratio`
+- `A.3.2.2.1.2.4.4` (Superstate): removed `Ratio`
+- `9` → `10` across 6 docs.
+- `8` → `9` across 4 docs.
+- `3` → `2` across 3 docs.
+
+### Context
+The "removed Ratio" sweep reflects the Atlas-wide rename Capital Requirement Ratio → Capital Ratio Requirement, aligning terminology with the Laniakea Risk Framework convention; remaining changes are footnote-reference renumbering, not parameter adjustments.
+
+---
+
 ## PR #251 — Atlas Edit Proposal — 2026-05-25
 **Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
 

@@ -7,6 +7,20 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-03 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
+
+*Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/82*
+
+*Relates to: Poll #1635 / PR #253 | Vote: **Yes***
+
+Key rationale points:
+
+- **Reward Recipient unification** — Supports replacing the Prime Transformation Primitive section and deleting older reward-specific subdocuments with a unified Reward Recipient and Sharing framework, so Sky Primitive reward payments tied to an Integrator go to the managing Prime Agent with sharing "left to bilateral negotiation"; argues this makes "reward accountability clearer" and avoids maintaining separate rules across Distribution Rewards, Integration Boosts and Core Governance Rewards.
+- **Token SkyLink process definition** — Backs reworking the Token SkyLink section into a clearer Process Definition for initial setup and ongoing management, making the Atlas "more useful as an operational reference."
+- **Housekeeping items** — Endorses the Capital Requirement Ratio → Capital Ratio Requirement rename (Laniakea alignment), removal of obsolete Facilitator Ecosystem exemptions, the Grove Circle CCTP v2 TokenMessenger updates (adding the Avalanche address, consolidating duplicate Base docs), Launch Agent 7 cross-reference fixes pointing to A.2.2.11/A.2.2.11.1, and Immunefi URL updates for the MakerDAO→Sky rebrand.
+
+---
+
 ## 2026-05-28 — Atlas Edit Weekly Cycle Proposal — May 25, 2026
 
 *Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/81*
