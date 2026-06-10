@@ -46,7 +46,7 @@
     "enabled": true,
     "filesystem": {
       "allowWrite": ["."],
-      "denyWrite": [".atlas-repo"],
+      "denyWrite": [".atlas-repo", ".protocol-repo"],
       "denyRead": ["~/.ssh", "~/.gnupg", "~/.aws"]
     },
     "allowUnsandboxedCommands": false,

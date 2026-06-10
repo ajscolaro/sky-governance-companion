@@ -79,6 +79,11 @@ if [ -f "$SCRIPT_DIR/build-address-map.py" ]; then
     python3 "$SCRIPT_DIR/build-address-map.py" >/dev/null 2>&1 || true
 fi
 
+# Sync the protocol info repo and rebuild its index (best-effort, silent).
+if [ -f "$SCRIPT_DIR/protocol-sync.sh" ]; then
+    bash "$SCRIPT_DIR/protocol-sync.sh" >/dev/null 2>&1 || true
+fi
+
 MESSAGE="Atlas synced: $LATEST_SHA ($LATEST_MSG)
 Run /refresh to update governance/market/forum data and see what's changed."
 emit_and_exit

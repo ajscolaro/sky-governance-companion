@@ -20,6 +20,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 REPO_DIR="$PROJECT_DIR/.atlas-repo"
 ATLAS_REPO="https://github.com/sky-ecosystem/next-gen-atlas.git"
+PROTOCOL_REPO_DIR="$PROJECT_DIR/.protocol-repo"
+PROTOCOL_REPO_URL="https://github.com/sky-ecosystem/sky-protocol-info.git"
 
 if [ ! -d "$REPO_DIR/.git" ]; then
     echo "Cloning Sky Atlas (shallow, ~30s)..."
@@ -30,6 +32,16 @@ fi
 
 echo "Building Atlas index..."
 python3 "$SCRIPT_DIR/build-index.py"
+
+if [ ! -d "$PROTOCOL_REPO_DIR/.git" ]; then
+    echo "Cloning sky-protocol-info (shallow, no submodules)..."
+    git clone --depth 1 --no-recurse-submodules "$PROTOCOL_REPO_URL" "$PROTOCOL_REPO_DIR"
+else
+    echo "Protocol info repo already cloned at $PROTOCOL_REPO_DIR"
+fi
+
+echo "Building protocol index..."
+python3 "$PROJECT_DIR/scripts/protocol/build-index.py"
 
 HISTORY_DIR="$PROJECT_DIR/history"
 for dir in \
