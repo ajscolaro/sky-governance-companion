@@ -7,6 +7,7 @@ Master index of everything local. **Always check here first before reaching for 
 | Path | What | Committed |
 |------|------|-----------|
 | `.atlas-repo/` | Shallow clone of `sky-ecosystem/next-gen-atlas` (auto-refreshed by SessionStart hook; **deny-write**) | No |
+| `.protocol-repo/` | Shallow clone of `sky-ecosystem/sky-protocol-info` (auto-refreshed by SessionStart hook; **deny-write**) | No |
 | `.claude/` | Skills, slash commands, settings, hooks | Yes |
 | `.venv/` | Python virtualenv — use for any Python execution | No |
 | `CLAUDE.md` | Project instructions for Claude (always loaded) | Yes |
@@ -24,11 +25,16 @@ Master index of everything local. **Always check here first before reaching for 
 
 Shallow clone (depth 20) of `sky-ecosystem/next-gen-atlas`. **`main` is canonical.** Refreshed by the SessionStart hook only; never written to by Claude (sandbox + PreToolUse hook both block it). For Atlas content, prefer `/atlas-navigate` and `data/index.json` over reading raw files here — the index is faster and the skill carries the right conventions.
 
+## `.protocol-repo/` — the protocol info mirror
+
+Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Refreshed by the SessionStart hook after the Atlas sync; never written to by Claude (same sandbox + hook blocks). Use `/protocol-info` or `data/protocol-index.json` for lookups — the index is faster. Read raw `overview.md` files only when you need full deployment notes or full audit file lists beyond what the index provides.
+
 ## `data/` — cached & derived (gitignored)
 
 | Path | Source | Refresh trigger | Producer |
 |------|--------|-----------------|----------|
 | `data/index.json` | Parsed Atlas (`.atlas-repo/`) | SessionStart hook + `/refresh` | `scripts/core/build-index.py` |
+| `data/protocol-index.json` | Parsed protocol info (`.protocol-repo/`) | SessionStart hook | `scripts/protocol/build-index.py` |
 | `data/link-graph.json` | `data/index.json` (`uuid_refs`) | SessionStart hook | `scripts/atlas/build-link-graph.py` |
 | `data/voting/address-map.json` | Delegate profiles | SessionStart hook + `/refresh` | `scripts/core/build-address-map.py` |
 | `data/forum/` | Forum RSS (`forum.skyeco.com`) | `/refresh` | `scripts/forum/fetch-forum.py` |
@@ -106,7 +112,8 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 
 | Subdir | Purpose |
 |--------|---------|
-| `scripts/core/` | Setup, refresh orchestrator, Atlas sync, index/address-map builders, session briefing, sort, PreToolUse write-path hook |
+| `scripts/core/` | Setup, refresh orchestrator, Atlas sync, protocol sync, index/address-map builders, session briefing, sort, PreToolUse write-path hook |
+| `scripts/protocol/` | Protocol info index builder (`build-index.py`) |
 | `scripts/atlas/` | PR processing pipeline (`process-pr.sh` + 6 stages), search/read index, subtree compose, `search-history.py` (backing `/history-search`) |
 | `scripts/forum/` | Forum RSS fetch, Authorized Forum Accounts registry build, roster cross-check |
 | `scripts/delegates/` | AD vote-rationale fetch (per-AD Discourse RSS, sanitized) |
@@ -117,7 +124,7 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 ## `.claude/` — agent surface
 
 - `.claude/settings.json` — sandbox config, permissions, hooks (PreToolUse → `scripts/core/check-write-path.sh`)
-- `.claude/skills/<name>/SKILL.md` — skill instructions. The eight project skills (`refresh`, `atlas-navigate`, `atlas-analyze`, `atlas-track`, `governance-data`, `forum-search`, `ad-track`, `messari-market-data`) all live here.
+- `.claude/skills/<name>/SKILL.md` — skill instructions. The nine project skills (`refresh`, `atlas-navigate`, `atlas-analyze`, `atlas-track`, `governance-data`, `forum-search`, `ad-track`, `messari-market-data`, `protocol-info`) all live here.
 - `.claude/commands/` — slash-command definitions (e.g. `messari-atlas-edit-drafter.md`)
 
 ## `docs/` — reference
@@ -128,7 +135,7 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 
 ## Refresh chain
 
-**SessionStart hook (automatic, fast):** `scripts/core/atlas-sync.sh` pulls the latest Atlas (or `first-run-welcome.sh` if `.atlas-repo/.git` is absent), rebuilds `data/index.json`, the link graph (`data/link-graph.json`), and the address map. Nothing else.
+**SessionStart hook (automatic, fast):** `scripts/core/atlas-sync.sh` pulls the latest Atlas (or `first-run-welcome.sh` if `.atlas-repo/.git` is absent), rebuilds `data/index.json`, the link graph (`data/link-graph.json`), and the address map. Then calls `scripts/core/protocol-sync.sh` (best-effort, silent) to pull `.protocol-repo/` and rebuild `data/protocol-index.json`. Nothing else.
 
 **`/refresh` (user-invoked):** `scripts/core/refresh.sh` runs:
 1. Parallel fetches: forum, delegate RSS, voting (delegates/polls/executive), market data, open PRs, unprocessed-PR discovery

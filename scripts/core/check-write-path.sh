@@ -16,6 +16,12 @@ if echo "$INPUT" | grep -q '\.atlas-repo'; then
     exit 2
 fi
 
+# Hard block: .protocol-repo/ is a read-only mirror of sky-protocol-info
+if echo "$INPUT" | grep -q '\.protocol-repo'; then
+    echo 'BLOCK: .protocol-repo/ is a read-only mirror of sky-ecosystem/sky-protocol-info.'
+    exit 2
+fi
+
 # Require approval: config, instructions, and scripts
 if echo "$INPUT" | grep -qE '\.(claude|CLAUDE\.md)|/CLAUDE\.md|/scripts/'; then
     cat <<'EOF'
