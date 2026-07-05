@@ -4,6 +4,128 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #270 — Atlas Edit Proposal — 2026-06-29
+**Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.1.10.2.4.10.1` (Spell Crafter Performs Pre-Deployment Steps): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.10` (Spell Crafter Conducts Final Checks): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.2` (Spell Reviewers Review Pre-Deployment Steps): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.3` (Spell Crafter Conducts Pre-Deployment Setup And Checks): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.4` (Spell Crafter Deploys The Spell On Mainnet): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.5` (Spell Crafter Casts Spell On Newly Deployed Tenderly Testnet): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.7` (Spell Crafter Pushes Changes And Requests Review): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.8` (Spell Reviewers Review Pull Request): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.10.9` (Spell Crafter Hands Over Spell): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.7.1` (Spell Crafting Workflow): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `A.1.10.2.4.9.1` (Spell Reviewing Workflow): added refs to `A.1.10.2.5.1.3.2.0.6.1`
+- `here:` → `in the Core Spell Crafter Mainnet Workflow, as specified in` across 8 docs.
+- `https://github` → `A` across 11 docs.
+- `com/sky` → `1.10.2.5.1.3.2.0.6.1` across 11 docs.
+- `ecosystem/pe-checklists/blob/master/` → `Registered` across 10 docs.
+- `/Spell-crafter-mainnet-workflow.md` → `Checklists` across 7 docs.
+- `https://github.com/sky` → `93f5b36b` across 7 docs.
+- `ecosystem/pe` → `06a7` across 7 docs.
+- `checklists/blob/master/spell/spell` → `4282` across 7 docs.
+- `crafter` → `9fd7` across 5 docs.
+- `mainnet-workflow.md` → `14e0cbafd08e` across 5 docs.
+- `https://github` → `93f5b36b-06a7-4282-9fd7-14e0cbafd08e)` across 4 docs.
+- `here:` → `in the Core Spell Reviewer Mainnet Checklist, as specified in` across 3 docs.
+
+### Context
+Replaces external `github.com/sky-ecosystem/pe-checklists` links in the spell-crafting and spell-reviewing mainnet workflow docs with references to a newly registered in-Atlas checklist document (`A.1.10.2.5.1.3.2.0.6.1`), moving the checklist reference in-tree.
+
+---
+
+## PR #265 — Atlas Edit Proposal — 2026-06-22
+**Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.1.6.2.1` (Aligned Delegate Voting Responsibilities): `` → `Following the issuance of a Tier 1 (Procedural) breach for failure to meet this requirement, the Core Facilitator will not issue a further Tier 1 (Procedural) breach solely because the Aligned Delegate's participation rate over the past six (6) months remains below seventy-five percent (75%), provided that the Aligned Delegate has participated in at least seventy-five percent (75%) of the votes for which they were eligible after the most recent breach was issued. A further Tier 1 (Procedural) breach on this basis is issued only where the Aligned Delegate fails to meet the seventy-five percent (75%) participation requirement in the votes for which they were eligible after the most recent breach was issued. The Core Facilitator evaluates voting participation for this purpose on a monthly basis.`
+- `Facilitators` → `Core Council` across 3 docs.
+
+### Context
+Adds a grace mechanism to Aligned Delegate voting responsibilities: after a Tier 1 (Procedural) breach, no further such breach is issued solely for a sub-75% six-month participation rate provided the AD has since participated in ≥75% of eligible votes, evaluated monthly by the Core Facilitator. Ratified by poll #1638 (9-0).
+
+---
+
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Core Facilitator Final Inclusion Decision** (`A.1.10.2.4.3.1.3.1`, UUID `4cbe3ee7…e233`): Where consensus cannot be reached on whether to include an item in the Spell, the disagreement must be raised in the govops channel in Slack so that the Spell Teams, Core GovOps, the Core Facilitator, and the Protocol Security Workstream Le.
+- **Ethereum SkyLink Freezer Multisig Required Number Of Signers** (`A.1.10.4.1.1.2`): `4` → `5`
+- **Ethereum SkyLink Freezer Multisig Signers** (`A.1.10.4.1.1.3`): `2` → `3`
+- **Ethereum SkyLink Freezer Multisig Modification** (`A.1.10.4.1.1.5`): `4` → `5`
+
+### Housekeeping
+- `A.1.10.2.3.2.2.1.2` (Prime Spell Security Guidelines): `Discord` → `Slack`
+- `A.1.10.2.3.2.2.3.2.2` (Prime Agent Publishes Spell Actions On Sky Forum): added refs to `A.1.10.2.5.2.1`
+- `A.1.10.2.3.2.2.3.3.6` (Prime Agent Delivers Prime Spell Payload): `Discord channel` → `channel in Slack`
+- `A.1.10.2.3.3.2.2` (Core Facilitator Confirms Whether Requested Item Is Novel): `Discord` → `the govops channel`
+- `A.1.10.2.4.12.4.7` (Private Validation Status Reporting): `Discord` → `Slack`
+- `A.1.10.2.4.13.6.1` (Spell Crafter Initiates Retrospective): removed ``#`
+- `A.1.10.2.4.3.1.2` (Content Review): `Discord` → `Slack`
+- `A.1.10.2.4.3.1.3` (Obtain Consensus On Content): `` → `Where consensus cannot be reached, the procedure specified in [A.1.10.2.4.3.1.3.1 - Core Facilitator Final Inclusion Decision](4cbe3ee7-a64f-4e44-8cf5-25a09a87e233) applies.`
+- `A.1.10.2.4.3.1` (GovOps Meeting): removed `on Discord`
+- `A.1.10.2.4.4.2` (Governance Point Must Correct Discrepancies): `Discord` → `Slack`
+- `A.1.10.2.4.6` (Governance Point Finalizes Executive Sheet Week 1 Friday (Step 6)): removed `#`
+- `A.1.10.2.4.8.3.8` (Core Facilitator Must Notify Spell Team Of Changes): removed `Discord in`
+- `A.1.10.2.4.8.5.4` (Core Facilitator Shares Link And Hash Of Executive Document With Technical Point): `Discord` → `Slack`
+- `A.1.10.2.4.8.5.5` (Core Facilitator Must Communicate Executive Document With Media Liaison): removed `This is done via the #twitter-requests channel in the Growth Core Unit Discord.`
+- `A.1.10.2.4.9.2.6` (Spell Reviewers Must Raise Comments When They Find Issues): `Discord` → `Slack`
+- `Discord` → `Slack` across 6 docs.
+
+### Context
+Migrates the spell-process governance comms from Discord to Slack and tightens the Ethereum SkyLink Freezer Multisig quorum (4→5 signers). Also adds a Core Facilitator tiebreak procedure (`A.1.10.2.4.3.1.3.1`) for unresolved disputes over Spell inclusion. Ratified by poll #1637 (10-0).
+
+---
+
+## PR #257 — Derecognize Kuzmich, add new breaches
+**Merged:** 2026-06-11 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Derecognized Alignment Conservers (`A.1.5.10.2.0.6.1`): | 2026-06-11 | AD | Kuzmich | - | [https://forum.skyeco.com/t/ad-recognition-submission/26743/54](https://forum.skyeco.com/t/ad-recognition-submission/26743/54) |
+
+### Context
+Records Kuzmich's AD derecognition (moved to the Derecognized list) alongside new breach entries; the delegate tables were also reformatted to the compact style in the same Direct Edit.
+
+---
+
+## PR #255 — Atlas Edit Proposal — 2026-06-08
+**Merged:** 2026-06-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Action Tenet A.1.11.2.3.0.4.1 deleted: Unanimity Is Not Required To Block Proposal For Misalignment** (UUID `824e78be…7665`)
+- **New: Audit Process** (`A.1.10.2.7`, UUID `a8334e19…c8e6`): The documents herein define the audit process for smart contracts and deployment scripts that require independent security review before inclusion in a Spell or deployment within the Sky Ecosystem.
+  - **Audit Triggers** (`A.1.10.2.7.1`): An audit is required before new smart contract code is introduced to the Sky Ecosystem, including.
+  - **Deployment And Initialization Script Structure** (`A.1.10.2.7.1.1.1`): Deployment logic and initialization logic must be structured as follows.
+  - **General Requirements** (`A.1.10.2.7.1.1.2.1`): The following requirements apply to all deployment and initialization scripts.
+  - **Deployment Script Requirements** (`A.1.10.2.7.1.1.2.2`): Deployment scripts must satisfy the following requirements.
+  - **Initialization Script Requirements** (`A.1.10.2.7.1.1.2.3`): Initialization scripts must satisfy the following requirements.
+  - **Audit Request And Intake** (`A.1.10.2.7.2`): The team responsible for the code to be audited fills in a standardized audit intake form containing, at minimum.
+  - **Code Review Requirement** (`A.1.10.2.7.2.1`): The commit hash submitted for audit must correspond to a Pull Request that has been reviewed and approved by at least one (1) member of the team responsible for the code who is not an author of the Pull Request.
+  - **Audit Execution And Report Delivery** (`A.1.10.2.7.3`): The auditor performs the audit against the scope and commit hash specified in the audit request.
+  - **Report Review And Acceptance** (`A.1.10.2.7.4`): Upon delivery of the interim audit report, the team responsible for the audited code reviews the report and confirms that the audited scope and commit hash match the audit request.
+  - **Findings Remediation** (`A.1.10.2.7.5`): If the interim audit report contains findings, the team responsible for the audited code must address each finding based on its severity.
+  - **Audit Recordkeeping** (`A.1.10.2.7.6`): The Forum post for the associated Spell or deployment must include a link to each applicable final audit report, the audited commit hash, and confirmation that the deployed code matches the audited commit, as specified in [A.1.10.2.3.2.1.2.
+
+### Housekeeping
+- `A.1.10.2.3.2.1.1` (Preparatory Phase for Module Deployment): added refs to `A.1.10.2.7`
+- `A.1.10.2.3.2.1.2.1.2.1` (Requirements For Forum Post): added refs to `A.1.10.2.7.6`
+- `A.1.10.2.3.2.2.2.1.1` (Forum Post By Prime Agent): added refs to `A.1.10.2.7`
+- `A.1.10.2.3.2.2.3.1.1` (Prime Agent Submits Prime Spell Form): added refs to `A.1.10.2.7`
+- `A.1.10.2.3.3.2.3` (Core Spell Teams Conduct A Technical Feasibility Analysis And Develop An Implementation Proposal): added refs to `A.1.10.2.7`
+- `A.1.10.2.4.12.4.5` (Primary Reporting Counterparty): `Facilitators, not a single` → ``
+- `A.1.10.2.4.12.4.6` (Secondary Reporting Counterparty): `Facilitators are` → `Facilitator is`; `, even if all Core Facilitators are compromised or acting maliciously` → ``
+- `A.1.10.2.4.12.4.7` (Private Validation Status Reporting): `a group of Core Facilitators` → `multiple trusted parties`; `Core Facilitator` → `actor`
+- `A.1.12.2.1.7.1` (Procedure For Blocking AEP For Misalignment): `Unanimity among the Core Facilitators is not required to block an AEP for misalignment.` → ``
+
+### Context
+Adds a formal Audit Process framework (`A.1.10.2.7`) mandating independent security review of smart-contract and deployment-script code before inclusion in a Spell, with structured intake, code-review, remediation, and recordkeeping requirements. Removes the now-redundant "unanimity not required to block" clauses. Ratified by poll #1636 (9-0).
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

@@ -4,6 +4,281 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #270 — Atlas Edit Proposal — 2026-06-29
+**Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.6.1.1.2.2.6.1.3.1.9.2.2.5.1.1 deleted: Maximum Allocation** (UUID `911d3d77…4b51`)
+- **Core A.6.1.1.2.2.6.1.3.1.9.2.2.5.1.2 deleted: Rate Limits** (UUID `202c9218…9666`)
+- **Core A.6.1.1.2.2.6.1.3.1.9.2.2.5.1 deleted: Interim Deployment** (UUID `09aa5dea…d8a8`)
+
+### Context
+Removes Grove's interim deployment configuration (Maximum Allocation, Rate Limits), superseded by the permanent Diamond PAU contracts, roles, and rate-limit maximums added in PR #265.
+
+---
+
+## PR #265 — Atlas Edit Proposal — 2026-06-22
+**Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.6.1.1.2.2.6.1.2.2.1.6.4 deleted: Tokenized Treasury Pauser Role** (UUID `abdc489a…3700`)
+- **Core A.6.1.1.2.2.6.1.2.2.1.6.8 deleted: Tokenized Treasury Owner Timelock Canceller Role** (UUID `0ff6a176…c709`)
+- **Core A.6.1.1.2.2.6.1.2.2.1.6.4 deleted: Tokenized Treasury Pauser Role** (UUID `abdc489a…3700`)
+- **Core A.6.1.1.2.2.6.1.2.2.1.6.8 deleted: Tokenized Treasury Owner Timelock Canceller Role** (UUID `0ff6a176…c709`)
+- **New: Ethereum Mainnet - Tokenized Treasury BUIDL Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.14.2`, UUID `8ebc6bfc…dfcc`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.2.2.6.1.3.1.14.2`.
+- **New: Diamond PAU Contracts** (`A.6.1.1.2.2.6.1.2.1.1.1.4`, UUID `887ff8b9…1416`): The documents herein define the addresses of the Diamond Parallelized Allocation Unit (Diamond PAU) contracts for the Grove Liquidity Layer.
+  - **ALM Proxy Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.1`): The address of the ALM Proxy contract is: `0x0DcD9298e163dFD3c0B5b00F0d9093C36e40A153`.
+  - **Controller Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.2`): The address of the Controller contract is: `0xbf83F5974B932c7D842254042717D6A2706CE5eE`.
+  - **Beacon Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.3`): The address of the Beacon contract is: `0x829dC2b7E94B1954F0764E573f2E0d45Afa28199`.
+  - **AccessControls Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.4`): The address of the AccessControls contract is: `0x4F6d1704700cd494DD4cd9bF59c0C39DA1Bc9164`.
+  - **ALM Rate Limits Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.5`): The address of the ALM Rate Limits contract is: `0xE016Ae733A77Ba77E7907aAA749394Fc5e75C0e1`.
+  - **Basin Facet Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.6`): The address of the Basin Facet contract is: `0xC84825BCD13AEddc372400239499380376a44A39`.
+  - **USDS Facet Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.7`): The address of the USDS Facet contract is: `0x1221CC4B85Ab260660aD21C2829e0EB516dffBc7`.
+  - **PSM Facet Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.8`): The address of the PSM Facet contract is: `0xE4A5dAc768a310cc2316f258901b32E499653064`.
+  - **AdministeredAgent Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.4.1.9`): The address of the AdministeredAgent contract is: `0xdBD17832df0e57b1732cE1C84c652E820e549BAa`.
+- **New: USDS Mint Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.1.1.1`, UUID `104541de…f57b`): The maximum amount of USDS that can be minted within the Grove Liquidity Layer (`LIMIT_USDS_MINT`) is specified in the document herein.
+- **New: USDS Burn Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.1.1.2`, UUID `cf829503…82dd`): The maximum amount of USDS that can be burned within the Grove Liquidity Layer (`LIMIT_USDS_BURN`) is specified in the document herein.
+- **New: USDS For USDC Swap Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.1.1.3`, UUID `a591104c…e163`): The maximum amount of USDS that can be swapped for USDC by the Grove Liquidity Layer in the Mainnet PSM (`LIMIT_USDS_TO_USDC`) is specified in the document herein.
+- **New: USDC Avalanche ALM Proxy Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.1.2.1`, UUID `00b438d4…c978`): The maximum amount of USDC that can be sent to the Avalanche ALM Proxy (`LIMIT_USDC_TO_DOMAIN`, hashed with Avalanche domain) is specified in the document herein.
+- **New: USDC Avalanche ALM Proxy Circle Cross-Chain Transfer Protocol Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.1.2.2`, UUID `d5b284c1…f36e`): The maximum amount of USDC that can be bridged to Avalanche ALM Proxy using the Circle Cross-Chain Transfer Protocol (`LIMIT_USDC_TO_CCTP_Avalanche`) is specified in the document herein.
+- **New: USDC Ethereum Mainnet ALM Proxy Circle Cross-Chain Transfer Protocol Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.1.2.3`, UUID `a3b52620…090c`): The maximum amount of USDC that can be bridged to Ethereum Mainnet from the Avalanche ALM Proxy using the Circle Cross-Chain Transfer Protocol (`LIMIT_USDC_TO_CCTP_Ethereum`) is specified in the document herein.
+- **New: USDS To Ethereum Mainnet Via SkyLink** (`A.6.1.1.2.2.6.1.2.1.1.3.1.2.4`, UUID `dec9ce16…de2c`): The maximum amount of USDS that can be sent to the Ethereum Mainnet ALM Controller from Avalanche via SkyLink (`LIMIT_LAYERZERO_TRANSFER`, hashed with Ethereum Mainnet USDS OFT address and Ethereum Mainnet destination domain) is specified i.
+- **New: Whitelisting Of ALM Proxy** (`A.6.1.1.2.2.6.1.2.1.1.4.2`, UUID `6823cc5a…006e`): The ALM Proxy for the Grove Diamond PAU will be whitelisted on the litePSM in an upcoming spell.
+- **New: Default Admin Role** (`A.6.1.1.2.2.6.1.2.2.1.1.1.1`, UUID `dc515367…782f`): The admin role (`DEFAULT_ADMIN_ROLE`) is the role that can grant and revoke any role, including itself and all other roles defined in the contract.
+- **New: Relayer Role** (`A.6.1.1.2.2.6.1.2.2.1.1.1.2`, UUID `4639e60c…0edd`): The `RELAYER_ROLE` is the address for the Grove Liquidity Layer ALM Planner off-chain system that calls functions on `Controller` contracts to perform actions on behalf of the `ALMProxy` contract.
+- **New: ALM Controller Role** (`A.6.1.1.2.2.6.1.2.2.1.1.1.3`, UUID `955c8db9…ca97`): The `ALM_CONTROLLER_ROLE` is the address of the role that can call the `call` functions on the `ALMProxy` contract and update `RateLimits` contract.
+- **New: Default Admin Role** (`A.6.1.1.2.2.6.1.2.2.1.1.3.1`, UUID `987dc000…19fc`): The `DEFAULT_ADMIN_ROLE` is the administrative role of the AccessControls contract, authorized to grant and revoke all other roles of the Diamond PAU.
+- **New: Controller Role** (`A.6.1.1.2.2.6.1.2.2.1.1.3.2`, UUID `1597253b…d2c5`): The `CONTROLLER` role is authorized to call the `call` functions on the ALM Proxy contract and to update the ALM Rate Limits contract.
+- **New: Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.1.3.3`, UUID `6d6622aa…fc9b`): The `ALLOCATOR_ROLE` is authorized to call functions on the Controller contract to perform operations on behalf of the ALM Proxy contract.
+- **New: Freezer Role** (`A.6.1.1.2.2.6.1.2.2.1.1.3.4`, UUID `d910ae36…d094`): The Freezer Role is authorized to remove a compromised or malicious relayer actor from the AdministeredAgent contract as a rapid-response measure, without recourse to the standard governance process.
+- **New: Diamond PAU Controller Functions** (`A.6.1.1.2.2.6.1.2.2.1.2.2`, UUID `6c060c28…1641`): The documents herein define the functions performed through the Diamond PAU Controller contract for Grove Liquidity Layer operations on Ethereum Mainnet.
+  - **Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.2.2.1.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a Basin deposit.
+  - **Check Rate Limits** (`A.6.1.1.2.2.6.1.2.2.1.2.2.1.2`): The deposit is subject to the deposit rate limit identified by `LIMIT_BASIN_DEPOSIT` for the specified asset and Basin.
+  - **Deposit Asset Into Basin** (`A.6.1.1.2.2.6.1.2.2.1.2.2.1.3`): The Basin Facet deposits the specified amount of the asset into the Basin on behalf of the ALM Proxy, and Basin shares are minted to the ALM Proxy.
+  - **Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.2.2.2.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a Basin withdrawal.
+  - **Check Rate Limits** (`A.6.1.1.2.2.6.1.2.2.1.2.2.2.2`): The withdrawal is subject to the withdrawal rate limit identified by `LIMIT_BASIN_WITHDRAW` for the specified asset and Basin.
+  - **Withdraw Asset From Basin** (`A.6.1.1.2.2.6.1.2.2.1.2.2.2.3`): The Basin Facet withdraws up to the specified maximum amount of the asset from the Basin to the ALM Proxy, burning the corresponding Basin shares.
+  - **Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.2.2.3.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a USDS mint.
+  - **Check Rate Limits** (`A.6.1.1.2.2.6.1.2.2.1.2.2.3.2`): The mint is subject to the rate limit identified by `LIMIT_USDS_MINT`.
+  - **Mint USDS To ALM Proxy** (`A.6.1.1.2.2.6.1.2.2.1.2.2.3.3`): The USDS Facet mints the specified amount of USDS from the Allocator Vault to the ALM Proxy.
+  - **Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.2.2.4.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a USDS burn.
+  - **Check Rate Limits** (`A.6.1.1.2.2.6.1.2.2.1.2.2.4.2`): The burn is subject to the rate limit identified by `LIMIT_USDS_BURN`.
+  - **Burn USDS From ALM Proxy** (`A.6.1.1.2.2.6.1.2.2.1.2.2.4.3`): The USDS Facet burns the specified amount of USDS held by the ALM Proxy, returning it to the Allocator Vault.
+  - **Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.2.2.5.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a USDS to USDC swap.
+  - **Check Rate Limits** (`A.6.1.1.2.2.6.1.2.2.1.2.2.5.2`): The swap is subject to the rate limit identified by `LIMIT_USDS_TO_USDC`.
+  - **Swap USDS For USDC Through The PSM** (`A.6.1.1.2.2.6.1.2.2.1.2.2.5.3`): The PSM Facet swaps USDS held by the ALM Proxy for the specified amount of USDC through the PSM.
+  - **Allocator Role** (`A.6.1.1.2.2.6.1.2.2.1.2.2.6.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a USDC to USDS swap.
+  - **Check Rate Limits** (`A.6.1.1.2.2.6.1.2.2.1.2.2.6.2`): The swap is subject to the rate limit identified by `LIMIT_USDC_TO_USDS`.
+  - **Swap USDC For USDS Through The PSM** (`A.6.1.1.2.2.6.1.2.2.1.2.2.6.3`): The PSM Facet swaps the specified amount of USDC held by the ALM Proxy for USDS through the PSM.
+- **New: Interim Deployment** (`A.6.1.1.2.2.6.1.3.1.14.1.2.5.1`, UUID `71230664…a04e`): This Instance is currently defined as an Interim Deployment (see `A.1.10.2.3.2.2.2`) and as such has CRR of 100%.
+  - **Maximum Allocation** (`A.6.1.1.2.2.6.1.3.1.14.1.2.5.1.1`): The maximum allocation for the Tokenized Treasury Basin Interim Deployments is $5 million, combined across the JTRSY and BUIDL Instances.
+  - **Rate Limits** (`A.6.1.1.2.2.6.1.3.1.14.1.2.5.1.2`): The Rate Limits for this Interim Deployment are defined in `A.6.1.1.2.2.6.1.3.1.14.1.2.4`.
+- **New: Ethereum Mainnet - Tokenized Treasury BUIDL Instance Configuration Document** (`A.6.1.1.2.2.6.1.3.1.14.2`, UUID `867aa6c2…9463`): The documents herein contain the Instance Configuration Document for the Tokenized Treasury BUIDL Instance.
+  - **RRC Framework Full Implementation Coverage** (`A.6.1.1.2.2.6.1.3.1.14.2.1`): `Pending`.
+  - **Network** (`A.6.1.1.2.2.6.1.3.1.14.2.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.2.2.6.1.3.1.14.2.2.1.2`): Securitize.
+  - **Asset Supplied By Grove Liquidity Layer** (`A.6.1.1.2.2.6.1.3.1.14.2.2.1.3`): USDS.
+  - **Token** (`A.6.1.1.2.2.6.1.3.1.14.2.2.1.4`): BUIDL.
+  - **Token Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.1`): `0x7712c34205737192402172409a8F7ccef8aA2AEc`.
+  - **Securitize Redemption Wallet Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.2`): `0x8780Dd016171B91E4Df47075dA0a947959C34200`.
+  - **BUIDL Rate Provider Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.3`): `0x69a171853575FFD41574EA80Abfc6337AcbC4d43`.
+  - **Pocket Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.4`): `0x39548FeF138370Db06e172eF0739894b2a613DF9`.
+  - **Token Redeemer Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.5`): `0x73414528187A4986E2Af5D551fD14871b723E506`.
+  - **Owner Timelock Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.6`): `0xdB8C7c814E9780659B23478EF4Bda9032CC9Ff34`.
+  - **Basin Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.2.2.2.7`): `0xCBa428fB052B365557DAf52b744DFfF20d5FbEdD`.
+  - **Rate Limit IDs** (`A.6.1.1.2.2.6.1.3.1.14.2.2.3`): The specific `RateLimitID`(s) for this conduit's inflow and outflow will be specified in a future iteration of the Atlas.
+  - **Rate Limits** (`A.6.1.1.2.2.6.1.3.1.14.2.2.4`): The inflow and outflow rate limit configuration for this conduit is specified in the subdocuments herein.
+  - **Inflow Rate Limits** (`A.6.1.1.2.2.6.1.3.1.14.2.2.4.1`): The inflow rate limits are.
+  - **Outflow Rate Limits** (`A.6.1.1.2.2.6.1.3.1.14.2.2.4.2`): The outflow rate limits are.
+  - **Interim Deployment** (`A.6.1.1.2.2.6.1.3.1.14.2.2.5.1`): This Instance is currently defined as an Interim Deployment (see `A.1.10.2.3.2.2.2`) and as such has CRR of 100%.
+  - **Maximum Allocation** (`A.6.1.1.2.2.6.1.3.1.14.2.2.5.1.1`): The maximum allocation for the Tokenized Treasury Basin Interim Deployments is $5 million, combined across the JTRSY and BUIDL Instances.
+  - **Rate Limits** (`A.6.1.1.2.2.6.1.3.1.14.2.2.5.1.2`): The Rate Limits for this Interim Deployment are defined in `A.6.1.1.2.2.6.1.3.1.14.2.2.4`.
+  - **Instance-specific Operational Processes** (`A.6.1.1.2.2.6.1.3.1.14.2.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Grove Liquidity Layer processes.
+  - **Instance Configuration Parameters** (`A.6.1.1.2.2.6.1.3.1.14.2.4.1`): The configuration parameters for this Instance are as follows.
+  - **Owner Role Holder** (`A.6.1.1.2.2.6.1.3.1.14.2.4.2.1`): The `OWNER_ROLE`, as defined in `A.6.1.1.2.2.6.1.2.2.1.1.2.1`, is held by Securitize via an OpenZeppelin `TimelockController` at the address specified in [A.6.1.1.2.2.6.1.
+  - **Proposer Role Holder** (`A.6.1.1.2.2.6.1.3.1.14.2.4.2.1.1`): The `PROPOSER_ROLE` of the Owner Timelock is held by Securitize at `0x453A28B31fdc31858C35B02bc3A42BCD8bfbAd3a`.
+  - **Redeemer Role Holder** (`A.6.1.1.2.2.6.1.3.1.14.2.4.2.2`): The `REDEEMER_ROLE`, as defined in `A.6.1.1.2.2.6.1.2.2.1.1.2.5`, is held by Securitize at `0x488F27168a19472c51f003fbC5b75B1ACc3B7b4c`.
+- **Basin Factory Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.3.1.1`): address `0x78Dc98D689Fe9A1b0056ac1cDFC14722bDA6D49a`
+- **Tokenized Treasury USDS And USDC Rate Provider Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.3.1.2`): address `0x7928A185B8137D1CD2a0996a810A04dB2837419D`
+- **USDS Burn Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.2.2`): `50` → `5`; `50` → `5`
+- **USDC For USDS Swap Maximum** (`A.6.1.1.2.2.6.1.2.1.1.3.2.4`): `20` → `5`; `20` → `5`
+- **JTRSY Rate Provider Address** (`A.6.1.1.2.2.6.1.3.1.14.1.2.2.3`): address `0x29209ceCFeFa6f675E6f1f829320D67cE2b025E5`
+- **Pocket Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.1.2.2.4`): address `0x2Cd296095788A2741e72056D66B3Ae1fAeE23ea2`
+- **Token Redeemer Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.1.2.2.5`): address `0x7c5Ce1a1D50a6cb3Da97C9e202B3E7CD8e5b5b6c`
+- **Owner Timelock Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.1.2.2.6`): address `0xA52dC9876aB4A9DB6dAfbb83410554086054d140`
+- **Basin Contract Address** (`A.6.1.1.2.2.6.1.3.1.14.1.2.2.7`): address `0xf08943f817e1F902dEbC884c7B19Ea5764594Ac9`
+- **Inflow Rate Limits** (`A.6.1.1.2.2.6.1.3.1.14.1.2.4.1`): `0` → `5,000,000`; `0` → `5,000,000`
+- **Owner Role Holder** (`A.6.1.1.2.2.6.1.3.1.14.1.4.2.1`): `6` → `1.2`
+- **Redeemer Role Holder** (`A.6.1.1.2.2.6.1.3.1.14.1.4.2.2`): address `0xb6e8D3E47c4FC5606E6C24D097Dd1791885Ce05a`
+
+### Housekeeping
+- `A.6.1.1.2.2.6.1.2.1.1.1.1.1.1` (Allocator Vaults And Buffers): removed refs to `A.6.1.1.2.2.6.1.3.1.14.1`
+- `A.6.1.1.2.2.6.1.2.1.1.1.2` (Monolithic ALM Contracts): added `Monolithic`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1` (Ethereum Mainnet): `USDS Mint Maximum` → `Ethereum Mainnet`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.2` (Avalanche): `USDS Burn Maximum` → `Avalanche`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3` (Base): `USDS For USDC Swap Maximum` → `Base`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1` (Monolithic ALM Rate Limits): `Ethereum Mainnet` → `Monolithic ALM Rate Limits`
+- `A.6.1.1.2.2.6.1.2.1.1.3.2.1` (USDS Mint Maximum): `USDC Avalanche ALM Proxy` → `USDS Mint`
+- `A.6.1.1.2.2.6.1.2.1.1.3.2.3` (USDS For USDC Swap Maximum): `Ethereum Mainnet ALM Proxy Circle Cross-Chain Transfer Protocol` → `Swap`
+- `A.6.1.1.2.2.6.1.2.1.1.3.2` (Diamond PAU Rate Limits): `Avalanche` → `Diamond PAU Rate Limits`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3` (Base): removed `###### A.6.1.1.2.2.6.1.2.1.1.3.3 - Base [Core]`
+- `A.6.1.1.2.2.6.1.2.1.1.3` (RateLimits): `Ratelimits` → `rate limits`
+- `A.6.1.1.2.2.6.1.2.1.2.2.1` (Prime Primary Relayer Multisig): added `1.`
+- `A.6.1.1.2.2.6.1.2.1.2.2.2` (Prime Secondary Relayer Multisig): added `1.`
+- `A.6.1.1.2.2.6.1.2.1.2.2.3` (Core Operator Relayer Multisig): added `1.`
+- `A.6.1.1.2.2.6.1.2.1.2.2.4` (Freezer Multisig): added refs to `A.6.1.1.2.2.6.1.2.2.1.1.3.4`
+- `A.6.1.1.2.2.6.1.2.2.1.1.1` (Monolithic ALM Role Hierarchy And Permissions): `Default Admin` → `Monolithic ALM`
+- `A.6.1.1.2.2.6.1.2.2.1.1.2` (Tokenized Treasury Role Hierarchy And Permissions): `Relayer` → `Tokenized Treasury`
+- `A.6.1.1.2.2.6.1.2.2.1.1.3` (Diamond PAU Role Hierarchy And Permissions): `ALM Controller` → `Diamond PAU`
+- `A.6.1.1.2.2.6.1.2.2.1.1` (Role Hierarchies And Permissions): `Hierarchy` → `Hierarchies`
+- `A.6.1.1.2.2.6.1.2.2.1.2.1.2.3.1` (Swap USDS To USDC): `to` → `To`
+- `A.6.1.1.2.2.6.1.2.2.1.2.1.2.3.2` (Swap USDC To USDS): `to` → `To`
+- `A.6.1.1.2.2.6.1.2.2.1.2.1` (Monolithic Mainnet Controller Contract Functions): added `Monolithic`
+- `A.6.1.1.2.2.6.1.2.2.1.2` (Controller Functions): `describe` → `specify`
+- `A.6.1.1.2.2.6.1.2.2.1.3` (Rate Limit Management): `Spark` → `Grove`
+- `A.6.1.1.2.2.6.1.2.2.1.1.2` (Tokenized Treasury Role Hierarchy And Permissions): removed `###### A.6.1.1.2.2.6.1.2.2.1.6 - Tokenized Treasury Role Hierarchy And Permissions [Core]`
+- `A.6.1.1.2.2.6.1.2.2.3.3` (USDC to USDS Swap Action): `to` → `To`
+- `A.6.1.1.2.2.6.1.3.1.14.1.2.1.2` (Target Protocol): `Tokenized Treasury` → `Centrifuge`
+- `A.6.1.1.2.2.6.1.3.1.14.1.2.4.2` (Outflow Rate Limits): `0 USDS` → `Unlimited`
+- `A.6.1.1.2.2.6.1.3.1.14.1.2.4` (Rate Limits): `current `maxAmount`` → `inflow`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.4` renumbered (UUID stable: `8a462b2a…7d4f`)
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.5` renumbered (UUID stable: `b43ee2cd…c693`)
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.6` renumbered (UUID stable: `f6094634…09fb`)
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3.1` renumbered (UUID stable: `dba2c846…af48`)
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3.2` renumbered (UUID stable: `34e5a190…6e44`)
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3.3` renumbered (UUID stable: `9575357d…93a6`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.1.4` renumbered (UUID stable: `37871a80…ca9f`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.2.1` renumbered (UUID stable: `41a7e6fb…b361`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.2.2` renumbered (UUID stable: `4554fa6d…323e`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.2.3` renumbered (UUID stable: `191435aa…be01`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.2.5` renumbered (UUID stable: `fbeb1921…25b1`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.2.6` renumbered (UUID stable: `493bc01d…8cf2`)
+- `A.6.1.1.2.2.6.1.2.2.1.1.2.7` renumbered (UUID stable: `35e4cd97…c92e`)
+- `USDC` → `USDS` across 3 docs.
+- `6` → `1.2` across 8 docs.
+- `to` → `To` across 3 docs.
+
+### Context
+Establishes the Grove Diamond PAU (Parallelized Allocation Unit) on Ethereum Mainnet — nine contract addresses, access-control roles, USDS mint/burn/swap and USDC bridging rate-limit maximums, and Basin/PSM controller functions — while deleting the Tokenized Treasury Pauser and Timelock Canceller roles. The ALM Proxy litePSM whitelisting is deferred to the July 2 executive. Ratified by poll #1638 (9-0).
+
+---
+
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.6.1.1.2.2.6.1.2.1.1.1.1.1.5 deleted: Allocator Vault (Bloom-A) Contract** (UUID `a2060039…12b3`)
+- **Core A.6.1.1.2.2.6.1.2.1.1.1.1.1.5 deleted: Allocator Vault (Bloom-A) Contract** (UUID `a2060039…12b3`)
+- **New: Monad** (`A.6.1.1.2.2.6.1.1.2.6`, UUID `6018029d…a8ee`): The documents herein contain a Directory of all Instances on Monad of the Allocation System Primitive with Instance status of `Active`.
+  - **Uniswap** (`A.6.1.1.2.2.6.1.1.2.6.1`): The Monad Instances Directory of the Uniswap Protocol with `Active` Status are stored herein.
+  - **Monad - Uniswap AUSD/USDC Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.6.1.1`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.2.2.6.1.3.6.1.1`.
+- **New: Allocator Buffer (BLOOM-A) Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.1.1.1.1`, UUID `599b6748…785f`): The address of the ALLOCATOR_BLOOM_A_BUFFER contract is: `0x629aD4D779F46B8A1491D3f76f7E97Cb04D8b1Cd`.
+- **New: Allocator Buffer (GROVE-A) Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.1.1.1.3`, UUID `41b76952…f1ca`): The address of the ALLOCATOR_GROVE_A_BUFFER contract is: `0x436DABce608f73BeA2b75fba35bffe72739697d5`.
+- **New: Allocator Vault (GROVE-A) Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.1.1.1.4`, UUID `03b954d4…d17f`): The address of the ALLOCATOR_GROVE_A_VAULT contract is: `0xf739a30c74927dc6cFA3B67E4933872a1FC5F4EB`.
+- **New: Pool Address** (`A.6.1.1.2.2.6.1.3.1.12.1.2.2.3`, UUID `75920dcb…f507`): `0xbAFeAd7c60Ea473758ED6c6021505E8BBd7e8E5d`.
+- **New: Monad Instances** (`A.6.1.1.2.2.6.1.3.6`, UUID `27de13c9…1136`): The Monad Instances of the Grove Liquidity Layer with `Active` Status are stored herein and are organized by target protocol.
+  - **Uniswap** (`A.6.1.1.2.2.6.1.3.6.1`): The Monad Instances of the Uniswap Protocol with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation Coverage** (`A.6.1.1.2.2.6.1.3.6.1.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.2.2.6.1.3.6.1.1.2.1.1`): Monad.
+  - **Target Protocol** (`A.6.1.1.2.2.6.1.3.6.1.1.2.1.2`): Uniswap AUSD/USDC.
+  - **Asset Supplied By Grove Liquidity Layer** (`A.6.1.1.2.2.6.1.3.6.1.1.2.1.3`): USDC.
+  - **Token** (`A.6.1.1.2.2.6.1.3.6.1.1.2.1.4`): Uniswap AUSD/USDC Pool.
+  - **Pool Address** (`A.6.1.1.2.2.6.1.3.6.1.1.2.2.1`): `0x6B405DCA74897c9442d369DcF6c0EC230f7E1c7C`.
+  - **Underlying Asset Address (USDC)** (`A.6.1.1.2.2.6.1.3.6.1.1.2.2.2`): `0x754704Bc059F8C67012fEd69BC8A327a5aafb603`.
+  - **Broker Address (Ethereum Mainnet)** (`A.6.1.1.2.2.6.1.3.6.1.1.2.2.3`): `0xD94F9ef3395BBE41C1f05ced3C9a7dc520D08036`.
+  - **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.6.1.1.2.3.1`): The inflow RateLimitID is: `0x098ad67dc41c1a5892ec3ef5fd411198dc11962475e9ef2e0362e6cb7f5a2174`.
+  - **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.6.1.1.2.3.2`): The outflow RateLimitID is: N/A.
+  - **Deposit Rate Limits (via FalconX)** (`A.6.1.1.2.2.6.1.3.6.1.1.2.4.1`): The deposit rate limits are.
+  - **Withdrawal Rate Limits (via FalconX)** (`A.6.1.1.2.2.6.1.3.6.1.1.2.4.2`): The withdrawal rate limits are.
+- **Ethereum Mainnet - Uniswap v3 AUSD/USDC Swaps Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.12.1`): `c4d60460` → `ffa0ca69`; `2694` → `c416`; `4d88` → `4163`; `bf96` → `a1c6`; `4f4141482cb5` → `b863f5d38c3f`
+- **Ethereum Mainnet - Uniswap v3 AUSD/USDC LP Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.12.2`): `ffa0ca69` → `cca4236a`; `c416` → `47f9`; `4163` → `4b4f`; `a1c6` → `81ef`; `b863f5d38c3f` → `c31a5ee624aa`
+- **Allocator Vaults And Buffers** (`A.6.1.1.2.2.6.1.2.1.1.1.1.1.1`): `ALLOCATOR_BUFFER contract is: `0x629aD4D779F46B8A1491D3f76f7E97Cb04D8b1Cd`` → `Tokenized Treasury JTRSY Instance, as specified in [A.6.1.1.2.2.6.1.3.1.14.1 - Ethereum Mainnet - Tokenized Treasury JTRSY Instance Configuration Document](5e38198e-1577-4ab0-900a-91b6d8284387).`
+- **Underlying Asset Address (USDC)** (`A.6.1.1.2.2.6.1.3.1.12.1.2.2.1`): address `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`
+- **Underlying Asset Address (AUSD)** (`A.6.1.1.2.2.6.1.3.1.12.1.2.2.2`): address `0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a`
+- **Inflow RateLimitID (USDC)** (`A.6.1.1.2.2.6.1.3.1.12.2.2.3.1`): `0x6e850dcb18bea10055c82d1e3753f551b1228d04b81350ba117235de19f9a0da` → `0x71efb11b03476e40dcc1ade629d360114fcbf838d70a3211270f69414ba9a187`
+- **Inflow RateLimitID (AUSD)** (`A.6.1.1.2.2.6.1.3.1.12.2.2.3.2`): `0x7dd93dac252469b97c259284118454a6a09efd0e5f781dec59acc240f8f88402` → `0x89c0cb8c17898781d7c1776eafcf73fd0b570659ad5c3791ddcbefe66b001541`
+
+### Housekeeping
+- `A.6.1.1.2.2.6.1.3.1.12.1.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.1.2` (Target Protocol): added `v3`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.1.3` (Asset Supplied By Grove Liquidity Layer): added `and AUSD`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.1.4` (Token): added `V3`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.3.1` (Inflow RateLimitID (USDC)): removed `The inflow RateLimitID is:`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.3.2` (Outflow RateLimitID (AUSD)): `N/A` → ``0x7dd93dac252469b97c259284118454a6a09efd0e5f781dec59acc240f8f88402`.`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.4.1` (Deposit Rate Limits): `50,000,000 USDC` → `N/A - swaps only`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.4.2` (Withdrawal Rate Limits): removed `- `slope`: N/A`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.4` (Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1.2` (Parameters): `Monad Uniswap` → `Uniswap v3`
+- `A.6.1.1.2.2.6.1.3.1.12.1.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.1` (Ethereum Mainnet - Uniswap v3 AUSD/USDC Swaps Instance Configuration Document): `Monad Uniswap` → `Uniswap v3`
+- `A.6.1.1.2.2.6.1.3.1.12.2.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.2` (Target Protocol): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.3` (Asset Supplied By Grove Liquidity Layer): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.4` (Token): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2.1` (Underlying Asset Address (USDC)): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2.2` (Underlying Asset Address (AUSD)): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2.3` (Pool Address): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.4.1` (Deposit Rate Limits): `N` → `25,000,000 AUSD`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.4.2` (Withdrawal Rate Limits): `N/A - swaps only` → `Unlimited`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.4` (Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.2` (Parameters): `Swaps` → `LP`
+- `A.6.1.1.2.2.6.1.3.1.12.2.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.4.1` (Parameters For Stable Stable Pools): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2.4` (Instance-specific Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.12.2` (Ethereum Mainnet - Uniswap v3 AUSD/USDC LP Instance Configuration Document): `Swaps` → `LP`
+- `A.6.1.1.2.2.6.1.3.1.12.2.1` (RRC Framework Full Implementation Coverage): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.1 - RRC Framework Full Implementation Coverage [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.1` (Network): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.1.1 - Network [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.2` (Target Protocol): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.1.2 - Target Protocol [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.3` (Asset Supplied By Grove Liquidity Layer): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.1.3 - Asset Supplied By Grove Liquidity Layer [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.1.4` (Token): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.1.4 - Token [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2.1` (Underlying Asset Address (USDC)): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.2.1 - Underlying Asset Address (USDC) [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2.2` (Underlying Asset Address (AUSD)): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.2.2 - Underlying Asset Address (AUSD) [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.2.3` (Pool Address): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.2.3 - Pool Address [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.3.1` (Inflow RateLimitID (USDC)): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.3.1 - Inflow RateLimitID (USDC) [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.3.2` (Inflow RateLimitID (AUSD)): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.3.2 - Inflow RateLimitID (AUSD) [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.4.1` (Deposit Rate Limits): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.4.1 - Deposit Rate Limits [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.4.2` (Withdrawal Rate Limits): removed `###### A.6.1.1.2.2.6.1.3.1.12.3.2.4.2 - Withdrawal Rate Limits [Core]`
+- `A.6.1.1.2.2.6.1.3.1.12.1.2.4.3` renumbered (UUID stable: `e21c0b53…7efb`)
+- `A.6.1.1.2.2.6.1.3.1.12.1.4.1` renumbered (UUID stable: `dab70e48…336e`)
+- `A.6.1.1.2.2.6.1.3.1.12.1.4` renumbered (UUID stable: `960ce9e1…3552`)
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.3.3` renumbered (UUID stable: `3377cf40…b20e`)
+- `A.6.1.1.2.2.6.1.3.1.12.2.2.3.4` renumbered (UUID stable: `7e8b0d83…115b`)
+- `A.6.1.1.2.2.6.1.3.6.1.1.2.1` renumbered (UUID stable: `09991d1f…9136`)
+- `A.6.1.1.2.2.6.1.3.6.1.1.2.2` renumbered (UUID stable: `22326048…212c`)
+- `A.6.1.1.2.2.6.1.3.6.1.1.2.3` renumbered (UUID stable: `2e3e8ebe…42ab`)
+- `A.6.1.1.2.2.6.1.3.6.1.1.2.4` renumbered (UUID stable: `d7fdb0e6…a655`)
+- `A.6.1.1.2.2.6.1.3.6.1.1.2.5` renumbered (UUID stable: `ad810569…27f4`)
+- `A.6.1.1.2.2.6.1.3.6.1.1.3` renumbered (UUID stable: `53743f66…b8e4`)
+- `Monad Uniswap` → `Uniswap v3` across 3 docs.
+- `Swaps` → `LP` across 3 docs.
+- `12.3` → `1` across 6 docs.
+
+### Context
+Expands the Grove Liquidity Layer: adds a Monad instances directory (Uniswap AUSD/USDC) and registers ALLOCATOR-GROVE-A / ALLOCATOR-BLOOM-A buffer and vault contracts, while the Ethereum AUSD/USDC instance is reworked into separate Uniswap v3 Swaps and LP configs (the old Bloom-A vault contract doc is deleted). Ratified by poll #1637 (10-0).
+
+---
+
+## PR #255 — Atlas Edit Proposal — 2026-06-08
+**Merged:** 2026-06-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: USD Stablecoin To USDS Swap Authorization** (`A.6.1.1.2.2.6.1.2.1.2.3`, UUID `aa16daa3…0144`): Grove is authorized to swap USD stablecoins held in the Grove SubProxy Account, as specified in `A.6.1.1.2.2.1.1.3.1.1.2`, to USDS.
+
+### Context
+Grants Grove standing authorization to convert USD stablecoins held in its SubProxy Account into USDS. Ratified by poll #1636 (9-0).
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

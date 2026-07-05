@@ -4,6 +4,59 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #271 — Add Current Term field to Spark's List of Delegates active data
+**Merged:** 2026-06-30 | **Type:** Active Data update (Designated Controller)
+
+### Housekeeping
+- `A.6.1.1.1.3.1.3.8.2.0.6.1` (List of Delegates): added `- Current Term: 2026-07-01 to 2026-12-31`
+
+### Context
+Records the current Spark delegate term (2026-07-01 to 2026-12-31) via Direct Edit, following the July 1, 2026 Spark delegate re-approval.
+
+---
+
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Token Address** (`A.6.1.1.1.2.6.1.3.2.3.1.2.2.1`): address `0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB`
+- **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.2.3.1.2.2.2`): address `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
+
+---
+
+## PR #255 — Atlas Edit Proposal — 2026-06-08
+**Merged:** 2026-06-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.1.2.5.2.2.1.3.4` (Integration Boost Payments): removed `The Integration Boost payments for the Aave Instance of the Integration Boost Primitive are defined as Active Data.`
+
+---
+
+## PR #254 — add 2026-06-04 spell changes
+**Merged:** 2026-06-11 | **Type:** Spell recording (2026-06-04)
+
+### Material Changes
+- **rETH Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.1.11`): `80` → `70`
+- **LBTC Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.1.12`): `3` → `0`
+- **tBTC Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.1.13`): `74` → `0`; `75` → `70`
+- **ezETH Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.1.14`): `75` → `0`; `76` → `70`
+- **rsETH Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.1.15`): `75` → `0`; `76` → `70`
+- **USDT Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.2.3`): `50` → `10`
+- **USDC Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.2.6`): `50` → `10`
+- **SparkLend Cap Automator WETH Parameters** (`A.6.1.1.1.3.2.1.1.3.2.1`): `150` → `100`; `12` → `4`; `20` → `10`; `12` → `4`
+- **SparkLend Cap Automator wstETH Parameters** (`A.6.1.1.1.3.2.1.1.3.2.2`): `12` → `4`
+- **SparkLend Cap Automator WBTC Parameters** (`A.6.1.1.1.3.2.1.1.3.2.4`): `200` → `500`; `12` → `4`; `5` → `50`; `1` → `100`; `12` → `4`; `1` → `50,000`
+- **SparkLend Cap Automator cbBTC Parameters** (`A.6.1.1.1.3.2.1.1.3.2.8`): `12` → `4`; `20` → `50`; `50` → `100`; `12` → `4`; `10` → `50`
+
+### Housekeeping
+- `A.6.1.1.1.3.2.1.1.2.1.16` (cbBTC Risk Parameters): `BTC` → `0`
+- `12` → `4` across 4 docs.
+
+### Context
+Records the 2026-06-04 spell derisking SparkLend: LTV for LBTC, tBTC, ezETH, and rsETH set to 0 (collateral offboarding), USDT/USDC LTV cut 50→10, and Cap Automator gaps/cooldowns tightened (12→4 hr cooldown across multiple assets). Documents on-chain execution that already occurred.
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

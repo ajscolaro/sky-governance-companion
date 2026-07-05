@@ -7,6 +7,40 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-22 — June 15 & June 22 Atlas Edits + June 18 Executive Vote
+
+*Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/85*
+
+*Relates to: PR #258 / Poll #1637 (June 15), Executive June 18 (spell 0xC136C…e04b), PR #265 / Poll #1638 (June 22) | Vote: **Yes***
+
+Key rationale points:
+
+- **June 15 (PR #258) — Spell authority & Freezer multisig** — Supports codifying the Core Facilitator's final Spell-inclusion authority (new A.1.10.2.4.3.1.3.1), requiring inclusion disputes to be raised in the govops channel with positions visible so they are "resolved transparently rather than settled privately," and strengthening the Ethereum SkyLink Freezer Multisig from 2/4 to 2/5 (two Core Facilitator + three Core GovOps addresses) while preserving the two-signature threshold.
+- **June 15 — funding & allocators** — Backs the Q3 2026 Spark Foundation grant authorization (new A.2.8.2.2.2.4.5.1.4) and a second Grove Allocator Vault and Buffer (ALLOCATOR-GROVE-A) to rebalance the JTRSY Tokenized Treasury Instance, plus documentation fixes (SKY Price Oracle / Chronicle Scribe, swapped Spark Base Aave USDC addresses, Discord→Slack references).
+- **June 18 executive** — Supports the spell (0xC136C…e04b, 48h GSM Pause Delay, office-hours modifier): ALLOCATOR-GROVE-A onboarding (Poll 1637; gap 1M, maxLine 5M USDS, ttl 24h, MCD_SPBEAM max 3,000 bps / step 400 bps), LitePSM buf and gap each raised 400M→800M DAI, STUSDS_MOM replaced with 0x99159d…b89A (drips before zeroing borrow ceiling), May 2026 MSC transferring 2,946,125 USDS to the Core Council Buffer, staking normalization setting the LSSKY→SKY farm vest to 240,862,942 SKY over 90 days, Safe Harbor update, and the Spark proxy spell (PR #169).
+- **June 22 (PR #265) — Core Council discretionary capacity** — Supports renaming A.0.1.2.1 from "Facilitators'" to "Core Council's Broad Discretionary Capacity," with supersession of Atlas provisions now requiring a public Core Facilitator post confirmed by Core GovOps and the Core Council Risk Advisor, viewing it as preserving flexibility while making exceptional authority "more accountable and less concentrated in a single role."
+- **June 22 — treasury authorities & foundation grants** — Backs new treasury/transfer authorities (A.2.3.1.5 lets the Core Council modify the Treasury Allocation; Executor Agent transfers to the Sky Frontier Foundation) and two July 2026 grants: 800,000 USDS to the Grove Foundation and 700,000 USDS to the Skybase Foundation.
+- **June 22 — governance clarifications & doc corrections** — Supports clarifying AD repeat-breach timing (A.1.6.2.1), a new "No Double Counting" rule for Agent Rate on SubProxy balances (A.3.1.2.3.7), documenting Grove Diamond PAU contracts (renaming existing ALM contracts "Monolithic"), adding the BUIDL Tokenized Treasury Instance, and removing Elodin as Keel's Development Company, all framed as documenting deployed infrastructure "without creating new economic permissions."
+
+---
+
+## 2026-06-09 — June 4 Executive Vote + June 8 Atlas Edit Weekly Cycle
+
+*Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/83*
+
+*Relates to: Poll #1636 / PR #255 (June 8 Atlas Edit) + June 4 Executive Vote | Vote: **Yes***
+
+Key rationale points:
+
+- **June 4 executive — RWA001-A offboarding & keeper cleanup** — Supports the first RWA001-A offboarding spell actions (USDC in PauseProxy converted to DAI to repay vault debt, debt ceiling set to zero, position entering soft liquidation) as "a controlled continuation of legacy RWA exposure reduction," plus Keeper Network Adjustments (Poll 1626) removing the Gelato and Keep3r lanes and renaming the Maker lane to Sky.
+- **ALLOCATOR-SPARK-A DC-IAM parameters** — Backs increasing gap from 500M to 1.5B USDS and decreasing ttl from 24h to 12h with the line unchanged at 10B USDS, so "Spark can scale allocator liquidity more responsively while staying within the existing maximum exposure limit."
+- **MKR→SKY delayed upgrade penalty** — Supports raising the delayed upgrade penalty from 3% to 4% as "a stronger incentive for remaining MKR holders to complete the SKY upgrade," alongside whitelisting the Spark and Grove Prime Agent proxy spells in their StarGuard modules.
+- **June 8 Atlas Edit — new Audit Process** — Supports adding the Audit Process that codifies when audits are required (new smart contract code, module onboardings, deployment/initialisation scripts) and defines intake, delivery, review/acceptance, remediation, and recordkeeping, so new code "cannot move into deployment, Spell inclusion, or governance vote without a clearer audit trail."
+- **June 8 — Grove USD→USDS swap authorization** — Backs allowing Grove to swap USD stablecoins in its SubProxy into USDS at ~1:1 (max 0.1% divergence), each documented via a Technical Scope, for more efficient balance management with transparency and clear execution limits.
+- **June 8 — single Core Facilitator & cleanups** — Supports removing outdated references to multiple Core Facilitators in Spell validation reporting and AEP misalignment procedures (preserving escalation paths), plus removing duplicate sentences and fixing a broken cross-reference as readability/navigation improvements.
+
+---
+
 ## 2026-06-03 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
 
 *Source: https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/82*

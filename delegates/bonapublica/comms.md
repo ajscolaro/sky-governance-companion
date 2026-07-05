@@ -7,6 +7,69 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/256*
+
+*Relates to: Poll #1638 / PR #265 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a repo-wide validator pass on branch `review-atlas-edit-2026-06-22`: 10,463 docs with zero duplicate IDs/docNos, depth integrity, childCount integrity across 52 PR-touched `_index.md`, and 56 UUID cross-references with "0 dangling, 0 label/target mismatch."
+- **UUID delta accounting** — Full ID-set diff (main 10,370 → HEAD 10,463): 93 net-new UUIDs, "Retired UUIDs: 0," 30 moved/renumbered (UUID kept), 8 relabeled in place; "every 'deleted' doc reappears under a new docNo carrying its original UUID."
+- **Re-ground broad discretionary authority in the Core Council** — Verifies power to supersede Atlas provisions moves from Core Facilitator to Core Council (A.0.1.2.1, UUID f18229fe…f6c4, plus 6 referencing docs); CF's interpretive/gap-filling authority "deliberately preserved and kept distinct from supersession."
+- **Core Council treasury + Foundation transfer authority** — New A.2.3.1.5 Allocation Modification (UUID c4ef7fd6…3390) lets the Council reduce/restore step-1 and step-2 capital via CF forum post + GovOps + RiskAdvisor straight to Executive Vote; separate edit authorizes Amatsu, Ozone, and CoreCouncilExecutorAgent1 to transfer from Genesis Capital Allocations to the Sky Frontier Foundation without a per-transfer poll.
+- **AD repeat-breach clarification** — Appends a "no double jeopardy" rule to A.1.6.2.1: after a Tier 1 low-participation breach, no further breach solely for a sub-75% rolling six-month rate provided the delegate has exceeded 75% since the most recent breach (evaluated monthly); thresholds/window unchanged.
+- **Grove Diamond PAU + Basin instances** — Documents the EIP-2535 Diamond PAU facet-dispatch design on ALLOCATOR-GROVE-A (new subtree A.6.1.1.2.2.6.1.2.1.1.1.4, UUID 887ff8b9…1416) as additive capacity leaving the monolithic ALM Controller v1.8 unchanged; adds the BUIDL (Securitize) Basin Instance and renames "RWA Instance" docs to "Basin."
+
+---
+
+## 2026-06-18 — Ecosystem Spell Validation — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/255*
+
+*Relates to: June 18, 2026 Executive (`2026-06-18-onboard-allocator-grove-a-update-stusds-mom`) | Vote: **Validated***
+
+Key rationale points:
+
+- **On-chain spell verification** — Validated the deployed spell at `0xC136C3c419746c2e8c0B95100ac866a747e3e04b` (Action `0x240b327125633219B53Dafa7E416e0B18Fc43F34`), confirming `action()` matches the expected address, `tag()` equals the keccak256 of the Action runtime bytecode, `sig()` is the `execute()` selector (`0x61461954`), `expiration()` resolves to July 18 2026, `eta()` is 0 (not yet scheduled), and `done()` is false.
+- **Integrity checks** — Confirmed Etherscan verification present, "Verify Not a DarkSpell," not deployed via CREATE2, AGPL-3.0-or-later license (manual check; Etherscan shows "N/A"), Solc 0.8.16 with optimizer enabled (200 runs), `officeHours()` true, and description hash matching the canonical executive.
+- **Test suite** — Installed pinned Foundry (v1.7.1) and ran the spell suite against merged commit `032e61aa74308f830f59d44f0a6dfb24deec3eca`; Starknet tests passed and the DssSpellTest suite executed (covering ALLOCATOR-GROVE-A onboarding, LitePSM parameter updates, STUSDS_MOM replacement, May 2026 monthly settlement cycle, staking rewards normalization, Safe Harbor update, and Prime Agent proxy spell).
+
+---
+
+## 2026-06-15 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/254*
+
+*Relates to: Poll #1637 / PR #258 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **UUID delta accounting** — Primary PDM voted Yes after diffing id/docNo frontmatter across every changed `document.md` (main → HEAD): 14 net-new UUIDs, "Retired UUIDs (destroyed): 0," 84 moved/renumbered (UUID kept, docNo changed), and 24 content-only stable edits; doc-bearing UUIDs touched 108 → 122 (+14).
+- **Integrity finding** — Reports "zero retired UUIDs": every deleted-path doc "reappears under a new docNo carrying its original UUID — i.e., the entire restructure is identity-preserving," with no reuse for different content and no dangling references repo-wide.
+- **New docs (E1/E3/E4/E5)** — Core Facilitator Final Inclusion Decision (A.1.10.2.4.3.1.3.1), Spark Grant Q3 2026 (A.2.8.2.2.2.4.5.1.4), ALLOCATOR-GROVE-A parameters + SP-BEAM params + Grove Allocator Vault/Buffer docs, and the SKY Price Oracle / Chronicle Scribe Oracle subtree (A.4.4.1.3.9.1).
+- **Renumbering cascades** — The GROVE-A allocator insert pushes NOVA/OBEX/PATTERN/PRYSM/INTERVAL successors +1; the SKY Oracle insert relocates the Cap Parameter subtree; the E6 Monad instance-location tree is extracted into a new chain-6 subtree (66 UUIDs across Groups F/G/H), all UUID-preserved.
+- **Content-only edits** — E8 Discord→Slack channel updates across 13 docs (incl. `#twitter-requests` removal), plus E9 Tech Scope reference and an E1 parent back-reference.
+
+---
+
+## 2026-06-09 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/253*
+
+*Relates to: Poll #1636 / PR #255 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **UUID delta accounting** — Primary PDM voted Yes after diffing the full UUID set (origin/main 10,342 → HEAD 10,356): 15 minted, 1 retired, net +14 that "reconciles exactly with the raw count delta, so the ledger is closed — no silent additions or deletions hide inside path moves"; 0 relocations, 0 re-creations, 0 duplicate UUIDs.
+- **Add Audit Process** — Edit 1 mints 14 new docs under the A.1.10.2.7.* subtree (Audit Process, Triggers, Deployment/Initialization Script Standards, Request & Intake, Execution & Report Delivery, Report Review, Findings Remediation, Recordkeeping); framed as "finishing something the Atlas always intended to do," linked from the 4 places new code enters the system (module/Prime deployments, Prime_Spell form, spell team reviews).
+- **Grove USDS swap authorization** — Edit 2 mints 1 doc, "USD Stablecoin To USDS Swap Authorization" (A.6.1.1.2.2.6.1.2.1.2.3, UUID aa16daa3…0144).
+- **Single Core Facilitator** — Edit 3 is a pure retirement (−1): retires "Unanimity Is Not Required To Block Proposal For Misalignment" (824e78be…7665) plus in-place text edits that keep their UUIDs.
+- **Housekeeping** — Edit 4 contributes zero UUID churn: duplicate-sentence removals plus an inline reference repair (cde2604…→fcde2604…) pointing to a pre-existing A.2.2 Sky Primitives doc.
+
+---
+
 ## 2026-06-04 — Ecosystem Spell Validation — June 4, 2026
 
 *Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/252*

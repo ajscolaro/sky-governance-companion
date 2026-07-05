@@ -7,6 +7,55 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/191*
+
+*Relates to: PR #265 (Atlas Edit Proposal — 2026-06-22) | Vote: **Yes***
+
+Key rationale points:
+
+- **Re-grounding discretionary authority is the highlight** — Backs moving the power to supersede Atlas provisions "from the Core Facilitator acting alone to the Core Council," preserving the Facilitator's interpretive flexibility but requiring any supersession to be "initiated through a public Sky Forum post confirmed by Core GovOps and the Core Council Risk Advisor"; frames the multi-party check as keeping "a necessary escape valve in place while making its use transparent and accountable."
+- **Core Council strengthened structurally** — Notes the package also lets the Council adjust the Treasury Allocation through a confirmed Forum process, alongside the supersession-authority shift.
+- **Capital allocations** — July grant to the Grove Foundation, a July grant to the Skybase Foundation "under a new Subsequent Allocation Mechanism," authorized Executor Agent transfers to the Sky Frontier Foundation, and bringing the BUIDL tokenized treasury instance online beside an updated JTRSY.
+- **Process and recordkeeping** — Tightening when a repeat voting-participation breach applies, narrowing the Agent Rate's scope, fixing the Core Council Risk Advisor's real-time data coverage to "major Ethereum and L2 lending markets," documenting the Grove Diamond PAU and reserved Distribution Reward Code ranges, and "dropping Elodin as Keel's Development Company."
+- **Broad support** — "We are in favor of these changes and have no substantial concerns on any of the items."
+
+---
+
+## 2026-06-18 — Executive Vote: Onboard ALLOCATOR-GROVE-A, LitePSM Parameters, Replace STUSDS_MOM, May Settlement, Staking Rewards, Safe Harbor, Prime Agent Proxy — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/190*
+
+*Relates to: Spell 2026-06-18-onboard-allocator-grove-a-update-stusds-mom | Vote: **Yes***
+
+Key rationale points:
+
+- **STUSDS_MOM replacement is the highlight** — Backs the new contract that "ensures a zeroLine call first triggers stusds.drip() before propagating a zero borrow ceiling through the Vat," keeping stUSDS accounting synchronized when a line is offboarded; calls it "a meaningful implementation correctness fix" that removes the edge case where zeroing a ceiling without accruing pending interest would leave accounting "briefly out of step."
+- **Grove vault onboarding** — ALLOCATOR-GROVE-A to be onboarded.
+- **LitePSM parameters** — LITE-PSM-USDC-A buf and gap "raised to 800 million DAI each."
+- **Routine operations confirmed** — May 2026 Monthly Settlement Cycle execution, LSSKY to SKY staking rewards normalization, and Safe Harbor Agreement update with the new contracts.
+- **Spark proxy whitelisting** — A Spark proxy spell to be whitelisted in the Spark StarGuard.
+- **Broad support** — "Everything looks in order and all of the edits are as expected."
+
+---
+
+## 2026-06-15 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/189*
+
+*Relates to: PR #258 (Atlas Edit Proposal — 2026-06-15) | Vote: **Yes***
+
+Key rationale points:
+
+- **Core Facilitator Spell-inclusion authority is the highlight** — Backs codifying the Facilitator's authority over final Spell inclusion, calling it a "binding decision rule for which items make it into a Spell where consensus cannot be reached" that specifies "Core GovOps assumes that decision where there is credible suspicion the Core Facilitator is compromised"; values writing down "both the default authority and the compromise contingency" because "Spell assembly is exactly the point where ambiguity is most costly."
+- **Capital and infrastructure additions** — Spark Foundation Q3 2026 grant authorizations, a second Allocator Vault and Buffer for Grove Prime, and documentation of the SKY Price Oracle.
+- **Configuration and threshold fixes** — Ethereum SkyLink Freezer Multisig threshold update, plus corrections to the Grove Monad and Spark Base Aave instance configurations.
+- **Coordination migration** — Internal coordination references migrated "from Discord to Slack."
+- **Broad support** — "We are in favor of these changes and have no substantial concerns on any of the items."
+
+---
+
 ## 2026-06-08 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
 
 *Source: https://forum.skyeco.com/t/wbc-aligned-delegate-communications/20828/188*

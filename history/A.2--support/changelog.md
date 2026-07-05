@@ -4,6 +4,70 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #270 — Atlas Edit Proposal — 2026-06-29
+**Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Chronicle Point Reward Instance Definition** (`A.2.8.2.10.2.1.1`, UUID `a7ccb2d1…0396`): The "Chronicle Point Reward Instance" refers to the Ethereum mainnet reward mechanism through which USDS is deposited in Sky's Rewards contract to accrue Chronicle Points.
+- **New: Compensation Formula** (`A.2.8.2.10.2.1.2`, UUID `d4a5ce00…1b01`): Sky will pay Grove ongoing compensation in USDS, calculated as follows.
+
+### Housekeeping
+- `A.2.8.2.10.2.1` (Chronicle Point Reward Program): `Instance Definition` → `Program`
+- `A.2.8.2.10.2.2` (Prime Revenue Credit): removed refs to `A.3.1.2.1`; added refs to `A.3.2.1.2.1`
+- `A.2.8.2.2.2.1.2.2.1` (Grove Token Reward Distribution Schedule): removed `The distribution of GROVE tokens will be specified in a future iteration of the Atlas.`
+- `A.2.8.2.10.2.1.3` renumbered (UUID stable: `4bed0292…ead5`)
+- `A.2.8.2.10.2.1.4` renumbered (UUID stable: `31e070cf…7cc7`)
+- `A.2.8.2.10.2.1.5` renumbered (UUID stable: `e19ba00b…83f8`)
+
+### Context
+Defines the Chronicle Point Reward Instance (USDS deposited in Sky's Rewards contract to accrue Chronicle Points) and the USDS compensation formula Sky pays Grove, and finalizes the previously-deferred Grove token distribution schedule (`A.2.8.2.2.2.1.2.2.1`) now referenced by the new A.4 GROVE Token Rewards.
+
+---
+
+## PR #265 — Atlas Edit Proposal — 2026-06-22
+**Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Reward Code Ranges** (`A.2.2.9.1.2.1.1.4`, UUID `af47ab9b…95c2`): The following Prime Agents are allocated reserved ranges of Reward Codes for use in their Distribution Reward Primitive instances.
+- **New: Allocation Modification** (`A.2.3.1.5`, UUID `c4ef7fd6…3390`): In the short term, the Core Council may reduce the allocations of Step 1 Capital (see `A.2.3.1.2.2`) and Step 2 Capital (see [A.2.3.1.2.3 - Step 2: Aggregate Backstop.
+- **New: Grove Foundation Grant Authorization: July 2026** (`A.2.8.2.2.2.4.5.2.2`, UUID `7b6820d0…ec74`): The founding team of Grove has proposed a cash grant of 800,000 USDS to the Grove Foundation from Grove's Prime Treasury for July 2026. (address: `0xE3EC4CC359E68c9dCE15Bf667b1aD37Df54a5a42`)
+- **New: Transfers To The Sky Frontier Foundation** (`A.2.8.2.5.2.4`, UUID `e93eb85c…de8f`): Core Council Executor Agent 1 is authorized to transfer funds from its Genesis Capital Allocation to the Sky Frontier Foundation without a separate governance decision for each transfer.
+- **New: Subsequent Allocation Mechanism** (`A.2.8.2.7.2.2.3`, UUID `45830abe…16a9`): Following its Genesis Capital Allocation, Skybase may request additional grants to the Skybase Foundation to fund operations and growth.
+  - **Skybase Foundation Grant Authorization: July 2026** (`A.2.8.2.7.2.2.3.1`): The founding team of Skybase has proposed a one-time cash grant of 700,000 USDS to the Skybase Foundation from Skybase's SubProxy to provide operational capital.
+- **New: Transfers To The Sky Frontier Foundation** (`A.2.8.2.8.2.2`, UUID `06bac1e1…ddee`): Amatsu is authorized to transfer funds from its Genesis Capital Allocation to the Sky Frontier Foundation without a separate governance decision for each transfer.
+- **New: Transfers To The Sky Frontier Foundation** (`A.2.8.2.9.2.2`, UUID `9bb85c21…871d`): Ozone is authorized to transfer funds from its Genesis Capital Allocation to the Sky Frontier Foundation without a separate governance decision for each transfer.
+- **Core Council Executor Agent 1 SubProxy Address** (`A.2.8.2.5.2.2.1`): address `0x64a2b7CfA832fE83BE6a7C1a67521B350519B9c1`
+- **Amatsu SubProxy Address** (`A.2.8.2.8.2.1.1`): address `0xF33B14329e7115dD0B40DBb2985E1A0Df10E3fAa`
+- **Ozone SubProxy Address** (`A.2.8.2.9.2.1.1`): address `0x9FE628BFc33f0352Bb1f93168881a9Ef93C8d2CF`
+
+### Housekeeping
+- `A.2.8.2.3.1.1.2` (Keel Details): `Elodin` → `Development Company`
+- `will be specified in` → `on` across 3 docs.
+
+### Context
+Authorizes July 2026 foundation grants (Grove 800,000 USDS from Prime Treasury; Skybase 700,000 USDS from its SubProxy), empowers Executor Agent 1, Amatsu, and Ozone to transfer Genesis Capital to the Sky Frontier Foundation without per-transfer governance, and permits the Core Council to reduce Step 1/Step 2 Capital allocations short-term. Ratified by poll #1638 (9-0).
+
+---
+
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Spark Foundation Grant Authorization: Q3 2026** (`A.2.8.2.2.2.4.5.1.4`, UUID `8dd2eb27…5d7c`): The founding team of Spark has proposed a cash grant of 1,100,000 USDS per month to the Spark Foundation from Spark's Prime Treasury for a three (3) month period to cover Q3 2026 Spark Foundation expenses.
+
+### Context
+Authorizes a 1.1M USDS/month grant (3.3M total over Q3 2026) from Spark's Prime Treasury to the Spark Foundation. Ratified by poll #1637 (10-0).
+
+---
+
+## PR #255 — Atlas Edit Proposal — 2026-06-08
+**Merged:** 2026-06-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.2.2.9.2.2.3.5.4.2` (Agent Artifact Updates): removed `The Agent Artifact documents specified herein are updated as the output of this process. The Output "sets" are mutually exclusive.`
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

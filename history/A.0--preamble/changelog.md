@@ -4,6 +4,23 @@ Atlas path: `A.0` — Definitions, foundational concepts, and structural rules
 
 ---
 
+## PR #265 — Atlas Edit Proposal — 2026-06-22
+**Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Precedence Over Conflicting Provisions** (`A.0.1.2.1.2`): `fe58827d` → `f18229fe`; `5a02` → `fbc3`; `4b84` → `4dc8`; `bd56` → `ad84`; `8e5d93ef8f48` → `4bca2915f6c4`
+
+### Housekeeping
+- `A.0.1.2.1.1.0.3.1` (Formalize Actions - Element Annotation): `Facilitators have broad discretionary authority to interpret or supersede the Atlas pursuant` → `Pursuant`; `Facilitators` → `Core Council`
+- `A.0.1.2.1.1.0.4.2` (Formalizing actions via Governance Poll is encouraged, but not mandatory): `Facilitator decides to supersede` → `Council supersedes`; `Facilitators to run` → ``
+- `A.0.1.2.1` (Core Council’s Broad Discretionary Capacity): `Facilitators` → `Core Council`; `the Core Facilitator` → `broad discretionary power`
+- `Facilitators` → `Core Council` across 4 docs.
+
+### Context
+Continues the Facilitator→Core Council terminology migration in the Preamble, reassigning the broad discretionary and supersession authority language from the Core Facilitator to the Core Council. Ratified by poll #1638 (9-0).
+
+---
+
 ## PR #251 — Atlas Edit Proposal — 2026-05-25
 **Merged:** 2026-05-29 | **Type:** Weekly edit (Atlas Axis)
 

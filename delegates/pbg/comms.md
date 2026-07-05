@@ -7,6 +7,54 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/219*
+
+*Relates to: Poll (PR #265, Atlas Edit — 2026-06-22) | Vote: **Yes***
+
+Key rationale points:
+
+- **Distribution Reward Code ranges highlighted** — Singles out reserving "non-overlapping Distribution Reward Code ranges for Skybase, Spark, Grove, and Keel" as "directionally useful for operational readiness," reasoning that pre-allocating ranges "prevents reward code collisions as distribution activity scales across the SubDAOs" and keeps reward accounting "cleanly attributable to the right entity rather than relying on ad hoc assignment later."
+- **Core Council authority shifts** — Notes two authority changes: granting the Core Council "short term authority over the Treasury Allocation" (Step 1/Step 2 adjustable, Step 3 re-allocable across its three uses, routed straight to an Executive Vote) and re-anchoring "the power to supersede Atlas provisions in the Core Council instead of the Core Facilitator alone," triggered by a public Forum post with Core GovOps and Risk Advisor sign-off.
+- **Capital authorizations** — Lists four: an 800,000 USDS July 2026 Grove Foundation Multisig grant from Grove's Prime Treasury, a Subsequent Allocation Mechanism plus 700,000 USDS July 2026 grant for Skybase Foundation, BUIDL Basin Instance onboarding with JTRSY revised under a shared maximum allocation, and letting Amatsu, Ozone, and Core Council Executor Agent 1 move Genesis Capital to the Sky Frontier Foundation without a per-transfer vote.
+- **Agent and framework items** — Notes dropping Elodin as Keel's named Development Company, splitting Grove Liquidity Layer docs into Monolithic ALM and Diamond PAU components, scoping the Agent Rate to Prime Agent SubProxy balances (with a Spark PSM carve-out, barred from stacking on Integration Boost or USDS Token Rewards), and defining the Core Council Risk Advisor's near-term data coverage as major Ethereum Mainnet/L2 lending markets.
+- **Breach-clearing clarification** — Notes confirmation that "a delegate is not re-breached for voting participation once it has cleared the 75% threshold since its last Tier 1 breach."
+
+---
+
+## 2026-06-18 — Executive Vote: ALLOCATOR-GROVE-A Onboarding, LitePSM Update, STUSDS_MOM Replacement, May 2026 Settlement — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/218*
+
+*Relates to: June 18, 2026 Executive (0xc136c3c419746c2e8c0b95100ac866a747e3e04b) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Implements prior approvals** — In support, finding "nothing looks out of the ordinary here" and the spell consistent with "implementing prior approved budgets and votes."
+- **ALLOCATOR-GROVE-A onboarding highlighted** — Singles out bringing a new Grove allocator online via `AllocatorInit.initIlk` with "deliberately conservative initial parameters: a 5 million USDS maxLine, a 1 million USDS gap, a 24 hour ttl, and 0% duty," wired into LINE_MOM and MCD_SPBEAM. Calls it "a sensible operational onboarding posture" since a small line and short ttl "keeps the rollout contained while the instance proves out" and capacity "can be scaled later through the normal parameter process rather than retrofitted after the fact."
+- **LitePSM and STUSDS_MOM changes** — Lists increasing LITE-PSM-USDC-A buf and gap from 400 million to 800 million DAI each, and replacing STUSDS_MOM "with a version that drips before zeroing a borrow ceiling."
+- **Settlement and rewards** — Notes execution of the May 2026 Monthly Settlement Cycle across Spark, Grove, Keel, Obex, and Skybase, plus LSSKY→SKY staking rewards normalization with a 90-day vest of 240,862,942 SKY.
+- **Safe Harbor and proxy spell** — Lists updating the Safe Harbor Agreement with the new Grove vault, buffer, and STUSDS_MOM, and whitelisting a Spark proxy spell in the Spark StarGuard.
+
+---
+
+## 2026-06-15 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/217*
+
+*Relates to: Poll (PR #258, Atlas Edit — 2026-06-15) | Vote: **Yes***
+
+Key rationale points:
+
+- **SkyLink Freezer Multisig change highlighted** — Singles out moving the Ethereum SkyLink Freezer Multisig "from a 2/4 to a 2/5 configuration by adding a third Core GovOps signer and recording it as a documented Threshold Exception." Calls it "directionally useful for operational readiness" because it "broadens the signer base on a safety-critical freeze control while keeping the execution threshold unchanged," reducing reliance on any single signer set and keeping the deviation "explicitly documented rather than left implicit."
+- **Spell inclusion authority** — Notes codifying "Core Facilitator authority over final Spell inclusion, with a Core GovOps fallback if the Core Facilitator is compromised."
+- **Spark Foundation grants** — Lists authorizing "grants of 1,100,000 USDS per month and 155,000 USDS per month to the Spark Asset Foundation for Q3 2026."
+- **Grove Prime infrastructure** — Notes adding "a second Allocator Vault and Buffer for Grove Prime to rebalance the Tokenized Treasury Instance."
+- **Documentation and corrections** — Lists documenting the SKY Price Oracle (PIP_SKY) and its Chronicle Scribe Oracle, correcting the Grove Monad Uniswap AUSD/USDC instance and Spark Base Aave USDC contract addresses, and migrating internal Spell Process coordination from Discord to Slack with a Technical Scope Template cross-reference.
+
+---
+
 ## 2026-06-08 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
 
 *Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/216*

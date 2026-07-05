@@ -7,6 +7,69 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/224*
+
+*Relates to: Poll #1638 / PR #265 | Vote: **Yes***
+
+Key rationale points:
+
+- **Supersession authority rebalanced** — Supports re-grounding broad discretionary authority to supersede Atlas provisions from the Core Facilitator alone to the Core Council, calling it "a better balance between flexibility and accountability" that keeps the system reactive while making the authority "less dependent on stakeholder."
+- **Temporary capital-movement authority** — Backs the short-term Core Council Treasury Allocation authority (reduce/restore Step 1 & 2 Capital, modify Step 3 allocation) and the Sky Frontier Foundation transfer authorization for Amatsu, Ozone, and Core Council Executor Agent 1 as "acceptable because they make capital movement executable without repeated governance overhead," still requiring public documentation before an Executive Vote.
+- **Agent framework clarity** — Views documenting Grove's Diamond PAU, updating BUIDL/JTRSY Tokenized Treasury Basin Instances, clarifying Agent Rate scope, and recording Distribution Reward Code ranges as details that "reduce implementation risk and make later verification easier."
+- **Time-bounded July grants** — Supports the 800,000 USDS Grove Foundation grant and 700,000 USDS Skybase Foundation grant as "specific, time-bounded operational allocations with clear amounts and sources."
+- **AD breach-timing cleanup** — Calls the clarified repeat-breach timing for Aligned Delegate voting participation "a useful cleanup" that avoids "repeatedly penalizing the same rolling-window issue" once the delegate has met the 75% threshold since the prior breach.
+- **Edge-case housekeeping** — Frames the remaining edits (narrowing Core Council Risk Advisor near-term data scope, removing Elodin as Keel's development company) as cleaning up edge cases that "could otherwise create confusion."
+
+---
+
+## 2026-06-19 — Executive Spell Review: Onboard ALLOCATOR-GROVE-A Vault, Update LitePSM Parameters, Replace STUSDS_MOM — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/223*
+
+*Relates to: Executive spell (June 18, 2026) — Onboard ALLOCATOR-GROVE-A Vault, Update LitePSM Parameters, Replace STUSDS_MOM, May 2026 Monthly Settlement Cycle, Staking Rewards Normalization, Update Safe Harbor Agreement, Prime Agent Proxy Spell | Vote: **Unspecified***
+
+Key rationale points:
+
+- **Review published, not a stated position** — The delegate posted a "Summary of vote" linking to an external CryptPad review of the June 18 spell (ALLOCATOR-GROVE-A onboarding, LitePSM parameter update, STUSDS_MOM replacement, May 2026 Monthly Settlement Cycle, Staking Rewards Normalization, Safe Harbor update, Prime Agent proxy spell); the post itself states no explicit Yes/No.
+- **Acknowledged collaborators** — Credits @nofreekoolaid for support with the review and @Brendan_Navigator for identifying the Agent Spell Reviewer Checklist issue, and thanks @atlas-axis and the Core Facilitators for "sorting it out quickly and being pragmatic."
+
+---
+
+## 2026-06-16 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/222*
+
+*Relates to: Poll #1637 / PR #258 | Vote: **Yes***
+
+Key rationale points:
+
+- **Spell-inclusion decision process** — Supports codifying the Core Facilitator's authority to make the "final, binding determination on which items to include in the Spell where consensus cannot be reached" (with Core GovOps assuming the decision if the Core Facilitator is credibly compromised), noting Spell inclusion "has from time to time caused frustration among several stakeholders."
+- **SkyLink Freezer security update** — Backs updating the Ethereum SkyLink Freezer Multisig from 2/4 to 2/5, adding a third Core GovOps signer as a documented Threshold Exception, framed as "a security update."
+- **Time-bounded Spark Q3 funding** — Supports the Spark Foundation grant of 1,100,000 USDS/month and Spark Asset Foundation grant of 155,000 USDS/month from Spark's Prime Treasury for Q3 2026, "making the funding explicit and time-bounded."
+- **Grove & Spark operational edits** — Notes the second Allocator Vault and Buffer for Grove Prime and other Spark/Grove primitive edits as operational.
+- **SKY Price Oracle documentation** — Values documenting the SKY Price Oracle (PIP_SKY) and its underlying Chronicle Scribe Oracle because "these references should be clear and traceable."
+- **Error-correction housekeeping** — Frames the routine edits (swapped Base Aave USDC contract addresses, Grove Monad Uniswap AUSD/USDC instance placement/addresses, Discord→Slack coordination migration, Technical Scope Template cross-reference) as reducing "the risk of misunderstandings or implementation errors."
+
+---
+
+## 2026-06-09 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/221*
+
+*Relates to: Poll #1636 / PR #255 | Vote: **Yes***
+
+Key rationale points:
+
+- **Audit Process standardization** — Supports adding a new Audit Process codifying audit requirements for new smart contract code (script structure standards, audit intake/delivery, report review and acceptance, findings remediation, recordkeeping), because standardizing it "makes it easier to review, verify, and document completed work."
+- **Grove USD-stablecoin swap authorization** — Backs authorizing Grove to swap USD stablecoins in its SubProxy Account to USDS at ~1:1 (each swap documented in a Technical Scope, includable in a Grove Spell without a prior token-holder vote), noting it "gives Grove more flexibility to operate with less risk of friction."
+- **Single Core Facilitator cleanup** — Supports correcting mentions of multiple Core Facilitators in Spell validation reporting and AEP misalignment procedures, and removing an Action Tenet that only applied with multiple Core Facilitators.
+- **Ambiguity reduction** — Frames the duplicate-sentence removal and broken cross-reference fix as addressing parts of the Atlas that "could create ambiguity or lead to misunderstandings."
+- **Reproduced AtlasAxis summary** — As usual, reproduced AtlasAxis's scope summary verbatim "to confirm the exact scope being approved."
+
+---
+
 ## 2026-06-05 — Executive Spell Review: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
 
 *Source: https://forum.skyeco.com/t/blue-ad-recognition-submission/20915/220*

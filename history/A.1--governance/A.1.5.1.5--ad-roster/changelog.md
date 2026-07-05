@@ -15,6 +15,17 @@ the Probationary Period) remain in the parent `../changelog.md`.
 
 ---
 
+## PR #257 — Derecognize Kuzmich, add new breaches
+**Merged:** 2026-06-11 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Current Aligned Delegates (`A.1.6.1.5.0.6.1`): | Delegate Name | EA Address | Delegation Contract | Forum Post |
+
+### Context
+Kuzmich is removed from the Current Aligned Delegates roster (derecognized; see the matching Derecognized-list entry in `../changelog.md`). The diff also reformats the roster table to the compact style, so the captured "row" is the header line.
+
+---
+
 ## PR #194 — add Brendan Navigator
 **Merged:** 2026-03-09 | **Type:** Active Data update (Core Facilitator)
 
