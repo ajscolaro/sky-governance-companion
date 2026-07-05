@@ -4,6 +4,36 @@ Atlas path: `A.4` — The Protocol Scope
 
 ---
 
+## PR #270 — Atlas Edit Proposal — 2026-06-29
+**Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: GROVE Token Rewards** (`A.4.3.2.3`, UUID `b2ede2ee…f0d5`): GROVE token rewards are available to USDS users as specified in `A.2.8.2.2.2.1.2.2.1`.
+
+### Context
+Adds GROVE token rewards for USDS users at the protocol level, paired with the Grove distribution schedule finalized in A.2 (`A.2.8.2.2.2.1.2.2.1`) the same week; the July 2 executive "Initialize GROVE Token Rewards" activates it onchain.
+
+---
+
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Cap Parameter** (`A.4.4.1.3.9.2`, UUID `532ed9cb…a3d5`): The subdocuments herein further describe the `cap` parameter and the process for its modification.
+  - **Definition** (`A.4.4.1.3.9.2.1`): The `cap` parameter represents one of the potential inputs for the SKY-Backed Borrowing Capped OSM Wrapper.
+- **Chronicle Scribe Oracle** (`A.4.4.1.3.9.1.1`): address `0xc2ffbbDCCF1466Eb8968a846179191cb881eCdff`
+- **SKY Price Oracle** (`A.4.4.1.3.9.1`): address `0x511485bBd96e7e3a056a8D1b84C5071071C52D6F`
+
+### Housekeeping
+- `A.4.4.1.3.9` (SKY-Backed Borrowing Capped OSM Wrapper): added refs to `A.4.4.1.3.9.2`, `A.4.4.1.3.9.1`
+- `A.4.4.1.3.9.2.2` renumbered (UUID stable: `0d86a609…be83`)
+- `A.4.4.1.3.9.2.3` renumbered (UUID stable: `161ee404…0f6f`)
+
+### Context
+Documents the SKY-Backed Borrowing Capped OSM Wrapper's `cap` parameter and its modification process, and records its two oracle addresses (SKY Price Oracle and Chronicle Scribe). Ratified by poll #1637 (10-0).
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

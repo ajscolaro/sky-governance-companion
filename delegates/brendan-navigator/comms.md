@@ -7,6 +7,80 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-22 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/21*
+
+*Relates to: PR #265 | Vote: **Yes***
+
+Key rationale points:
+
+- **Disclosure-match review** — Voted Yes after confirming the poll is "procedurally framed as an Atlas Edit Weekly Cycle Proposal," has "public trigger evidence from Bonapublica," uses the "expected 480,000,000 SKY minimum positive participation threshold," and discloses "the same twelve change groups" across the portal summary, canonical text, forum thread, PR body, and all four composed diff review batches.
+- **Elevated risk noted** — Flags the proposal as "not routine," rating risk "medium" because it "expands standing discretion and future direct-to-executive pathways for Core Council/Treasury Allocation and Executor Agent transfers."
+- **Bounded by process** — Judges the changes acceptable because they are "explicit, bounded by named actors and process steps, and remain subject to later Executive Vote execution where funds or contracts are moved."
+- **No blocking findings** — Found "no material disclosure mismatch, unresolved implementation contradiction, or Atlas-process conflict that would justify NO or ABSTAIN."
+
+---
+
+## 2026-06-19 — June 18, 2026 executive: ALLOCATOR-GROVE-A onboarding, LitePSM, STUSDS_MOM replacement, May settlement, Prime Agent proxy spell
+
+*Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/20*
+
+*Relates to: Spell 2026-06-18-onboard-allocator-grove-a-update-stusds-mom | Vote: **Yes***
+
+Key rationale points:
+
+- **Source and hash verification** — Recommends Yes because "the core spell source matches the reviewed merge commit, the document hash matches, [and] the proxy spell source and downstream payloads were reviewed."
+- **Test-failure resolution** — Notes "the failed forge tests from the full run passed individually on rerun," treating the failures as non-blocking.
+- **Spark checklist waiver** — The "remaining Spark Agent checklist concern was resolved by public clarification waiving the registered checklist requirement for this one June 18 Spark spell."
+- **Estoppel confidence** — With "no surviving validation findings," concludes the analysis "supports voting-estoppel confidence under A.1.6.6.2."
+
+---
+
+## 2026-06-15 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/19*
+
+*Relates to: PR #258 | Vote: **Yes***
+
+Key rationale points:
+
+- **Disclosure-match review** — Voted Yes finding the proposal "procedurally valid," with the portal/canonical text and PR diff disclosing "the material edit categories" and the reviewed diff matching stated scope.
+- **SkyLink Freezer concern cleared** — An "earlier SkyLink Freezer concern has been clarified publicly": ldr stated the updated configuration "will be actioned if the edit is approved," reframing the "2/5 Threshold Exception language" as approval for a follow-up Safe config update rather than "an unexplained mismatch with the current 2/4 Safe state."
+- **Routine remaining items** — The rest are "disclosed governance-process, grant-authorization, allocator-documentation, oracle-documentation, and address-correction edits," with "no surviving finding that would justify voting No or Abstain."
+
+---
+
+## 2026-06-09 — Atlas Edit Weekly Cycle Proposal (Poll 1636 / PR #255) — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/18*
+
+*Relates to: Poll #1636 / PR #255 | Vote: **Yes***
+
+Key rationale points:
+
+- **Consistent disclosure** — Voted Yes because PR #255 "is disclosed consistently in the portal, canonical poll text, forum thread, and PR body," and "the reviewed diff matches the four stated edit groups."
+- **New audit process** — Views the added "audit process for smart contract code and deployment scripts" as "a substantive safety improvement for code entering the Sky Ecosystem."
+- **Grove swap authorization** — Treats the Grove USD-stablecoin-to-USDS swap as "a real delegation of future execution authority," but acceptable because "the permission is narrow, value-preserving, and requires public Technical Scope documentation before Grove Spell inclusion."
+- **Bounded and aligned** — Remaining edits are "process-consistency and housekeeping changes"; concludes the proposal is "Atlas-aligned and sufficiently bounded for an accountable AD YES vote."
+
+---
+
+## 2026-06-09 — June 4, 2026 executive: RWA001-A offboarding, Keeper Network adjustments, ALLOCATOR-SPARK-A updates, MKR-SKY penalty increase, Prime Agent proxy spells
+
+*Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/17*
+
+*Relates to: Spell 2026-06-04-rwa001-a-offboarding-keeper-adjustments | Vote: **Yes***
+
+Key rationale points:
+
+- **Multi-part spell scope** — Summarizes the June 4 executive as "conditional RWA001-A offboarding step 1," Keeper Network lane/payment-adapter changes, ALLOCATOR-SPARK-A DC-IAM gap and ttl updates "while keeping line at 10 billion USDS," a MKR-SKY delayed upgrade penalty increase "from 3% to 4%," and StarGuard whitelisting of Spark and Grove Prime Agent proxy spells; execution reported "on 2026-06-08T14:22:59.000Z."
+- **Code and integrity checks** — Justifies Yes because "the executive's disclosed actions map to reviewed deployed code, the spell integrity and source comparison checks passed, [and] the canonical executive document hash matches the on-chain description."
+- **Proxy-spell coverage** — Notes "the proxy spell review covered the Spark and Grove Ethereum contracts plus their disclosed Avalanche/Base payloads."
+- **Residual risk** — Frames the main risks as "operational complexity and cross-chain proxy-spell surface, not identified misalignment or failed spell validation."
+
+---
+
 ## 2026-06-02 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
 
 *Source: https://forum.skyeco.com/t/brendan-navigator-ad-recognition-submission/27748/16*

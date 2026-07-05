@@ -2,6 +2,15 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #270 | Atlas Edit Proposal — 2026-06-29 | 2026-07-03 | governance,support stability,protocol agents/grove | auto |
+| #271 | Add Current Term field to Spark's List of Delegates active data | 2026-06-30 | agents/spark | auto |
+| #269 | Update document.md | 2026-06-30 | support/forum-accounts | auto |
+| #265 | Atlas Edit Proposal — 2026-06-22 | 2026-06-29 | preamble,governance support,support/forum-accounts stability,agents/grove | auto |
+| #258 | Atlas Edit Proposal — 2026-06-15 | 2026-06-19 | governance,support stability,protocol agents/spark,agents/grove agents/keel,agents/obex agents/pattern | auto |
+| #261 | Add aegisD submission to document | 2026-06-18 | governance/ad-breaches | auto |
+| #257 | Derecognize Kuzmich, add new breaches | 2026-06-11 | governance,governance/ad-roster governance/ad-breaches | auto |
+| #255 | Atlas Edit Proposal — 2026-06-08 | 2026-06-11 | governance,support agents/spark,agents/grove agents/pattern | auto |
+| #254 | add 2026-06-04 spell changes | 2026-06-11 | stability,agents/spark | auto |
 | #253 | Atlas Edit Proposal — 2026-06-01 | 2026-06-04 | governance,support stability,protocol agents/spark,agents/grove agents/keel,agents/skybase agents/obex,agents/pattern agents/osero,agents/launch-agent-7 | auto |
 | #251 | Atlas Edit Proposal — 2026-05-25 | 2026-05-29 | preamble,governance support,stability agents/spark,agents/grove agents/skybase,agents/pattern | auto |
 | #240 | Spark artifact changes (2026-04-22 exec) | 2026-05-25 | agents/spark | complete |

@@ -7,6 +7,70 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/56*
+
+*Relates to: PR #265 | Vote: **Yes***
+
+Key rationale points:
+
+- **Authority re-grounded in the Core Council** — Favors shifting the power to supersede Atlas provisions "from the Core Facilitator alone to the Core Council, preserving the Core Facilitator's interpretive role," as it "introduces multiples parties into the approval process while creating additional checks."
+- **Core Council treasury flexibility** — Supports the new short-term Core Council authority to modify Step 1/2/3 Capital allocations (via a Core Facilitator forum post, proceeding directly to Executive Vote without a prior Governance Poll) as it "will reduce governance bottlenecks and allow for faster response times."
+- **Sky Frontier Foundation transfers** — Endorses authorizing Amatsu, Ozone, and Core Council Executor Agent 1 to transfer Genesis Capital Allocation funds to the Sky Frontier Foundation without per-transfer votes, allowing "more operational flexibility" and moving "away from procedural friction."
+- **AD breach-timing clarification** — Notes the clarification that a repeat Tier 1 procedural breach for voting participation won't be issued if the AD has met the 75% threshold since the most recent breach.
+- **Infrastructure and grants** — Acknowledges the Grove Diamond PAU addition, BUIDL/JTRSY Tokenized Treasury Basin instance updates, Agent Rate scope clarification, July 2026 Grove (800K USDS) and Skybase (700K USDS) Foundation grants, and removal of Elodin as Keel's Development Company.
+- **Overall assessment** — Finds the package "reasonable as it generally moves the protocol toward greater operational flexibility and more efficient execution, while preserving meaningful transparency and accountability mechanisms."
+
+---
+
+## 2026-06-18 — Executive Vote: ALLOCATOR-GROVE-A Onboarding + LitePSM + STUSDS_MOM + Various Actions — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/55*
+
+*Relates to: Executive spell (June 18, 2026) | Vote: **Yes***
+
+Key rationale points:
+
+- **Implementation of prior decisions** — Voted in favor as the spell "primarily focuses on implementation of previously approved governance actions" with "no material concerns."
+- **ALLOCATOR-GROVE-A onboarding** — Highlights the onboarding of ALLOCATOR-GROVE-A as furthering "the protocol's capital allocation infrastructure."
+- **LitePSM liquidity increase** — Supports raising LitePSM buf and gap parameters "from 400M to 800M DAI" as it "will improve stablecoin liquidity and reduce operational constraints during high-demand periods."
+- **Remaining actions** — Sees no issue with the remaining items (STUSDS_MOM version update, May 2026 Monthly Settlement Cycle, LSSKY→SKY staking rewards normalization, Safe Harbor Agreement update, and a Spark StarGuard proxy spell) as executing previously authorized decisions.
+
+---
+
+## 2026-06-17 — Executive Vote: RWA001-A Offboarding + Keeper Network + ALLOCATOR-SPARK-A + MKR-to-SKY Penalty — June 4, 2026
+
+*Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/54*
+
+*Relates to: Executive spell (June 4, 2026) | Vote: **Yes***
+
+Key rationale points:
+
+- **Overall support** — Voted in favor as the proposal "advances risk reduction, operational efficiency, and execution of previously approved ecosystem priorities without introducing material governance, security, or treasury concerns."
+- **RWA001-A offboarding (primary item)** — Supports beginning the wind-down via debt repayment, setting the debt ceiling to zero, and initiating soft liquidation through the MIP21 framework — "a structured and orderly offboarding path rather than forcing an immediate liquidation event, reducing operational risk."
+- **Operational adjustments** — Backs the Keeper Network updates, ALLOCATOR-SPARK-A DC-IAM parameter adjustments, and Spark/Grove Prime Agent proxy spell whitelisting as continuations of "previously communicated strategic and operational initiatives."
+- **MKR-to-SKY penalty increase** — Views the delayed upgrade penalty increase as "consistent with the ongoing migration framework," providing "additional incentive for completion of the transition to SKY governance."
+
+---
+
+## 2026-06-17 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/53*
+
+*Relates to: PR #258 | Vote: **Yes***
+
+Key rationale points:
+
+- **Core Facilitator spell-inclusion authority** — Notes the new document establishing the Core Facilitator's authority to make "the final, binding determination on which items to include in the Spell where consensus cannot be reached," with Core GovOps assuming that role where there is credible suspicion the Core Facilitator is compromised.
+- **SkyLink Freezer Multisig + threshold exception** — Records the Ethereum SkyLink Freezer Multisig moving "from 2/4 to 2/5," adding a third Core GovOps signer, documented as a Threshold Exception.
+- **Spark Q3 2026 grants** — Adds grant authorizations of "1,100,000 USDS per month to the Spark Foundation and 155,000 USDS per month to the Spark Asset Foundation" from Spark's Prime Treasury.
+- **Infrastructure additions** — Highlights a second Allocator Vault and Buffer for Grove Prime, SKY Price Oracle (PIP_SKY) documentation, the Grove Monad Uniswap AUSD/USDC instance correction, and the Spark Base Aave USDC address fix.
+- **Discord-to-Slack migration** — Notes replacing Discord with Slack for internal Spell Process coordination and Prime Spell Security Guidelines, plus the Technical Scope Template cross-reference.
+- **Overall assessment** — Supports the package as it "primarily strengthens governance processes, operational structure, and ecosystem infrastructure," improving "clarity, continuity, and execution efficiency without materially increasing protocol risk."
+
+---
+
 ## 2026-06-01 — Atlas Edit Weekly Cycle Proposal — June 1, 2026
 
 *Source: https://forum.skyeco.com/t/tango-ad-recognition-submission/26310/51*

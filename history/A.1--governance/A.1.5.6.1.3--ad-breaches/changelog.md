@@ -11,6 +11,28 @@ and is recorded in the parent `../changelog.md`.
 
 ---
 
+## PR #261 — Add aegisD submission to document
+**Merged:** 2026-06-18 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Aligned Delegate Breach Registry (`A.1.6.6.1.3.0.6.1`): | 2026-06-18 | aegisD | 1 | [Core Facilitator Post](https://forum.skyeco.com/t/aegisd-ad-recognition-submission/26145/84) |
+
+### Context
+Logs a single (Tier 1) Graduated Response Framework breach against aegisD, recorded by the Core Facilitator.
+
+---
+
+## PR #257 — Derecognize Kuzmich, add new breaches
+**Merged:** 2026-06-11 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Aligned Delegate Breach Registry (`A.1.6.6.1.3.0.6.1`): | 2026-06-11 | OPEX | 1 | [Core Facilitator Post](https://forum.skyeco.com/t/opex-aligned-delegate-communication-platform/27630/10) |
+
+### Context
+Logs a single (Tier 1) breach against OPEX. Part of the same Direct Edit that derecognized Kuzmich and cleared his breach rows; an Excel breach was also added in this PR.
+
+---
+
 ## PR #241 — Add breach record for Kuzmich on 2026-05-08
 **Merged:** 2026-05-08 | **Type:** Active Data update (Core Facilitator)
 

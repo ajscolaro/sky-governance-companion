@@ -7,6 +7,53 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-19 — Executive Spell: Onboard ALLOCATOR-GROVE-A, LitePSM Update, STUSDS_MOM Replacement, May MSC — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/211*
+
+*Relates to: Spell 2026-06-18-onboard-allocator-grove-a-update-stusds-mom | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Atlas + prior-poll alignment** — Voted Yes, finding the executive "aligns with the Atlas and is in accordance with the outcomes of prior polls."
+- **Spell review process** — Reviewed contents using VoteWizard's guide and checked for unusual elements per 0xDefensor's guide; confirmed it is not a Dark Spell, not deployed via CREATE2, and uses correct code optimization settings, EVM version, license, and compiler version; all predefined tests passed.
+- **Agent Spell Reviewer Checklist waiver** — Notes a whitelisted Prime Agent Spell "did not meet a new checklist requirement," which was waived "for this one Spell as a transitionary measure" with respect to Spark, in consultation with the Core Facilitator.
+- **Going-forward enforcement** — The Agent Spell Reviewer Checklist requirement applies "to Spark — and all Agents — for every Agent Spell going forward"; Primes have been notified and the completed checklist will be included starting with the July 2, 2026 spell.
+
+---
+
+## 2026-06-16 — Weekly Cycle Vote: Atlas Edit Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/210*
+
+*Relates to: PR #258 | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **Core Facilitator final Spell inclusion authority** — Supports a new document giving the Core Facilitator "the final, binding determination on which items to include in the Spell where consensus cannot be reached"; where there is "credible suspicion that the Core Facilitator is compromised, Core GovOps assumes the final inclusion decision."
+- **SkyLink Freezer + threshold changes** — Backs updating the Ethereum SkyLink Freezer Multisig from 2/4 to 2/5 (adding a third Core GovOps signer, documented as a Threshold Exception), arguing it "increases the likely timeliness of SkyLink freezes."
+- **Spark Q3 2026 grants + sustainability caution** — Notes the Spark Foundation grant (1,100,000 USDS/month) is flat while the Spark Asset Foundation grant rises 55,000 to 155,000 USDS/month (after a prior 50k increase); warns this "trajectory of growth in spend, if it continued, would lead to eventual unsustainability" though "not appear to be unsustainable yet," and would support Atlas language "to protect against unsustainable spending by Prime Agents."
+- **Grove Prime second Allocator Vault** — Supports adding a second Allocator Vault and Buffer for Grove Prime but flags that the JTRSY Instance Configuration Document does not actually specify the claimed rebalancing process, calling for a future edit to add a rebalancing specification for ALLOCATOR-GROVE-A.
+- **Corrections + housekeeping** — Backs fixing the Grove Monad Uniswap AUSD/USDC Instance placement (Ethereum → Monad, address/broker fixes) and the swapped Spark Base Aave USDC token/underlying addresses as "minor, yet important" corrections; also adds SKY Price Oracle (PIP_SKY) docs, a Technical Scope Template cross-reference, and other minor items.
+- **Discord → Slack migration** — Supports replacing Discord with Slack for internal Spell Process coordination and Prime Spell Security Guidelines, "to reflect a transition already underway," and removing the #twitter-requests channel from the Media Liaison requirement while preserving the obligation.
+
+---
+
+## 2026-06-10 — Weekly Cycle Vote: Atlas Edit Proposal — June 8, 2026
+
+*Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/209*
+
+*Relates to: PR #255 | Vote: **Yes (Delegation Contract 1)***
+
+Key rationale points:
+
+- **New Audit Process** — Supports codifying audit requirements for new smart contract code (script structure standards, audit intake/delivery, report review and acceptance, findings remediation, and recordkeeping), arguing these requirements "bolster ecosystem security."
+- **Grove USDS swap authorization** — Backs authorizing Grove to swap USD stablecoins in its SubProxy to USDS at ~1:1 (each documented in a Technical Scope) for direct Grove Spell inclusion without a prior token holder vote, calling it "sensible, since it is desirable for Prime Agents to hold USDS over other stablecoins."
+- **Single Core Facilitator cleanup** — Labels correcting multiple-Core-Facilitator mentions in Spell validation reporting and AEP misalignment procedures (and removing an obsolete Action Tenet) as "a minor housekeeping update."
+- **Duplicate/cross-reference fix** — Frames removing a duplicate sentence in two documents and correcting a broken cross-reference as "a minor housekeeping update."
+
+---
+
 ## 2026-06-04 — Executive Spell: RWA001-A Offboarding, Keeper Network Adjustments — June 4, 2026
 
 *Source: https://forum.skyeco.com/t/cloaky-ad-recognition-submission/21082/208*

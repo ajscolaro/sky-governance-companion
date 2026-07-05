@@ -4,6 +4,25 @@ Atlas path: `A.6.1.1.6` (353 docs)
 
 ---
 
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Reference renumbering across 1 doc (linked docs moved elsewhere in this edit; UUID targets unchanged).
+
+### Context
+Reference-number propagation from documents renumbered elsewhere in this edit; UUID targets and content unchanged.
+
+---
+
+## PR #255 — Atlas Edit Proposal — 2026-06-08
+**Merged:** 2026-06-11 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Sky Primitives** (`A.6.1.1.6.2`): `cde2604` → `fcde2604`
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

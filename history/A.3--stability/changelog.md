@@ -4,6 +4,73 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #270 — Atlas Edit Proposal — 2026-06-29
+**Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Galaxy Warehouse** (`A.3.2.2.1.1.1.1.3.10`, UUID `edbd7845…5849`): The Instance Financial CRR for Galaxy Warehouse is 2%.
+- **New: Reference Implementation** (`A.3.2.2.1.1.1.1.5`, UUID `e96da090…2e51`): A reference implementation of the calculation of Instance Financial RRC for lending markets is included herein.
+
+### Housekeeping
+- `A.3.2.2.1.1.1.1.4` (Unauthorized Exposures): `` → `An underlying asset of a lending market in which a Prime Agent has invested that was not included in the pro-forma Required Risk Capital estimate approved by the Core Council Risk Advisor, as specified in [A.2.2.10.1.1.2.3 - Instance Setup Deployments](3766cb8c-ab6c-41af-9465-b8dea76d0532), constitutes an Unauthorized Exposure. Because the risk of an Unauthorized Exposure has not been assessed, its Capital Ratio Requirement is 100%, applying at the exposure level the full-reservation principle specified in [A.3.2.1.1.3.2 - Inability To Calculate Types Of RRC](268af0e9-be3d-458e-9ccd-5a560abc7540). An Instance's Capital Ratio Requirement is the capital-weighted aggregate of its exposures' Capital Ratio Requirements, so an Instance with only a fraction of its capital in Unauthorized Exposures has a Capital Ratio Requirement below 100%.`
+
+### Context
+Adds the Galaxy Warehouse instance (2% Instance Financial CRR) and defines Unauthorized Exposures — underlying assets absent from the Risk Advisor-approved pro-forma RRC estimate carry a 100% Capital Ratio Requirement at the exposure level, aggregated capital-weighted across the Instance.
+
+---
+
+## PR #265 — Atlas Edit Proposal — 2026-06-22
+**Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: No Double Counting** (`A.3.1.2.3.7`, UUID `2a02d413…48e1`): A Prime Agent's total reward on a USDS, Dai, or sUSDS balance shall not exceed the Agent Rate, which for the Spark balances specified in `A.3.1.2.3.4` is the Base Rate.
+
+### Housekeeping
+- `A.3.1.2.3.2` (Treatment Of USDS and Dai Balances): removed `Unrewarded`
+- `A.3.1.2.3.3` (Treatment Of sUSDS Balances): `receive` → `earn`
+- `A.3.1.2.3.6` (Settlement): `Any compensation due to or from` → `To the extent`
+- `A.3.1.2.3` (Agent Rate): added refs to `A.3.1.2.3.4`
+- `A.3.2.2.5.1.1.1.1` (Near Term Real Time Updates By Core Council Risk Advisor): added `on Ethereum Mainnet and Ethereum L2s`
+
+### Context
+Caps a Prime Agent's total reward on USDS, Dai, or sUSDS balances at the Agent Rate (the Base Rate for the Spark balances in `A.3.1.2.3.4`), closing a reward double-counting gap. Ratified by poll #1638 (9-0).
+
+---
+
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: ALLOCATOR-INTERVAL-A Parameters** (`A.3.7.1.2.1.8`, UUID `cdbdd083…5c9d`): The parameters for the Launch Agent 7 Allocator Vault are.
+- **New: ALLOCATOR-INTERVAL-A Parameters** (`A.3.7.1.3.3.8`, UUID `8766f5be…4f9a`): The Stability Parameter Bounded External Access Module parameters for the ALLOCATOR-INTERVAL-A Allocator Vault are as follows.
+- **ALLOCATOR-PATTERN-A Parameters** (`A.3.7.1.2.1.6`): `10` → `50`; `10 million` → `2.5 billion`
+
+### Housekeeping
+- `A.3.7.1.2.1.3` (ALLOCATOR-GROVE-A Parameters): `NOVA` → `GROVE`
+- `A.3.7.1.2.1.4` (ALLOCATOR-NOVA-A Parameters): `OBEX` → `NOVA`
+- `A.3.7.1.2.1.5` (ALLOCATOR-OBEX-A Parameters): `PATTERN` → `OBEX`
+- `A.3.7.1.2.1.7` (ALLOCATOR-PRYSM-A Parameters): `INTERVAL` → `PRYSM`
+- `A.3.7.1.3.3.4` (ALLOCATOR-GROVE-A Parameters): `OBEX` → `GROVE`
+- `A.3.7.1.3.3.5` (ALLOCATOR-OBEX-A Parameters): `PATTERN` → `OBEX`
+- `A.3.7.1.3.3.6` (ALLOCATOR-PATTERN-A Parameters): `PRYSM` → `PATTERN`
+- `A.3.7.1.3.3.7` (ALLOCATOR-PRYSM-A Parameters): `INTERVAL` → `PRYSM`
+
+### Context
+Adds the stability parameters for the new ALLOCATOR-INTERVAL-A vault (Launch Agent 7) and raises ALLOCATOR-PATTERN-A's debt ceiling from 10M to 2.5B. The accompanying renames correct allocator labels that had drifted one slot out of alignment. Ratified by poll #1637 (10-0).
+
+---
+
+## PR #254 — add 2026-06-04 spell changes
+**Merged:** 2026-06-11 | **Type:** Spell recording (2026-06-04)
+
+### Material Changes
+- **ALLOCATOR-SPARK-A Parameters** (`A.3.7.1.2.1.1`): `500 million` → `1.5 billion`; `24` → `12`
+
+### Context
+Records the 2026-06-04 spell tripling ALLOCATOR-SPARK-A's debt ceiling from 500M to 1.5B USDS (with the line-increase interval cut 24→12). Documents on-chain execution that already occurred.
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

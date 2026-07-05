@@ -7,6 +7,54 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-06-22 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/88*
+
+*Relates to: Poll #265 / PR #265 (Atlas Edit Weekly Cycle Proposal — 2026-06-22) | Vote: **Yes***
+
+Key rationale points:
+
+- **BUIDL/JTRSY Tokenized Treasury Basin Instances are the primary item** — Supports adding the BUIDL Basin Instance through Securitize and updating JTRSY's contracts, rate limits, and Target Protocol, "while placing a combined maximum allocation across the two Instances and standardizing the Pauser and Canceller role configuration across all Tokenized Treasury Instances"; frames it as bringing "a second institutional instrument online alongside JTRSY."
+- **Combined cap plus unified controls as the substantive safeguard** — Identifies the combined allocation cap paired with the unified Pauser and Canceller roles as "the substantive control here," since a shared ceiling keeps the two Instances "from being scaled independently past the intended aggregate" and consistent pause/cancel authority keeps emergency controls uniform.
+- **Diversification without loosening sizing discipline** — Backs adding a distinct issuer because it "broadens the set of short duration, yield bearing treasury exposures the protocol can allocate into," improving backing diversification "without loosening the overall sizing discipline"; flags that JTRSY's rate-limit/Target Protocol changes landing alongside the new Instance warrant watching combined exposure against the cap as allocations ramp.
+- **Governance and authority edits** — No concerns on re-grounding supersession authority from the Core Facilitator alone to the Core Council, new short-term Core Council authority over Step 1/2/3 Capital allocations, Genesis Capital transfer authorizations (Amatsu, Ozone, CCEA1) to the Sky Frontier Foundation, and the Tier 1 procedural breach clarification for delegates meeting the 75% threshold.
+- **Foundation grants and housekeeping** — Notes the 800,000 USDS July 2026 Grove Foundation grant, the 700,000 USDS July 2026 Skybase grant plus a Skybase Foundation Subsequent Allocation Mechanism, Grove Diamond Parallelized Allocation Unit documentation, Distribution Reward Code range reservations, and removal of Elodin as Keel's Development Company.
+
+---
+
+## 2026-06-18 — Executive Spell: ALLOCATOR-GROVE-A Onboarding, LitePSM Params, STUSDS_MOM Replacement, May Settlement, Staking Rewards Normalization — June 18, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/87*
+
+*Relates to: Spell 2026-06-18-onboard-allocator-grove-a-update-stusds-mom | Vote: **Yes (Aligned)***
+
+Key rationale points:
+
+- **Staking rewards normalization is the primary item** — Supports updating the LSSKY→SKY farm vest "to distribute 240,862,942 SKY to SKY stakers on a fresh 90 day linear schedule beginning at the current block, executed through TreasuryFundedFarmingInit.updateFarmVest after the monthly settlement runs"; tied to the short-term SKY rewards parameters in Atlas A.4.4.1.4.2.
+- **Predictable, governance-parameterized issuance** — Backs the reset because "a regular, governance-parameterized vest is what makes the staking yield legible to participants" and keeps issuance aligned "rather than drifting between cycles"; notes the vest begins at block.timestamp with a 90 day tau so the per-second reward rate is fixed for the quarter, and wants each subsequent normalization to keep landing on the same cadence.
+- **ALLOCATOR-GROVE-A onboarding** — No concerns on onboarding the vault with 0% duty, a 1 million USDS gap, a 5 million USDS maxLine, and a 24 hour ttl, added to LINE_MOM and MCD_SPBEAM.
+- **PSM and STUSDS_MOM changes** — Supports increasing LITE-PSM-USDC-A buf and gap from 400 million to 800 million DAI each, and replacing STUSDS_MOM with a version that "calls stusds.drip() before zeroing a borrow ceiling."
+- **Settlement and infrastructure items** — No concerns on the May 2026 Monthly Settlement Cycle across Spark, Grove, Keel, Obex, and Skybase plus the Treasury Management Function transfer, the Safe Harbor Agreement update for the new Grove vault/buffer and STUSDS_MOM, and whitelisting a Spark proxy spell in the Spark StarGuard.
+
+---
+
+## 2026-06-15 — Atlas Edit Weekly Cycle Proposal — June 15, 2026
+
+*Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/86*
+
+*Relates to: Poll #258 / PR #258 (Atlas Edit Weekly Cycle Proposal — 2026-06-15) | Vote: **Yes***
+
+Key rationale points:
+
+- **Spark Foundation Q3 2026 grant is the primary item** — Supports authorizing 1,100,000 USDS per month to the Spark Foundation and a further 155,000 USDS per month to the Spark Asset Foundation, "both drawn from Spark's own Prime Treasury rather than from Sky Core"; frames it as funding Spark's foundation operations "through its own SubDAO treasury."
+- **SubDAO-treasury routing keeps funding and accountability aligned** — Backs the direction because "routing SubDAO operating grants through the SubDAO's own treasury is the right structure for keeping funding and accountability aligned," and the per-month cadence "keeps the commitment reviewable rather than front-loaded for the full quarter"; notes these are recurring authorizations, so the quarterly framing is the checkpoint to confirm amounts still match Spark's operating needs.
+- **Authority and security edits** — No concerns on codifying Core Facilitator authority over final Spell inclusion (with Core GovOps assuming the decision if the Core Facilitator is credibly compromised) or updating the Ethereum SkyLink Freezer Multisig from 2/4 to 2/5 as a documented Threshold Exception.
+- **Grove and oracle documentation** — Endorses adding a second Allocator Vault and Buffer for Grove Prime, adding SKY Price Oracle (PIP_SKY) and its underlying Chronicle Scribe Oracle documentation, and correcting the Grove Monad Uniswap AUSD/USDC instance placement plus swapped Spark Base Aave USDC contract addresses.
+- **Process housekeeping** — No concerns on migrating internal Spell Process coordination from Discord to Slack and adding a Technical Scope Template cross-reference.
+
+---
+
 ## 2026-06-08 — Atlas Edit Weekly Cycle Proposal — June 8, 2026
 
 *Source: https://forum.skyeco.com/t/max-staking-yield-ad-recognition-submission/26462/85*

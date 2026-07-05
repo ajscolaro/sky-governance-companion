@@ -4,6 +4,17 @@ Atlas path: `A.6.1.1.3` (874 docs)
 
 ---
 
+## PR #258 — Atlas Edit Proposal — 2026-06-15
+**Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- Reference renumbering across 1 doc (linked docs moved elsewhere in this edit; UUID targets unchanged).
+
+### Context
+Reference-number propagation from documents renumbered elsewhere in this edit; UUID targets and content unchanged.
+
+---
+
 ## PR #253 — Atlas Edit Proposal — 2026-06-01
 **Merged:** 2026-06-04 | **Type:** Weekly edit (Atlas Axis)
 

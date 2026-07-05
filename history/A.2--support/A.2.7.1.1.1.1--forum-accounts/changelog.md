@@ -7,6 +7,28 @@ This changelog tracks edits to the registry of forum handles authorized to post 
 
 ---
 
+## PR #269 — Update document.md
+**Merged:** 2026-06-30 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Current Authorized Forum Accounts (`A.2.7.1.1.1.1.4.0.6.1`): | Amatsu | Operational GovOps | Amatsu | SoterLabs, Endgame-Edge (and their authorized representatives) |
+
+### Context
+Registers Amatsu as an Authorized Forum Account (Operational GovOps role) via Direct Edit between weekly cycles.
+
+---
+
+## PR #265 — Atlas Edit Proposal — 2026-06-22
+**Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.2.7.1.1.1.1.4.0.6.1` (Current Authorized Forum Accounts): `Elodin` → `N/A`
+
+### Context
+Clears Keel's authorized handle (`Elodin` → `N/A`), matching the `Elodin` → `Development Company` rename in the Keel Details doc (`A.2.8.2.3.1.1.2`) in the same edit.
+
+---
+
 ## PR #227 — Atlas Edit Proposal — 2026-04-27
 **Merged:** 2026-04-30 | **Type:** Weekly edit (Atlas Axis — Poll #1630)
 
