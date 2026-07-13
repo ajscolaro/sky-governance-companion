@@ -4,6 +4,88 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.2.2.9.1.2.1.2.1.1 deleted: Approval Process** (UUID `3f3162cc…4261`)
+- **Core A.2.2.9.1.2.1.2.1.2 deleted: Specification In The Instance Configuration Document** (UUID `ce66fc65…032e`)
+- **Core A.2.2.9.1.2.1.2.1.3 deleted: Limitations** (UUID `f2b3688f…abab`)
+- **Core A.2.2.9.1.2.1.2.1 deleted: Boosted Distribution Reward Rate** (UUID `1d9219cb…4c63`)
+- **New: Liquidity Layer Role Definitions** (`A.2.2.10.1.1.1.3`, UUID `2ae4b91a…6550`): The documents herein define the access-control roles of the Diamond Parallelized Allocation Unit (Diamond PAU) implementation of the Allocation System.
+  - **Default Admin Role** (`A.2.2.10.1.1.1.3.1`): The Default Admin Role (`DEFAULT_ADMIN_ROLE`) is the administrative role of an Instance's access-control contract, authorized to grant and revoke all other roles.
+  - **Controller Role** (`A.2.2.10.1.1.1.3.2`): The Controller Role (`CONTROLLER`) is authorized to call the asset-movement functions on the ALM Proxy and to update the Rate Limits contract.
+  - **Allocator Role** (`A.2.2.10.1.1.1.3.3`): The Allocator Role (`ALLOCATOR_ROLE`) is authorized to initiate allocation operations on behalf of the ALM Proxy, through the Controller.
+  - **Actor** (`A.2.2.10.1.1.1.3.4`): An Actor is an address registered on the AdministeredAgent that is authorized to submit allocation operations to the Controller through the Allocator Role, as specified in [A.2.2.10.1.1.1.3.3 - Allocator Role](e7a97395-ddd5-4ae8-874f-1bb3f2.
+  - **Revoker** (`A.2.2.10.1.1.1.3.5`): A Revoker is an address registered on the AdministeredAgent that is authorized to remove an Actor as a rapid-response measure, without affecting the Allocator Role held by the AdministeredAgent.
+  - **Grantor** (`A.2.2.10.1.1.1.3.6`): A Grantor is an address registered on the AdministeredAgent that is authorized to add an Actor, as specified in `A.2.2.10.1.1.1.3.4`, granting it the ability to submit operations through the Adm.
+  - **Administered Agent Admin** (`A.2.2.10.1.1.1.3.7`): The Administered Agent Admin is an address registered on the AdministeredAgent with authority over its role configuration, able to add and remove the AdministeredAgent's Admins, Grantors, Actors, and Revokers.
+- **New: Liquidity Layer Shared Contracts** (`A.2.2.10.1.1.1.4`, UUID `a2677d19…aab5`): The documents herein define the shared contracts of the Diamond PAU implementation of the Allocation System.
+  - **Beacon** (`A.2.2.10.1.1.1.4.1`): The Beacon (`Beacon`) is the registry that whitelists the Facets approved for use by Diamond PAU Instances; an Instance may only delegate calls to Facets registered on the Beacon.
+  - **Aave Facet** (`A.2.2.10.1.1.1.4.2.1`): The Aave Facet (`AaveFacet`) supplies and withdraws an underlying asset to and from an Aave v3 lending pool, or an Aave v3 fork such as SparkLend, holding the aTokens in the ALM Proxy.
+  - **Farm Facet** (`A.2.2.10.1.1.1.4.2.10`): The Farm Facet (`FarmFacet`) stakes and withdraws a token in a Synthetix-style reward farm and claims accrued rewards.
+  - **LayerZero Facet** (`A.2.2.10.1.1.1.4.2.11`): The LayerZero Facet (`LayerZeroFacet`) bridges tokens implementing the Omnichain Fungible Token (OFT) standard cross-chain via LayerZero v2 to a preconfigured recipient.
+  - **Maple Facet** (`A.2.2.10.1.1.1.4.2.12`): The Maple Facet (`MapleFacet`) requests and cancels redemptions of Maple pool tokens.
+  - **Merkl Facet** (`A.2.2.10.1.1.1.4.2.13`): The Merkl Facet (`MerklFacet`) toggles operator authorization on a Merkl distributor, delegating reward claiming to an operator.
+  - **OTC Facet** (`A.2.2.10.1.1.1.4.2.14`): The OTC Facet (`OTCFacet`) executes over-the-counter swaps, sending an asset to an exchange and later claiming the counter-asset from a designated buffer, under recharge-rate and slippage checks.
+  - **Pendle Facet** (`A.2.2.10.1.1.1.4.2.15`): The Pendle Facet (`PendleFacet`) redeems Pendle principal and yield tokens (PT and YT) for their underlying token after market expiry via the Pendle router.
+  - **PSM Facet** (`A.2.2.10.1.1.1.4.2.16`): The PSM Facet (`PSMFacet`) swaps between USDS and USDC by routing through DAI and the Lite PSM's no-fee path.
+  - **Spark Vault Facet** (`A.2.2.10.1.1.1.4.2.17`): The Spark Vault Facet (`SparkVaultFacet`) pulls assets from a Spark vault via its `take` function.
+  - **Superstate Facet** (`A.2.2.10.1.1.1.4.2.18`): The Superstate Facet (`SuperstateFacet`) subscribes USDC into Superstate USTB, minting USTB.
+  - **Transfer Asset Facet** (`A.2.2.10.1.1.1.4.2.19`): The Transfer Asset Facet (`TransferAssetFacet`) transfers an ERC-20 asset from the ALM Proxy to a rate-limit-authorized destination address.
+  - **Basin Facet** (`A.2.2.10.1.1.1.4.2.2`): The Basin Facet (`BasinFacet`) deposits assets into and withdraws them from a Basin contract in exchange for Basin shares.
+  - **Uniswap v3 Facet** (`A.2.2.10.1.1.1.4.2.20`): The Uniswap v3 Facet (`UniswapV3Facet`) executes Uniswap v3 exact-input swaps and adds or removes concentrated-liquidity positions, under tick-bound, time-weighted-average-price, and slippage guards.
+  - **Uniswap v4 Facet** (`A.2.2.10.1.1.1.4.2.21`): The Uniswap v4 Facet (`UniswapV4Facet`) mints, increases, and decreases Uniswap v4 liquidity positions and executes token swaps, under tick-limit and slippage guards.
+  - **USDS Facet** (`A.2.2.10.1.1.1.4.2.22`): The USDS Facet (`USDSFacet`) mints and burns USDS against an allocator vault, drawing USDS into and wiping it from the vault buffer.
+  - **weETH Facet** (`A.2.2.10.1.1.1.4.2.23`): The weETH Facet (`WEETHFacet`) stakes ETH (from WETH) into ether.fi eETH and wraps it to weETH, and handles the unwrap, withdrawal-request, and claim flow back to WETH.
+  - **Wrap Proxy ETH Facet** (`A.2.2.10.1.1.1.4.2.24`): The Wrap Proxy ETH Facet (`WrapProxyETHFacet`) wraps the ALM Proxy's entire native ETH balance into WETH.
+  - **wstETH Facet** (`A.2.2.10.1.1.1.4.2.25`): The wstETH Facet (`WSTETHFacet`) converts WETH to ETH to wstETH (Lido) and handles the Lido withdrawal-queue request and claim flow back to WETH.
+  - **CCTP Facet** (`A.2.2.10.1.1.1.4.2.3`): The CCTP Facet (`CCTPFacet`) bridges USDC cross-chain through Circle's Cross-Chain Transfer Protocol (CCTP), burning on the source domain to a preconfigured mint recipient.
+  - **Centrifuge Facet** (`A.2.2.10.1.1.1.4.2.4`): The Centrifuge Facet (`CentrifugeFacet`) manages Centrifuge v3 async vault positions, cancelling and claiming pending deposit and redeem requests and initiating cross-chain share transfers.
+  - **Curve Facet** (`A.2.2.10.1.1.1.4.2.5`): The Curve Facet (`CurveFacet`) swaps between assets in a Curve pool and adds or removes pool liquidity, under a max-slippage guard.
+  - **DAI-USDS Facet** (`A.2.2.10.1.1.1.4.2.6`): The DAI-USDS Facet (`DAIUSDSFacet`) converts between DAI and USDS at 1:1 through the DAI-USDS converter.
+  - **ERC-4626 Facet** (`A.2.2.10.1.1.1.4.2.7`): The ERC-4626 Facet (`ERC4626Facet`) deposits, withdraws, and redeems against any ERC-4626 vault, under min-shares, min-assets, and max-exchange-rate guards.
+  - **ERC-7540 Facet** (`A.2.2.10.1.1.1.4.2.8`): The ERC-7540 Facet (`ERC7540Facet`) runs the asynchronous ERC-7540 vault flow, requesting and claiming deposits and redemptions.
+  - **Ethena Facet** (`A.2.2.10.1.1.1.4.2.9`): The Ethena Facet (`EthenaFacet`) drives the Ethena USDe mint and burn and sUSDe staking lifecycle, managing the delegated signer, mint and burn approvals, and sUSDe cooldown and unstake.
+  - **PAU Factory** (`A.2.2.10.1.1.1.4.3`): The PAU Factory (`PAUFactory`) is the contract that deploys new Diamond PAU Instances.
+  - **PAU Assembler** (`A.2.2.10.1.1.1.4.4`): The PAU Assembler (`DefaultPAUAssembler`) is the contract that assembles a Diamond PAU Instance from its Beacon-approved Facets at deployment.
+  - **Administered Agent Factory** (`A.2.2.10.1.1.1.4.5`): The Administered Agent Factory (`AdministeredAgentFactory`) is the contract that deploys the `AdministeredAgent` contracts that hold the Allocator Role on the Controller of a Diamond PAU Instance, with the Prime Agent's Relayer system regis.
+- **New: Liquidity Layer Operational Processes** (`A.2.2.10.1.1.1.5`, UUID `3b387169…ea2c`): The documents herein define the operational processes of the Diamond PAU implementation of the Allocation System — including the addition and removal of Facets approved on the Beacon, the functions performed through the Controller, and the.
+  - **Adding a Facet** (`A.2.2.10.1.1.1.5.1.1`): The process for adding a Facet will be specified in a future iteration of the Atlas.
+  - **Removing a Facet** (`A.2.2.10.1.1.1.5.1.2`): The process for removing a Facet will be specified in a future iteration of the Atlas.
+  - **Allocator Role** (`A.2.2.10.1.1.1.5.2.1.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a USDS mint.
+  - **Check Rate Limits** (`A.2.2.10.1.1.1.5.2.1.2`): The mint is subject to the rate limit identified by `LIMIT_USDS_MINT`.
+  - **Mint USDS To ALM Proxy** (`A.2.2.10.1.1.1.5.2.1.3`): The USDS Facet mints the specified amount of USDS from the allocator vault to the ALM Proxy.
+  - **Allocator Role** (`A.2.2.10.1.1.1.5.2.2.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate a USDS burn.
+  - **Check Rate Limits** (`A.2.2.10.1.1.1.5.2.2.2`): The burn is subject to the rate limit identified by `LIMIT_USDS_BURN`.
+  - **Burn USDS From ALM Proxy** (`A.2.2.10.1.1.1.5.2.2.3`): The USDS Facet burns the specified amount of USDS held by the ALM Proxy, returning it to the allocator vault.
+  - **Allocator Role** (`A.2.2.10.1.1.1.5.2.3.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate an Aave market deposit.
+  - **Check Rate Limits** (`A.2.2.10.1.1.1.5.2.3.2`): The deposit is subject to the deposit rate limit identified by `LIMIT_AAVE_DEPOSIT` for the asset and market.
+  - **Deposit Asset Into Aave Market** (`A.2.2.10.1.1.1.5.2.3.3`): The Aave Facet supplies the specified amount of the asset to the Aave v3 market on behalf of the ALM Proxy, and aTokens are minted to the ALM Proxy.
+  - **Allocator Role** (`A.2.2.10.1.1.1.5.2.4.1`): Only an address holding the Allocator Role (`ALLOCATOR_ROLE`) may initiate an Aave market withdrawal.
+  - **Check Rate Limits** (`A.2.2.10.1.1.1.5.2.4.2`): The withdrawal is subject to the withdrawal rate limit identified by `LIMIT_AAVE_WITHDRAW` for the asset and market.
+  - **Withdraw Asset From Aave Market** (`A.2.2.10.1.1.1.5.2.4.3`): The Aave Facet withdraws the specified amount of the asset from the Aave v3 market to the ALM Proxy, burning the corresponding aTokens.
+  - **RateLimits Query** (`A.2.2.10.1.1.1.5.3.1`): The following code implements the public view functions that query the current `RateLimits` for a specific key.
+  - **Set RateLimit** (`A.2.2.10.1.1.1.5.3.2`): The following code sets the `RateLimit` for a specific key, restricted to the `DEFAULT_ADMIN_ROLE` holder (Sky Governance acting through the Prime Agent's SubProxy).
+  - **Set Unlimited RateLimit** (`A.2.2.10.1.1.1.5.3.3`): The following code sets an unlimited `RateLimit` for a specific key, restricted to the `DEFAULT_ADMIN_ROLE` holder (Sky Governance acting through the Prime Agent's SubProxy).
+  - **Set Trigger For RateLimit Decrease** (`A.2.2.10.1.1.1.5.3.4`): The following code decreases the `RateLimit` for a specific key, restricted to the `CONTROLLER` role (the Controller contract), called as allocations consume the limit.
+  - **Set Trigger For RateLimit Increase** (`A.2.2.10.1.1.1.5.3.5`): The following code increases the `RateLimit` for a specific key, restricted to the `CONTROLLER` role (the Controller contract), called as allocations return the limit.
+- **New: Agent SubProxy Account** (`A.2.2.5.1.2.5`, UUID `585dc747…9258`): The Agent Creation Primitive must specify the SubProxy address of the Agent.
+- **New: Agent Genesis Account** (`A.2.2.5.1.2.6`, UUID `761966db…7d26`): The Agent Creation Primitive must designate the Genesis Account.
+- **New: Maple syrupUSDC Transfer** (`A.2.8.2.1.2.10`, UUID `da2c6b16…0429`): Grove will transfer the syrupUSDC it currently holds to Spark, and Spark will transfer the equivalent value in USDS to the Grove ALM Proxy.
+
+### Housekeeping
+- `A.2.2.10.1.1.1.2` (Liquidity Layer Parameter Definitions): removed `based on the Spark Liquidity Layer, including the Grove Liquidity Layer`
+- `A.2.2.5.1.2.3` (Agent Foundation): `SubProxy Account` → `Foundation`
+- `A.2.2.5.1.2.4` (Agent Development Company): `Genesis Account` → `Development Company`
+- `A.2.2.9.1.2.1.2` (Distribution Reward Rate): removed `standard`
+- `A.2.3.1.2.2.1` (Fortification Foundation Allocation): removed `, and protocol development and growth`
+
+### Context
+Introduces the shared Diamond PAU (Parallelized Allocation Unit) framework — generic Liquidity Layer role definitions (Controller, Allocator, Actor, Revoker, Grantor), the full shared-Facet registry (Aave, Curve, CCTP, Ethena, Uniswap v3/v4, PSM, etc.), and the Beacon/Factory/Assembler contracts and operational processes — the substrate that Osero's new SLL deployment (this same edit) and future agents build on. Also adds the Maple syrupUSDC Grove→Spark transfer and Agent Creation SubProxy/Genesis inputs; the Boosted Distribution Reward Rate subtree is deleted.
+
+---
+
 ## PR #270 — Atlas Edit Proposal — 2026-06-29
 **Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
 

@@ -4,6 +4,274 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.1.2.6.1.2.1.1.3.1.1` (USDS Mint Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.1.2` (USDS Burn Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.1.3` (USDS For USDC Swap Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.1.4.1` (Maximum USDC Bridged To Ethereum Mainnet Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.1.2.6.1.2.1.1.3.1.4` (USDC Mainnet ALM Proxy Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.1` (Base USDC Deposit Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.2` (Base USDC Withdrawal Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.3` (Base USDS Deposit Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.4` (Base USDS Withdrawal Maximum): `max` → `Unlimited`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.5` (Base sUSDS Deposit Maximum): removed `(sUSDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.6` (Base sUSDS Withdrawal Maximum): `max` → `Unlimited`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.7.1` (Maximum USDC Bridged From Ethereum Mainnet To Base Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.1.2.6.1.2.1.1.3.2.7` (USDC Base ALM Proxy Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.3.1` (Arbitrum USDC Deposit Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.3.2` (Arbitrum USDC Withdrawal Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.3.3` (Arbitrum USDS Deposit Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.3.4` (Arbitrum USDS Withdrawal Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.3.5` (Arbitrum sUSDS Deposit Maximum): `(` → `10,000,000`
+- `A.6.1.1.1.2.6.1.2.1.1.3.3.6` (Arbitrum sUSDS Withdrawal Maximum): removed `(sUSDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.4.1` (Unichain USDC Deposit Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.4.2` (Unichain USDC Withdrawal Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.4.3` (Unichain USDS Deposit Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.4.4` (Unichain USDS Withdrawal Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.4.5` (Unichain sUSDS Deposit Maximum): removed `(USDS worth of sUSDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.4.6` (Unichain sUSDS Withdrawal Maximum): removed `(sUSDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.5.1` (Optimism USDC Deposit Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.5.2` (Optimism USDC Withdrawal Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.5.3` (Optimism USDS Deposit Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.5.4` (Optimism USDS Withdrawal Maximum): removed `(USDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.5.5` (Optimism sUSDS Deposit Maximum): removed `(USDS worth of sUSDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.5.6` (Optimism sUSDS Withdrawal Maximum): removed `(sUSDS)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.6.1` (Avalanche USDC Deposit Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.6.2` (Avalanche USDC Withdrawal Maximum): removed `(USDC)`
+- `A.6.1.1.1.2.6.1.2.1.1.3.6.3.1` (Maximum USDC Bridged From Ethereum Mainnet To Avalanche Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.1.2.6.1.2.1.1.3.6.3` (USDC Avalanche ALM Proxy Maximum): removed `(USDC)`
+- `ALM Proxy` → `Via` across 3 docs.
+- `Cross-Chain Transfer Protocol Maximum` → `CCTP` across 3 docs.
+- `max` → `Unlimited` across 2 docs.
+
+### Context
+Mechanical rate-limit label and cross-chain document-name standardization across Spark's SLL parameter tree — unit suffixes removed, `ALM Proxy`→`Via`, and `Cross-Chain Transfer Protocol Maximum`→`CCTP`; parameter values unchanged. Part of the 2026-07-06 weekly cycle (PR #273).
+
+---
+
+## PR #268 — Spark proposal - [Avalanche] Spark Liquidity Layer - Add Timelock and Guardian to Avalanche Governance Bridge
+**Merged:** 2026-07-10 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Governance Bridge Protection** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.9`, UUID `dfffb528…385a`): The documents herein contain the protection-related parameters of the Avalanche governance bridge.
+  - **Timelock Delay** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.9.1`): Governance actions delivered to the Avalanche deployment via the governance bridge are subject to a timelock delay of three (3) days between scheduling and execution.
+  - **Guardian Multisig Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.9.2`): `0x2E1b01adABB8D4981863394bEa23a1263CBaeDfC` (Spark Operations Multisig).
+  - **Guardian Multisig Required Number Of Signers** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.9.3`): The Guardian Multisig has five (5) or more signers.
+  - **Guardian Multisig Quorum** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.9.4`): The Guardian Multisig quorum is half of the signer set, rounded up.
+  - **Guardian Powers** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.9.5`): The guardian mechanism power is strictly limited to cancelling pending actions during the timelock period.
+
+### Context
+Hardens cross-chain governance delivery to Spark's Avalanche SLL deployment: a 3-day timelock plus a Guardian (Spark Operations Multisig `0x2E1b…eDfC`, 5+ signers, half-rounded-up quorum) whose power is strictly limited to cancelling pending actions during the timelock window.
+
+---
+
+## PR #267 — Spark proposal - Spark Liquidity Layer - Enable USDT Bridging to Arbitrum
+**Merged:** 2026-07-09 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: USDT Arbitrum ALM Proxy Maximum** (`A.6.1.1.1.2.6.1.2.1.1.3.3.7`, UUID `5621e3c9…c755`): The maximum amount of USDT that can be sent to the Arbitrum ALM Proxy (`LIMIT_USDT_TO_DOMAIN`, hashed with Arbitrum domain) is specified in the document herein.
+
+### Context
+Enables USDT bridging to Arbitrum by adding the `LIMIT_USDT_TO_DOMAIN` rate-limit parameter (hashed with the Arbitrum domain) for the Arbitrum ALM Proxy.
+
+---
+
+## PR #266 — Spark proposal - Spark USDT Morpho V2 Vault Allocator Updates
+**Merged:** 2026-07-09 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **Allocator Role Address** (`A.6.1.1.1.2.6.1.3.1.8.4.2.2.3`): address `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699`
+- **Allocator Role Address** (`A.6.1.1.1.2.6.1.3.1.8.5.2.2.3`): address `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699`
+
+### Context
+Updates the Allocator Role address to `0xe5c6…f699` on Spark's two USDT Morpho V2 vault allocators.
+
+---
+
+## PR #263 — Spark proposal - [Arbitrum] Spark Savings - Deploy spUSDT
+**Merged:** 2026-07-09 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Spark Savings V2** (`A.6.1.1.1.2.6.1.3.3.3`, UUID `417952e8…0b62`): The Arbitrum Instances of the Spark Savings v2 with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.3.3.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.3.3.1.2.1.1`): Arbitrum.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.3.3.1.2.1.2`): Spark Savings Protocol.
+  - **Asset Supplied By Users** (`A.6.1.1.1.2.6.1.3.3.3.1.2.1.3`): USDT.
+  - **Token** (`A.6.1.1.1.2.6.1.3.3.3.1.2.1.4`): spUSDT.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.3.3.1.2.2.1`): TBD.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.3.3.1.2.2.2`): `0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.3.3.1.2.3`): The specific `RateLimitID`(s) for this conduit's inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.3.3.1.2.4`): The specific `maxAmount` and `slope` for this conduit's inflow/outflow are not defined for this Instance.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.3.3.1.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.3.3.1.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+  - **Spark Vault v2 Implementation** (`A.6.1.1.1.2.6.1.3.3.3.1.4.1.1`): TBD.
+  - **Default admin** (`A.6.1.1.1.2.6.1.3.3.3.1.4.1.2`): `0x65d946e533748A998B1f0E430803e39A6388f7a1`.
+  - **Setter** (`A.6.1.1.1.2.6.1.3.3.3.1.4.1.3`): TBD.
+  - **Taker** (`A.6.1.1.1.2.6.1.3.3.3.1.4.1.4`): `0x92afd6F2385a90e44da3a8B60fe36f6cBe1D8709` (ALM_PROXY).
+  - **Spark Savings USDT Risk Parameters** (`A.6.1.1.1.2.6.1.3.3.3.1.4.2.1`): The Risk parameters are.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.3.3.1.4.2.2`): The current `maxAmount` for this conduit's take, transferAssets, and bridge operations are defined in the subdocuments herein.
+  - **Take Rate Limits** (`A.6.1.1.1.2.6.1.3.3.3.1.4.2.3`): The take rate limits are.
+  - **TransferAssets Rate Limits** (`A.6.1.1.1.2.6.1.3.3.3.1.4.2.4`): The transferAssets rate limits are.
+  - **Bridge to Ethereum Rate Limits** (`A.6.1.1.1.2.6.1.3.3.3.1.4.2.5`): The bridge-to-Ethereum rate limits are.
+- **New: Spark Savings USDT on Arbitrum** (`A.6.1.1.1.3.5.2.2.5`, UUID `5a2b0ec2…437d`): The current parameters for Spark Savings USDT on Arbitrum are. (addresses: `0x65d946e533748A998B1f0E430803e39A6388f7a1`, `0x92afd6F2385a90e44da3a8B60fe36f6cBe1D8709`)
+
+### Context
+Onboards the spUSDT Spark Savings v2 instance on Arbitrum (underlying USDT, taker = ALM_PROXY `0x92af…8709`); most contract addresses, rate limits, and the vault implementation remain TBD/`Pending` pending a future Artifact iteration.
+
+---
+
+## PR #262 — SAEP-16: Confidential Strategic Integrations and Deployments
+**Merged:** 2026-07-09 | **Type:** SAEP-16 (Spark proposal)
+
+### Material Changes
+- **New: Confidential Strategic Integrations and Deployments** (`A.6.1.1.1.3.10`, UUID `5902deeb…e96a`): The provisions herein establish Spark’s framework for confidential strategic integrations and pre-launch deployment activities conducted subject to applicable confidentiality obligations.
+  - **Purpose** (`A.6.1.1.1.3.10.1`): The Confidential Strategic Integrations and Deployments framework defines the conditions under which Designated Contributors may enter into confidential strategic arrangements and perform pre-launch operational readiness activities, includi.
+  - **Designated Contributors** (`A.6.1.1.1.3.10.2`): The following entities are authorized to perform actions on behalf of Spark under the Confidential Strategic Integrations and Deployments Framework: Spark Foundation may perform actions under this Confidential Strategic Integrations and Dep.
+  - **Permitted Actions** (`A.6.1.1.1.3.10.3`): Designated Contributors are permitted to take any actions reasonably necessary to facilitate the deployment, configuration, testing, maintenance, and operational readiness of a Confidential Strategic Integration and Deployment.
+  - **Incentives and Rewards Obligations** (`A.6.1.1.1.3.10.4`): The yield accrued on Spark Savings vaults deployed under the Confidential Strategic Integrations and Deployments framework may constitute obligations incurred pursuant to this framework, subject to the limitations set forth herein.
+  - **Disclaimers** (`A.6.1.1.1.3.10.5`): Protocol deployments and products launched under the Confidential Strategic Integrations and Deployments framework are not covered by Spark or Sky insurance, and users bear all risk associated with the deployments and products, including bu.
+  - **Governance Acceptance** (`A.6.1.1.1.3.10.6`): Any products or protocol elements created under the Confidential Strategic Integrations and Deployments framework must be publicly disclosed and receive explicit acceptance by Spark governance within 6 months of the earlier of: (i) the depl.
+  - **Private Ecosystem Review** (`A.6.1.1.1.3.10.7`): Prior to activation of a Confidential Strategic Integration and Deployment for end user interactions or deposits, Designated Contributors shall confidentially disclose all relevant deployment details to the Spark Risk Council, and to applic.
+
+### Context
+SAEP-16 establishes Spark's framework for confidential strategic integrations and pre-launch deployments by Designated Contributors (initially Spark Foundation), requiring prior Spark Risk Council review, public disclosure, and explicit Spark governance acceptance within 6 months; products launched under it carry no Spark or Sky insurance and users bear all risk.
+
+---
+
+## PR #256 — Spark proposal - [Ethereum] Spark Liquidity Layer - Onboard Binance with OTC buffer
+**Merged:** 2026-07-09 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Binance** (`A.6.1.1.1.2.6.1.1.2.1.14`, UUID `7148129f…c60a`): The Ethereum Mainnet Instances Directory of Binance with `Active` Status are stored herein.
+  - **Ethereum Mainnet - Binance Transfer USDC to Binance (receive USDT) Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.14.1`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.14.1`.
+  - **Ethereum Mainnet - Binance Transfer USDT to Binance (receive USDC) Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.14.2`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.14.2`.
+- **New: Binance** (`A.6.1.1.1.2.6.1.3.1.14`, UUID `be4602ea…814a`): The Ethereum Mainnet Instances of Binance with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.1.14.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.1.14.1.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.1.14.1.2.1.2`): Binance.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.3.1.14.1.2.1.3`): USDC.
+  - **Token to Receive** (`A.6.1.1.1.2.6.1.3.1.14.1.2.1.4`): USDT.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.1.14.1.2.2.1`): `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.1.14.1.2.2.2`): `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`.
+  - **Binance Deposit Address** (`A.6.1.1.1.2.6.1.3.1.14.1.2.2.3`): TBD.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.1.14.1.2.3`): The specific `RateLimitID`(s) for this conduit's inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.1.14.1.2.4`): The current TransferAsset rate limits for this conduit's transferAssets operations are defined in the subdocuments herein.
+  - **TransferAssets Rate Limits** (`A.6.1.1.1.2.6.1.3.1.14.1.2.4.1`): The transferAssets rate limits are.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.14.1.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.1.14.1.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.1.14.2.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.1.14.2.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.1.14.2.2.1.2`): Binance.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.3.1.14.2.2.1.3`): USDT.
+  - **Token to Receive** (`A.6.1.1.1.2.6.1.3.1.14.2.2.1.4`): USDC.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.1.14.2.2.2.1`): `0xdAC17F958D2ee523a2206206994597C13D831ec7`.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.1.14.2.2.2.2`): `0xdAC17F958D2ee523a2206206994597C13D831ec7`.
+  - **Binance Deposit Address** (`A.6.1.1.1.2.6.1.3.1.14.2.2.2.3`): TBD.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.1.14.2.2.3`): The specific `RateLimitID`(s) for this conduit's inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.1.14.2.2.4`): The current TransferAsset rate limits for this conduit's transferAssets operations are defined in the subdocuments herein.
+  - **TransferAssets Rate Limits** (`A.6.1.1.1.2.6.1.3.1.14.2.2.4.1`): The transferAssets rate limits are.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.14.2.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.1.14.2.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+
+### Context
+Onboards Binance as an OTC counterparty on the Ethereum SLL with two conduits (USDC→USDT and USDT→USDC), routed through an OTC buffer; Binance deposit addresses and rate limits remain TBD pending a future Artifact iteration.
+
+---
+
+## PR #250 — Spark proposal:  Ethereum - Spark Liquidity Layer - Update Rate Limits
+**Merged:** 2026-07-09 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Ethereum Mainnet - Anchorage USDC Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.13.3`, UUID `e93291ac…54b0`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.13.3`.
+- **New: Ethereum Mainnet - Anchorage USDC Instance Configuration Document** (`A.6.1.1.1.2.6.1.3.1.13.3`, UUID `efa4ea69…fa34`): The documents herein contain the Instance Configuration Document for the Anchorage USDC Instance.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.1.13.3.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.1.13.3.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.1.13.3.2.1.2`): Anchorage.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.3.1.13.3.2.1.3`): USDC.
+  - **Token** (`A.6.1.1.1.2.6.1.3.1.13.3.2.1.4`): USDC.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.1.13.3.2.2.1`): `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`.
+  - **Destination Address** (`A.6.1.1.1.2.6.1.3.1.13.3.2.2.2`): `0x49506C3Aa028693458d6eE816b2EC28522946872`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.1.13.3.2.3`): The specific `RateLimitID`(s) for this conduit’s inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.1.13.3.2.4`): The current `maxAmount` and `slope` for this conduit’s transferAssets operations are defined in the subdocuments herein.
+  - **transferAsset Rate Limits** (`A.6.1.1.1.2.6.1.3.1.13.3.2.4.1`): - `maxAmount`: 50,000,000 USDC.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.13.3.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.1.13.3.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+- **USDS Mint Maximum** (`A.6.1.1.1.2.6.1.2.1.1.3.1.1`): `500` → `1`; `500` → `1`
+- **USDS For USDC Swap Maximum** (`A.6.1.1.1.2.6.1.2.1.1.3.1.3`): `500` → `1`; `300` → `1`
+- **Swap Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.2.2.4.3`): `5` → `25`; `50` → `250`
+
+### Context
+Adds an Anchorage USDC transfer conduit (50M USDC max, destination `0x4950…6872`) and adjusts SLL rate limits — USDS mint and USDS-for-USDC swap maximums plus the LitePSM swap rate limits.
+
+---
+
+## PR #249 — SAEP-15: Update Spark Prime Artifact Section
+**Merged:** 2026-07-09 | **Type:** SAEP-15 (Spark proposal)
+
+### Material Changes
+- **New: Fully Reserved USD Stablecoins** (`A.6.1.1.1.3.7.2.2.2.15`, UUID `2782410b…9ab8`): - Collateral Haircut: -5%.
+- **New: Fully Reserved Major Non-USD Stablecoins** (`A.6.1.1.1.3.7.2.2.2.16`, UUID `79eb2c89…bd24`): - Collateral Haircut: +10% / -10%.
+- **New: Gold (XAU)** (`A.6.1.1.1.3.7.2.2.2.17`, UUID `406351ec…7e98`): - Collateral Haircut: +10% / -10%.
+- **New: Silver (XAG)** (`A.6.1.1.1.3.7.2.2.2.18`, UUID `0a907606…0cdf`): - Collateral Haircut: +15% / -15%.
+- **New: Oil** (`A.6.1.1.1.3.7.2.2.2.19`, UUID `f4da836b…ea45`): - Collateral Haircut: +15% / -15%.
+- **New: Unapproved Assets and Products** (`A.6.1.1.1.3.7.2.2.6`, UUID `5163ebb9…82c1`): Exposure to unapproved assets and/or futures products is not permitted, and incurs a collateral haircut rating of +100% / -100%.
+- **New: Copper** (`A.6.1.1.1.3.7.2.3.2.10`, UUID `1da59154…68e5`): Users are permitted to hold assets and positions within Copper, in a subaccount controlled under the Arkis master account as implemented through Arkis infrastructure arrangements, or via collateral management account where Arkis holds a sec.
+- **New: Lighter** (`A.6.1.1.1.3.7.2.3.2.11`, UUID `827b0862…8920`): Users are permitted to hold assets and positions within Lighter, in a subaccount controlled under the Arkis master account.
+- **New: Aster** (`A.6.1.1.1.3.7.2.3.2.12`, UUID `bacfdbb6…36b7`): Users are permitted to hold assets and positions within Aster, in a subaccount controlled under the Arkis master account.
+- **New: Ceffu** (`A.6.1.1.1.3.7.2.3.2.9`, UUID `8d8d15cb…04bd`): Users are permitted to hold assets and positions within Ceffu, in a subaccount controlled under the Arkis master account as implemented through Arkis infrastructure arrangements, or via collateral management account where Arkis holds a secu.
+- **Borrow Rate** (`A.6.1.1.1.3.7.2.4.2.2`): `2` → `0.3`
+
+### Housekeeping
+- `A.6.1.1.1.3.7.1.1` (Arkis Infrastructure Policy Changes): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.1.2` (Arkis Infrastructure Policy Change Execution): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.1` (Operational Process Definition): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.2.1` (Counterparty Requirements): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.2.2.1.3` (Staked, Wrapped, and Approved Versions): `Wrapped` → `Approved`
+- `A.6.1.1.1.3.7.2.2.2.1` (Bitcoin (BTC)): added `, WBTC`
+- `A.6.1.1.1.3.7.2.2.5` (Decentralized Exchange Protocols): `Unapproved Assets and Products` → `Decentralized Exchange Protocols`
+- `A.6.1.1.1.3.7.2.3` (Approved Venues): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.2.5.4` (Parameter Updates in Non Emergency Situations): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.2.6` (Delegation of Rights and Responsibilities): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.2.7` (Account Management): `Spark Prime` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7.2` (Policies and Mandate): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `A.6.1.1.1.3.7` (Arkis Infrastructure): `Spark Prime Brokerage` → `Arkis Infrastructure`
+- `Spark Prime Brokerage` → `Arkis Infrastructure` across 9 docs.
+
+### Context
+SAEP-15 rebrands "Spark Prime Brokerage" to "Arkis Infrastructure" throughout the prime-brokerage section, adds collateral-haircut ratings for new asset classes (fully-reserved USD and non-USD stablecoins, gold, silver, oil, and unapproved assets/products at ±100%) and new approved venues (Ceffu, Copper, Lighter, Aster), and cuts the borrow rate from 2% to 0.3%.
+
+---
+
+## PR #248 — Spark proposal: Spark Liquidity Layer - Update ALM Proxy Freezable
+**Merged:** 2026-07-09 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: ALM Proxy Freezable (Mainnet) Contract Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.1.7`, UUID `a937f2e1…0f5b`): The address of the ALM_PROXY_FREEZABLE contract is: `0x9Ad87668d49ab69EEa0AF091de970EF52b0D5178`.
+- **New: ALM Proxy Freezable (Mainnet) Contract Version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.1.8`, UUID `5879057d…edd2`): The version of the ALM_PROXY_FREEZABLE contract is: 1.1.
+- **New: ALM Proxy Freezable (Base) Contract Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.2.7`, UUID `ab85b80b…74a8`): The address of the ALM_PROXY_FREEZABLE contract is: `0xCBA0C0a2a0B6Bb11233ec4EA85C5bFfea33e724d`.
+- **New: ALM Proxy Freezable (Base) Contract Version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.2.8`, UUID `68dd49b4…a30c`): The version of the ALM_PROXY_FREEZABLE contract is: 1.1.
+- **New: ALM Proxy Freezable (Avalanche) Contract Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.7`, UUID `4eb4959c…0786`): The address of the ALM_PROXY_FREEZABLE contract is: `0x45d91340B3B7B96985A72b5c678F7D9e8D664b62`.
+- **New: ALM Proxy Freezable (Avalanche) Contract Version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.6.8`, UUID `7594b5c7…d762`): The version of the ALM_PROXY_FREEZABLE contract is: 1.1.
+
+### Context
+Records the deployed ALM_PROXY_FREEZABLE v1.1 contract addresses on Ethereum Mainnet (`0x9Ad8…5178`), Base (`0xCBA0…724d`), and Avalanche (`0x45d9…4b62`), adding a freezable proxy layer to the SLL.
+
+---
+
+## PR #272 — add changes to USDC market parameters in Spark spell
+**Merged:** 2026-07-07 | **Type:** Housekeeping
+
+### Material Changes
+- **USDC Risk Parameters** (`A.6.1.1.1.3.2.1.1.2.1.9`): `95` → `98`
+
+### Context
+Records a USDC risk-parameter change (`95 → 98`) from a Spark spell.
+
+---
+
 ## PR #271 — Add Current Term field to Spark's List of Delegates active data
 **Merged:** 2026-06-30 | **Type:** Active Data update (Designated Controller)
 

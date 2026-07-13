@@ -4,6 +4,18 @@ Atlas path: `A.6.1.1.5` (509 docs)
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.5.2.6.1.2.1.1.3.1.3.1.1` (Maximum USDC Bridged To Ethereum Mainnet Via Circle CCTP): `ALM Proxy` → `Bridged To Ethereum Mainnet Via`
+- `Cross-Chain Transfer Protocol Maximum` → `CCTP` across 1 doc.
+
+### Context
+Cross-chain document-name standardization for Obex — direction-explicit CCTP bridge label; no parameter change. Part of the 2026-07-06 weekly cycle (PR #273).
+
+---
+
 ## PR #258 — Atlas Edit Proposal — 2026-06-15
 **Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
 

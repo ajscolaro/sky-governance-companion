@@ -4,6 +4,258 @@ Atlas path: `A.6.1.1.2` (1489 docs)
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Paxos** (`A.6.1.1.2.2.6.1.1.2.1.15`, UUID `f1c5403d…8431`): The Ethereum Mainnet Instances Directory of Paxos with `Active` Status are stored herein.
+  - **Ethereum Mainnet - USDC to USDG via Paxos Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.15.1`): This Instance’s associated Instance Configuration Document is located at `A.6.1.1.2.2.6.1.3.1.15.1`.
+- **New: Robinhood Chain** (`A.6.1.1.2.2.6.1.1.2.7`, UUID `c10c4d5a…01f1`): The documents herein contain a Directory of all Instances on Robinhood Chain of the Allocation System Primitive with Instance status of `Active`.
+  - **Morpho** (`A.6.1.1.2.2.6.1.1.2.7.1`): The Robinhood Chain Instances Directory of the Morpho Protocol with `Active` Status are stored herein.
+  - **Robinhood Chain - Grove x Steakhouse USDG Morpho Vault V2 Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.7.1.1`): This Instance’s associated Instance Configuration Document is located at `A.6.1.1.2.2.6.1.3.7.1.1`.
+  - **Paxos** (`A.6.1.1.2.2.6.1.1.2.7.2`): The Robinhood Chain Instances Directory of Paxos with `Active` Status are stored herein.
+  - **Robinhood Chain - USDG to USDC via Paxos Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.7.2.1`): This Instance’s associated Instance Configuration Document is located at `A.6.1.1.2.2.6.1.3.7.2.1`.
+- **New: Robinhood Chain** (`A.6.1.1.2.2.6.1.2.1.1.1.1.4`, UUID `3b6d2fe2…f1ef`): The documents herein contain the Allocator Contract Addresses on Robinhood Chain.
+  - **Grove Executor** (`A.6.1.1.2.2.6.1.2.1.1.1.1.4.1`): The address of the Grove executor on Robinhood Chain is: `0x5ff98717a18833de1A49e11B498866d6Fa1c9296`.
+  - **Grove Arbitrum Governance Relay Receiver** (`A.6.1.1.2.2.6.1.2.1.1.1.1.4.2`): The address of the Grove Arbitrum governance relay receiver on Robinhood Chain is: `0xa02eC279eEA9E56F4E14449a07C5ca5FDAAdc51d`.
+- **New: Robinhood Chain** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6`, UUID `51488328…9c79`): The documents herein contain the ALM Contract Addresses for the Grove Liquidity Layer on Robinhood Chain.
+  - **ALM Controller Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6.1`): The address of the ALM_CONTROLLER contract is: `0x2c10885ddec8d52ecF3Ad2B3833765bf36eD80cf`.
+  - **ALM Controller Contract Version** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6.2`): The ALM_CONTROLLER contract version is: 1.8.0.
+  - **ALM Freezer Multisig Address** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6.3`): The address of the Multisig that has the Freezer Role is: `0xB0113804960345fd0a245788b3423319c86940e5`.
+  - **ALM Relayer Multisig Addresses** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6.4`): The addresses of the Multisigs that have the Relayer Role are: `0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f` and `0x9187807e07112359C481870feB58f0c117a29179`.
+  - **ALM Proxy Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6.5`): The address of the ALM_PROXY contract is: `0x29626c2d8Ca49A51E4dECEEc5499e52983c42BD5`.
+  - **ALM Rate Limits Contract** (`A.6.1.1.2.2.6.1.2.1.1.1.2.6.6`): The address of the ALM_RATE_LIMITS contract is: `0xC13e5ff7993c5df911aE562a7736B0eBA12b2010`.
+- **New: Paxos** (`A.6.1.1.2.2.6.1.3.1.15`, UUID `bc8cc6e7…ff04`): The Ethereum Mainnet Instances of Paxos with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation Coverage** (`A.6.1.1.2.2.6.1.3.1.15.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.2.2.6.1.3.1.15.1.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.2.2.6.1.3.1.15.1.2.1.2`): Paxos.
+  - **Asset Supplied By Grove Liquidity Layer** (`A.6.1.1.2.2.6.1.3.1.15.1.2.1.3`): USDC.
+  - **Token to Receive** (`A.6.1.1.2.2.6.1.3.1.15.1.2.1.4`): USDG.
+  - **Token Address** (`A.6.1.1.2.2.6.1.3.1.15.1.2.2.1`): `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`.
+  - **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.1.15.1.2.2.2`): `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`.
+  - **Paxos Deposit Address** (`A.6.1.1.2.2.6.1.3.1.15.1.2.2.3`): `0x8C0A9E5939B97979f85d9aDA3d983C6E713Cc2dB`.
+  - **Rate Limit IDs** (`A.6.1.1.2.2.6.1.3.1.15.1.2.3`): The transferAssets `RateLimitID` for this conduit is: `0x4139045de2f11ba23865c6cdf20084f6566d834b50716e469c5dbd8ed71faaf1`.
+  - **Rate Limits** (`A.6.1.1.2.2.6.1.3.1.15.1.2.4`): The current TransferAsset rate limits for this conduit’s transferAssets operations are defined in the subdocuments herein.
+  - **TransferAssets Rate Limits** (`A.6.1.1.2.2.6.1.3.1.15.1.2.4.1`): The transferAssets rate limits are.
+  - **Off-chain Operational Parameters** (`A.6.1.1.2.2.6.1.3.1.15.1.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.2.2.6.1.3.1.15.1.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Grove Liquidity Layer processes.
+- **New: Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.1.7.2.2.4.3`, UUID `6894aa1a…df00`): Controllers now have protections that require a `maxExchangeRate` to be set for deposits.
+- **New: Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.1.7.4.4.1`, UUID `c7a016f1…b149`): Controllers now have protections that require a `maxExchangeRate` to be set for deposits.
+- **New: Maximum Exposure** (`A.6.1.1.2.2.6.1.3.1.7.5.2.5.1`, UUID `8c1e6098…5dc2`): The Maximum Exposure for this Instance is 0 USD.
+- **New: Robinhood Chain** (`A.6.1.1.2.2.6.1.3.7`, UUID `f6cfd29f…6aae`): The Robinhood Chain Instances of the Grove Liquidity Layer with `Active` Status are stored herein and are organized by target protocol.
+  - **Morpho** (`A.6.1.1.2.2.6.1.3.7.1`): The Robinhood Chain Instances of the Morpho Protocol with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation Coverage** (`A.6.1.1.2.2.6.1.3.7.1.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.2.2.6.1.3.7.1.1.2.1.1`): Robinhood Chain.
+  - **Target Protocol** (`A.6.1.1.2.2.6.1.3.7.1.1.2.1.2`): Morpho.
+  - **Asset Supplied By Grove Liquidity Layer** (`A.6.1.1.2.2.6.1.3.7.1.1.2.1.3`): USDG.
+  - **Token** (`A.6.1.1.2.2.6.1.3.7.1.1.2.1.4`): groveUSDG.
+  - **Token Address** (`A.6.1.1.2.2.6.1.3.7.1.1.2.2.1`): `0xBEEff039907422219Fb367e525954DDC092854d9`.
+  - **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.7.1.1.2.2.2`): `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168`.
+  - **Rate Limit IDs** (`A.6.1.1.2.2.6.1.3.7.1.1.2.3`): The specific `RateLimitID`(s) for this conduit’s inflow and outflow are defined in the subdocuments herein.
+  - **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.7.1.1.2.3.1`): The inflow RateLimitID is: `0x056c8e9e2046ef2d9e785dd5ffd9eeb475b862bf46f551cf91825eab45225e48`.
+  - **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.7.1.1.2.3.2`): The outflow `RateLimitID` will be specified in a future iteration of the Grove Artifact.
+  - **Rate Limits** (`A.6.1.1.2.2.6.1.3.7.1.1.2.4`): The current `maxAmount` and `slope` for this conduit’s inflow and outflow are defined in the subdocuments herein.
+  - **Deposit Rate Limits** (`A.6.1.1.2.2.6.1.3.7.1.1.2.4.1`): The deposit rate limits are.
+  - **Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.7.1.1.2.4.3`): Controllers now have protections that require a `maxExchangeRate` to be set for deposits.
+  - **Maximum Exposure** (`A.6.1.1.2.2.6.1.3.7.1.1.2.5.1`): Total USDG exposure may not exceed 100 million USDS.
+  - **CRR** (`A.6.1.1.2.2.6.1.3.7.1.1.2.5.2`): The CRR for this Instance, as specified in `A.3.2.1.1.1`, applies to the approved spUSDG/USDG market and is initialized at 3%, decreasing linearly to 0.65% over the four (4).
+  - **Paxos** (`A.6.1.1.2.2.6.1.3.7.2`): The Robinhood Chain Instances of Paxos with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation Coverage** (`A.6.1.1.2.2.6.1.3.7.2.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.2.2.6.1.3.7.2.1.2.1.1`): Robinhood Chain.
+  - **Target Protocol** (`A.6.1.1.2.2.6.1.3.7.2.1.2.1.2`): Paxos.
+  - **Asset Supplied By Grove Liquidity Layer** (`A.6.1.1.2.2.6.1.3.7.2.1.2.1.3`): USDG.
+  - **Token to Receive** (`A.6.1.1.2.2.6.1.3.7.2.1.2.1.4`): USDC.
+  - **Token Address** (`A.6.1.1.2.2.6.1.3.7.2.1.2.2.1`): `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168`.
+  - **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.7.2.1.2.2.2`): `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168`.
+  - **Paxos Deposit Address** (`A.6.1.1.2.2.6.1.3.7.2.1.2.2.3`): `0xfC0a7Ed7C5146B26eB38FA92c71F434A7178b06e`.
+  - **Rate Limit IDs** (`A.6.1.1.2.2.6.1.3.7.2.1.2.3`): The transferAssets `RateLimitID` for this conduit is: `0x6514f636131e8989437496ad745c5671d7794873c5c1cd6d0a8b5b42031e5c9d`.
+  - **Rate Limits** (`A.6.1.1.2.2.6.1.3.7.2.1.2.4`): The current TransferAsset rate limits for this conduit’s transferAssets operations are defined in the subdocuments herein.
+  - **TransferAssets Rate Limits** (`A.6.1.1.2.2.6.1.3.7.2.1.2.4.1`): The transferAssets rate limits are.
+  - **Off-chain Operational Parameters** (`A.6.1.1.2.2.6.1.3.7.2.1.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.2.2.6.1.3.7.2.1.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Grove Liquidity Layer processes.
+- **Ethereum Mainnet - Grove x Steakhouse USDC Morpho Vault v2 Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.7.2`): `27f06e65` → `6ec606f0`; `8397` → `bc47`; `449a` → `4f36`; `b002` → `8591`; `abaa0416badc` → `75784bb78b00`
+- **Ethereum Mainnet - Steakhouse PYUSD Morpho Vault Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.7.3`): `8591` → `9729`
+- **Ethereum Mainnet - Grove x Steakhouse AUSD Morpho Vault V2 Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.7.4`): `9729` → `9578`
+- **Ethereum Mainnet - Sentora PYUSD Morpho Vault V2 Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.7.5`): `2c21462b` → `3e940e02`; `2925` → `80eb`; `48d8` → `4e37`; `9578` → `bce6`; `5fc21aa96563` → `95939089da46`
+- **Ethereum Mainnet - Sentora RLUSD Morpho Vault V2 Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.7.6`): `3e940e02` → `dff6df5f`; `80eb` → `f8ab`; `4e37` → `4df1`; `bce6` → `be1e`; `95939089da46` → `f71510c3534e`
+- **Ethereum Mainnet - Grove x Steakhouse RLUSD Morpho Vault V2 Instance Configuration Document Location** (`A.6.1.1.2.2.6.1.1.2.1.7.7`): `dff6df5f` → `cfb29474`; `f8ab` → `ea48`; `4df1` → `4370`; `be1e` → `aad6`; `f71510c3534e` → `23af1cf4d11a`
+- **Token Address** (`A.6.1.1.2.2.6.1.3.1.7.2.2.2.1`): address `0xBeefF08dF54897e7544aB01d0e86f013DA354111`
+- **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.2.2.3.1`): `0x098ad67dc41c1a5892ec3ef5fd411198dc11962475e9ef2e0362e6cb7f5a2174` → `0xe9ff67ad8829919752eee93c75433e7e23f3460ca6b1d9576fae94f669fbc4d6`
+- **Deposit Rate Limits** (`A.6.1.1.2.2.6.1.3.1.7.2.2.4.1`): `50` → `20`; `50` → `20`
+- **Token Address** (`A.6.1.1.2.2.6.1.3.1.7.3.2.2.1`): address `0xd8A6511979D9C5D387c819E9F8ED9F3a5C6c5379`
+- **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.1.7.3.2.2.2`): address `0x6c3ea9036406852006290770BEdFcAbA0e23A0e8`
+- **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.3.2.3.1`): `0xe9ff67ad8829919752eee93c75433e7e23f3460ca6b1d9576fae94f669fbc4d6` → `0xfc4e1f8ba7b0389a287411c3f6b97cc0ec60fb2816bfaa31e12a21561486321a`
+- **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.3.2.3.2`): `0xb6204f88cd26e1d2b5c27fe0beb10cc2c6a33aac17f228baffcb5cc3c8429a7b` → `0xa0c827fea02219c83969babf0bd29df5bb5fe923e6b38491a5eea797984995e8`
+- **Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.1.7.3.2.4.3`): `2e6` → `4e6`
+- **Token Address** (`A.6.1.1.2.2.6.1.3.1.7.4.2.2.1`): address `0xBEEfF0d672ab7F5018dFB614c93981045D4aA98a`
+- **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.1.7.4.2.2.2`): address `0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a`
+- **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.4.2.3.1`): `0xfc4e1f8ba7b0389a287411c3f6b97cc0ec60fb2816bfaa31e12a21561486321a` → `0x09b5f924263c1b33d619ff1c9c794ddf57bc2eb0f618e2cf5cfd838abecb541d`
+- **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.4.2.3.2`): `0xa0c827fea02219c83969babf0bd29df5bb5fe923e6b38491a5eea797984995e8` → `0xdd975e5dc9904260242e80bbe7035784e9108c619e23f21b62342fae3226e0fe`
+- **Token Address** (`A.6.1.1.2.2.6.1.3.1.7.5.2.2.1`): address `0xb576765fB15505433aF24FEe2c0325895C559FB2`
+- **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.1.7.5.2.2.2`): address `0x6c3ea9036406852006290770BEdFcAbA0e23A0e8`
+- **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.5.2.3.1`): `0x09b5f924263c1b33d619ff1c9c794ddf57bc2eb0f618e2cf5cfd838abecb541d` → `0x4dc0c7cd471560aa12324cb36f720d7d301ef230d3ae772ae07b681725ae7b66`
+- **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.5.2.3.2`): `0xdd975e5dc9904260242e80bbe7035784e9108c619e23f21b62342fae3226e0fe` → `0x8edef92c8bf76460b6b832a88c63768022ac5aa2bd862fb858905a0f024bff8b`
+- **Deposit Rate Limits** (`A.6.1.1.2.2.6.1.3.1.7.5.2.4.1`): `20` → `50`; `20` → `50`
+- **Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.1.7.5.4.1`): `2 AUSD` → `3 PYUSD`; `GROVE_X_STEAKHOUSE_AUSD_V2` → `SENTORA_PYUSD_MAIN_V2`; `2e6` → `3e6`
+- **Token Address** (`A.6.1.1.2.2.6.1.3.1.7.6.2.2.1`): address `0x6dC58a0FdfC8D694e571DC59B9A52EEEa780E6bf`
+- **Underlying Asset Address** (`A.6.1.1.2.2.6.1.3.1.7.6.2.2.2`): address `0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD`
+- **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.6.2.3.1`): `0x4dc0c7cd471560aa12324cb36f720d7d301ef230d3ae772ae07b681725ae7b66` → `0x944bbb34c3717aacc72419f43d62f5a01d2ebd7a9157ba9975fd7d971deb803f`
+- **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.6.2.3.2`): `0x8edef92c8bf76460b6b832a88c63768022ac5aa2bd862fb858905a0f024bff8b` → `0xfc41a8cf89ec93b54bbf6960204c29c48a7ed98ec4a88dade68149dee919e788`
+- **Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.1.7.6.4.1`): `SENTORA_PYUSD_MAIN_V2` → `SENTORA_RLUSD_MAIN_V2`; `3e6` → `3e18`
+- **Token Address** (`A.6.1.1.2.2.6.1.3.1.7.7.2.2.1`): address `0xBeEff4fD39F8e48b6a6e475445D650cb11e9599F`
+- **Inflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.7.2.3.1`): `0x944bbb34c3717aacc72419f43d62f5a01d2ebd7a9157ba9975fd7d971deb803f` → `0xf655bc101a615fbcb591acce756dacae96cb119ff1beec548d9cc5d4558ea53a`
+- **Outflow RateLimitID** (`A.6.1.1.2.2.6.1.3.1.7.7.2.3.2`): `0xfc41a8cf89ec93b54bbf6960204c29c48a7ed98ec4a88dade68149dee919e788` → `0xa6e68f8214d2fb32e0deb2888ef4644c36401d18605447843e4f936529f6a3cb`
+- **Deposit Rate Limits** (`A.6.1.1.2.2.6.1.3.1.7.7.2.4.1`): `50` → `100`; `50` → `100`
+- **Max Exchange Rate** (`A.6.1.1.2.2.6.1.3.1.7.7.4.1`): `SENTORA_RLUSD_MAIN_V2` → `GROVE_X_STEAKHOUSE_RLUSD_V2`
+
+### Housekeeping
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.1` (USDS Mint Maximum): removed `(USDS)`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.2` (USDS Burn Maximum): removed `(USDS)`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.4` (USDC Mainnet ALM Proxy Maximum): removed `(USDC)`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.5` (Maximum USDC Bridged To Ethereum Mainnet Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.1.6` (Maximum USDS Bridged From Ethereum Mainnet To Avalanche Via SkyLink): added `Maximum`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.2.1` (USDC Avalanche ALM Proxy Maximum): removed `(USDC)`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.2.2` (Maximum USDC Bridged From Ethereum Mainnet To Avalanche Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.2.3` (Maximum USDC Bridged From Avalanche To Ethereum Mainnet Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.2.4` (Maximum USDS Bridged From Avalanche To Ethereum Mainnet Via SkyLink): added `Maximum`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3.2` (Maximum USDC Bridged From Ethereum Mainnet To Base Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.2.2.6.1.2.1.1.3.1.3.3` (Maximum USDC Bridged From Base To Ethereum Mainnet Via Circle CCTP): `ALM Proxy` → `Via`
+- `A.6.1.1.2.2.6.1.2.1.1.3.2.1` (USDS Mint Maximum): removed `(USDS)`
+- `A.6.1.1.2.2.6.1.2.1.1.3.2.2` (USDS Burn Maximum): removed `(USDS)`
+- `A.6.1.1.2.2.6.1.3.1.1.2.2.4.1` (Inflow Rate Limits): `.` → `per day`
+- `A.6.1.1.2.2.6.1.3.1.13.1.2.4.2` (Withdrawal Rate Limits): removed `USDC`
+- `A.6.1.1.2.2.6.1.3.1.2.1.2.4.1` (Inflow Rate Limits): removed `(per day)`
+- `A.6.1.1.2.2.6.1.3.1.7.2.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.1.2` (Target Protocol): `Morpho` → `Grove x Steakhouse USDC High Yield Vault V2`
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.1.3` (Asset Supplied By Grove Liquidity Layer): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.1.4` (Token): `bbqAUSD` → `bbqUSDC`
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.2.2` (Underlying Asset Address): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.3.2` (Outflow RateLimitID): `N/A` → ``0xb6204f88cd26e1d2b5c27fe0beb10cc2c6a33aac17f228baffcb5cc3c8429a7b``
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.4.2` (Withdrawal Rate Limits): `N/A` → `Unlimited`
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.4` (Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2.2` (Parameters): `High Yield` → `USDC Morpho`
+- `A.6.1.1.2.2.6.1.3.1.7.2.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.2` (Ethereum Mainnet - Grove x Steakhouse USDC Morpho Vault v2 Instance Configuration Document): `High Yield` → `USDC Morpho`
+- `A.6.1.1.2.2.6.1.3.1.7.3.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.1.2` (Target Protocol): `USDC High Yield` → `PYUSD Morpho`
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.1.3` (Asset Supplied By Grove Liquidity Layer): `USDC` → `PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.1.4` (Token): `bbqUSDC` → `bbqPYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.4.1` (Deposit Rate Limits): `USDC` → `PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.4.2` (Withdrawal Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.4` (Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2` (Parameters): `USDC` → `PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.3.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3` (Ethereum Mainnet - Steakhouse PYUSD Morpho Vault Instance Configuration Document): `USDC` → `PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.4.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.1.2` (Target Protocol): `PYUSD` → `AUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.1.3` (Asset Supplied By Grove Liquidity Layer): `PYUSD` → `AUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.1.4` (Token): `bbqPYUSD` → `bbqAUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.4.1` (Deposit Rate Limits): `PYUSD` → `AUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.4.2` (Withdrawal Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.3.2.4.3` (Max Exchange Rate): removed `###### A.6.1.1.2.2.6.1.3.1.7.4.2.4.3 - Max Exchange Rate [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.4` (Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4.2` (Parameters): `PYUSD` → `AUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.4.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.4` (Ethereum Mainnet - Grove x Steakhouse AUSD Morpho Vault V2 Instance Configuration Document): `PYUSD` → `AUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.5.1` (RRC Framework Full Implementation Coverage): removed `**`
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.1.2` (Target Protocol): `Grove x Steakhouse AUSD` → `Sentora PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.1.3` (Asset Supplied By Grove Liquidity Layer): `AUSD` → `PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.1.4` (Token): `grove-bbqAUSD` → `senPYUSDmain`
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.4.2` (Withdrawal Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.4` (Rate Limits): `and` → `/`
+- `A.6.1.1.2.2.6.1.3.1.7.5.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.2` (Parameters): `Grove x Steakhouse AUSD` → `Sentora PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.5.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5.4` (Instance-specific Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.5` (Ethereum Mainnet - Sentora PYUSD Morpho Vault V2 Instance Configuration Document): `Grove x Steakhouse AUSD` → `Sentora PYUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.6.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.1.2` (Target Protocol): `PYUSD` → `RLUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.1.3` (Asset Supplied By Grove Liquidity Layer): `PYUSD` → `RLUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.1.4` (Token): `senPYUSDmain` → `senRLUSDv2`
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.4.1` (Deposit Rate Limits): `PYUSD` → `RLUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.4.2` (Withdrawal Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.4` (Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.5.1` (Maximum Exposure): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.2` (Parameters): `PYUSD` → `RLUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.6.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6.4` (Instance-specific Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.6` (Ethereum Mainnet - Sentora RLUSD Morpho Vault V2 Instance Configuration Document): `PYUSD` → `RLUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.7.1` (RRC Framework Full Implementation Coverage): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.1` (Network): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.2` (Target Protocol): `Sentora` → `Grove x Steakhouse`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.3` (Asset Supplied By Grove Liquidity Layer): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.4` (Token): `senRLUSDv2` → `grove-bbqRLUSD`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.2.2` (Underlying Asset Address): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.2` (Contract Addresses): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.3` (Rate Limit IDs): `’` → `'`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.4.2` (Withdrawal Rate Limits): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.4` (Rate Limits): `’` → `'`
+- `A.6.1.1.2.2.6.1.3.1.7.6.2.5.1` (Maximum Exposure): removed `###### A.6.1.1.2.2.6.1.3.1.7.7.2.5.1 - Maximum Exposure [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.2` (Parameters): `Sentora` → `Grove x Steakhouse`
+- `A.6.1.1.2.2.6.1.3.1.7.7.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7.4` (Instance-specific Operational Parameters): content edit
+- `A.6.1.1.2.2.6.1.3.1.7.7` (Ethereum Mainnet - Grove x Steakhouse RLUSD Morpho Vault V2 Instance Configuration Document): `Sentora` → `Grove x Steakhouse`
+- `A.6.1.1.2.2.6.1.3.1.7.7.1` (RRC Framework Full Implementation Coverage): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.1 - RRC Framework Full Implementation Coverage [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.1` (Network): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.1.1 - Network [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.3` (Asset Supplied By Grove Liquidity Layer): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.1.3 - Asset Supplied By Grove Liquidity Layer [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.1.4` (Token): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.1.4 - Token [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.2.1` (Token Address): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.2.1 - Token Address [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.2.2` (Underlying Asset Address): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.2.2 - Underlying Asset Address [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.3.1` (Inflow RateLimitID): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.3.1 - Inflow RateLimitID [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.3.2` (Outflow RateLimitID): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.3.2 - Outflow RateLimitID [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.2.4.1` (Deposit Rate Limits): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.2.4.1 - Deposit Rate Limits [Core]`
+- `A.6.1.1.2.2.6.1.3.1.7.7.4.1` (Max Exchange Rate): removed `###### A.6.1.1.2.2.6.1.3.1.7.8.4.1 - Max Exchange Rate [Core]`
+- `A.6.1.1.2.2.6.1.3.2.1.1.2.4.1` (Inflow Rate Limits): removed `(per day)`
+- `A.6.1.1.2.2.6.1.3.2.1.2.2.4.1` (Inflow Rate Limits): `.` → `per day`
+- `A.6.1.1.2.2.6.1.3.1.7.4.4` renumbered (UUID stable: `32ccb033…c5f5`)
+- `A.6.1.1.2.2.6.1.3.7.1.1.2.1` renumbered (UUID stable: `fa3e9179…dfaa`)
+- `A.6.1.1.2.2.6.1.3.7.1.1.2.2` renumbered (UUID stable: `e2ac9d21…0b65`)
+- `A.6.1.1.2.2.6.1.3.7.1.1.2.4.2` renumbered (UUID stable: `63c0f9fd…ae90`)
+- `A.6.1.1.2.2.6.1.3.7.1.1.2.5` renumbered (UUID stable: `5c7888fe…01da`)
+- `A.6.1.1.2.2.6.1.3.7.1.1.3` renumbered (UUID stable: `fdc10843…8fda`)
+- `ALM Proxy` → `Via` across 5 docs.
+- `Cross-Chain Transfer Protocol Maximum` → `CCTP` across 5 docs.
+- `max` → `Unlimited` across 1 doc.
+- `High Yield` → `USDC Morpho` across 3 docs.
+- `AUSD` → `v2` across 3 docs.
+- `USDC` → `PYUSD` across 5 docs.
+- `PYUSD` → `AUSD` across 6 docs.
+- `Grove x Steakhouse AUSD` → `Sentora PYUSD` across 4 docs.
+- `PYUSD` → `RLUSD` across 7 docs.
+- `Sentora` → `Grove x Steakhouse` across 4 docs.
+- `7.8` → `1` across 5 docs.
+
+### Context
+Deploys Grove's Liquidity Layer to Robinhood Chain — new ALM controller/proxy/rate-limit contracts, a Morpho groveUSDG instance (100M USDS exposure cap, CRR 3%→0.65%), and a Paxos USDG↔USDC conduit — and adds a Paxos USDC→USDG conduit on Ethereum Mainnet. Also adds `maxExchangeRate` deposit protections and renames/rebalances the Steakhouse and Sentora Morpho vault instances. Part of the 2026-07-06 weekly cycle (PR #273).
+
+---
+
 ## PR #270 — Atlas Edit Proposal — 2026-06-29
 **Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
 

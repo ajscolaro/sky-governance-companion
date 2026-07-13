@@ -4,6 +4,34 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.3.2.2.1.1.1.1.3.8.2 deleted: Morpho Grove x Steakhouse High Yield AUSD Vault** (UUID `b9a27ec8…3ff6`)
+
+### Housekeeping
+- `A.3.3.2.4.2` (Peg Defense Obligations): added `six (`
+
+### Context
+Removes the duplicate Morpho Grove x Steakhouse High Yield AUSD vault instance and edits a Peg Defense Obligations clause — the "clarify" edit an AD validator flagged as substantive (adds a monitoring/maintenance obligation and measurement basis while values are unchanged). Part of the 2026-07-06 weekly cycle (PR #273).
+
+---
+
+## PR #259 — 2026-06-18 Spell Updates
+**Merged:** 2026-07-06 | **Type:** Housekeeping
+
+### Material Changes
+- **Lite Peg Stability Module Parameter Values** (`A.3.3.2.7.1.1.2`): `400` → `800`; `400` → `800`
+
+### Housekeeping
+- `A.3.7.1.2.1.3` (ALLOCATOR-GROVE-A Parameters): `will be specified in an upcoming spell` → `1 million USDS`
+
+### Context
+Records the 2026-06-18 spell: doubles the Lite Peg Stability Module parameter (`400 → 800`) and sets the ALLOCATOR-GROVE-A line to 1 million USDS (previously "to be specified in an upcoming spell").
+
+---
+
 ## PR #270 — Atlas Edit Proposal — 2026-06-29
 **Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
 
