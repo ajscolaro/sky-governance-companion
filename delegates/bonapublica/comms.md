@@ -7,6 +7,49 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-07-07 — Atlas Edit Weekly Cycle Proposal — July 6, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/259*
+
+*Relates to: Poll #1640 / PR #273 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a full validator pass on branch `review-atlas-edit-2026-07-06` (555 files, +3,989 / −837; post-edit tree "10,665 documents / 10,665 UUIDs / 3,679 indexes"), producing a 12-edit summary table with per-edit verdicts.
+- **Diamond PAU framework check** — Confirmed the new Shared Diamond PAU Framework (`A.2.2.10.1.1.1.3–.5`) defines all seven roles as generic per-Instance definitions "naming no specific Agent," and that it matches the 2026-07-02 spell's `PAU_BEACON` chainlog entry (Beacon `0x829dC2b7E94B19…`).
+- **One flagged "clarify" edit** — Rated Edit 4 (Clarify Peg Defense Obligation) a ⚠️ WARN: it "adds a new monitoring/maintenance obligation + measurement basis under the label 'clarify'" while values are unchanged; the other 11 edits PASS.
+
+---
+
+## 2026-07-02 — Executive Spell Validation — July 2, 2026 (GROVE Token Rewards + PAU Beacon)
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/258*
+
+*Relates to: Spell `0xEbf156fB6C87cBE0a962944eC254b519c1441A51` (2026-07-02 Executive) | Vote: **Support (validation)***
+
+Key rationale points:
+
+- **On-chain attestation** — Verified the deployed spell (Action `0x09dac1B2…dC89`, block 25444877) against expected values: `action()`, `tag()` = keccak of Action runtime bytecode, and `sig()` = `execute()` selector all matched; `done()` false and `eta()` 0 at review time.
+- **Deployment hygiene** — Confirmed Etherscan verification present, DssExecLib validated, "not a DarkSpell," not deployed via CREATE2, compiler `v0.8.16`, AGPL-3.0 license (Etherscan showed "N/A", corrected by manual check).
+- **Expiration window** — `expiration()` resolves to Aug 01, 2026, exactly 2,592,000 s (30 days) after deployment — inside the expected 29–31 day window.
+
+---
+
+## 2026-06-30 — Atlas Edit Weekly Cycle Proposal — June 29, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/257*
+
+*Relates to: Poll #1639 / PR #270 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a repo-wide validator pass on PR #270 (33 files touched): 10,465 docs with zero duplicate IDs/docNos, depth and childCount integrity, and all 6 PR UUID cross-references resolving with "0 dangling refs repo-wide."
+- **UUID delta accounting** — Net +2 (10,463 → 10,465): 5 net-new, 3 explicitly retired (the deleted Galaxy Interim-Deployment subtree — `09aa5dea`, `911d3d77`, `202c9218`), 6 moved/renumbered with UUIDs kept; flagged the retirements as an intended deviation from the "expect 0 retired" rule.
+- **Unauthorized Exposures rule** — Endorsed the 100% Capital Ratio Requirement default for lending-market underlying assets absent from the Risk Advisor's pro-forma RRC estimate, applied per-exposure so "unvetted assets can't be slipped in cheaply."
+- **Galaxy Warehouse graduation** — Noted the instance graduates out of Interim Deployment with a settled 2% CRR and $500M max exposure, replacing its placeholder 100% CRR / $20M cap; "aligned."
+
+---
+
 ## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
 
 *Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/256*

@@ -2,6 +2,19 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #278 | Add new entries for AxisLegati, excel, and OPEX | 2026-07-13 | governance/ad-breaches | auto |
+| #273 | Atlas Edit Proposal — 2026-07-06 | 2026-07-10 | preamble,governance support,stability agents/spark,agents/grove agents/keel,agents/obex agents/osero | auto |
+| #268 | Spark proposal - [Avalanche] Spark Liquidity Layer - Add Timelock and Guardian to Avalanche Governance Bridge | 2026-07-10 | agents/spark | auto |
+| #267 | Spark proposal - Spark Liquidity Layer - Enable USDT Bridging to Arbitrum | 2026-07-09 | agents/spark | auto |
+| #266 | Spark proposal - Spark USDT Morpho V2 Vault Allocator Updates | 2026-07-09 | agents/spark | auto |
+| #263 | Spark proposal - [Arbitrum] Spark Savings - Deploy spUSDT | 2026-07-09 | agents/spark | auto |
+| #262 | SAEP-16: Confidential Strategic Integrations and Deployments | 2026-07-09 | agents/spark | auto |
+| #256 | Spark proposal - [Ethereum] Spark Liquidity Layer - Onboard Binance with OTC buffer | 2026-07-09 | agents/spark | auto |
+| #250 | Spark proposal:  Ethereum - Spark Liquidity Layer - Update Rate Limits | 2026-07-09 | agents/spark | auto |
+| #249 | SAEP-15: Update Spark Prime Artifact Section | 2026-07-09 | agents/spark | auto |
+| #248 | Spark proposal: Spark Liquidity Layer - Update ALM Proxy Freezable | 2026-07-09 | agents/spark | auto |
+| #272 | add changes to USDC market parameters in Spark spell | 2026-07-07 | agents/spark | auto |
+| #259 | 2026-06-18 Spell Updates | 2026-07-06 | stability | auto |
 | #270 | Atlas Edit Proposal — 2026-06-29 | 2026-07-03 | governance,support stability,protocol agents/grove | auto |
 | #271 | Add Current Term field to Spark's List of Delegates active data | 2026-06-30 | agents/spark | auto |
 | #269 | Update document.md | 2026-06-30 | support/forum-accounts | auto |

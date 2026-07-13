@@ -4,6 +4,22 @@ Atlas path: `A.6.1.1.3` (874 docs)
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.3.2.6.1.2.1.1.3.1.1.4` (Maximum USDS Bridged From Ethereum Mainnet To Solana Via SkyLink): `to` → `Bridged From Ethereum Mainnet To`
+- `A.6.1.1.3.2.6.1.2.1.1.3.1.3.1` (Maximum USDC Bridged From Ethereum Mainnet To Solana Via Circle CCTP): `to` → `Bridged From Ethereum Mainnet To`
+- `A.6.1.1.3.2.6.1.2.1.1.3.1.3.2` (Maximum USDC Bridged From Ethereum Mainnet Via Circle CCTP): `Cross-Chain Transfer Protocol Maximum` → `CCTP`
+- `A.6.1.1.3.2.6.1.2.1.1.3.2.1.3` (Maximum USDS Bridged From Solana To Ethereum Mainnet Via SkyLink): `to` → `Bridged From Solana To`
+- `A.6.1.1.3.2.6.1.2.1.1.3.2.2.6` (Maximum USDC Bridged From Solana To Ethereum Mainnet Via Circle CCTP): `to` → `Bridged From Solana To`
+- `Cross-Chain Transfer Protocol Maximum` → `CCTP` across 1 doc.
+
+### Context
+Direction-explicit renaming of Keel's Solana SkyLink and CCTP rate-limit document names (and the CCTP abbreviation sweep); no parameter change. Cross-chain doc-name standardization in the 2026-07-06 weekly cycle (PR #273).
+
+---
+
 ## PR #258 — Atlas Edit Proposal — 2026-06-15
 **Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
 

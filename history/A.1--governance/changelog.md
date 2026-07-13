@@ -4,6 +4,17 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.1.10.2.5.1.2.1.1` (Agent Spell Reviewer Checklist): `all Agents` → `a completed Agent Spell Reviewer Checklist`
+
+### Context
+Clarifies that the Agent Spell Reviewer requirement is met per-reviewer via a completed Agent Spell Reviewer Checklist rather than "all Agents"; per an AD validator, the change takes effect for the July 16, 2026 Executive Vote.
+
+---
+
 ## PR #270 — Atlas Edit Proposal — 2026-06-29
 **Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
 

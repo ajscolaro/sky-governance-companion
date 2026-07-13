@@ -11,6 +11,17 @@ and is recorded in the parent `../changelog.md`.
 
 ---
 
+## PR #278 — Add new entries for AxisLegati, excel, and OPEX
+**Merged:** 2026-07-13 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Aligned Delegate Breach Registry (`A.1.6.6.1.3.0.6.1`): | 2026-07-13 | Excel | 1 | [Core Facilitator Post](https://forum.skyeco.com/t/excel-ad-recognition-submission/26227/68) |
+
+### Context
+Logs a single (Tier 1) Graduated Response Framework breach against Excel, recorded by the Core Facilitator via Direct Edit; the same PR bundled new registry entries for AxisLegati and OPEX.
+
+---
+
 ## PR #261 — Add aegisD submission to document
 **Merged:** 2026-06-18 | **Type:** Active Data update (Designated Controller)
 

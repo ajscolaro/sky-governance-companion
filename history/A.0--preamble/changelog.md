@@ -4,6 +4,18 @@ Atlas path: `A.0` — Definitions, foundational concepts, and structural rules
 
 ---
 
+## PR #273 — Atlas Edit Proposal — 2026-07-06
+**Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Sky Frontier Foundation** (`A.0.1.1.55`, UUID `05d714e5…4c41`): The Sky Frontier Foundation is a foundation that supports the innovation, development, and acceleration of the Sky Ecosystem.
+- **New: Fortification Foundation** (`A.0.1.1.56`, UUID `f44e6bf3…0c56`): The Fortification Foundation is a foundation that addresses existential, long-term legal and political issues of the Sky Ecosystem.
+
+### Context
+Defines two new foundations in the glossary — the Sky Frontier Foundation (supports ecosystem innovation, development, and acceleration) and the Fortification Foundation (addresses existential, long-term legal and political issues) — underpinning the Genesis Capital transfer authorizations to the Sky Frontier Foundation added in A.2 across recent edits.
+
+---
+
 ## PR #265 — Atlas Edit Proposal — 2026-06-22
 **Merged:** 2026-06-29 | **Type:** Weekly edit (Atlas Axis)
 
