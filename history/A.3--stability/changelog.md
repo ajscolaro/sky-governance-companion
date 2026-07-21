@@ -4,6 +4,23 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.3.2.1.2.2.1.1.2` (Prime-External Junior Risk Capital (SEJRC)): removed `Junior`
+- `A.3.2.1.2.2.2` (Senior Risk Capital): added refs to `A.2.2.10.2`
+- `A.3.2.2.3.1` (Prime External JRC Rental System Implementation): removed `Junior`
+- `A.3.2.2.4.4` (Originated Senior Risk Capital (OSRC) Rental Implementation): `SEJRC` → `OSRC`
+- `A.3.3.2.2.2.1` (Reporting Of Failures To Satisfy Actively Stabilizing Collateral Requirement): `In addition, the Core Council Risk Advisor must include a summary of all such violations in the Independent Calculation it prepares as part of each Monthly Settlement Cycle. See [A.2.4.1.2.1.2.2 - Independent Calculation By Core Council Risk Advisor On Behalf Of Core Council](8be8ae66-2453-4d7d-8880-ffaba36bdb7e).` → ``
+- `A.3.7.1.6.6.2` (Genesis Capital Phase-Out): added refs to `A.3.7.1.6`, `A.3.7.1.6.6.2.3`
+- Reference renumbering across 1 doc (linked docs moved elsewhere in this edit; UUID targets unchanged).
+
+### Context
+Part of the ecosystem-wide risk-capital terminology cleanup — "Junior" dropped and SEJRC renamed OSRC (Originated Senior Risk Capital) — with rental-primitive cross-references rewired to the new A.2.2.10.2 node.
+
+---
+
 ## PR #273 — Atlas Edit Proposal — 2026-07-06
 **Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
 

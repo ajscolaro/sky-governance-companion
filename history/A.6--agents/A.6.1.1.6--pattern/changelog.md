@@ -4,6 +4,27 @@ Atlas path: `A.6.1.1.6` (353 docs)
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.6.2.6.2.1.2` (Active Instances Directory): removed `Junior`
+- `A.6.1.1.6.2.6.2.1.3` (Completed Instances Directory): removed `Junior`
+- `A.6.1.1.6.2.6.2.1.4` (In Progress Invocations Directory): removed `Junior`
+- `A.6.1.1.6.2.6.2.1.5.1.1` (Failed Invocations): removed `Junior`
+- `A.6.1.1.6.2.6.2.1.5.1.2` (Suspended Instances): removed `Junior`
+- `A.6.1.1.6.2.6.2.1.5.1` (Archived Invocations/Instances): removed `Junior`
+- `A.6.1.1.6.2.6.2.1` (Primitive Hub Document): removed `Junior`
+- `A.6.1.1.6.2.6.2.2` (Active Instances): removed `Junior`
+- `A.6.1.1.6.2.6.2.3` (Completed Instances): removed `Junior`
+- `A.6.1.1.6.2.6.2.4` (In Progress Invocations): removed `Junior`
+- `A.6.1.1.6.2.6.2` (Risk Capital Rental Primitive): removed `Junior`
+
+### Context
+"Junior" dropped from the agent's Risk Capital Rental Primitive artifacts as part of the ecosystem-wide risk-capital terminology cleanup.
+
+---
+
 ## PR #258 — Atlas Edit Proposal — 2026-06-15
 **Merged:** 2026-06-19 | **Type:** Weekly edit (Atlas Axis)
 
