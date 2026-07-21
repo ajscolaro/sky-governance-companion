@@ -4,6 +4,88 @@ Atlas path: `A.4` — The Protocol Scope
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: SkyLink Bridges** (`A.4.2.2`, UUID `bd68f60c…6f2f`): The documents herein define the LayerZero-based SkyLink bridges deployed by the Sky Ecosystem, as well as shared security infrastructure across these bridges.
+  - **Ethereum SkyLink Freezer Multisig** (`A.4.2.2.1`): The Ethereum SkyLink Freezer Multisig has the ability to freeze SkyLink bridges deployed in the Sky Ecosystem from Ethereum Mainnet.
+  - **Ethereum SkyLink Freezer Multisig Address** (`A.4.2.2.1.1`): The address of the Ethereum SkyLink Freezer Multisig on the Ethereum Mainnet is `0x38d1114b4cE3e079CC0f627df6aC2776B5887776`.
+  - **Ethereum SkyLink Freezer Multisig Required Number Of Signers** (`A.4.2.2.1.2`): The Ethereum SkyLink Freezer Multisig has a 2/5 signing requirement.
+  - **Ethereum SkyLink Freezer Multisig Signers** (`A.4.2.2.1.3`): The signers of the Ethereum SkyLink Freezer Multisig are two (2) addresses controlled by the Core Facilitator and three (3) addresses controlled by Core GovOps.
+  - **Ethereum SkyLink Freezer Multisig Usage Standards** (`A.4.2.2.1.4`): The Ethereum SkyLink Freezer Multisig can only be used in urgent or emergency situations (e.g., potential code exploits).
+  - **Ethereum SkyLink Freezer Multisig Modification** (`A.4.2.2.1.5`): The Core Facilitator and Core GovOps can change the signers of the Ethereum SkyLink Freezer Multisig so long as.
+
+### Housekeeping
+- `A.4.2.2.2.1` renumbered (UUID stable: `1157a0cd…f475`)
+- `A.4.2.2.2.2` renumbered (UUID stable: `593095a6…c198`)
+- `A.4.2.2.2.3.1.1.1` renumbered (UUID stable: `bb0b31dd…ee7d`)
+- `A.4.2.2.2.3.1.1.2` renumbered (UUID stable: `f376a4da…fe32`)
+- `A.4.2.2.2.3.1.1.3` renumbered (UUID stable: `a9f95fb4…036d`)
+- `A.4.2.2.2.3.1.1.4` renumbered (UUID stable: `9f845d09…52e6`)
+- `A.4.2.2.2.3.1.1.5` renumbered (UUID stable: `b70ebff7…ded1`)
+- `A.4.2.2.2.3.1.1` renumbered (UUID stable: `8e618196…5fcd`)
+- `A.4.2.2.2.3.2.1` renumbered (UUID stable: `7c0eeee4…67c0`)
+- `A.4.2.2.2.3.2.2` renumbered (UUID stable: `8414b48b…73ba`)
+- `A.4.2.2.2.3.2` renumbered (UUID stable: `36626f77…3922`)
+- `A.4.2.2.2.3.3.1.1` renumbered (UUID stable: `ffb71c51…bc31`)
+- `A.4.2.2.2.3.3.1.2` renumbered (UUID stable: `30a6d20d…023e`)
+- `A.4.2.2.2.3.3.1` renumbered (UUID stable: `16b49e7d…2987`)
+- `A.4.2.2.2.3.3.2.1` renumbered (UUID stable: `0939f4bf…33b4`)
+- `A.4.2.2.2.3.3.2.2` renumbered (UUID stable: `c5850a58…5001`)
+- `A.4.2.2.2.3.3.2` renumbered (UUID stable: `07d43b8c…922a`)
+- `A.4.2.2.2.3.3` renumbered (UUID stable: `6d04b42a…ee78`)
+- `A.4.2.2.2.3` renumbered (UUID stable: `2cf3dc2e…a29c`)
+- `A.4.2.2.2` renumbered (UUID stable: `56593663…a14a`)
+- `A.4.2.2.3.1` renumbered (UUID stable: `b71e1dec…4086`)
+- `A.4.2.2.3.2` renumbered (UUID stable: `1c0d2cf1…612c`)
+- `A.4.2.2.3.3.1.1.1` renumbered (UUID stable: `3f9645b2…218c`)
+- `A.4.2.2.3.3.1.1.2` renumbered (UUID stable: `542e7e15…a9b9`)
+- `A.4.2.2.3.3.1.1.3` renumbered (UUID stable: `22d693e8…ee43`)
+- `A.4.2.2.3.3.1.1.4` renumbered (UUID stable: `8596233b…393f`)
+- `A.4.2.2.3.3.1.1.5` renumbered (UUID stable: `8514341b…c67c`)
+- `A.4.2.2.3.3.1.1` renumbered (UUID stable: `0b1162f6…3e7c`)
+- `A.4.2.2.3.3.2.1` renumbered (UUID stable: `49041287…d2f8`)
+- `A.4.2.2.3.3.2.2` renumbered (UUID stable: `6d550b28…85a6`)
+- `A.4.2.2.3.3.2.3` renumbered (UUID stable: `186450c7…5b13`)
+- `A.4.2.2.3.3.2` renumbered (UUID stable: `2fb5eb69…fe83`)
+- `A.4.2.2.3.3.3.1.1` renumbered (UUID stable: `a9f87e05…e95d`)
+- `A.4.2.2.3.3.3.1.2` renumbered (UUID stable: `2c6b25de…f601`)
+- `A.4.2.2.3.3.3.1` renumbered (UUID stable: `3a3bcbb1…022a`)
+- `A.4.2.2.3.3.3.2.1` renumbered (UUID stable: `ae25a37a…578e`)
+- `A.4.2.2.3.3.3.2.2` renumbered (UUID stable: `d1a78b46…3e56`)
+- `A.4.2.2.3.3.3.2` renumbered (UUID stable: `6a24fd94…5980`)
+- `A.4.2.2.3.3.3` renumbered (UUID stable: `483d9616…3de4`)
+- `A.4.2.2.3.3` renumbered (UUID stable: `413852e0…c482`)
+- `A.4.2.2.3` renumbered (UUID stable: `6b0eaa0d…453b`)
+- `A.4.2.2.4.1` renumbered (UUID stable: `b8241202…2e50`)
+- `A.4.2.2.4.2` renumbered (UUID stable: `44af823e…bf7b`)
+- `A.4.2.2.4.3.1.1.1` renumbered (UUID stable: `88cb9621…beda`)
+- `A.4.2.2.4.3.1.1.2` renumbered (UUID stable: `cb8707d5…a81c`)
+- `A.4.2.2.4.3.1.1.3` renumbered (UUID stable: `f9cd34cb…4f66`)
+- `A.4.2.2.4.3.1.1.4` renumbered (UUID stable: `5b79ed95…3e32`)
+- `A.4.2.2.4.3.1.1.5` renumbered (UUID stable: `a8be9d0a…5b16`)
+- `A.4.2.2.4.3.1.1` renumbered (UUID stable: `f833edaa…0b10`)
+- `A.4.2.2.4.3.2.1` renumbered (UUID stable: `7b6ca79a…518f`)
+- `A.4.2.2.4.3.2.2` renumbered (UUID stable: `527a2195…97b9`)
+- `A.4.2.2.4.3.2.3` renumbered (UUID stable: `5c722eb6…a007`)
+- `A.4.2.2.4.3.2` renumbered (UUID stable: `cc4b7dac…2d88`)
+- `A.4.2.2.4.3.3.1.1` renumbered (UUID stable: `07c605cc…3f4b`)
+- `A.4.2.2.4.3.3.1.2` renumbered (UUID stable: `ccdc870c…f7af`)
+- `A.4.2.2.4.3.3.1` renumbered (UUID stable: `658d9408…cd45`)
+- `A.4.2.2.4.3.3.2.1` renumbered (UUID stable: `b314c96f…8a0c`)
+- `A.4.2.2.4.3.3.2.2` renumbered (UUID stable: `8b278dd8…0680`)
+- `A.4.2.2.4.3.3.2` renumbered (UUID stable: `6aea3973…4357`)
+- `A.4.2.2.4.3.3` renumbered (UUID stable: `84e98241…f72e`)
+- `A.4.2.2.4.3` renumbered (UUID stable: `0b2674c5…5214`)
+- `A.4.2.2.4` renumbered (UUID stable: `aca54441…02fa`)
+- `1` → `2.2` across 62 docs.
+
+### Context
+Establishes A.4.2.2 SkyLink Bridges, centralizing LayerZero bridge freeze infrastructure — including the 2/5 Ethereum SkyLink Freezer Multisig (`0x38d1114b4cE3e079CC0f627df6aC2776B5887776`) — that previously lived under the Spark Agent governance section (A.1.10.4.1).
+
+---
+
 ## PR #270 — Atlas Edit Proposal — 2026-06-29
 **Merged:** 2026-07-03 | **Type:** Weekly edit (Atlas Axis)
 

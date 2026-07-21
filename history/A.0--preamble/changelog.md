@@ -4,6 +4,14 @@ Atlas path: `A.0` — Definitions, foundational concepts, and structural rules
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Sky Frontier Foundation** (`A.0.1.1.55`): address `0xca5183FB9997046fbd9bA8113139bf5a5Af122A0`
+
+---
+
 ## PR #273 — Atlas Edit Proposal — 2026-07-06
 **Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
 

@@ -4,6 +4,31 @@ Atlas path: `A.6.1.1.7` (357 docs) — formerly known as Launch Agent 6; public-
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Maximum Exposure** (`A.6.1.1.7.2.6.1.3.1.1.1.2.5.2`, UUID `7baff09a…fe4d`): The Maximum Exposure for this Instance is 5,000,000 USDS.
+- **New: Capital Ratio Requirement** (`A.6.1.1.7.2.6.1.3.1.1.1.2.5.3`, UUID `771b1a44…a11f`): The Capital Ratio Requirement for this Instance, as specified in `A.3.2.1.1.1`, is 100%.
+
+### Housekeeping
+- `A.6.1.1.7.2.6.2.1.2` (Active Instances Directory): removed `Junior`
+- `A.6.1.1.7.2.6.2.1.3` (Completed Instances Directory): removed `Junior`
+- `A.6.1.1.7.2.6.2.1.4` (In Progress Invocations Directory): removed `Junior`
+- `A.6.1.1.7.2.6.2.1.5.1.1` (Failed Invocations): removed `Junior`
+- `A.6.1.1.7.2.6.2.1.5.1.2` (Suspended Instances): removed `Junior`
+- `A.6.1.1.7.2.6.2.1.5.1` (Archived Invocations/Instances): removed `Junior`
+- `A.6.1.1.7.2.6.2.1` (Primitive Hub Document): removed `Junior`
+- `A.6.1.1.7.2.6.2.2` (Active Instances): removed `Junior`
+- `A.6.1.1.7.2.6.2.3` (Completed Instances): removed `Junior`
+- `A.6.1.1.7.2.6.2.4` (In Progress Invocations): removed `Junior`
+- `A.6.1.1.7.2.6.2` (Risk Capital Rental Primitive): removed `Junior`
+
+### Context
+Sets an Osero instance's Maximum Exposure to 5M USDS with a 100% Capital Ratio Requirement, alongside the ecosystem-wide "Junior" risk-capital terminology cleanup.
+
+---
+
 ## PR #273 — Atlas Edit Proposal — 2026-07-06
 **Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
 

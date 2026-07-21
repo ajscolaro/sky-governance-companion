@@ -4,6 +4,52 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.2.4.1.2.1.3.5 deleted: Disputes By Prime Agents** (UUID `c204b363…8cf9`)
+- **Core A.2.4.1.2.1.3.3.1 deleted: Allowed Deviation Current Value** (UUID `0d2f4cb2…effc`)
+- **Core A.2.4.1.2.1.3.5 deleted: Disputes By Prime Agents** (UUID `c204b363…8cf9`)
+- **Payment Of Amounts Due To Prime Agents** (`A.2.4.1.2.1.3.1`): `2e471685` → `07c5cfd2`; `fec5` → `d68a`; `4306` → `40d6`; `8747` → `873d`; `a50dbbdd5c70` → `b82cea9a92be`
+
+### Housekeeping
+- `A.2.2.1.5.1` (Current Primitives): removed `Junior`
+- `A.2.2.10.1.1.3.2.1.1` (Sky Core Required Risk Capital (RRC) Dashboard): `sky` → `skyeco`
+- `A.2.2.10.2` (Risk Capital Rental Primitive): added refs to `A.3.2.2.4.4`, `A.3.2.1.2.2.1.1.2`
+- `A.2.4.1.2.1.1` (Initial Calculation By Operational Executor Agent): `Core GovOps` → `Operational Executor Agent`; `Core GovOps creates a post` → `each Operational Executor Agent posts`
+- `A.2.4.1.2.1.2.1` (Agreed Amount): `Initial Calculation By Operational Executor Agent` → `Agreed Amount`; `Within seven (7) calendar days of the end of each month, each Operational Executor Agent replies to the Monthly Settlement Cycle Post with a calculation of the` → `The`
+- `A.2.4.1.2.1.2.2` (Disputed Amount): `Independent Calculation By Core Council Risk Advisor On Behalf Of Core Council` → `Disputed Amount`; `Within seven (7) calendar days of the end of each month, the Core Council Risk Advisor replies to the Monthly Settlement Cycle Post with their own independent calculation of the` → `The`
+- `A.2.4.1.2.1.2` (Final Calculation By Core GovOps): `Operational Executor Agents And` → ``; `Council Risk Advisor` → `GovOps`
+- `A.2.4.1.2.1.3.2` (Collection Of Amounts Due From Prime Agents): `or` → `Operational Executor Agents (see [A.2.4.1.2.1.3.3 - Reimbursement Of Payments Made By Operational Executor Agents](07c5cfd2-d68a-40d6-873d-b82cea9a92be)) are settled in a way that is equivalent to a transfer`
+- `A.2.4.1.2.1.3.3` (Reimbursement Of Payments Made By Operational Executor Agents): `Allowed Deviation` → `Reimbursement Of Payments Made By Operational Executor Agents`; `maximum allowed deviation, on a percentage basis, between` → `Operational Executor Agent with respect to Demand Side Stablecoin Primitives (see [A.2.2.9 - Demand Side Stablecoin Primitives](26415305-432d-423b-9553-3f325279712d)) are transferred to`
+- `A.2.4.1.2.1.3` (Settlement Through Sky Core Executive Vote): `Within twelve (12) calendar days of the end of each month, Core GovOps replies to the Monthly Settlement Cycle Post with the final calculation of the net amounts due to or from each Prime Agent (the "Final Calculation"). The Final Calculation should also include the final amounts to be transferred to the Core Council and Aligned Delegates Buffers (see [A.2.3.1.2.2 - Step 1: Security And Maintenance](324e9d22-70fe-4e44-82ab-118815f5c42e)). If there are any Disputed Amounts (see [A.2.4.1.2.1.3.2 - Disputed Amount](4ddda7cd-9942-4f60-9555-6b3f16770334)), then Core GovOps must resolve them. Core GovOps must work with the relevant Operational Executor Agent, relevant Prime Agents, and the Core Council Risk Advisor to reach a mutually acceptable resolution and may consult other parties to the extent it deems advisable.` → ``; `` → `When Core GovOps has posted the Final Calculation then the Core Facilitator must include payments of these amounts in the next Sky Core Executive Vote as specified herein.`
+- `A.2.4.1.2.1.3.1` (Payment Of Amounts Due To Prime Agents): `Amounts due to Prime Agents, excluding reimbursements made to Operational Executor Agents (see [A.2.4.1.2.1.4.3 - Reimbursement Of Payments Made By Operational Executor Agents](07c5cfd2-d68a-40d6-873d-b82cea9a92be)), are transferred from the Sky Surplus Buffer to the Prime SubProxy Account through an Executive Vote.` → ``
+- `A.2.4.1.2.1.3.2` (Collection Of Amounts Due From Prime Agents): `Amounts due from Prime Agents, excluding reimbursements made to Operational Executor Agents (see [A.2.4.1.2.1.4.3 - Reimbursement Of Payments Made By Operational Executor Agents](07c5cfd2-d68a-40d6-873d-b82cea9a92be)) are settled in a way that is equivalent to a transfer from the Prime to the Sky Surplus Buffer through actions included in an Executive Vote.` → ``
+- `A.2.4.1.2.1.3.3` (Reimbursement Of Payments Made By Operational Executor Agents): `###### A.2.4.1.2.1.4.3 - Reimbursement Of Payments Made By Operational Executor Agents [Core]` → ``; `Reimbursements of payments already made by the Operational Executor Agent with respect to Demand Side Stablecoin Primitives (see [A.2.2.9 - Demand Side Stablecoin Primitives](26415305-432d-423b-9553-3f325279712d)) are transferred to the Operational Executor Agent’s Buffer through an Executive Vote.` → ``
+- `A.2.4.1.2.1.4` (True Up In Subsequent Monthly Settlement Cycle): `When Core GovOps has posted the Final Calculation then the Core Facilitator must include payments of these amounts in the next Sky Core Executive Vote as specified herein.` → ``
+- `A.2.4.1.2.1.5` (Interim Measures): removed refs to `A.2.4.1.2.1.3`
+- `A.2.4.1.2.1.5` (Interim Measures): removed `###### A.2.4.1.2.1.6 - Interim Measures [Core]`
+- `A.2.4.1.2.2.1.3.2` (Automation Of Simplified Profit And Loss Calculation): `develop` → `ensure`
+- `A.2.4.1.2.2.2.3.1` (Automation Of Monthly Settlement Cycle Calculation Including Virtual Base Rate): `develop` → `ensure`
+- `A.2.4.1.2.2.3.3.2` (Automation Of Monthly Settlement Cycle Based On Base Rate): `update` → `ensure`
+- `A.2.8.2.1.2.1` (Revenue Share): removed `Junior`
+- `A.2.8.2.1.2.9.2` (Risk Capital Share): removed `Junior`
+- Reference renumbering across 1 doc (linked docs moved elsewhere in this edit; UUID targets unchanged).
+- `A.2.4.1.2.1.1.1` renumbered (UUID stable: `f62602a6…3330`)
+- `A.2.4.1.2.1.2.3` renumbered (UUID stable: `c20c38fe…f436`)
+- `A.2.4.1.2.1.5.1` renumbered (UUID stable: `bfc3548d…5fdc`)
+- `A.2.4.1.2.1.5.2` renumbered (UUID stable: `146d3d9c…79bb`)
+- `A.2.4.1.2.1.5.3` renumbered (UUID stable: `8e8ff62f…2df6`)
+- `A.2.4.1.2.1.5.4` renumbered (UUID stable: `5aa66a15…f24d`)
+- `sky` → `skyeco` across 1 doc.
+- `money` → `com` across 1 doc.
+
+### Context
+Restructures the Monthly Settlement Cycle: initial P&L calculations move from Core GovOps to each Operational Executor Agent and the separate dispute / independent-calculation steps are collapsed. Aligns with the June 2026 Monthly Settlement Cycle executive currently cast on-chain.
+
+---
+
 ## PR #273 — Atlas Edit Proposal — 2026-07-06
 **Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
 

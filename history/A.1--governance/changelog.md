@@ -4,6 +4,53 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #277 — Atlas Edit Proposal — 2026-07-13
+**Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.1.10.4.1.2.3.1 deleted: Freezer Multisigs** (UUID `d70d5580…5808`)
+- **Core A.1.10.4.1.3.3.1 deleted: Freezer Multisigs** (UUID `199661f2…b00d`)
+- **Core A.1.10.4.1.4.3.1 deleted: Freezer Multisigs** (UUID `022129be…6d62`)
+- **Core A.1.10.4.1.2.3.1 deleted: Freezer Multisigs** (UUID `d70d5580…5808`)
+- **Core A.1.10.4.1.3.3.1 deleted: Freezer Multisigs** (UUID `199661f2…b00d`)
+- **Core A.1.10.4.1.4.3.1 deleted: Freezer Multisigs** (UUID `022129be…6d62`)
+- **New: Vote Timeliness** (`A.1.6.2.1.2`, UUID `0589c64f…ae1e`): A vote counts toward an Aligned Delegate's voting participation only where the Aligned Delegate casts it within three (3) business days of the Executive Vote being posted to the voting portal.
+- **Ethereum SkyLink Freezer Multisig** (`A.1.10.3.2.14`): `1` → `2.2`
+- **Solana SkyLink Freezer Multisig** (`A.1.10.3.2.15`): `1` → `2.2`
+- **Avalanche SkyLink Freezer Multisig** (`A.1.10.3.2.16`): `1` → `2.2`
+- **Plasma SkyLink Freezer Multisig** (`A.1.10.3.2.17`): `1` → `2.2`
+- **SparkLend Multisig Number Of Signers** (`A.1.10.4.1.1.2`): `2` → `3`
+- **SparkLend Multisig Address** (`A.1.10.4.1.1.5`): address `0x44efFc473e81632B12486866AA1678edbb7BEeC3`
+
+### Housekeeping
+- `A.1.10.1.2` (Chainlog): `sky` → `skyeco`
+- `A.1.10.2.3.2.2.2.1.6` (Creation Of Public Information Dashboard): `sky` → `skyeco`
+- `A.1.10.2.4.11.1.2` (Governance Point Requests TechOps Services To Whitelist Spell Address): `in the Discord channel #techops-request` → `to TechOps Services via Slack`
+- `A.1.10.2.4.12.2.11` (Using The Sky Forum For Spell Validation): `The use of Discord is not required during Spell verification, as it primarily serves as a platform for public communication between the Core Facilitator and members of the current Spell Team.` → ``
+- `A.1.10.2.4.12.2.8` (Using Chainlog Smart Contract For Spell Validation): `sky` → `skyeco`
+- `A.1.10.2.4.12.4.8` (Public Validation Status Reporting): `using the "#new-Spells" channel in the Sky Builder Discord Group. If the Core Facilitator may be acting maliciously, issues should be reported to Aligned Delegates and wider Sky Governance using the "#governance" channel in the Sky Builder Discord Group. In cases where this is not possible, posts made to` → `on`
+- `A.1.10.4.1.1.1` (SparkLend Multisig Usage Standards): `` → `The Core Council must ensure that use of the multisig is generally aligned and specifically accords with the requirements defined herein.`
+- `A.1.10.4.1.1.3` (SparkLend Multisig Current Signers): `The signers of the Ethereum SkyLink Freezer Multisig are two (2) addresses controlled by the Core Facilitator and three (3) addresses controlled by Core GovOps.` → ``
+- `A.1.10.4.1.1.4` (SparkLend Multisig Signer Modifications): `The Core Council must ensure that use of` → `Any changes to`; `specifically accords with these requirements` → `treated as malicious. The Core Facilitator should consider preparing an expedited Executive Vote so that Sky Governance can vote on removing external security access from the multisig`
+- `A.1.10.4.1.1` (Multisig Freeze Of SparkLend): added refs to `A.1.10.3.2.7`
+- `A.1.10.4.1` (Spark Agent): `SkyLink Bridges` → `Spark Agent`
+- `A.1.10.4.1.1` (Multisig Freeze Of SparkLend): removed refs to `A.1.10.3.2.7`
+- `A.1.10.4.1` (Spark Agent): removed `###### A.1.10.4.2 - Spark Agent [Core]`
+- `A.1.6.2.1` (Aligned Delegate Voting Responsibilities): added refs to `A.1.6.2.1.2`
+- `A.1.6.4.3.1` (Voting-Activity Metrics): added refs to `A.1.6.2.1.2`
+- `A.1.10.4.1.1.0.3.1` renumbered (UUID stable: `1844a8bf…17bb`)
+- `A.1.10.4.1.1.1.0.3.1` renumbered (UUID stable: `d373ebcb…bf05`)
+- `A.1.10.4.1.1.1.0.4.1` renumbered (UUID stable: `71898c9e…dd0c`)
+- `sky` → `skyeco` across 3 docs.
+- `money` → `com` across 3 docs.
+- `1` → `2.2` across 4 docs.
+- `Ethereum SkyLink Freezer` → `SparkLend` across 5 docs.
+
+### Context
+Adds a Vote Timeliness rule crediting AD voting participation only for votes cast within three business days of an Executive Vote being posted. SkyLink freezer-multisig provisions relocate to the new A.4.2.2 SkyLink Bridges section, the SparkLend multisig signer threshold rises 2→3, and Discord references shift to Slack/forum.
+
+---
+
 ## PR #273 — Atlas Edit Proposal — 2026-07-06
 **Merged:** 2026-07-10 | **Type:** Weekly edit (Atlas Axis)
 

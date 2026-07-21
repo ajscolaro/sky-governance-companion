@@ -2,6 +2,7 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #277 | Atlas Edit Proposal — 2026-07-13 | 2026-07-16 | preamble,governance support,stability protocol,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/osero agents/launch-agent-7 | auto |
 | #278 | Add new entries for AxisLegati, excel, and OPEX | 2026-07-13 | governance/ad-breaches | auto |
 | #273 | Atlas Edit Proposal — 2026-07-06 | 2026-07-10 | preamble,governance support,stability agents/spark,agents/grove agents/keel,agents/obex agents/osero | auto |
 | #268 | Spark proposal - [Avalanche] Spark Liquidity Layer - Add Timelock and Guardian to Avalanche Governance Bridge | 2026-07-10 | agents/spark | auto |
