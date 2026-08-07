@@ -7,6 +7,125 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-08-04 — Atlas Edit Weekly Cycle Proposal — August 3, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/227*
+
+*Relates to: Poll (PR #286, Atlas Edit — 2026-08-03) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **In support of the full package** — Characterized the week as "settlement-documentation, Keel housekeeping, and controller-function edits" and stated comfort with all of it.
+- **Keel Completed Instances relocation highlighted** — Singled out retiring the ended Keel Demand Side Instances into the Completed Instances section as useful "for operational readiness," reasoning that keeping ended instances "mixed in with live ones makes the Keel instance set harder to read and maintain."
+- **Other topics** — Deleting an incorrect Notion link from the Keel Admin Functions document; documenting Rate Conventions and a Settlement Methodology for the Monthly Settlement Cycle; adding Uniswap v3 Controller Functions and consolidating the Diamond PAU Functions; and wiring a Bounded External Access Module into the Smart Burn Engine.
+
+---
+
+## 2026-07-27 — Atlas Edit Weekly Cycle Proposal — July 27, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/226*
+
+*Relates to: Poll (PR #283, Atlas Edit — 2026-07-27) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **In support** — Described as "Grove documentation and cleanup edits with a handful of governance and parameter changes," comfortable with all of it.
+- **Morpho deployment verification guide highlighted** — Singled out the new guide plus a required factory-deployment review as "directionally useful for operational readiness," since "deployment verification is exactly where a missing step turns into a production incident."
+- **Governance/structure items** — Merging Grove's Diamond PAU contracts into the shared Sky Core section; enabling Grove self-governance through a new Delegation Framework; exempting emergency-response multisigs from standard signer thresholds; requiring mutual consent to amend or terminate Ecosystem Accords; transferring the Core GovOps role from Atlas Axis to Soter Labs.
+- **Exposure move** — Moving Spark's USDT Sky Direct Exposure from Curve to Uniswap.
+
+---
+
+## 2026-07-20 — Atlas Edit Weekly Cycle Proposal — July 20, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/225*
+
+*Relates to: Poll (PR #280, Atlas Edit — 2026-07-20) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **In support** — "One savings-rate change and a set of structural, terminology, and reference cleanups."
+- **Soter Labs repo repoint highlighted** — Singled out repointing the Ecosystem Operational References repository links to the Soter Labs organization after the repository moved, since the Atlas "leans on these references being resolvable."
+- **Rate change** — Cutting the Sky Spread from 0.1% to 0% and switching the reference rate for subsidized borrowing and Actively Stabilizing Collateral from the Treasury Bill Rate to SOFR.
+- **Cleanups** — Renaming Spark's four Paxos transfer Instances to the direction-explicit "X To Y Via Paxos" form; renaming the Prime-External Junior Risk Capital abbreviation SEJRC → PEJRC across the Atlas; fixing "Instance Total RRC" → "Instance Total CRR"; moving per-Agent Foundation and Development Company entries into the standard parameter set.
+
+---
+
+## 2026-07-16 — Executive Vote: MSC June 2026, RWA001-A Offboarding, Osero ALMProxy Whitelist — July 16, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/224*
+
+*Relates to: July 16, 2026 Executive (0xfffc346976c53757BcF7a536be340bc0Ce1d9163) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Implements prior approvals** — "Nothing looks out of the ordinary here and in support of implementing prior approved budgets and votes."
+- **RWA001-A offboarding highlighted** — Singled out finishing the wind-down of the RWA001-A real-world-asset vault as "directionally useful for maintenance," since "a half-offboarded vault still requires monitoring and accounting attention."
+- **Settlement + Osero onboarding** — Settling the June 2026 monthly amounts across Spark, Grove, Keel, Obex, and Skybase (with the Treasury Management Function transfer to the Core Council Buffer); wiring the Osero ALMProxy into the LitePSM and setting its DC-IAM debt-ceiling parameters.
+- **Other actions** — Resetting the LSSKY→SKY staking reward stream via a farm vest update; recording the STUSDS_MOM emergency spells in the chainlog; adding the Spark, Grove, and Osero proxy spells to their StarGuard whitelists; Safe Harbor Agreement update.
+
+---
+
+## 2026-07-13 — Atlas Edit Weekly Cycle Proposal — July 13, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/223*
+
+*Relates to: Poll (PR #277, Atlas Edit — 2026-07-13) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **In support** — "Mostly process restructuring, parameter maintenance, and documentation."
+- **SFF multisig address highlighted** — Singled out recording the Sky Frontier Foundation's canonical multisig address as a standing source of truth for transfer-destination checks, since "transfer-destination verification is exactly where a stale or mistaken address does the most damage."
+- **Parameter/structure items** — Lowering the JAAA-on-Avalanche Instance Financial CRR from 2.1% to 1.6%; setting the Osero SparkLend USDS instance's maximum exposure to 5,000,000 USDS and CRR to 100%; broadening the Junior Risk Capital Rental Primitive into a general Risk Capital Rental Primitive covering Originated Senior Risk Capital between Prime Agents; reworking the Monthly Settlement Cycle around the Executor Agent, Prime-Agent dispute, and Core GovOps calculations.
+- **AD participation rule** — Requiring an Executive Vote to be cast within three business days of posting for it to count toward an Aligned Delegate's participation.
+
+---
+
+## 2026-07-06 — Atlas Edit Weekly Cycle Proposal — July 6, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/222*
+
+*Relates to: Poll (PR #273, Atlas Edit — 2026-07-06) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **In support** — Pairs "the July 16 spell preparation work with a set of obligation clarifications, reward parameter cleanup, and formatting standardization across the agent artifacts."
+- **Duplicate Monad AUSD Morpho instance removal highlighted** — Singled out dropping the duplicated Grove instance and its matching risk-capital CRR exception, since "duplicated entries are how stale parameters and double-counted exceptions creep in over time."
+- **Spell prep** — Readying the Grove artifact for July 16 (Robinhood Chain onboarding, Steakhouse USDG Morpho vault, Paxos USDG bridge both directions) and the Osero artifact (full Liquidity Layer, Diamond PAU, operating multisigs, first SparkLend USDS instance on Ethereum Mainnet).
+- **Framework items** — Adding the shared Diamond PAU framework and role definitions to Sky Core; ending the extra 0.3% boosted Distribution Reward; swapping Grove's Maple syrupUSDC allocation to Spark (Spark returning equivalent USDS to the Grove ALM Proxy); writing Atlas definitions for the Sky Frontier and Fortification Foundations.
+
+---
+
+## 2026-07-02 — Executive Vote: Initialize GROVE Token Rewards, Grove ALMProxy Whitelist, PAU Beacon — July 2, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/221*
+
+*Relates to: July 2, 2026 Executive (0xEbf156fB6C87cBE0a962944eC254b519c1441A51) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **Implements prior approvals** — "Nothing looks out of the ordinary here and in support of implementing prior approved budgets and votes."
+- **Grove ALMProxy whitelisting highlighted** — Singled out wiring the new Grove ALMProxy into the USDC LitePSM (MCD_LITE_PSM_USDC_A), since "a newly deployed ALM proxy stays inert until it is explicitly permissioned on the PSM it needs, and clearing that whitelisting now keeps the Grove liquidity path ready to operate rather than blocked on a follow-up spell."
+- **GROVE rewards + capital** — Standing up the USDS→GROVE farm so USDS can be staked for GROVE rewards; releasing 14 million USDS from Amatsu's SubProxy to the Sky Frontier Foundation.
+- **Wiring/records** — Adding the Spark, Grove, and Skybase proxy spells to their StarGuard whitelists; recording the Diamond PAU Beacon in the chainlog as PAU_BEACON; Safe Harbor Agreement update.
+
+---
+
+## 2026-06-29 — Atlas Edit Weekly Cycle Proposal — June 29, 2026
+
+*Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/220*
+
+*Relates to: Poll (PR #270, Atlas Edit — 2026-06-29) | Vote: **Yes (In Support)***
+
+Key rationale points:
+
+- **In support** — "Mostly risk-framework and accounting housekeeping plus one documentation cleanup."
+- **Spell-checklist URL → cross-reference highlighted** — Singled out replacing hardcoded GitHub links scattered across the Spell process documents with references to the single Registered Spell Checklists document, since "a single referenced source means a checklist only has to be updated in one place, and the Spell process documents stop carrying stale or broken links."
+- **Risk-framework items** — Recording the Galaxy Warehouse's 2% Capital Ratio Requirement and 500,000,000 USD maximum exposure as it leaves Interim Deployment; requiring a 100% Capital Ratio Requirement per exposure for any lending-market underlying outside the Risk Advisor's pro-forma Required Risk Capital estimate.
+- **Accounting** — Crediting Grove 2,528,000 USDS owed from the Monthly Settlement Cycle true-up (counted toward Grove's Total Risk Capital until paid); adding the GROVE token reward distribution schedule.
+
+---
+
 ## 2026-06-23 — Atlas Edit Weekly Cycle Proposal — June 22, 2026
 
 *Source: https://forum.skyeco.com/t/pbg-aligned-delegate-communication-platform/20471/219*

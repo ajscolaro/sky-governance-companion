@@ -4,6 +4,342 @@ Atlas path: `A.6.1.1.1` (2116 docs)
 
 ---
 
+## PR #289 — Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Curve rlUSD/USDC for Swaps
+**Merged:** 2026-08-07 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Ethereum Mainnet - Curve weETH/WETH-ng for Swaps Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.7.5`, UUID `4ebb4393…8191`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.7.5`.
+- **New: Ethereum Mainnet - Curve rlUSD/USDC for Swaps Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.7.6`, UUID `5d2836d7…4310`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.7.6`.
+- **New: Ethereum Mainnet - Curve rlUSD/USDC for Swaps Instance Configuration Document** (`A.6.1.1.1.2.6.1.3.1.7.6`, UUID `3833eb97…ee0e`): The documents herein contain the Instance Configuration Document for the Curve rlUSD/USDC for Swaps Instance.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.1.7.6.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.1.7.6.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.1.7.6.2.1.2`): Curve.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.3.1.7.6.2.1.3`): N/A - swap only.
+  - **Token** (`A.6.1.1.1.2.6.1.3.1.7.6.2.1.4`): crv2pool.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.1.7.6.2.2.1`): `0xD001aE433f254283FeCE51d4ACcE8c53263aa186`.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.1.7.6.2.2.2`): `0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD`.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.1.7.6.2.2.3`): `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`.
+  - **Pool Address** (`A.6.1.1.1.2.6.1.3.1.7.6.2.2.4`): `0xD001aE433f254283FeCE51d4ACcE8c53263aa186`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.1.7.6.2.3`): The specific `RateLimitID`(s) for this conduit’s inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.1.7.6.2.4`): The current `maxAmount`, `slope` and slippage for this conduit’s inflow/outflow/swap are defined in the subdocuments herein.
+  - **Inflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.7.6.2.4.1`): The inflow rate limits are.
+  - **Outflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.7.6.2.4.2`): The outflow rate limits are.
+  - **Swap Rate Limits** (`A.6.1.1.1.2.6.1.3.1.7.6.2.4.3`): The swap rate limits are.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.7.6.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.1.7.6.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+
+### Context
+Onboards a swap-only SLL conduit into Curve's rlUSD/USDC pool; rate limits and RRC implementation remain `Pending`. One of three Ethereum SLL venue onboardings merged 2026-08-07, alongside the Uniswap v4 USDG/USDS (#287) and rlUSD/USDS (#288) pools.
+
+---
+
+## PR #288 — Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Uniswap v4 rlUSD/USDS Pool
+**Merged:** 2026-08-07 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Ethereum Mainnet - Uniswap v4 rlUSD/USDS Pool Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.11.4`, UUID `28d60d16…2a35`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.11.4`.
+- **New: Ethereum Mainnet - Uniswap v4 rlUSD/USDS Pool Instance Configuration Document** (`A.6.1.1.1.2.6.1.3.1.11.4`, UUID `102ef022…8f8a`): The documents herein contain the Instance Configuration Document for the Uniswap v4 rlUSD/USDS Pool Instance.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.1.11.4.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.1.11.4.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.1.11.4.2.1.2`): Uniswap v4.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.3.1.11.4.2.1.3`): USDS and rlUSD.
+  - **Token** (`A.6.1.1.1.2.6.1.3.1.11.4.2.1.4`): rlUSDUSDS.
+  - **Pool ID** (`A.6.1.1.1.2.6.1.3.1.11.4.2.2.1`): `0x9035721b23481db3888fd201b9c2b26dbc3af60258bca65e669f2ed98dc8eb4f`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.1.11.4.2.3`): The specific `RateLimitID`(s) for this conduit’s inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4`): The current `maxAmount,` `slope`, slippage, ticks, and fee for this conduit’s inflow/outflow/swap are defined in the subdocuments herein.
+  - **Inflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4.1`): The inflow rate limits are.
+  - **Outflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4.2`): The outflow rate limits are.
+  - **Swap Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4.3`): The swap rate limits are.
+  - **Maximum Slippage** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4.4`): Max slippage: 0.1%.
+  - **Tick Range and Width** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4.5`): - Min lower tick limit: -10 (-0.1%).
+  - **Swap Fee** (`A.6.1.1.1.2.6.1.3.1.11.4.2.4.6`): 0.0005%.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.11.4.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.1.11.4.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+
+### Context
+Adds a Uniswap v4 rlUSD/USDS pool Instance (0.1% max slippage, 0.0005% swap fee); rate-limit IDs pending. Companion to the USDG/USDS v4 pool (#287) in the same 2026-08-07 SLL onboarding batch.
+
+---
+
+## PR #287 — Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Uniswap v4 USDG/USDS Pool
+**Merged:** 2026-08-07 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Ethereum Mainnet - Uniswap v4 USDG/USDS Pool Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.11.3`, UUID `51abdb44…5ecd`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.1.11.3`.
+- **New: Ethereum Mainnet - Uniswap v4 USDG/USDS Pool Instance Configuration Document** (`A.6.1.1.1.2.6.1.3.1.11.3`, UUID `8c92f153…9a71`): The documents herein contain the Instance Configuration Document for the Uniswap v4 USDG/USDS Pool Instance.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.1.11.3.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.1.11.3.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.1.11.3.2.1.2`): Uniswap v4.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.3.1.11.3.2.1.3`): USDS and USDG.
+  - **Token** (`A.6.1.1.1.2.6.1.3.1.11.3.2.1.4`): USDGUSDS.
+  - **Pool ID** (`A.6.1.1.1.2.6.1.3.1.11.3.2.2.1`): `0x28adc7179a8a83c3379955d59563c0fec33eadfa83946b447af289190ff5fcff`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.1.11.3.2.3`): The specific `RateLimitID`(s) for this conduit’s inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4`): The current `maxAmount,` `slope`, slippage, ticks, and fee for this conduit’s inflow/outflow/swap are defined in the subdocuments herein.
+  - **Inflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4.1`): The inflow rate limits are.
+  - **Outflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4.2`): The outflow rate limits are.
+  - **Swap Rate Limits** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4.3`): The swap rate limits are.
+  - **Maximum Slippage** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4.4`): Max slippage: 0.1%.
+  - **Tick Range and Width** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4.5`): - Min lower tick limit: -276,334 (-0.1%).
+  - **Swap Fee** (`A.6.1.1.1.2.6.1.3.1.11.3.2.4.6`): 0.0005%.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.1.11.3.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.1.11.3.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+
+### Context
+Adds a Uniswap v4 USDG/USDS pool Instance (0.1% max slippage, 0.0005% swap fee); rate-limit IDs pending. Merged 2026-08-07 with the rlUSD/USDS v4 pool (#288) and the Curve rlUSD/USDC swap conduit (#289).
+
+---
+
+## PR #276 — Spark proposal - [Ethereum, X Layer] Spark Savings, Spark Liquidity Layer - Deploy spUSDT, Enable USDT Bridging to X Layer
+**Merged:** 2026-08-07 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: X Layer** (`A.6.1.1.1.2.6.1.1.2.6`, UUID `5d3e7362…28eb`): The documents herein contain a Directory of all Instances on X Layer of the Allocation System Primitive with Instance status of `Active`.
+  - **Spark Savings V2** (`A.6.1.1.1.2.6.1.1.2.6.1`): The X Layer Instances Directory of the Spark Savings v2 Protocol with `Active` Status are stored herein.
+  - **X Layer - Spark Savings v2 USDT Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.6.1.1`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.6.1.1`.
+- **New: X Layer** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8`, UUID `9c35c0e5…35e4`): This document contains the ALM Contract Addresses for the Spark Liquidity Layer on X Layer.
+  - **ALM Controller (ForeignController X Layer) Contract Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8.1`): The address of the ALM_CONTROLLER (ForeignController) contract address is: `0xf9187C99Ee842beABE8e2e346d958315BFc9331f`.
+  - **ALM Controller (ForeignController X Layer) Contract Version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8.2`): The ALM_CONTROLLER (ForeignController) contract version is: 1.10.0.
+  - **ALM Freezer Multisig (X Layer) Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8.3`): The address of the Multisig that has the Freezer Role is: `0x8a25A24EDE9482C4Fc0738F99611BE58F1c839AB`.
+  - **ALM Relayer Multisig (X Layer) Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8.4`): The address of the Multisig that has the Relayer Role is: `0x90D8c80C028B4C09C0d8dcAab9bbB057F0513431`.
+  - **ALM Proxy (X Layer) Contract** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8.5`): The address of the ALM_PROXY contract is: `0x83A914C361bB729EB6BEBC8C7bA993667A0E6Df8`.
+  - **ALM Rate Limits (X Layer) Contract** (`A.6.1.1.1.2.6.1.2.1.1.1.2.8.6`): The address of the ALM_RATE_LIMITS contract is: `0x7F7E2286983994c4403Cf2B86758cE0e7bA666a8`.
+- **New: X Layer** (`A.6.1.1.1.2.6.1.2.1.1.3.8`, UUID `76127cf5…a149`): The documents herein list the current `RateLimits` for the Spark Liquidity Layer on X Layer.
+  - **USDT X Layer ALM Proxy Maximum** (`A.6.1.1.1.2.6.1.2.1.1.3.8.1`): The maximum amount of USDT that can be sent to the X Layer ALM Proxy is specified in the document herein.
+- **New: X Layer** (`A.6.1.1.1.2.6.1.3.6`, UUID `3a7ab5cb…fc59`): The X Layer Instances of the Spark Liquidity Layer with `Active` Status are stored herein.
+  - **Spark Savings V2** (`A.6.1.1.1.2.6.1.3.6.1`): The X Layer Instances of the Spark Savings v2 with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.6.1.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.6.1.1.2.1.1`): X Layer.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.6.1.1.2.1.2`): Spark Savings Protocol.
+  - **Asset Supplied By Users** (`A.6.1.1.1.2.6.1.3.6.1.1.2.1.3`): USDT.
+  - **Token** (`A.6.1.1.1.2.6.1.3.6.1.1.2.1.4`): spUSDT.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.6.1.1.2.2.1`): `0xc358c90D32375721Cb3924320Fdc2F8B694347Ca`.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.6.1.1.2.2.2`): `0x779Ded0c9e1022225f8E0630b35a9b54bE713736`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.6.1.1.2.3`): The specific `RateLimitID`(s) for this conduit's inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.6.1.1.2.4`): The specific `maxAmount` and `slope` for this conduit's inflow/outflow are not defined for this Instance.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.6.1.1.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.6.1.1.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+  - **Spark Vault v2 Implementation** (`A.6.1.1.1.2.6.1.3.6.1.1.4.1.1`): `0xdCe929A335C75a1676EF5957A4D7a3b928C48820`.
+  - **Default admin** (`A.6.1.1.1.2.6.1.3.6.1.1.4.1.2`): `0xCF5af6F53ceC74B791cb4182aC778ca9CD323510`.
+  - **Setter** (`A.6.1.1.1.2.6.1.3.6.1.1.4.1.3`): `0x9449ed367C60ea757544fd990B57e1C2D0Ec3A94`.
+  - **Taker** (`A.6.1.1.1.2.6.1.3.6.1.1.4.1.4`): `0x83A914C361bB729EB6BEBC8C7bA993667A0E6Df8`.
+  - **Spark Savings USDT Risk Parameters** (`A.6.1.1.1.2.6.1.3.6.1.1.4.2.1`): The Risk parameters are.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.6.1.1.4.2.2`): The current `maxAmount` for this conduit's take and transferAssets operations are defined in the subdocuments herein.
+  - **Take Rate Limits** (`A.6.1.1.1.2.6.1.3.6.1.1.4.2.3`): The take rate limits are.
+  - **TransferAssets Rate Limits** (`A.6.1.1.1.2.6.1.3.6.1.1.4.2.4`): The transferAssets rate limits are.
+
+### Context
+Brings up Spark's first X Layer deployment — ALM contract set, USDT bridging, and a Spark Savings v2 spUSDT vault — extending the multi-chain SLL buildout begun on Robinhood Chain (#275). Savings target-liquidity and rewards parameters for this Instance are registered in SAEP-17 (#281).
+
+---
+
+## PR #252 — Update document.md
+**Merged:** 2026-08-07 | **Type:** Housekeeping
+
+### Material Changes
+- **SparkLend Risk Parameters Kill Switch Current Configuration** (`A.6.1.1.1.3.2.1.1.4.1`): address `0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23`
+
+---
+
+## PR #282 — Spark proposal - SAEP-18: Update SLL Freezer Multisig
+**Merged:** 2026-08-01 | **Type:** SAEP-18 (Spark proposal)
+
+### Material Changes
+- **Required Number Of Signers** (`A.6.1.1.1.2.6.1.2.1.2.2.3.2`): `1` → `2`
+- **Signers** (`A.6.1.1.1.2.6.1.2.1.2.2.3.3`): `2` → `3`
+
+### Housekeeping
+- `A.6.1.1.1.2.6.1.2.1.2.2.3` (Freezer Multisig): removed `Spark Assets Foundation,`
+
+### Context
+SAEP-18 hardens the SLL Freezer Multisig, raising its signing requirement from 1/2 to 2/3 and dropping Spark Assets Foundation as a signer.
+
+---
+
+## PR #281 — Spark proposal - SAEP-17: Update Spark Savings Artifact Section
+**Merged:** 2026-08-01 | **Type:** SAEP-17 (Spark proposal)
+
+### Material Changes
+- **New: Spark Savings USDG on Robinhood Chain** (`A.6.1.1.1.3.5.2.2.6`, UUID `398944f7…6e68`): The current parameters for Spark Savings USDG on Robinhood Chain are. (addresses: `0x59C85fe4385403e93877e48e5521f2F02B150359`, `0x826AEaeee9233fA8Ba199518dd8621A5962b1D02`, `0xfD2fD4B046136B540A56C11c75ac679AE7d1dB24`)
+- **New: Spark Savings USDT on Arbitrum** (`A.6.1.1.1.3.5.2.2.7`, UUID `5a2b0ec2…437d`): The current parameters for Spark Savings USDT on Arbitrum are. (addresses: `0x4eE67c8Db1BAa6ddE99d936C7D313B5d31e8fa38`, `0x65d946e533748A998B1f0E430803e39A6388f7a1`, `0x92afd6F2385a90e44da3a8B60fe36f6cBe1D8709`)
+- **New: Spark Savings USDT on X Layer** (`A.6.1.1.1.3.5.2.2.8`, UUID `c6eb9203…d4a4`): The current parameters for Spark Savings USDT on X Layer are. (addresses: `0x83A914C361bB729EB6BEBC8C7bA993667A0E6Df8`, `0x9449ed367C60ea757544fd990B57e1C2D0Ec3A94`, `0xCF5af6F53ceC74B791cb4182aC778ca9CD323510`)
+- **New: Spark Savings USDG on Robinhood Chain** (`A.6.1.1.1.3.5.3.1.3.6`, UUID `2fad3cf6…f38c`): The current Target Liquidity for Spark Savings USDG on Robinhood Chain is the greater of 10% of total deposits or 1 million USDG, up to a maximum amount of 10 million USDG.
+- **New: Spark Savings USDT on Arbitrum** (`A.6.1.1.1.3.5.3.1.3.7`, UUID `77d38961…fb58`): The current Target Liquidity for Spark Savings USDT on Arbitrum is the greater of 10% of total deposits or 1 million USDT, up to a maximum amount of 10 million USDT.
+- **New: Spark Savings USDT on X Layer** (`A.6.1.1.1.3.5.3.1.3.8`, UUID `43b26b98…61f1`): The current Target Liquidity for Spark Savings USDT on X Layer is the greater of 10% of total deposits or 1 million USDT, up to a maximum amount of 10 million USDT.
+- **New: Spark Savings USDG on Robinhood Chain** (`A.6.1.1.1.3.5.3.2.3.6`, UUID `ad064b08…32a5`): The Rewards Rate for Spark Savings USDG on Robinhood Chain is set via the vault’s setter role in accordance with `A.6.1.1.1.3.5.3.2.2`, within the Min Yield and Max Yi.
+- **New: Spark Savings USDT on Arbitrum** (`A.6.1.1.1.3.5.3.2.3.7`, UUID `2df1f51c…891c`): The Rewards Rate for Spark Savings USDT on Arbitrum is set via the vault’s setter role in accordance with `A.6.1.1.1.3.5.3.2.2`, within the Min Yield and Max Yield bou.
+- **New: Spark Savings USDT on X Layer** (`A.6.1.1.1.3.5.3.2.3.8`, UUID `40f91471…7f38`): The Rewards Rate for Spark Savings USDT on X Layer is set via the vault’s setter role in accordance with `A.6.1.1.1.3.5.3.2.2`, within the Min Yield and Max Yield boun.
+- **Spark Savings USDC on Ethereum** (`A.6.1.1.1.3.5.2.2.1`): address `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699`
+- **Spark Savings USDT on Ethereum** (`A.6.1.1.1.3.5.2.2.2`): address `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699`
+- **Spark Savings ETH on Ethereum** (`A.6.1.1.1.3.5.2.2.3`): address `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699`
+- **Spark Savings USDC on Avalanche** (`A.6.1.1.1.3.5.2.2.4`): address `0x93c81ADc7F98FdBC8C7a15eCBeD312c8F6adbcB3`
+- **Spark Savings PYUSD on Ethereum** (`A.6.1.1.1.3.5.2.2.5`): `Setter role`: TBD → `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699`
+
+### Housekeeping
+- `A.6.1.1.1.3.5.3.1.3.2` (Spark Savings USDT on Ethereum): `USDC` → `USDT`
+- `A.6.1.1.1.3.5.3.2.3.2` (Spark Savings USDT on Ethereum): added refs to `A.6.1.1.1.3.5.3.2.1`, `A.6.1.1.1.3.5.2.2.2`, `A.6.1.1.1.3.5.3.2.2`
+- `0x9Ad87668d49ab69EEa0AF091de970EF52b0D5178` → `0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699` across 3 docs.
+
+### Context
+SAEP-17 registers Spark Savings parameters for three cross-chain instances — USDG on Robinhood Chain, USDT on Arbitrum, and USDT on X Layer — each with target liquidity of the greater of 10% of deposits or 1M, capped at 10M. Complements the infrastructure activations in #275 (Robinhood Chain) and #276 (X Layer).
+
+---
+
+## PR #275 — Spark proposal - [Robinhood Chain] Spark Liquidity Layer - Activate SLL and Spark Savings Infrastructure and Enable USDG Bridging to Robinhood Chain
+**Merged:** 2026-08-01 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Robinhood Chain** (`A.6.1.1.1.2.6.1.1.2.5`, UUID `f3ced164…a3b4`): The documents herein contain a Directory of all Instances on Robinhood Chain of the Allocation System Primitive with Instance status of `Active`.
+  - **Spark Savings V2** (`A.6.1.1.1.2.6.1.1.2.5.1`): The Robinhood Chain Instances Directory of the Spark Savings v2 Protocol with `Active` Status are stored herein.
+  - **Robinhood Chain - Spark Savings v2 USDG Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.5.1.1`): This Instance's associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.3.5.1.1`.
+- **New: Robinhood Chain** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7`, UUID `7be9f6a4…1780`): This document contains the ALM Contract Addresses for the Spark Liquidity Layer on Robinhood Chain.
+  - **ALM Controller (ForeignController Robinhood Chain) Contract Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7.1`): The address of the ALM_CONTROLLER (ForeignController) contract address is: `0xcf8d58A6eeF2a1cae2Ce69bC463b1178FB76bA1E`.
+  - **ALM Controller (ForeignController Robinhood Chain) Contract Version** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7.2`): The ALM_CONTROLLER (ForeignController) contract version is: 1.10.0.
+  - **ALM Freezer Multisig (Robinhood Chain) Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7.3`): The address of the Multisig that has the Freezer Role is: `0x2d5Aa449FB8C5646C81BC3C1D2034c2d37F17099`.
+  - **ALM Relayer Multisig (Robinhood Chain) Address** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7.4`): The address of the Multisig that has the Relayer Role is: `0x0ca8f938Aba2214eA11eb451e795A8ef7B720C18`.
+  - **ALM Proxy (Robinhood Chain) Contract** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7.5`): The address of the ALM_PROXY contract is: `0xfD2fD4B046136B540A56C11c75ac679AE7d1dB24`.
+  - **ALM Rate Limits (Robinhood Chain) Contract** (`A.6.1.1.1.2.6.1.2.1.1.1.2.7.6`): The address of the ALM_RATE_LIMITS contract is: `0x5c1fDE9d4C7f1BF4bc5dEAA2a7752e56232c68a0`.
+- **New: Robinhood Chain** (`A.6.1.1.1.2.6.1.2.1.1.3.7`, UUID `0e4713f0…8f5f`): The documents herein list the current `RateLimits` for the Spark Liquidity Layer on Robinhood Chain.
+  - **USDG Robinhood Chain Transfer Maximum** (`A.6.1.1.1.2.6.1.2.1.1.3.7.1`): The maximum amount of USDG that can be transferred from the Robinhood Chain ALM Proxy is specified in the document herein.
+  - **USDG Robinhood Chain ALM Proxy Maximum** (`A.6.1.1.1.2.6.1.2.1.1.3.7.2`): The maximum amount of USDG that can be sent to the Robinhood Chain ALM Proxy is specified in the document herein.
+- **New: Robinhood Chain** (`A.6.1.1.1.2.6.1.3.5`, UUID `21c64d57…d823`): The Robinhood Chain Instances of the Spark Liquidity Layer with `Active` Status are stored herein.
+  - **Spark Savings V2** (`A.6.1.1.1.2.6.1.3.5.1`): The Robinhood Chain Instances of the Spark Savings v2 with `Active` Status are stored herein.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.3.5.1.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.3.5.1.1.2.1.1`): Robinhood Chain.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.3.5.1.1.2.1.2`): Spark Savings Protocol.
+  - **Asset Supplied By Users** (`A.6.1.1.1.2.6.1.3.5.1.1.2.1.3`): USDG.
+  - **Token** (`A.6.1.1.1.2.6.1.3.5.1.1.2.1.4`): spUSDG.
+  - **Token Address** (`A.6.1.1.1.2.6.1.3.5.1.1.2.2.1`): `0xde770c84FE66E063336b31737cFE9790f18c4087`.
+  - **Underlying Asset Address** (`A.6.1.1.1.2.6.1.3.5.1.1.2.2.2`): `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168`.
+  - **Rate Limit IDs** (`A.6.1.1.1.2.6.1.3.5.1.1.2.3`): The specific `RateLimitID`(s) for this conduit's inflow and outflow will be specified in a future iteration of the Spark Artifact.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.5.1.1.2.4`): The specific `maxAmount` and `slope` for this conduit's inflow/outflow are not defined for this Instance.
+  - **Off-chain Operational Parameters** (`A.6.1.1.1.2.6.1.3.5.1.1.2.5`): The documents herein contain specific off-chain parameters for this Instance.
+  - **Instance-specific Operational Processes** (`A.6.1.1.1.2.6.1.3.5.1.1.3`): The documents herein contain operational procedures or monitoring requirements unique to this Instance that deviate from or otherwise supplement the general Spark Liquidity Layer processes.
+  - **Spark Vault v2 Implementation** (`A.6.1.1.1.2.6.1.3.5.1.1.4.1.1`): `0x797c58C9779D46a437D8f57908D6d56371A55F02`.
+  - **Default admin** (`A.6.1.1.1.2.6.1.3.5.1.1.4.1.2`): `0x826AEaeee9233fA8Ba199518dd8621A5962b1D02`.
+  - **Setter** (`A.6.1.1.1.2.6.1.3.5.1.1.4.1.3`): `0xAEa9f5dE56e6C20383a1fcC2C3629Dca0A92cE41`.
+  - **Taker** (`A.6.1.1.1.2.6.1.3.5.1.1.4.1.4`): `0xfD2fD4B046136B540A56C11c75ac679AE7d1dB24`.
+  - **Spark Savings USDG Risk Parameters** (`A.6.1.1.1.2.6.1.3.5.1.1.4.2.1`): The Risk parameters are.
+  - **Rate Limits** (`A.6.1.1.1.2.6.1.3.5.1.1.4.2.2`): The current `maxAmount` for this conduit's take and transferAssets operations are defined in the subdocuments herein.
+  - **Take Rate Limits** (`A.6.1.1.1.2.6.1.3.5.1.1.4.2.3`): The take rate limits are.
+  - **TransferAssets Rate Limits** (`A.6.1.1.1.2.6.1.3.5.1.1.4.2.4`): The transferAssets rate limits are.
+
+### Context
+Activates Spark's first Robinhood Chain deployment — ALM contract set, USDG bridging, and a Spark Savings v2 spUSDG vault. Paired with the X Layer bring-up (#276); savings parameters for both land in SAEP-17 (#281).
+
+---
+
+## PR #274 — Spark proposal - [Ethereum] Spark Liquidity Layer - Deactivate Old USDT Morpho V2 Vault
+**Merged:** 2026-08-01 | **Type:** Spark proposal (informal)
+
+### Material Changes
+- **New: Ethereum Mainnet** (`A.6.1.1.1.2.6.1.1.3.3`, UUID `04b9c9b0…e5c2`): The documents herein contain a Directory of all Instances on the Ethereum Mainnet of the Allocation System Primitive with Instance status of `Completed`.
+  - **Morpho** (`A.6.1.1.1.2.6.1.1.3.3.1`): The Ethereum Mainnet Instances Directory of the Morpho Protocol with `Completed` Status are stored herein.
+  - **Ethereum Mainnet - Morpho USDT Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.3.3.1.1`): This Instance’s associated Instance Configuration Document is located at `A.6.1.1.1.2.6.1.4.3.1.1`.
+- **New: Ethereum Mainnet Instances** (`A.6.1.1.1.2.6.1.4.3`, UUID `4a98960f…499a`): The Ethereum Mainnet Instances of the Spark Liquidity Layer with `Completed` Status are stored herein and are organized by target protocol.
+  - **Morpho** (`A.6.1.1.1.2.6.1.4.3.1`): The Ethereum Mainnet Instances of the Morpho Protocol with `Completed` Status are stored herein.
+  - **RRC Framework Full Implementation** (`A.6.1.1.1.2.6.1.4.3.1.1.1`): **`Pending`**.
+  - **Network** (`A.6.1.1.1.2.6.1.4.3.1.1.2.1.1`): Ethereum Mainnet.
+  - **Target Protocol** (`A.6.1.1.1.2.6.1.4.3.1.1.2.1.2`): Morpho.
+  - **Asset Supplied By Spark Liquidity Layer** (`A.6.1.1.1.2.6.1.4.3.1.1.2.1.3`): USDT.
+  - **Token** (`A.6.1.1.1.2.6.1.4.3.1.1.2.1.4`): sparkUSDT.
+  - **Token Address** (`A.6.1.1.1.2.6.1.4.3.1.1.2.2.1`): `0xc7CDcFDEfC64631ED6799C95e3b110cd42F2bD22`.
+  - **Inflow Rate Limits** (`A.6.1.1.1.2.6.1.4.3.1.1.2.4.1`): The inflow rate limits are.
+  - **Outflow Rate Limits** (`A.6.1.1.1.2.6.1.4.3.1.1.2.4.2`): The outflow rate limits are.
+  - **sUSDS/USDT 96.5% LLTV Pool** (`A.6.1.1.1.2.6.1.4.3.1.1.4.1.1`): - Pool ID: 0x3274643db77a064abd3bc851de77556a4ad2e2f502f4f0c80845fa8f909ecf0b.
+  - **wstETH/USDT 86% LLTV Pool** (`A.6.1.1.1.2.6.1.4.3.1.1.4.1.2`): - Pool ID: 0xe7e9694b754c4d4f7e21faf7223f6fa71abaeb10296a4c43a54a7977149687d2.
+- **Ethereum Mainnet - Spark Blue Chip USDT Vault Instance Configuration Document Location** (`A.6.1.1.1.2.6.1.1.2.1.8.4`): `4260` → `4132`
+- **Token Address** (`A.6.1.1.1.2.6.1.3.1.8.4.2.2.1`): address `0xb0c424116172B55CbB6dD3136F5989F7959e5B91`
+- **Inflow Rate Limits** (`A.6.1.1.1.2.6.1.3.1.8.4.2.4.1`): `0` → `100,000,000 USDT`
+- **Curator Role Address** (`A.6.1.1.1.2.6.1.3.1.8.4.4.1.1`): address `0x0f963A8A8c01042B69054e787E5763ABbB0646A3`
+- **Guardian Role Address** (`A.6.1.1.1.2.6.1.3.1.8.4.4.1.2`): address `0xf5748bBeFa17505b2F7222B23ae11584932C908B`
+
+### Housekeeping
+- `A.6.1.1.1.2.6.1.3.1.8.4.1` (RRC Framework Full Implementation): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.1` (Network): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.2` (Target Protocol): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.3` (Asset Supplied By Spark Liquidity Layer): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.4` (Token): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1` (Instance Identifiers): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.2.2` (Underlying Asset Address): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.2.3` (Allocator Role Address): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.2` (Contract Addresses): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.3` (Rate Limit IDs): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.4.2` (Outflow Rate Limits): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.4` (Rate Limits): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.5` (Off-chain Operational Parameters): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.2` (Parameters): `Morpho` → `Spark Blue Chip`
+- `A.6.1.1.1.2.6.1.3.1.8.4.3` (Instance-specific Operational Processes): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4.4.1` (Contract Addresses): `Market Exposure` → `Contract Addresses`
+- `A.6.1.1.1.2.6.1.3.1.8.4.4.2` (Timelock): `Contract Addresses` → `Timelock`
+- `A.6.1.1.1.2.6.1.3.1.8.4.4` (Instance-specific Operational Parameters): content edit
+- `A.6.1.1.1.2.6.1.3.1.8.4` (Ethereum Mainnet - Spark Blue Chip USDT Vault Instance Configuration Document): `Morpho` → `Spark Blue Chip`
+- `A.6.1.1.1.2.6.1.3.1.8.4.1` (RRC Framework Full Implementation): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.1 - RRC Framework Full Implementation [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.1` (Network): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.1.1 - Network [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.2` (Target Protocol): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.1.2 - Target Protocol [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.3` (Asset Supplied By Spark Liquidity Layer): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.1.3 - Asset Supplied By Spark Liquidity Layer [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.1.4` (Token): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.1.4 - Token [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.2.1` (Token Address): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.2.1 - Token Address [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.4.1` (Inflow Rate Limits): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.4.1 - Inflow Rate Limits [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.2.4.2` (Outflow Rate Limits): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.2.4.2 - Outflow Rate Limits [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.4.1.1` (Curator Role Address): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.4.1.1 - Curator Role Address [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.4.1.2` (Guardian Role Address): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.4.1.2 - Guardian Role Address [Core]`
+- `A.6.1.1.1.2.6.1.3.1.8.4.4.2` (Timelock): removed `###### A.6.1.1.1.2.6.1.3.1.8.5.4.2 - Timelock [Core]`
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.1` renumbered (UUID stable: `077e23e8…0864`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.2.2` renumbered (UUID stable: `a3ed9893…d005`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.2.3` renumbered (UUID stable: `30cdfa34…8093`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.2` renumbered (UUID stable: `1eb8cc31…dbc4`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.3` renumbered (UUID stable: `bde22f96…8407`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.4` renumbered (UUID stable: `7eaf8614…5bbb`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.2.5` renumbered (UUID stable: `3bb2d3ac…2582`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.3` renumbered (UUID stable: `32759a33…a82a`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4.1.3` renumbered (UUID stable: `c2b81ec6…4708`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4.1.4` renumbered (UUID stable: `b89ff2c9…6769`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4.2.1` renumbered (UUID stable: `e71e777b…467a`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4.2.2` renumbered (UUID stable: `6e105430…afdc`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4.2` renumbered (UUID stable: `c481d26c…8aca`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4.3` renumbered (UUID stable: `62c056de…874c`)
+- `A.6.1.1.1.2.6.1.4.3.1.1.4` renumbered (UUID stable: `06914650…edf7`)
+- `Morpho` → `Spark Blue Chip` across 3 docs.
+- `8.5` → `1` across 10 docs.
+- `8.4` → `1` across 5 docs.
+
+### Context
+Retires the old Morpho USDT V2 vault — outflow rate limits and slope set to 0 — relocating it from Active to a new Completed Instances > Morpho branch and renumbering the surviving Spark Blue Chip USDT instance into its place.
+
+---
+
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Root Edit Proposal Submission Requirements Exception For Nested Contributors** (`A.6.1.1.1.2.2.2.2.1.2.1.1.1`): `4.2` → `5`
+
+### Housekeeping
+- `A.6.1.1.1.2.1.1.3.1.1.4` (Foundation): `Custom Instance Parameters` → `Foundation`
+- `A.6.1.1.1.2.6.1.1.2.1.12.1` (Ethereum Mainnet - USDC To PYUSD Via Paxos Instance Configuration Document Location): `to` → `To PYUSD Via`
+- `A.6.1.1.1.2.6.1.1.2.1.12.2` (Ethereum Mainnet - PYUSD To USDC Via Paxos Instance Configuration Document Location): `to` → `To USDC Via`
+- `A.6.1.1.1.2.6.1.1.2.1.12.3` (Ethereum Mainnet - PYUSD To USDG Via Paxos Instance Configuration Document Location): `to` → `To USDG Via`
+- `A.6.1.1.1.2.6.1.1.2.1.12.4` (Ethereum Mainnet - USDG To PYUSD Via Paxos Instance Configuration Document Location): `to` → `To PYUSD Via`
+- `A.6.1.1.1.2.6.1.3.1.12.1.2` (Parameters): `to` → `To PYUSD Via`
+- `A.6.1.1.1.2.6.1.3.1.12.1` (Ethereum Mainnet - USDC To PYUSD Via Paxos Instance Configuration Document): `to` → `To PYUSD Via`
+- `A.6.1.1.1.2.6.1.3.1.12.2.2` (Parameters): `to` → `To USDC Via`
+- `A.6.1.1.1.2.6.1.3.1.12.2` (Ethereum Mainnet - PYUSD To USDC Via Paxos Instance Configuration Document): `to` → `To USDC Via`
+- `A.6.1.1.1.2.6.1.3.1.12.3.2` (Parameters): `to` → `To USDG Via`
+- `A.6.1.1.1.2.6.1.3.1.12.3` (Ethereum Mainnet - PYUSD To USDG Via Paxos Instance Configuration Document): `to` → `To USDG Via`
+- `A.6.1.1.1.2.6.1.3.1.12.4.2` (Parameters): `to` → `To PYUSD Via`
+- `A.6.1.1.1.2.6.1.3.1.12.4` (Ethereum Mainnet - USDG To PYUSD Via Paxos Instance Configuration Document): `to` → `To PYUSD Via`
+- Reference renumbering across 1 doc (linked docs moved elsewhere in this edit; UUID targets unchanged).
+- `A.6.1.1.1.2.1.1.3.1.1.5` renumbered (UUID stable: `dd82336a…be4c`)
+- `A.6.1.1.1.2.1.1.3.1.1.6.1` renumbered (UUID stable: `4d70e4a7…8170`)
+- `A.6.1.1.1.2.1.1.3.1.1.6` renumbered (UUID stable: `4bc28587…e6be`)
+- `Custom Instance Parameters` → `Foundation` across 1 doc.
+- `4.2` → `5` across 2 docs.
+- `to` → `To PYUSD Via` across 6 docs.
+- `to` → `To USDC Via` across 3 docs.
+- `to` → `To USDG Via` across 3 docs.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

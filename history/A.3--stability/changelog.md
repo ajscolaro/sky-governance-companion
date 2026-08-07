@@ -4,6 +4,84 @@ Atlas path: `A.3` — The Stability Scope
 
 ---
 
+## PR #286 — Atlas Edit Proposal — 2026-08-03
+**Merged:** 2026-08-06 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Rate Conventions** (`A.3.1.2.7`, UUID `154c3b5d…9a31`): Unless otherwise specified, all rates defined in the Atlas are expressed as annual percentage yields.
+- **New: Smart Burn Engine Bounded External Access Module** (`A.3.5.2.4`, UUID `b57ac61b…fe2f`): The Smart Burn Engine Bounded External Access Module (SBE-BEAM) enables a designated, Governance-whitelisted Operator to adjust the Kicker Lot Size (`kbump`), the SKY Accumulation Percentage (`burn`), and the Splitter Interval (`hop`) param.
+  - **Max Kbump Definition** (`A.3.5.2.4.1.1`): The `maxKbump` parameter defines the maximum permitted value of the `kbump` parameter when set using the SBE-BEAM.
+  - **Min Hop Definition** (`A.3.5.2.4.1.2`): The `minHop` parameter defines the minimum permitted value of the `hop` parameter when set using the SBE-BEAM.
+  - **Max Rate Definition** (`A.3.5.2.4.1.3`): The `maxRate` parameter defines the maximum combined throughput, expressed as `kbump` divided by `hop`, that can result from adjustments made using the SBE-BEAM.
+  - **Tau Definition** (`A.3.5.2.4.1.4`): The `tau` parameter defines the minimum time interval, in seconds, that must elapse between consecutive uses or operations of the SBE-BEAM.
+  - **Parameters** (`A.3.5.2.4.2`): The bounding parameters set by Sky Governance for the SBE-BEAM are as follows.
+  - **Parameter Adjustments** (`A.3.5.2.4.3`): All SBE-BEAM bounding parameters can be modified by Sky Governance, through the Operational Weekly Cycle or, if necessary, through out-of-schedule Executive Votes.
+  - **Technical Limitations** (`A.3.5.2.4.4`): The SBE-BEAM enforces technical limitations, including the following, that apply independently of the bounding parameters set by Sky Governance.
+  - **Operators** (`A.3.5.2.4.5`): The SBE-BEAM Operator is a Governance-whitelisted entity that can use the SBE-BEAM to alter the three Smart Burn Engine parameters within its control — the Kicker Lot Size (`kbump`), the SKY Accumulation Percentage (`burn`), and the Splitte.
+  - **Operator Multisig** (`A.3.5.2.4.5.1`): The Operator Multisig is the Operator of the SBE-BEAM.
+  - **Operator Multisig Address** (`A.3.5.2.4.5.1.1`): The address of the Operator Multisig on the Ethereum Mainnet is `0x869294B42B80f99CF3Bdac0F44abddAd6cD41330`.
+  - **Operator Multisig Required Number Of Signers** (`A.3.5.2.4.5.1.2`): The Operator Multisig has a 4/6 signing requirement.
+  - **Operator Multisig Signers** (`A.3.5.2.4.5.1.3`): The signers of the Operator Multisig are two (2) addresses controlled by the Core Facilitator, two (2) addresses controlled by Core GovOps, and two (2) addresses controlled by Operational GovOps Soter Labs.
+  - **Operator Multisig Usage Standards** (`A.3.5.2.4.5.1.4`): The signers of the Operator Multisig must use the multisig to operate the SBE-BEAM in accordance with the instructions specified in `A.3.5.2.4.6`.
+  - **Operator Multisig Modification** (`A.3.5.2.4.5.1.5`): The signers can change the signers of the Operator Multisig so long as.
+  - **Update Process** (`A.3.5.2.4.6`): The Smart Burn Engine parameters are managed by the SBE-BEAM Operator through the SBE-BEAM, as specified in the documents herein.
+  - **Recommendation By Core Council Risk Advisor** (`A.3.5.2.4.6.1`): A recommendation to modify the Smart Burn Engine parameters through the SBE-BEAM must be posted to the Sky Forum by the Core Council Risk Advisor.
+  - **Agreement By Core Facilitator** (`A.3.5.2.4.6.2`): Before a recommended change is executed, the Core Facilitator must post to the Sky Forum to indicate its agreement with the recommendation.
+  - **Execution By Operator** (`A.3.5.2.4.6.3`): Once the Core Facilitator has agreed to a recommended change, the Operator prepares and executes the change through the SBE-BEAM.
+  - **Public Communication** (`A.3.5.2.4.6.4`): Once a change has been executed through the SBE-BEAM, the Operator must publicly communicate the execution to the Sky Ecosystem.
+
+### Housekeeping
+- `A.3.1.2.1` (Base Rate): `rate` → `yield`
+- `A.3.1.2.5` (Agent Credit Line Borrow Rate): `rate` → `yield`
+- `A.3.5.2.3` (Modification): added refs to `A.3.5.2.4`
+
+### Context
+Defines the Smart Burn Engine Bounded External Access Module (A.3.5.2.4) — a Governance-whitelisted Operator Multisig (4/6) that can adjust `kbump`, `burn`, and `hop` within bounding parameters — plus a Rate Conventions section standardizing Atlas rates as APY. The governance-side BEAM exception is added in A.1 (#286); launch announced on the forum 2026-08-06.
+
+---
+
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Sky Spread** (`A.3.1.2.6`, UUID `e1b694de…9804`): The Sky Spread is a margin Sky retains for facilitating the ecosystem’s financing.
+- **Relationship To Base Rate** (`A.3.1.2.2.1`): `4.2.3.3.1` → `6`; `c160f99c` → `e1b694de`; `c3d8` → `1ee3`; `41e9` → `4502`; `a3d1` → `a9c9`; `cde514b7a2da` → `52eea9539804`
+
+### Housekeeping
+- `A.3.1.2.3.1` (Relationship To Base Rate): added refs to `A.3.1.2.6`
+- `A.3.1.2.3.4` (Spark): `a higher` → `an`
+- `A.3.2.1.1.3.2` (Inability To Calculate Types Of RRC): `RRC` → `CRR`
+- `A.3.2.1.2.1` (Total Risk Capital Definition): `SEJRC` → `PEJRC`
+- `A.3.2.1.2.2.1.1.2` (Prime-External Junior Risk Capital (PEJRC)): `SEJRC` → `PEJRC`
+- `A.3.2.1.2.3.1.1` (External Per Internal Ratio): `SEJRC` → `PEJRC`
+- `A.3.2.1.2.3.1.2` (Senior Per Junior Ratio): `SEJRC` → `PEJRC`
+- `A.3.2.2.2.1.1` (Tip Junior Risk Capital Percentage): `SEJRC` → `PEJRC`
+- `A.3.2.2.2.2.1` (External Per Internal (EPI) Ratio Value): `SEJRC` → `PEJRC`
+- `A.3.2.2.2.2.2` (Senior Per Junior (SPJ) Ratio Values): `SEJRC` → `PEJRC`
+- `A.3.2.2.3.1` (Prime External JRC Rental System Implementation): `SEJRC` → `PEJRC`
+- `A.3.2.2.4.2.3.2` (Monthly srUSDS Yield): `defined` → `specified`
+- `A.3.2.2.4.2.3.3.1` (Sky Spread): added refs to `A.3.1.2.6`
+- `A.3.2.2.4.4.2` (SRC Accounting & Enablement): `SEJRC` → `PEJRC`
+- `A.3.3.2.2.4.1.3` (Secured Overnight Financing Rate): `Treasury Bill` → `Secured Overnight Financing`
+- `A.3.3.2.2.4.1` (Calculation): added refs to `A.3.3.2.2.4.1.3`
+- `SEJRC` → `PEJRC` across 9 docs.
+
+### Context
+Introduces the Sky Spread (A.3.1.2.6) — the margin Sky retains for facilitating ecosystem financing — and wires it into the base-rate and srUSDS-yield calculations; also carries the ecosystem-wide SEJRC → PEJRC risk-capital rename through the stability scope.
+
+---
+
+## PR #279 — update ALLOCATOR-PRYSM-A DC-IAM parameters
+**Merged:** 2026-07-23 | **Type:** Housekeeping
+
+### Material Changes
+- **ALLOCATOR-PRYSM-A Parameters** (`A.3.7.1.2.1.7`): `10` → `1`; `10` → `5`
+
+### Context
+Direct parameter update to the ALLOCATOR-PRYSM-A auto-line (DC-IAM) configuration.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

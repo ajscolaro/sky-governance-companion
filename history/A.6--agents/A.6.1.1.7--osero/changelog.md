@@ -4,6 +4,29 @@ Atlas path: `A.6.1.1.7` (357 docs) — formerly known as Launch Agent 6; public-
 
 ---
 
+## PR #286 — Atlas Edit Proposal — 2026-08-03
+**Merged:** 2026-08-06 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Withdraw All SparkLend Positions** (`A.6.1.1.7.2.6.1.2.2.3.2`): `4` → `2.2`
+
+### Housekeeping
+- `A.6.1.1.7.2.6.1.2.2.1.2.2` (Aave v3 Facet): added `v3`
+- `A.6.1.1.7.2.6.1.2.2.3.3` (Burn USDS): added `1.`
+
+---
+
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.7.2.1.1.3.1.1.5` (Foundation): `Custom Instance Parameters` → `Foundation`
+- `A.6.1.1.7.2.1.1.3.1.1.6` renumbered (UUID stable: `0eb2722b…87cb`)
+- `Custom Instance Parameters` → `Foundation` across 1 doc.
+- `5.2` → `6` across 1 doc.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

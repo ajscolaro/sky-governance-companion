@@ -4,6 +4,167 @@ Atlas path: `A.2` — The Support Scope
 
 ---
 
+## PR #286 — Atlas Edit Proposal — 2026-08-03
+**Merged:** 2026-08-06 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.2.2.10.1.1.1.5.2.3.3 deleted: Deposit Asset Into Aave Market** (UUID `d783250a…5816`)
+- **Core A.2.2.10.1.1.1.5.2.4.3 deleted: Withdraw Asset From Aave Market** (UUID `ee2933f7…a4a8`)
+- **Core A.2.2.10.1.1.1.5.2.3.3 deleted: Deposit Asset Into Aave Market** (UUID `d783250a…5816`)
+- **Core A.2.2.10.1.1.1.5.2.4.3 deleted: Withdraw Asset From Aave Market** (UUID `ee2933f7…a4a8`)
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.1.1.1`, UUID `8eea7011…ef30`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a USDS mint by calling the `usds_mint` function on the Diamond PAU Controller, passing the amount of USD.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.1.1.2`, UUID `b6d5f36b…7d4e`): The minting of USDS is subject to the on-chain rate limit identified by `LIMIT_USDS_MINT`.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.1.2.1`, UUID `53d3749c…e3cf`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a USDS burn by calling the `usds_burn` function on the Diamond PAU Controller, passing the amount of USD.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.1.2.2`, UUID `b900fd43…f4db`): The burning of USDS is subject to the on-chain rate limit identified by `LIMIT_USDS_BURN`.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.2.1.1`, UUID `26eec581…86d4`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate an Aave v3 market deposit by calling the `aave_deposit` function on the Diamond PAU Controller, passing.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.2.1.2`, UUID `989bca9d…605a`): The deposit is subject to the on-chain deposit rate limit identified by `LIMIT_AAVE_DEPOSIT` for the underlying asset, the address of the pool, and the address of the aToken.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.2.2.1`, UUID `c5a30d6c…ece4`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate an Aave v3 market withdrawal by calling the `aave_withdraw` function on the Diamond PAU Controller, pass.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.2.2.2`, UUID `ef6077eb…1b92`): The withdrawal is subject to the on-chain withdrawal rate limit identified by `LIMIT_AAVE_WITHDRAW` for the address of the pool and the address of the aToken.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.3.1.1`, UUID `b2e3b84d…3058`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a Basin deposit by calling the `basin_deposit` function on the Diamond PAU Controller, passing the addre.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.3.1.2`, UUID `34b6d2ab…2bc3`): The deposit is subject to the on-chain deposit rate limit identified by `LIMIT_BASIN_DEPOSIT` for the address of the asset and the address of the Basin contract.
+- **New: Deposit Asset Into Basin** (`A.2.2.10.1.1.1.5.2.3.1.3`, UUID `8d3420d5…d557`): The Basin Facet's `deposit` function deposits the specified amount of the asset into the Basin on behalf of the ALM Proxy, and Basin shares are minted to the ALM Proxy.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.5.1.1`, UUID `955f7809…d2ef`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may add liquidity by calling the `uniswapV3_addLiquidity` function on the Diamond PAU Controller.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.5.1.2`, UUID `7e771c08…6a3a`): The aggregate deposit limit sums one unit of either pool token as equivalent, so it is only meant to work with a stable-stable pool.
+- **New: Add Liquidity To Uniswap v3 Position** (`A.2.2.10.1.1.1.5.2.5.1.3`, UUID `164268cf…cc1b`): The Uniswap v3 Facet's `addLiquidity` function attempts to deposit the target amounts of the pool's two (2) tokens on behalf of the ALM Proxy.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.5.2.1`, UUID `6cfcbc24…4ef0`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may remove liquidity by calling the `uniswapV3_removeLiquidity` function on the Diamond PAU Controller.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.5.2.2`, UUID `a60193f3…dc6a`): The aggregate withdrawal limit sums one unit of either pool token as equivalent, so it is only meant to work with a stable-stable pool.
+- **New: Remove Liquidity From Uniswap v3 Position** (`A.2.2.10.1.1.1.5.2.5.2.3`, UUID `315b3614…9ad8`): The Uniswap v3 Facet's `removeLiquidity` function first confirms the ALM Proxy is the current owner of the position, then decreases the specified amount of liquidity from it.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.5.3.1`, UUID `9b0217c7…7f50`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a swap by calling the `uniswapV3_swap` function on the Diamond PAU Controller.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.5.3.2`, UUID `d2bd2910…e36b`): The swap is subject to the on-chain rate limit identified by `LIMIT_UNISWAP_V3_SWAP` for the address of the token being sold and the address of the pool.
+- **New: Swap Tokens Through Uniswap v3 Pool** (`A.2.2.10.1.1.1.5.2.5.3.3`, UUID `3986fe17…426a`): The Uniswap v3 Facet's `swap` function attempts to sell the specified amount of the given token through the Uniswap v3 router for the pool's other token.
+- **New: Settlement Methodology** (`A.2.4.2`, UUID `b0b7809a…d0cd`): The documents herein define the methodology by which amounts are measured and attributed in the Monthly Settlement Cycle.
+  - **Calculation Of Prime Agent Interest Expense And Corresponding Sky Revenue** (`A.2.4.2.1`): For the purpose of the Monthly Settlement Cycle, the interest a Prime Agent owes to Sky on liquidity borrowed from Sky is an interest expense of the Prime Agent and revenue of Sky.
+  - **Calculation Of Interest Rate** (`A.2.4.2.1.1`): Interest is calculated at the `A.3.1.2.5`, including any applicable `A.3.1.2.5.2`.
+  - **Calculation Of Applicable Balance** (`A.2.4.2.1.2`): Interest is calculated on utilized USDS.
+  - **Netting** (`A.2.4.2.1.3`): A Prime Agent that holds sUSDS earns the Sky Savings Rate on that sUSDS.
+  - **Positions Held By Third Parties** (`A.2.4.2.2`): Gains and losses on positions held by a third party on behalf of a Prime Agent are attributed to the period in which they are received or incurred by the Allocation System Instance, and not to the period in which the third party reports the.
+  - **Asynchronous Transactions** (`A.2.4.2.3`): An asynchronous transaction is a transaction that settles in two (2) legs.
+  - **Assets In Transit Between Blockchains** (`A.2.4.2.4`): An asset in transit between blockchains remains attributed to the source blockchain, at the value it held before transit, from the time it is locked or burned on the source blockchain until the corresponding tokens are minted or released on.
+- **Deposit To Aave v3 Market** (`A.2.2.10.1.1.1.5.2.2.1`): `[A.2.2.10.1.1.1.3.3 - Allocator Role](e7a97395-ddd5-4ae8-874f-1bb3f247446a) (`ALLOCATOR_ROLE`) may initiate a USDS burn by calling the `usds_burn` function on the Diamond PAU Controller, passing the amount of USDS to burn. The Controller dispatches the call to the USDS Facet` → `ALM Proxy into an Aave v3 market`
+- **Basin Facet** (`A.2.2.10.1.1.1.5.2.3`): `ALM Proxy into an Aave v3 market, which mints aTokens to the ALM Proxy` → `[A.2.2.10.1.1.1.4.2.2 - Basin Facet](d9cbf883-119e-403d-8efa-125997cd8897)`
+
+### Housekeeping
+- `A.2.2.10.1.1.1.4.2.1` (Aave v3 Facet): added `v3`
+- `A.2.2.10.1.1.1.5.2.1.1` (Mint USDS): removed refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.1.2` (Burn USDS): `Rate Limit` → `Burn USDS`
+- `A.2.2.10.1.1.1.5.2.1` (USDS Facet): added refs to `A.2.2.10.1.1.1.4.2.22`
+- `A.2.2.10.1.1.1.5.2.2.2` (Withdraw From Aave v3 Market): `Rate Limit` → `Withdraw From Aave v3 Market`
+- `A.2.2.10.1.1.1.5.2.2` (Aave v3 Facet): added refs to `A.2.2.10.1.1.1.4.2.1`
+- `A.2.2.10.1.1.1.5.2.3.1` (Deposit To Basin): removed refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.3.2` (Withdraw From Basin): `Rate Limit` → `Withdraw From Basin`
+- `A.2.2.10.1.1.1.5.2.4.1` (Swap USDS To USDC): removed refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.4.2` (Swap USDC To USDS): `Rate Limit` → `Swap USDC To USDS`
+- `A.2.2.10.1.1.1.5.2.4` (PSM Facet): added refs to `A.2.2.10.1.1.1.4.2.16`
+- `A.2.2.10.1.1.1.5.2.5.1` (Add Liquidity To Uniswap v3): removed refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.5.2` (Remove Liquidity From Uniswap v3): `Rate Limit` → `Remove Liquidity From Uniswap v3`
+- `A.2.2.10.1.1.1.5.2.5.3` (Swap On Uniswap v3): `Deposit Asset Into Basin` → `Swap On Uniswap v3`
+- `A.2.2.10.1.1.1.5.2.5` (Uniswap v3 Facet): added refs to `A.2.2.10.1.1.1.3.3`, `A.2.2.10.1.1.1.4.2.20`
+- `A.2.2.10.1.1.1.5.2.3.2` (Withdraw From Basin): removed `###### A.2.2.10.1.1.1.5.2.6 - Withdraw From Basin [Core]`
+- `A.2.2.10.1.1.1.5.2.4.2` (Swap USDC To USDS): removed `###### A.2.2.10.1.1.1.5.2.8 - Swap USDC To USDS [Core]`
+- `A.2.2.9.1.2.1.1.2.1` (Ethereum Mainnet General Tracking Methodology): `on` → `Where`
+- `A.2.8.2.2.2.2.2` (Borrow Rate Mechanism): added refs to `A.2.8.2.2.2.2.1`
+- `A.2.2.10.1.1.1.5.2.1.1.3` renumbered (UUID stable: `1490a13f…0321`)
+- `A.2.2.10.1.1.1.5.2.1.2.3` renumbered (UUID stable: `feace76a…530f`)
+- `A.2.2.10.1.1.1.5.2.3.2.1` renumbered (UUID stable: `75edeae6…97cf`)
+- `A.2.2.10.1.1.1.5.2.3.2.2` renumbered (UUID stable: `d915bc35…9343`)
+- `A.2.2.10.1.1.1.5.2.3.2.3` renumbered (UUID stable: `25da7163…61c7`)
+- `A.2.2.10.1.1.1.5.2.4.1.1` renumbered (UUID stable: `f3c79493…920d`)
+- `A.2.2.10.1.1.1.5.2.4.1.2` renumbered (UUID stable: `1a1d74ec…fe45`)
+- `A.2.2.10.1.1.1.5.2.4.1.3` renumbered (UUID stable: `58631630…5bee`)
+- `A.2.2.10.1.1.1.5.2.4.2.1` renumbered (UUID stable: `85a2ac37…b388`)
+- `A.2.2.10.1.1.1.5.2.4.2.2` renumbered (UUID stable: `b489a966…01c9`)
+- `A.2.2.10.1.1.1.5.2.4.2.3` renumbered (UUID stable: `fa1364a3…1105`)
+- `Only an address holding` → `The documents herein define` across 4 docs.
+- `6` → `3.2` across 3 docs.
+- `7` → `4.1` across 3 docs.
+- `8` → `4.2` across 3 docs.
+
+### Context
+Formalizes the Diamond PAU Controller's per-operation access-control and rate-limit structure (USDS mint/burn, Aave v3, Basin, and a new Uniswap v3 facet) and adds a Settlement Methodology section (A.2.4.2) defining how amounts are measured in the Monthly Settlement Cycle. The Uniswap v3 facet defined here is enabled for Grove in #284.
+
+---
+
+## PR #283 — Atlas Edit Proposal — 2026-07-27
+**Merged:** 2026-07-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Emergency-Response Multisig Threshold Exception** (`A.2.11.1.3.2.1.1.2.2.1`, UUID `55f1c795…08e3`): As a transitionary measure, pending the development of specific threshold requirements for emergency-response Multisigs, a Multisig whose sole capability is an emergency-response function — such as an emergency freeze, pause, or the removal.
+- **New: List Of Previous Sky Direct Exposures** (`A.2.2.10.1.1.1.1.3.0.6.1`, UUID `86fce840…1c9d`): | Sky Direct Exposure | Description | Designated | Ended |. (dates: 2025-11-13, 2026-06-25)
+- **New: No Actively Stabilizing Collateral Requirements With Respect To Sky Direct Exposures** (`A.2.2.10.1.1.1.1.7`, UUID `bfb8013f…4107`): Because Sky Direct Exposures are held by Sky rather than the Prime Agent implementing the exposure through its Allocation System, Prime Agents are not required to hold any Actively Stabilizing Collateral with respect to Sky Direct Exposures.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.5.1`, UUID `b2e3b84d…3058`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a Basin deposit by calling the `basin_deposit` function on the Diamond PAU Controller, passing the addre.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.5.2`, UUID `34b6d2ab…2bc3`): The deposit is subject to the on-chain deposit rate limit identified by `LIMIT_BASIN_DEPOSIT` for the address of the asset and the address of the Basin contract.
+- **New: Deposit Asset Into Basin** (`A.2.2.10.1.1.1.5.2.5.3`, UUID `8d3420d5…d557`): The Basin Facet's `deposit` function deposits the specified amount of the asset into the Basin on behalf of the ALM Proxy, and Basin shares are minted to the ALM Proxy.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.6.1`, UUID `75edeae6…97cf`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a Basin withdrawal by calling the `basin_withdraw` function on the Diamond PAU Controller, passing the a.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.6.2`, UUID `d915bc35…9343`): The withdrawal is subject to the on-chain withdrawal rate limit identified by `LIMIT_BASIN_WITHDRAW` for the address of the asset and the address of the Basin contract.
+- **New: Withdraw Asset From Basin** (`A.2.2.10.1.1.1.5.2.6.3`, UUID `25da7163…61c7`): The Basin Facet's `withdraw` function withdraws up to the specified maximum amount of the asset from the Basin to the ALM Proxy, burning the corresponding Basin shares.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.7.1`, UUID `f3c79493…920d`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a USDS to USDC swap by calling the `psm_swapUSDSToUSDC` function on the Diamond PAU Controller, passing.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.7.2`, UUID `1a1d74ec…fe45`): The swap is subject to the on-chain rate limit identified by `LIMIT_USDS_TO_USDC`.
+- **New: Swap USDS For USDC** (`A.2.2.10.1.1.1.5.2.7.3`, UUID `58631630…5bee`): The PSM Facet's `swapUSDSToUSDC` function swaps USDS held by the ALM Proxy for the specified amount of USDC via DAI, through the DAI-USDS migrator and the Lite PSM.
+- **New: Allocator Role** (`A.2.2.10.1.1.1.5.2.8.1`, UUID `85a2ac37…b388`): Only an address holding the `A.2.2.10.1.1.1.3.3` (`ALLOCATOR_ROLE`) may initiate a USDC to USDS swap by calling the `psm_swapUSDCToUSDS` function on the Diamond PAU Controller, passing.
+- **New: Rate Limit** (`A.2.2.10.1.1.1.5.2.8.2`, UUID `b489a966…01c9`): The swap is subject to the on-chain rate limit identified by `LIMIT_USDC_TO_USDS`.
+- **New: Swap USDC For USDS** (`A.2.2.10.1.1.1.5.2.8.3`, UUID `fa1364a3…1105`): The PSM Facet's `swapUSDCToUSDS` function swaps the specified amount of USDC held by the ALM Proxy for USDS via DAI, through the DAI-USDS migrator and the Lite PSM.
+- **New: Modification And Termination Of Ecosystem Accords** (`A.2.8.3`, UUID `76e2717b…a1e5`): This Section defines the requirement of mutual consent to modify, suspend, or terminate an Ecosystem Accord, and the circumstances in which Sky Governance may do so without that consent.
+  - **Mutual Consent Requirement** (`A.2.8.3.1`): The modification, suspension, or termination of an Ecosystem Accord requires the mutual consent of each party to the Accord whose rights, obligations, or commercial terms are affected by the modification, suspension, or termination, except.
+  - **Consent Of Sky Governance** (`A.2.8.3.1.1`): Where Sky is a party to an Ecosystem Accord, Sky's consent is given by Sky Governance approving the Atlas Edit Proposal that incorporates the modification, suspension, or termination of the Ecosystem Accord into the Atlas.
+  - **Consent Of Other Parties** (`A.2.8.3.1.2`): The consent of each party to an Ecosystem Accord other than Sky must be expressed through a channel through which Core GovOps can verify the party's agreement, as specified in the documents herein.
+  - **Consent Through The Sky Forum** (`A.2.8.3.1.2.1`): A party other than Sky may express its agreement through the Sky Forum.
+  - **Consent Through A Communication Channel Established By Core GovOps** (`A.2.8.3.1.2.2`): A party other than Sky may express its agreement through a private communication channel established for this purpose by Core GovOps.
+  - **Prior Ratification By Self-Governing Primes** (`A.2.8.3.1.2.3`): Where a party to an Ecosystem Accord is a Prime that governs its Prime Agent Artifact through a vote of its token holders, the authorized representative of its Prime Agent may express consent to a modification, suspension, or termination of.
+  - **Incorporation By Core GovOps** (`A.2.8.3.1.3`): Where the parties to an Ecosystem Accord other than Sky have consented to a modification, suspension, or termination, Core GovOps incorporates the agreed change into an Atlas Edit Proposal.
+  - **Circumstances Permitting Action Without Consent** (`A.2.8.3.2`): Sky Governance may modify, suspend, or terminate an Ecosystem Accord without the consent of the affected parties only in the circumstances specified in the documents herein.
+  - **Administrative Correction** (`A.2.8.3.2.1`): Sky Governance may make administrative corrections to an Ecosystem Accord without the consent of the affected parties, provided such corrections do not alter the rights, obligations, or commercial terms of any party.
+  - **Implementation Of Dispute Resolution Decisions** (`A.2.8.3.2.2`): Where a decision under `A.2.8.1.1` resolves a dispute in a manner that requires the modification, suspension, or termination of an Ecosystem Accord, Sky Governance m.
+  - **Misalignment** (`A.2.8.3.2.3`): Sky Governance may modify, suspend, or terminate an Ecosystem Accord without the consent of the affected parties where Sky Governance determines that the Accord, or a party's conduct under it, is misaligned with the Sky Ecosystem.
+  - **Terms Specified Within The Accord** (`A.2.8.3.2.4`): Where an Ecosystem Accord specifies its own conditions for its modification, suspension, or termination, a modification, suspension, or termination carried out in accordance with those conditions does not require the mutual consent otherwis.
+- **Registry row added** in List Of Current Sky Direct Exposures (`A.2.2.10.1.1.1.1.2.0.6.1`): | 2026-05-26 |
+
+### Housekeeping
+- `A.2.11.1.3.2.1.1.2.2` (Threshold Exceptions): added `Certain Threshold Exceptions instead apply as standing exemptions to a defined category of Multisig, without requiring a case-by-case grant.…`
+- `A.2.2.10.1.1.1.1.3` (Previous Sky Direct Exposures): `Core Facilitator sets the following parameters for` → `list of previous`; `consultation with the Core Council Risk Advisor:` → `[A.2.2.10.1.1.1.1.3.0.6.1 - List Of Previous Sky Direct Exposures](86fce840-f7f3-4617-bb58-d04db8731c9d).`
+- `A.2.2.10.1.1.1.1.4` (Parameters For Sky Direct Exposures): `` → `The Core Facilitator sets the following parameters for Sky Direct Exposures in consultation with the Core Council Risk Advisor:`; `` → `The Core Facilitator must post the initial values for these parameters and any updates to them to the Sky Forum under the "Sky Core" category. The values for the parameters for Sky Direct Exposures are set by the Core Facilitator and supersede any values for these parameters specified in the Risk Framework.`
+- `A.2.2.10.1.1.1.1.5` (Revenue Sharing For Sky Direct Exposures): `No Risk Capital Requirements With Respect To` → `Revenue Sharing For`
+- `A.2.2.10.1.1.1.1.6` (No Risk Capital Requirements With Respect To Sky Direct Exposures): `Actively Stabilizing Collateral` → `Risk Capital`
+- `A.2.2.10.1.1.1.4.2.2` (Basin Facet): removed `contract`
+- `A.2.2.10.1.1.1.5.2.1.1` (Mint USDS): added refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.1.2` (Burn USDS): `Limits` → `Limit`
+- `A.2.2.10.1.1.1.5.2.1` (USDS Facet): removed `The mint is performed by calling the Diamond PAU Controller, specifying the amount of USDS to mint; the Controller dispatches the call to th…`
+- `A.2.2.10.1.1.1.5.2.2.1` (Deposit To Aave v3 Market): added refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.2.2` (Withdraw From Aave v3 Market): `Limits` → `Limit`
+- `A.2.2.10.1.1.1.5.2.2` (Aave v3 Facet): removed `The burn is performed by calling the Diamond PAU Controller, specifying the amount of USDS to burn; the Controller dispatches the call to th…`
+- `A.2.2.10.1.1.1.5.2.3.1` (Deposit To Basin): added refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.3.2` (Withdraw From Basin): `Limits` → `Limit`
+- `A.2.2.10.1.1.1.5.2.3` (Basin Facet): `minting` → `which mints`
+- `A.2.2.10.1.1.1.5.2.4.1` (Swap USDS To USDC): added refs to `A.2.2.10.1.1.1.3.3`
+- `A.2.2.10.1.1.1.5.2.4.2` (Swap USDC To USDS): `Limits` → `Limit`
+- `A.2.2.10.1.1.1.5.2.4` (PSM Facet): `,` → `by`
+- `A.2.8.2.2.2.2.2` (Borrow Rate Mechanism): `base_rate` → `Base_Rate`
+- `A.2.2.10.1.1.1.1.4.1` renumbered (UUID stable: `8bd63c6b…cd6d`)
+- `it` → `the call` across 4 docs.
+- `to perform` → `which performs` across 4 docs.
+- `Limits` → `Limit` across 4 docs.
+- `permitted by this` → `exceeds the current` across 4 docs.
+
+### Context
+Adds a standing threshold exemption for emergency-response Multisigs, a registry of previous Sky Direct Exposures, and a new Ecosystem Accords modification/termination framework (A.2.8.3) governing mutual-consent changes. Begins the Diamond PAU facet-operation documentation expanded the following week in #286.
+
+---
+
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.2.2.10.1.1.2.1.3.2` (Notional Total Risk Capital (TRC) Coverage Strategy): `SEJRC` → `PEJRC`
+- `A.2.2.10.1.1.3.2.1.2.2` (Minimum Capabilities of Prime TRC Management Systems): `SEJRC` → `PEJRC`
+- `A.2.2.10.1.1.3.2.1.2.3.2` (TRC Report Contents): `SEJRC` → `PEJRC`
+- `A.2.2.10.1.1.3.2.1.3.2.1` (Core GovOps TRC Report Validation Process): `SEJRC` → `PEJRC`
+- `A.2.2.10.2` (Risk Capital Rental Primitive): `SEJRC` → `PEJRC`
+- `A.2.8.2.2.2.2.2` (Borrow Rate Mechanism): added refs to `A.3.3.2.2.4.1.3`
+- `A.2.8.2.2.2.2.4` (Minimum Borrowing Threshold for Grant Eligibility): added refs to `A.3.3.2.2.4.1.3`
+- `A.2.8.2.2.2.3.3` (Sky Spread): added refs to `A.3.1.2.6`
+- `SEJRC` → `PEJRC` across 5 docs.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

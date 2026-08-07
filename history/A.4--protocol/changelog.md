@@ -4,6 +4,14 @@ Atlas path: `A.4` — The Protocol Scope
 
 ---
 
+## PR #283 — Atlas Edit Proposal — 2026-07-27
+**Merged:** 2026-07-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.4.2.2.1.5` (Ethereum SkyLink Freezer Multisig Modification): removed refs to `A.2.11.1.3.2.1.1.2.2`
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

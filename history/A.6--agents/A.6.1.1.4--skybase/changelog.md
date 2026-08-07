@@ -4,6 +4,17 @@ Atlas path: `A.6.1.1.4` (722 docs)
 
 ---
 
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.4.2.1.1.3.1.1.5` (Foundation): `Custom Instance Parameters` → `Foundation`
+- `A.6.1.1.4.2.1.1.3.1.1.6` renumbered (UUID stable: `095eabf8…4679`)
+- `Custom Instance Parameters` → `Foundation` across 1 doc.
+- `5.2` → `6` across 1 doc.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 
