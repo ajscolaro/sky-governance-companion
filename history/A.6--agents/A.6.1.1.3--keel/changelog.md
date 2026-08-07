@@ -4,6 +4,69 @@ Atlas path: `A.6.1.1.3` (874 docs)
 
 ---
 
+## PR #286 — Atlas Edit Proposal — 2026-08-03
+**Merged:** 2026-08-06 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.3.2.6.1.2.2.2.1.2.1.1` (Admin Functions): removed `[)](https://www.notion.so/atlas-axis/SH-Add-Allocation-System-Primitive-Keel-294f2ff08d73802089c6e838cd85462c#2a2f2ff08d7381e7b822efcf1013e9…`
+- `A.6.1.1.3.2.5.1.1.3.1` renumbered (UUID stable: `cf007f6d…c8fc`)
+- `A.6.1.1.3.2.5.1.1.3.2` renumbered (UUID stable: `60982fac…d4a5`)
+- `A.6.1.1.3.2.5.1.3.1.1.1` renumbered (UUID stable: `e5261fd0…ba92`)
+- `A.6.1.1.3.2.5.1.3.1.1.2` renumbered (UUID stable: `78ced90e…50dc`)
+- `A.6.1.1.3.2.5.1.3.1.1.3` renumbered (UUID stable: `0cea78ce…0611`)
+- `A.6.1.1.3.2.5.1.3.1.1` renumbered (UUID stable: `70bdfca7…7933`)
+- `A.6.1.1.3.2.5.1.3.1.2.1.1` renumbered (UUID stable: `f08a63d5…03c2`)
+- `A.6.1.1.3.2.5.1.3.1.2.1` renumbered (UUID stable: `70a1df13…868b`)
+- `A.6.1.1.3.2.5.1.3.1.2.2` renumbered (UUID stable: `ece7350a…82f5`)
+- `A.6.1.1.3.2.5.1.3.1.2.3` renumbered (UUID stable: `4bb2e7f5…06a2`)
+- `A.6.1.1.3.2.5.1.3.1.2` renumbered (UUID stable: `d79a21fb…70c9`)
+- `A.6.1.1.3.2.5.1.3.1.3.1` renumbered (UUID stable: `764fdbd7…fd91`)
+- `A.6.1.1.3.2.5.1.3.1.3.2` renumbered (UUID stable: `634e03bc…6f0e`)
+- `A.6.1.1.3.2.5.1.3.1.3.3` renumbered (UUID stable: `a2eeb79e…b5ab`)
+- `A.6.1.1.3.2.5.1.3.1.3.4.0.6.1` renumbered (UUID stable: `1d0e0165…58af`)
+- `A.6.1.1.3.2.5.1.3.1.3.4` renumbered (UUID stable: `394771d8…77c1`)
+- `A.6.1.1.3.2.5.1.3.1.3` renumbered (UUID stable: `73afe8a4…2d68`)
+- `A.6.1.1.3.2.5.1.3.1` renumbered (UUID stable: `97421aa5…49c4`)
+- `A.6.1.1.3.2.5.1.3.2.1.1` renumbered (UUID stable: `adbef757…0d7a`)
+- `A.6.1.1.3.2.5.1.3.2.1.2` renumbered (UUID stable: `3642deee…6709`)
+- `A.6.1.1.3.2.5.1.3.2.1.3` renumbered (UUID stable: `988cd4e4…2a6d`)
+- `A.6.1.1.3.2.5.1.3.2.1` renumbered (UUID stable: `4fcd06bc…3a4a`)
+- `A.6.1.1.3.2.5.1.3.2.2.1.1` renumbered (UUID stable: `d8159db3…1da0`)
+- `A.6.1.1.3.2.5.1.3.2.2.1` renumbered (UUID stable: `147799a6…3b52`)
+- `A.6.1.1.3.2.5.1.3.2.2.2` renumbered (UUID stable: `72c61c6a…c42f`)
+- `A.6.1.1.3.2.5.1.3.2.2.3` renumbered (UUID stable: `f543af9e…e7d0`)
+- `A.6.1.1.3.2.5.1.3.2.2` renumbered (UUID stable: `5634a0c6…345a`)
+- `A.6.1.1.3.2.5.1.3.2.3.1` renumbered (UUID stable: `90352ea8…2ad9`)
+- `A.6.1.1.3.2.5.1.3.2.3.2` renumbered (UUID stable: `1f8b494d…b006`)
+- `A.6.1.1.3.2.5.1.3.2.3.3` renumbered (UUID stable: `4da0eb19…b785`)
+- `A.6.1.1.3.2.5.1.3.2.3.4.0.6.1` renumbered (UUID stable: `f7274663…802b`)
+- `A.6.1.1.3.2.5.1.3.2.3.4` renumbered (UUID stable: `55f35766…ed55`)
+- `A.6.1.1.3.2.5.1.3.2.3` renumbered (UUID stable: `343708ad…388e`)
+- `A.6.1.1.3.2.5.1.3.2` renumbered (UUID stable: `eca1c14e…a1d2`)
+- `A.6.1.1.3.2.5.3.1.3.1` renumbered (UUID stable: `adab4387…8415`)
+- `A.6.1.1.3.2.5.3.3.1.1.1.1` renumbered (UUID stable: `8c67dee5…c28f`)
+- `A.6.1.1.3.2.5.3.3.1.1.1` renumbered (UUID stable: `86e50f38…c812`)
+- `A.6.1.1.3.2.5.3.3.1.1.2.1` renumbered (UUID stable: `f2648962…35bb`)
+- `A.6.1.1.3.2.5.3.3.1.1.2.2` renumbered (UUID stable: `d8b93260…3a7c`)
+- `A.6.1.1.3.2.5.3.3.1.1.2` renumbered (UUID stable: `1010660f…225f`)
+- `A.6.1.1.3.2.5.3.3.1.1` renumbered (UUID stable: `c4a101cc…ead1`)
+- `A.6.1.1.3.2.5.3.3.1.2` renumbered (UUID stable: `1f4a087f…4757`)
+- `A.6.1.1.3.2.5.3.3.1.3` renumbered (UUID stable: `dcdd2415…185f`)
+- `A.6.1.1.3.2.5.3.3.1` renumbered (UUID stable: `638b8dd4…6545`)
+
+---
+
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.6.1.1.3.2.1.1.3.1.1.4 deleted: Custom Instance Parameters** (UUID `7cd2fee6…a2cd`)
+
+### Context
+Removes the placeholder Custom Instance Parameters node from Keel's foundation instance — part of this edit's ecosystem-wide Custom Instance Parameters → Foundation cleanup across the agent artifacts.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

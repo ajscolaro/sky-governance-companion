@@ -2,6 +2,22 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #290 | Grove proposal - [Ethereum] - One-time `collect` on the Grove Uniswap V3 position | 2026-08-07 | agents/grove | auto |
+| #289 | Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Curve rlUSD/USDC for Swaps | 2026-08-07 | agents/spark | auto |
+| #288 | Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Uniswap v4 rlUSD/USDS Pool | 2026-08-07 | agents/spark | auto |
+| #287 | Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Uniswap v4 USDG/USDS Pool | 2026-08-07 | agents/spark | auto |
+| #285 | Grove proposal - [Ethereum] One-time collect on the Grove Uniswap V3 position | 2026-08-07 | agents/grove | auto |
+| #284 | Grove proposal - [Ethereum] Enable the UniswapV3 facet on the Grove DPAU controller | 2026-08-07 | agents/grove | auto |
+| #276 | Spark proposal - [Ethereum, X Layer] Spark Savings, Spark Liquidity Layer - Deploy spUSDT, Enable USDT Bridging to X Layer | 2026-08-07 | agents/spark | auto |
+| #252 | Update document.md | 2026-08-07 | agents/spark | auto |
+| #286 | Atlas Edit Proposal — 2026-08-03 | 2026-08-06 | governance,support stability,agents/grove agents/keel,agents/osero | auto |
+| #282 | Spark proposal - SAEP-18: Update SLL Freezer Multisig | 2026-08-01 | agents/spark | auto |
+| #281 | Spark proposal - SAEP-17: Update Spark Savings Artifact Section | 2026-08-01 | agents/spark | auto |
+| #275 | Spark proposal - [Robinhood Chain] Spark Liquidity Layer - Activate SLL and Spark Savings Infrastructure and Enable USDG Bridging to Robinhood Chain | 2026-08-01 | agents/spark | auto |
+| #274 | Spark proposal - [Ethereum] Spark Liquidity Layer - Deactivate Old USDT Morpho V2 Vault | 2026-08-01 | agents/spark | auto |
+| #283 | Atlas Edit Proposal — 2026-07-27 | 2026-07-30 | governance,support support/forum-accounts,protocol agents/grove,agents | auto |
+| #280 | Atlas Edit Proposal — 2026-07-20 | 2026-07-23 | governance,support stability,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/osero | auto |
+| #279 | update ALLOCATOR-PRYSM-A DC-IAM parameters | 2026-07-23 | stability | auto |
 | #277 | Atlas Edit Proposal — 2026-07-13 | 2026-07-16 | preamble,governance support,stability protocol,agents/spark agents/grove,agents/keel agents/skybase,agents/obex agents/pattern,agents/osero agents/launch-agent-7 | auto |
 | #278 | Add new entries for AxisLegati, excel, and OPEX | 2026-07-13 | governance/ad-breaches | auto |
 | #273 | Atlas Edit Proposal — 2026-07-06 | 2026-07-10 | preamble,governance support,stability agents/spark,agents/grove agents/keel,agents/obex agents/osero | auto |

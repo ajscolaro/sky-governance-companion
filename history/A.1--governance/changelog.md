@@ -4,6 +4,58 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #286 — Atlas Edit Proposal — 2026-08-03
+**Merged:** 2026-08-06 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **New: Smart Burn Engine Bounded External Access Module Exception** (`A.1.10.3.2.10.4`, UUID `103a2e8f…1bac`): The Smart Burn Engine Bounded External Access Module (SBE-BEAM) manages certain parameters of the Smart Burn Engine.
+
+### Context
+Adds a Bounded External Access Module exception authorizing the SBE-BEAM to manage certain Smart Burn Engine parameters; the module itself and its bounding parameters are defined in the stability scope (A.3.5.2.4, same edit). Announced in the 2026-08-06 SBE-BEAM launch forum post.
+
+---
+
+## PR #283 — Atlas Edit Proposal — 2026-07-27
+**Merged:** 2026-07-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Material Changes
+- **Core A.1.15.1.2 deleted: Governance Security & Ecosystem Actor Embedding** (UUID `12286b6c…9216`)
+- **New: Morpho Deployment Verification Guide** (`A.1.10.2.5.2.3`, UUID `45adb133…f72e`): The Morpho Deployment Verification Guide defines the steps for verifying vault and market deployments made through the Morpho protocol's smart contract factories, covering factory deployment provenance, market and oracle parameters, vault r.
+  - **Morpho Deployment Verification Guide Update Process** (`A.1.10.2.5.2.3.1`): The Morpho Deployment Verification Guide is maintained by Core GovOps.
+
+### Housekeeping
+- `A.1.10.2.3.2.1.1.1.1` (Atlas Draft): removed `Atlas Axis`
+- `A.1.10.2.3.2.1.1.1.2` (Atlas Edit Review): `Atlas Axis` → `Core GovOps`
+- `A.1.10.2.3.2.1.1.1.3` (Atlas Edit Sign-Off): `Atlas Axis` → `Core GovOps`
+- `A.1.10.2.3.2.1.1.1.4` (Atlas Edit Proposal): `Atlas Axis` → `Core GovOps`
+- `A.1.10.2.3.2.2.3.2.4` (Atlas Edit Proposal Drafting And Submission): `Atlas Axis` → `Core GovOps`
+- `A.1.10.2.3.2.2.3.3.5` (Vote Outcome And Atlas Or Artifact Update): `Atlas Axis` → `Core GovOps`
+- `A.1.10.2.5.2.1.1` (Technical Scope Template Submission Requirements): added refs to `A.1.10.2.3.2.1`
+- `A.1.10.5.2.3.2.1.1` (Current Entities Authorized To Validate Authenticity of Standby Spell): `Le Bateleur` → `Retro`
+- `A.1.10.5.3.2.2.1.1` (Current Entities Authorized To Validate Authenticity of Emergency Drop Spell): `Le Bateleur` → `Retro`
+- `A.1.9.1.2.2.0.6.1` (Emergency Response Group Current Membership): removed `- Ecosystem`
+- `A.1.9.1.2.3.1` (Additional Emergency Response Team Members): removed refs to `12286b6c…9216`
+- `Atlas Axis` → `Core GovOps` across 5 docs.
+- `Atlas Axis` → `Soter Labs` across 2 docs.
+- `Le_Bateleur` → `retro` across 2 docs.
+
+### Context
+Adds a Morpho Deployment Verification Guide (maintained by Core GovOps) and completes the Atlas Axis → Core GovOps / Soter Labs rebrand across governance-process docs; standby- and emergency-spell authenticity validation moves from Le Bateleur to Retro.
+
+---
+
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.1.10.2.5.1.3.2.0.6.1` (Registered Spell Checklists): `Atlas-Axis` → `soterlabs`
+- `A.1.10.2.5.2.1.2` (Technical Scope Template Update Process): `Atlas-Axis` → `soterlabs`
+- `A.1.10.2.5.2.2.2` (Deployment Checklist Update Process): `Atlas-Axis` → `soterlabs`
+- `A.1.10.2.5.2` (Operational Reference Materials): `Atlas-Axis` → `soterlabs`
+- `Atlas-Axis` → `soterlabs` across 4 docs.
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

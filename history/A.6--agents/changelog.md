@@ -4,6 +4,15 @@ Atlas path: `A.6` — Changes not scoped to a specific agent
 
 ---
 
+## PR #283 — Atlas Edit Proposal — 2026-07-27
+**Merged:** 2026-07-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.2.3.2` (Core GovOps): `Atlas Axis` → `Soter Labs`
+- `Atlas Axis` → `Soter Labs` across 1 doc.
+
+---
+
 ## PR #176 — 2026-02-02 Edit
 **Merged:** 2026-02-05 | **Type:** Weekly edit (Atlas Axis)
 

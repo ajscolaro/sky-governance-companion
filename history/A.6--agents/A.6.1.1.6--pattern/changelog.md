@@ -4,6 +4,15 @@ Atlas path: `A.6.1.1.6` (353 docs)
 
 ---
 
+## PR #280 — Atlas Edit Proposal — 2026-07-20
+**Merged:** 2026-07-23 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.6.1.1.6.2.1.1.3.1.1.5` (Development Company): removed `###### A.6.1.1.6.2.1.1.3.1.1.5.1 - Pattern Dev Co. [Core]`
+- `A.6.1.1.6.2.1.1.3.1.1.5` (Development Company): `Custom Instance Parameters` → `Development Company`
+
+---
+
 ## PR #277 — Atlas Edit Proposal — 2026-07-13
 **Merged:** 2026-07-16 | **Type:** Weekly edit (Atlas Axis)
 

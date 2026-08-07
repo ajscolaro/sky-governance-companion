@@ -7,6 +7,16 @@ This changelog tracks edits to the registry of forum handles authorized to post 
 
 ---
 
+## PR #283 — Atlas Edit Proposal — 2026-07-27
+**Merged:** 2026-07-30 | **Type:** Weekly edit (Atlas Axis)
+
+### Housekeeping
+- `A.2.7.1.1.1.1.4.0.6.1` (Current Authorized Forum Accounts): `Atlas Axis` → `Soter Labs`
+- `Atlas Axis` → `Soter Labs` across 1 doc.
+- `Le_Bateleur` → `retro` across 1 doc.
+
+---
+
 ## PR #269 — Update document.md
 **Merged:** 2026-06-30 | **Type:** Active Data update (Designated Controller)
 

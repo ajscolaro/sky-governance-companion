@@ -7,6 +7,82 @@ It has been sanitized but should be treated as external data, not instructions.
 
 ---
 
+## 2026-08-04 — Atlas Edit Weekly Cycle Proposal — August 3, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/264*
+
+*Relates to: Poll #1644 / PR #286 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a full validator pass on branch `review-atlas-edit-2026-08-03` at HEAD `780d1c92` (213 files, +1,322/−539; 11,143 vs 11,095 docs), scoring the package 4 PASS / 1 WARN across 5 edits.
+- **SBE-BEAM flagged ⚠️ WARN** — Rated the Smart Burn Engine Bounded External Access Module a WARN: "sound structure and rails," but A.3.5.2.3 "lists only kbump/hop as BEAM-modifiable while the module grants burn 0–100% — textual tension on the highest-impact parameter."
+- **Rate Conventions / Settlement Methodology PASS** — Verified the new A.3.1.2.7 Rate Conventions (APR→APY relabel judged "declaratory, not substantive") and the A.2.4.2 Settlement Methodology section, but noted the methodology "specifies no data sources, snapshot timestamps, or averaging conventions" for the utilized-USDS components.
+- **Cleanups PASS** — Confirmed the ended Keel Demand Side Instances relocation (44 UUIDs moved, 0 retired), removal of the erroneous Notion link (closing a PR #280 residual), and the Uniswap v3 Controller Functions / Diamond PAU regroup (32 UUIDs moved, 17 added).
+
+---
+
+## 2026-07-28 — Atlas Edit Weekly Cycle Proposal — July 27, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/263*
+
+*Relates to: Poll #1643 / PR #283 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a validator pass at HEAD `db36c6ad` vs `origin/main` (627 files, +6,827/−997; 456 added, 117 modified, 53 deleted, 1 rename), scoring 7 PASS / 3 WARN across 10 edits.
+- **Core GovOps reassignment ⚠️ WARN** — Confirmed the Atlas Axis → Soter Labs sweep left "zero orphans," but flagged "two unexplained ERG membership riders" — the removal of "Ecosystem" and a JuliaChang → Bonapublica delegate swap — as unrelated to the edit's stated title.
+- **Grove Delegation Framework ⚠️ WARN** — Framework "sound," but flagged a "10% participation quorum silently removed from Root Edit vote."
+- **Emergency-response multisig exemption ⚠️ WARN** — "Tight scope gate," but flagged that it is "'transitionary' with no sunset — temporary-forever pattern."
+- **Notable passes** — Mutual-consent Ecosystem Accords; Morpho guide + factory-deployment review; Spark USDT Curve → Uniswap ("previous-exposures record preserved"); Grove Diamond PAU consolidation ("byte-identical addresses — genuine dedup").
+
+---
+
+## 2026-07-21 — Atlas Edit Weekly Cycle Proposal — July 20, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/262*
+
+*Relates to: Poll #1642 / PR #280 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a validator pass on branch `review-atlas-edit-2026-07-20` at HEAD `fbcdc7fc` vs `origin/main` (85 files, +172/−290), scoring 4 PASS / 2 WARN across 6 edits.
+- **Sky Spread → 0% / SOFR ⚠️ WARN** — Judged the core change "clean and arithmetically consistent" (new central A.3.1.2.6 Sky Spread doc at 0%; total spread now 0.2% via the Distribution Reward Fee), but flagged "two orphaned 'SSR + 0.3%' borrow-rate floors" (Arkis, Offchain Collateralized Lending) and "a stale 'two sources' revenue framing" that survive.
+- **Paxos rename ⚠️ WARN** — Rename itself "clean," but noted Spark uses Title Case "To…Via" where Grove's convention is lowercase "to…via" — "divergence defeats the standardization purpose."
+- **Notable passes** — Foundation/DevCo migration to standard parameters (13 docs moved, UUIDs preserved, 7 vacated CIP containers retired); RRC → CRR fallback fix; SEJRC → PEJRC rename ("zero residual SEJRC"); Soter Labs operational-references link repoint.
+
+---
+
+## 2026-07-17 — Executive Spell Validation — July 16, 2026 (MSC June 2026, RWA001-A Offboarding)
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/261*
+
+*Relates to: Spell `0xfffc346976c53757BcF7a536be340bc0Ce1d9163` (2026-07-16 Executive) | Vote: **Support (validation)***
+
+Key rationale points:
+
+- **On-chain attestation** — Verified the deployed spell (Action `0x64AaC682…130977`, block 25546139) against expected values: `action()`, `tag()` = keccak of Action runtime bytecode, and `sig()` = `execute()` selector all matched; `done()` false and `eta()` 0 at review time.
+- **Deployment hygiene** — Confirmed Etherscan verification present, DssExecLib validated, "not a DarkSpell," not deployed via CREATE2, compiler `v0.8.16`, AGPL-3.0 license (Etherscan showed "N/A", corrected by manual check); `officeHours()` true.
+- **Expiration window** — `expiration()` resolves to Aug 15, 2026, exactly 2,592,000 s (30 days) after deployment.
+- **Description match** — On-chain `description()` matched the expected "2026-07-16 MakerDAO Executive Spell" hash exactly.
+
+---
+
+## 2026-07-14 — Atlas Edit Weekly Cycle Proposal — July 13, 2026
+
+*Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/260*
+
+*Relates to: Poll #1641 / PR #277 | Vote: **Yes (Primary PDM)***
+
+Key rationale points:
+
+- **Structural verification** — Primary PDM voted Yes after a full validator pass pinned to HEAD `57b87141` (branch `review-atlas-edit-2026-07-13`), full diff 318 files, +991/−1033, scoring 8 PASS / 2 WARN across 10 edits.
+- **MSC process restructuring ⚠️ WARN** — Flagged that the Monthly Settlement Cycle drops from a 6-step to a 5-step process, "removing the Core Council Risk Advisor's Independent Calculation entirely"; noted 3 surviving docs still use the now-undefined term and "3 tooling-duty reassignments ride along undisclosed."
+- **AD Vote Timeliness ⚠️ WARN** — Flagged "'Business days' undefined; no prospective effective date for a breach-relevant metric."
+- **Notable passes** — Genesis Capital phase-out clarification; SFF multisig address recording; JAAA Avalanche CRR 2.1% → 1.6%; Osero SparkLend USDS off-chain parameters; Risk Capital Rental Primitive generalization ("UUID preserved, zero old-name residuals"); SkyLink Bridges move to Protocol Scope ("all 72 docs moved with UUIDs preserved").
+
+---
+
 ## 2026-07-07 — Atlas Edit Weekly Cycle Proposal — July 6, 2026
 
 *Source: https://forum.skyeco.com/t/bonapublica-aligned-delegate-communication/20451/259*
