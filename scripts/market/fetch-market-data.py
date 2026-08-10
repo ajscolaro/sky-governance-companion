@@ -51,6 +51,11 @@ ASSETS = {
         "name": "SPK",
         "datasets": ["price", "marketcap"],
     },
+    "grove": {
+        "id": "951c65ab-8769-4cbe-a4a1-7e0c422cfc9d",
+        "name": "GROVE",
+        "datasets": ["price", "marketcap"],
+    },
     "btc": {
         "id": "1e31218a-e44e-4285-820c-8282ee222035",
         "name": "BTC",

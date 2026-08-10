@@ -55,6 +55,7 @@ Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Ref
 | `data/voting/executive/snapshots/` | Historical hat/supporter snapshots | `/refresh` | (same) |
 | `data/voting/executive/proposals/` | Transient cache for proposal bodies (parsed then deleted) | `/refresh` | `scripts/voting/fetch-executive-proposals.py` |
 | `data/voting/market/` | Price/mcap JSON for SKY, SPK, USDS, sUSDS, BTC, ETH (8 files) | `/refresh` | `scripts/voting/fetch-voting-*.py` (used for vote-impact analysis) |
+| `data/market.db` assets | SKY, USDS+DAI, sUSDS, SPK, GROVE, BTC, ETH daily price/mcap | `/refresh` | `scripts/market/fetch-market.py` (asset registry in `scripts/market/market.py`) |
 | `data/market.db` | SQLite — daily price/mcap from Messari API *(optional, needs `MESSARI_API_KEY`)* | `/refresh` | `scripts/market/fetch-market.py` |
 | `data/github/open-prs.json` | Open (non-draft) PRs from next-gen-atlas | `/refresh` | `scripts/github/fetch-open-prs.sh` |
 

@@ -48,6 +48,7 @@ ASSET_IDS = {
     "usds":  "5b9504b4-fc14-4ec5-af2b-4ba1bd496cfe",
     "susds": "9126cdbb-1903-4e99-bc7f-2aa0df86476a",
     "spk":   "b09a349b-f941-4fff-8820-32398dd88839",
+    "grove": "951c65ab-8769-4cbe-a4a1-7e0c422cfc9d",
     "btc":   "1e31218a-e44e-4285-820c-8282ee222035",
     "eth":   "21c795f5-1bfd-40c3-858e-e9d7e820c6d0",
 }

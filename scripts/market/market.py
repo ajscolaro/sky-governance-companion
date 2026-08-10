@@ -34,6 +34,7 @@ ASSETS = {
     "usds":  {"name": "USDS",  "has_price": False, "has_mcap": True,  "type": "stablecoin"},
     "susds": {"name": "sUSDS", "has_price": False, "has_mcap": True,  "type": "stablecoin"},
     "spk":   {"name": "SPK",   "has_price": True,  "has_mcap": True,  "type": "agent"},
+    "grove": {"name": "GROVE", "has_price": True,  "has_mcap": True,  "type": "agent"},
     "btc":   {"name": "BTC",   "has_price": True,  "has_mcap": False, "type": "benchmark"},
     "eth":   {"name": "ETH",   "has_price": True,  "has_mcap": False, "type": "benchmark"},
 }
