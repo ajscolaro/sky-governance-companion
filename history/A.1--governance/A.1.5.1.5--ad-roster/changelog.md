@@ -15,6 +15,17 @@ the Probationary Period) remain in the parent `../changelog.md`.
 
 ---
 
+## PR #293 — Delegate derecognitions
+**Merged:** 2026-08-10 | **Type:** Active Data update (Designated Controller)
+
+### Housekeeping
+- `A.1.6.1.5.0.6.1` (Current Aligned Delegates): removed `| Excel | [https://etherscan.io/address/0x0F04a22B62A26e25A29Cba5a595623038ef7AcE7](https://etherscan.io/address/0x0F04a22B62A26e25A29Cba5a5…`
+
+### Context
+Three ADs — AxisLegati, OPEX, and Excel — were removed from the Current Aligned Delegates roster; each is added to the Derecognized Alignment Conservers list in `../changelog.md` dated 2026-08-10.
+
+---
+
 ## PR #257 — Derecognize Kuzmich, add new breaches
 **Merged:** 2026-06-11 | **Type:** Active Data update (Designated Controller)
 

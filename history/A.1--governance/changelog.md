@@ -4,6 +4,17 @@ Atlas path: `A.1` — The Governance Scope
 
 ---
 
+## PR #293 — Delegate derecognitions
+**Merged:** 2026-08-10 | **Type:** Active Data update (Designated Controller)
+
+### Material Changes
+- **Registry row added** in Derecognized Alignment Conservers (`A.1.5.10.2.0.6.1`): | 2026-08-10 | AD | Excel | - | [https://forum.skyeco.com/t/excel-ad-recognition-submission/26227/69](https://forum.skyeco.com/t/excel-ad-recognition-submission/26227/69) |
+
+### Context
+Three ADs were derecognized on 2026-08-10 — AxisLegati, OPEX, and Excel — each added to the Derecognized Alignment Conservers list and removed from the Current Aligned Delegates roster (see the matching entry in `A.1.5.1.5--ad-roster/changelog.md`).
+
+---
+
 ## PR #286 — Atlas Edit Proposal — 2026-08-03
 **Merged:** 2026-08-06 | **Type:** Weekly edit (Atlas Axis)
 

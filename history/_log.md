@@ -2,6 +2,7 @@
 
 | PR | Title | Merged | Sections Affected | Status |
 |----|-------|--------|-------------------|--------|
+| #293 | Delegate derecognitions | 2026-08-10 | governance,governance/ad-roster | auto |
 | #290 | Grove proposal - [Ethereum] - One-time `collect` on the Grove Uniswap V3 position | 2026-08-07 | agents/grove | auto |
 | #289 | Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Curve rlUSD/USDC for Swaps | 2026-08-07 | agents/spark | auto |
 | #288 | Spark proposal - [Ethereum] Spark Liquidity Layer – Onboard Uniswap v4 rlUSD/USDS Pool | 2026-08-07 | agents/spark | auto |
