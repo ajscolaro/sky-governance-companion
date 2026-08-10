@@ -3,7 +3,7 @@ name: messari-market-data
 description: >
   Query local market database for price, supply, stablecoin market share, and governance event
   impact analysis. Uses data/market.db (SQLite) populated from Messari API. Covers SKY, USDS+DAI,
-  sUSDS, SPK, BTC, ETH daily data from Sep 2024 to present, plus stablecoin competitive rankings.
+  sUSDS, SPK, GROVE, BTC, ETH daily data from Sep 2024 to present, plus stablecoin competitive rankings.
   Requires MESSARI_API_KEY for data refresh; queries work without it.
 argument-hint: "<query in natural language, e.g. 'USDS supply growth vs competitors' or 'SKY/ETH ratio last 90 days'>"
 allowed-tools: Bash, Read, Grep, Glob
@@ -25,6 +25,7 @@ You have a local SQLite database (`data/market.db`) with daily market data sourc
 - `usds` — stablecoin supply; **includes DAI** (Messari aggregates DAI into USDS). Label as "USDS+DAI" when presenting
 - `susds` — staked USDS (mcap only)
 - `spk` — Spark agent token (price + mcap)
+- `grove` — Grove agent token (price + mcap)
 - `btc`, `eth` — benchmarks (price only)
 
 ## How to query — always use MarketDB

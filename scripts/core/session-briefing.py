@@ -40,6 +40,7 @@ MARKET_ASSETS = [
     (None,   "Total Stablecoin MC",  "stablecoin_sum",  1),
     ("sky",  "SKY",                  "price",           2),
     ("spk",  "SPK",                  "price",           2),
+    ("grove", "GROVE",               "price",           2),
     ("btc",  "BTC",                  "price",           2),
     ("eth",  "ETH",                  "price",           2),
 ]
@@ -498,7 +499,7 @@ the Sky ecosystem (formerly MakerDAO) — and track governance changes over time
   {cyan('/atlas-analyze')}       Explain what an Atlas PR changes and why it matters
   {cyan('/atlas-track')}         Process merged PRs into per-entity change history
   {cyan('/governance-data')}     Fetch on-chain data: delegation, vote alignment, spell lifecycle
-  {cyan('/messari-market-data')} Query local market data for SKY, USDS, sUSDS, SPK, BTC, ETH
+  {cyan('/messari-market-data')} Query local market data for SKY, USDS, sUSDS, SPK, GROVE, BTC, ETH
   {cyan('/forum-search')}        Search cached Sky Forum governance discussions
   {cyan('/ad-track')}            Process delegate vote rationales into per-AD comms files
 
