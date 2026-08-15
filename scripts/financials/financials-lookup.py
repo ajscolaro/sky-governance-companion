@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""CLI over the cached Sky financial statements (BA Labs / SkyEco).
+
+Reads the JSON snapshot + monthly SQLite store written by fetch-financials.py;
+`daily` alone goes live (daily granularity is fetched on demand, not stored).
+This is the entry point the /protocol-financials skill drives. Full contract:
+docs/financials-api.md. Figures are BA Labs / SkyEco — not an official statement.
+
+Usage:
+    python3 scripts/financials/financials-lookup.py snapshot
+    python3 scripts/financials/financials-lookup.py metrics cash-flow
+    python3 scripts/financials/financials-lookup.py series profit-and-loss net [--start 2025-01] [--end 2026-08]
+    python3 scripts/financials/financials-lookup.py overlay profit-and-loss net 2026-03 [--before 3] [--after 3]
+    python3 scripts/financials/financials-lookup.py daily cash-flow net --start 2026-07-01 --end 2026-07-31
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from financials import (
+    STATEMENTS, FinancialsCache, FinancialsClient, FinancialsDB,
+    fmt_usd, normalize_headline,
+)
+
+ATTRIB = "Source: BA Labs / SkyEco (not an official protocol statement)."
+
+
+def cmd_snapshot(_args) -> int:
+    c = FinancialsCache()
+    m = c.meta()
+    bs, pnl, cf = c.balance_sheet(), c.profit_and_loss(), c.cash_flow()
+    bt, pt, ct = bs.get("totals", {}), pnl.get("totals", {}), cf.get("totals", {})
+    print(f"Financials snapshot — fetched {m.get('fetched_at')} (block {m.get('block_number')})")
+    print(f"  Balance sheet @ {bs.get('date')}: assets {fmt_usd(bt.get('assets'))}, "
+          f"liabilities {fmt_usd(bt.get('liabilities'))}, held {fmt_usd(bt.get('held'))}")
+    print(f"  P&L (life-to-date): revenue {fmt_usd(pt.get('revenue'))}, "
+          f"expense {fmt_usd(pt.get('expense'))}, net {fmt_usd(pt.get('net'))}")
+    print(f"  Cash flow (life-to-date): inflows {fmt_usd(ct.get('inflows'))}, "
+          f"outflows {fmt_usd(ct.get('outflows'))}, net {fmt_usd(ct.get('net'))}")
+    print(ATTRIB)
+    return 0
+
+
+def cmd_metrics(args) -> int:
+    db = FinancialsDB()
+    print(f"{args.statement} metrics: {', '.join(db.metrics(args.statement))}")
+    row = db.conn.execute(
+        "SELECT MIN(date), MAX(date) FROM financials_monthly WHERE statement = ?",
+        (args.statement,),
+    ).fetchone()
+    if row and row[0]:
+        print(f"coverage: {row[0]} .. {row[1]}")
+    return 0
+
+
+def cmd_series(args) -> int:
+    db = FinancialsDB()
+    rows = db.series(args.statement, args.metric, args.start, args.end)
+    if not rows:
+        print(f"No data for {args.statement}/{args.metric}. "
+              f"Metrics: {', '.join(db.metrics(args.statement))}")
+        return 1
+    print(f"{args.statement} / {args.metric} (monthly):")
+    for d, v in rows:
+        print(f"  {d}  {fmt_usd(v):>12}")
+    print(ATTRIB)
+    return 0
+
+
+def cmd_overlay(args) -> int:
+    db = FinancialsDB()
+    r = db.around(args.statement, args.metric, args.month, args.before, args.after)
+    if not r["series"]:
+        print(f"No monthly data around {args.month} for {args.statement}/{args.metric}.")
+        return 1
+    print(f"{args.statement} / {args.metric} around {r['month']} "
+          f"(-{args.before}/+{args.after} months):")
+    for d, v in r["series"]:
+        mark = "  <-- " + args.month if d == r["month"] else ""
+        print(f"  {d}  {fmt_usd(v):>12}{mark}")
+    if r["change_pct"] is not None:
+        print(f"  window change: {r['change_pct']:+.2f}%")
+    print(ATTRIB)
+    return 0
+
+
+def cmd_daily(args) -> int:
+    # Live: daily granularity is not persisted, fetched on demand from the API.
+    rows = normalize_headline(
+        args.statement,
+        FinancialsClient().headline_history(args.statement, group_by="day",
+                                            date_from=args.start, date_to=args.end),
+    )
+    want = [(d, v) for d, metric, v in rows if metric == args.metric]
+    if not want:
+        metrics = sorted({m for _, m, _ in rows})
+        print(f"No daily data for {args.statement}/{args.metric}. Metrics: {', '.join(metrics)}")
+        return 1
+    print(f"{args.statement} / {args.metric} (daily, live):")
+    for d, v in want:
+        print(f"  {d}  {fmt_usd(v):>12}")
+    print(ATTRIB)
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Query cached Sky financial statements.")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    sub.add_parser("snapshot", help="current statement summary from cache")
+
+    p = sub.add_parser("metrics", help="list available metrics for a statement")
+    p.add_argument("statement", choices=STATEMENTS)
+
+    p = sub.add_parser("series", help="monthly series for a metric")
+    p.add_argument("statement", choices=STATEMENTS)
+    p.add_argument("metric")
+    p.add_argument("--start")
+    p.add_argument("--end")
+
+    p = sub.add_parser("overlay", help="metric window around a month (governance overlay)")
+    p.add_argument("statement", choices=STATEMENTS)
+    p.add_argument("metric")
+    p.add_argument("month", help="YYYY-MM (or YYYY-MM-DD, truncated)")
+    p.add_argument("--before", type=int, default=3)
+    p.add_argument("--after", type=int, default=3)
+
+    p = sub.add_parser("daily", help="daily series for a metric (live, on-demand)")
+    p.add_argument("statement", choices=STATEMENTS)
+    p.add_argument("metric")
+    p.add_argument("--start")
+    p.add_argument("--end")
+
+    args = ap.parse_args()
+    return {
+        "snapshot": cmd_snapshot, "metrics": cmd_metrics, "series": cmd_series,
+        "overlay": cmd_overlay, "daily": cmd_daily,
+    }[args.cmd](args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

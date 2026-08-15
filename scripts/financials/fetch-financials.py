@@ -23,7 +23,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from financials import CACHE_DIR, FinancialsClient, FinancialsError, fmt_usd
+from financials import (
+    CACHE_DIR, STATEMENTS, FinancialsClient, FinancialsDB, FinancialsError,
+    fmt_usd, normalize_headline,
+)
 
 
 def _write(path: Path, obj) -> None:
@@ -41,9 +44,10 @@ def main() -> int:
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     fetched_at = datetime.now(timezone.utc).isoformat()
+    client = FinancialsClient()
 
     try:
-        snap = FinancialsClient().live_snapshot(fetched_at)
+        snap = client.live_snapshot(fetched_at)
     except FinancialsError as e:
         # Network/API failure must not abort the whole /refresh run; the other
         # data sources are independent. Report and leave any prior cache intact.
@@ -67,6 +71,19 @@ def main() -> int:
         ],
     })
 
+    # Monthly headline history into SQLite (daily stays on-demand via the client).
+    # A history failure is non-fatal — the JSON snapshot above is the primary cache.
+    months = 0
+    try:
+        conn = FinancialsDB.init_db()
+        for statement in STATEMENTS:
+            rows = normalize_headline(statement, client.headline_history(statement, group_by="month"))
+            months += FinancialsDB.upsert(conn, [(statement, d, m, v) for d, m, v in rows])
+        conn.close()
+    except FinancialsError as e:
+        print(f"financials: monthly history fetch failed ({e}); snapshot cache still updated",
+              file=sys.stderr)
+
     bs = snap["balance_sheet"].get("totals", {})
     pnl = snap["profit_and_loss"].get("totals", {})
     cf = snap["cash_flow"].get("totals", {})
@@ -78,6 +95,8 @@ def main() -> int:
         f"expense {fmt_usd(pnl.get('expense'))}, net {fmt_usd(pnl.get('net'))}")
     say(f"  Cash flow (life-to-date): inflows {fmt_usd(cf.get('inflows'))}, "
         f"outflows {fmt_usd(cf.get('outflows'))}, net {fmt_usd(cf.get('net'))}")
+    if months:
+        say(f"  Monthly headline history: {months} rows upserted into data/financials/financials.db")
     return 0
 
 

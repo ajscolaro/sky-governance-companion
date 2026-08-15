@@ -80,11 +80,12 @@ Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Ref
 - `stablecoin_snapshot(date, asset, supply)`
 - No `daily_prices` table, no `volume` column. **Never write raw SQL** — use `MarketDB` class (`from market import MarketDB`), the CLI (`scripts/market/market-lookup.py`), or invoke `/messari-market-data`.
 
-**`data/financials/`** — JSON snapshots (no SQLite yet), one file per statement plus `_meta.json`:
+**`data/financials/`** — live JSON snapshots + a monthly SQLite store:
 - `balance-sheet.json`, `profit-and-loss.json`, `cash-flow.json` — the statement roots (`{date|date_from/date_to, totals, groups}`)
 - `balance-sheet-items-latest.json` — flat, block-stamped per-item balances (the live-snapshot source)
 - `_meta.json` — `fetched_at`, `block_number`, source/attribution, endpoint list
-- Values are **decimal strings** (parse as `Decimal`). **Never fetch these endpoints by hand** — use the `FinancialsClient`/`FinancialsCache` classes (`from financials import FinancialsClient`) or invoke `/protocol-financials` *(skill pending)*. Full contract: [`docs/financials-api.md`](financials-api.md). Figures are **BA Labs / SkyEco, not an official protocol statement**.
+- `financials.db` — SQLite `financials_monthly(statement, date, metric, value TEXT)`: monthly headline series per statement back to 2019/2020 (BS: assets/liabilities/held/info; P&L: revenue/expense/net; cash-flow: opening/inflows/outflows/net/closing_*/residual). **Daily granularity is fetched live, not stored.**
+- Values are **decimal strings** (parse as `Decimal`). **Never fetch these endpoints or query the db by hand** — use `FinancialsClient`/`FinancialsCache`/`FinancialsDB` (`from financials import …`), the CLI (`scripts/financials/financials-lookup.py` — `snapshot`/`metrics`/`series`/`overlay`/`daily`), or invoke `/protocol-financials` *(skill pending)*. Full contract: [`docs/financials-api.md`](financials-api.md). Figures are **BA Labs / SkyEco, not an official protocol statement**.
 
 **`data/forum/registry.json`** — Authorized Forum Accounts (Atlas `A.2.7.1.1.1.1.4.0.6.1`):
 - `entities` — forward map
@@ -127,7 +128,7 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 | `scripts/delegates/` | AD vote-rationale fetch (per-AD Discourse RSS, sanitized) |
 | `scripts/voting/` | vote.sky.money API ingestion (polls, delegates, executive, delegation history) |
 | `scripts/market/` | Messari market-data fetch + SQLite query layer (`MarketDB`, `market-lookup.py`) |
-| `scripts/financials/` | BA Labs accounting API client + cache (`FinancialsClient`/`FinancialsCache` in `financials.py`, snapshot writer `fetch-financials.py`) |
+| `scripts/financials/` | BA Labs accounting API client + cache + monthly SQLite (`FinancialsClient`/`FinancialsCache`/`FinancialsDB` in `financials.py`, snapshot/history writer `fetch-financials.py`, CLI `financials-lookup.py`) |
 | `scripts/github/` | GitHub API helpers (open-PRs fetch) |
 
 ## `.claude/` — agent surface

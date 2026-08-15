@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import http.client
 import json
+import sqlite3
 import time
 import urllib.error
 import urllib.request
@@ -41,6 +42,7 @@ from urllib.parse import urlencode
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent.parent
 CACHE_DIR = PROJECT_DIR / "data" / "financials"
+DB_PATH = CACHE_DIR / "financials.db"
 
 API_BASE = "https://sky.data.blockanalitica.com/v1/accounting"
 USER_AGENT = "sky-governance-companion/financials (read-only)"
@@ -249,8 +251,165 @@ class FinancialsCache:
 
 
 # ----------------------------------------------------------------------------
+# Monthly time-series store (SQLite)
+# ----------------------------------------------------------------------------
+
+class FinancialsDB:
+    """Query interface for the monthly headline time series.
+
+    Tidy long schema so all three statements share one table despite different
+    metric sets:
+        financials_monthly(statement, date, metric, value TEXT, PRIMARY KEY(...))
+
+    `value` is stored as the raw decimal string (precision preserved); queries
+    return Decimal. Populated by fetch-financials.py from the API's monthly
+    headline history. Daily granularity is fetched on demand via FinancialsClient,
+    not stored here.
+    """
+
+    def __init__(self, db_path: Path | str | None = None):
+        self.db_path = Path(db_path) if db_path else DB_PATH
+        self._conn: sqlite3.Connection | None = None
+
+    @property
+    def conn(self) -> sqlite3.Connection:
+        if self._conn is None:
+            if not self.db_path.exists():
+                raise FileNotFoundError(
+                    f"{self.db_path} not found. Run: python3 scripts/financials/fetch-financials.py"
+                )
+            self._conn = sqlite3.connect(str(self.db_path))
+        return self._conn
+
+    def close(self):
+        if self._conn:
+            self._conn.close()
+            self._conn = None
+
+    def metrics(self, statement: str) -> list[str]:
+        _require_statement(statement)
+        cur = self.conn.execute(
+            "SELECT DISTINCT metric FROM financials_monthly WHERE statement = ? ORDER BY metric",
+            (statement,),
+        )
+        return [r[0] for r in cur.fetchall()]
+
+    def series(self, statement: str, metric: str,
+               start: str | None = None, end: str | None = None) -> list[tuple[str, Decimal]]:
+        """Monthly (date, value) for a metric, oldest-first. Dates are 'YYYY-MM'."""
+        _require_statement(statement)
+        q = "SELECT date, value FROM financials_monthly WHERE statement = ? AND metric = ?"
+        params: list = [statement, metric]
+        if start:
+            q += " AND date >= ?"; params.append(start)
+        if end:
+            q += " AND date <= ?"; params.append(end)
+        q += " ORDER BY date"
+        return [(d, to_decimal(v)) for d, v in self.conn.execute(q, params).fetchall()]
+
+    def value_at(self, statement: str, metric: str, month: str) -> Decimal | None:
+        """Metric value for a given 'YYYY-MM' (exact month, no fallback)."""
+        _require_statement(statement)
+        cur = self.conn.execute(
+            "SELECT value FROM financials_monthly WHERE statement = ? AND metric = ? AND date = ?",
+            (statement, metric, month),
+        )
+        row = cur.fetchone()
+        return to_decimal(row[0]) if row else None
+
+    def around(self, statement: str, metric: str, month: str,
+               before: int = 3, after: int = 3) -> dict:
+        """Metric values in a window of months around `month` — governance overlay.
+
+        `month` is 'YYYY-MM' (a date like 'YYYY-MM-DD' is truncated). Returns
+        {statement, metric, month, series:[(m, Decimal)], change_pct}.
+        """
+        anchor = month[:7]
+        cur = self.conn.execute(
+            "SELECT date, value FROM financials_monthly "
+            "WHERE statement = ? AND metric = ? ORDER BY date",
+            (statement, metric),
+        )
+        allrows = [(d, to_decimal(v)) for d, v in cur.fetchall()]
+        idx = next((i for i, (d, _) in enumerate(allrows) if d == anchor), None)
+        if idx is None:
+            return {"statement": statement, "metric": metric, "month": anchor, "series": [], "change_pct": None}
+        lo, hi = max(0, idx - before), min(len(allrows), idx + after + 1)
+        window = allrows[lo:hi]
+        change = None
+        if len(window) >= 2 and window[0][1] not in (None, 0):
+            change = round(float((window[-1][1] - window[0][1]) / window[0][1] * 100), 2)
+        return {"statement": statement, "metric": metric, "month": anchor,
+                "series": window, "change_pct": change}
+
+    def latest_month(self) -> str | None:
+        cur = self.conn.execute("SELECT MAX(date) FROM financials_monthly")
+        row = cur.fetchone()
+        return row[0] if row else None
+
+    def month_range(self) -> tuple[str, str] | None:
+        cur = self.conn.execute("SELECT MIN(date), MAX(date) FROM financials_monthly")
+        row = cur.fetchone()
+        return (row[0], row[1]) if row and row[0] else None
+
+    @staticmethod
+    def init_db(db_path: Path | str | None = None) -> sqlite3.Connection:
+        path = Path(db_path) if db_path else DB_PATH
+        path.parent.mkdir(parents=True, exist_ok=True)
+        conn = sqlite3.connect(str(path))
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS financials_monthly (
+                statement TEXT NOT NULL,
+                date      TEXT NOT NULL,
+                metric    TEXT NOT NULL,
+                value     TEXT,
+                PRIMARY KEY (statement, date, metric)
+            )
+        """)
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_fin_metric "
+                     "ON financials_monthly(statement, metric, date)")
+        conn.commit()
+        return conn
+
+    @staticmethod
+    def upsert(conn: sqlite3.Connection, rows: list[tuple]) -> int:
+        """Upsert (statement, date, metric, value) rows. Returns count."""
+        if not rows:
+            return 0
+        conn.executemany(
+            "INSERT INTO financials_monthly (statement, date, metric, value) VALUES (?, ?, ?, ?) "
+            "ON CONFLICT(statement, date, metric) DO UPDATE SET value = excluded.value",
+            rows,
+        )
+        conn.commit()
+        return len(rows)
+
+
+# ----------------------------------------------------------------------------
 # Helpers
 # ----------------------------------------------------------------------------
+
+def normalize_headline(statement: str, rows: list[dict]) -> list[tuple[str, str, str]]:
+    """Flatten raw headline_history rows into tidy (date, metric, value_str) triples.
+
+    Balance sheet returns one row per (date, item_type) with a `balance`; the flow
+    statements return one row per date with several metric columns. This collapses
+    both shapes to the same long form for the monthly store.
+    """
+    out: list[tuple[str, str, str]] = []
+    for r in rows:
+        date = r.get("date")
+        if not date:
+            continue
+        if "item_type" in r and "balance" in r:
+            out.append((date, str(r["item_type"]), str(r["balance"])))
+        else:
+            for k, v in r.items():
+                if k == "date" or v is None:
+                    continue
+                out.append((date, k, str(v)))
+    return out
+
 
 def _require_statement(name: str) -> None:
     if name not in STATEMENTS:

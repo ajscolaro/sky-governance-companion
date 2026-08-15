@@ -87,7 +87,7 @@ Period **flow** statement: inflows, outflows, net. Categories break down into
 | `/cash-flow/items/latest/` | — | **404 — does not exist.** |
 | `/cash-flow/items/history/` | flat list of source amounts over time | Large (~2,960 rows). |
 | `/cash-flow/history/` | list of `{date, type, amount}` | Component totals time series. |
-| `/cash-flow/statement/history/` | list of `{date, revenue, expense, net}`* | Headline time series. *(uses `revenue`/`expense`/`net` keys, mirroring P&L.)* |
+| `/cash-flow/statement/history/` | list of `{date, opening, inflows, outflows, net, closing_computed, closing_reported, residual}` | Headline time series with a running-balance roll-forward (`opening`→`net`→`closing`). `residual` ≈ 0 is the reconciliation check. |
 | `/cash-flow/events/` | paginated `{results[ {order_index, block_number, datetime, tx_hash, address, event, amount, source, type, category} ], pagination}` | **Onchain, transaction-level.** total≈760k — paginate; never bulk-pull. Drill-down from an aggregate line to the tx. |
 
 ## Adjacent surfaces (out of scope for v1, noted for later)
