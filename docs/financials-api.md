@@ -90,16 +90,35 @@ Period **flow** statement: inflows, outflows, net. Categories break down into
 | `/cash-flow/statement/history/` | list of `{date, opening, inflows, outflows, net, closing_computed, closing_reported, residual}` | Headline time series with a running-balance roll-forward (`opening`→`net`→`closing`). `residual` ≈ 0 is the reconciliation check. |
 | `/cash-flow/events/` | paginated `{results[ {order_index, block_number, datetime, tx_hash, address, event, amount, source, type, category} ], pagination}` | **Onchain, transaction-level.** total≈760k — paginate; never bulk-pull. Drill-down from an aggregate line to the tx. |
 
-## Adjacent surfaces (out of scope for v1, noted for later)
+**Events filtering:** `date_from`/`date_to` filter server-side (still large — ~26k for one month). `category`, `event`, `source`, `type` are **not** query params — filter client-side (their value sets are small): `category` ∈ {Collateral Stability Fees, Savings Payouts, RWA Fees, Buyback Spending}; `event` ∈ {fold, suck, swap}; `source`/`type` are per-vault/module (`susds`, `dsr`, `buyback`, `ETH-A`, …). `FinancialsClient.events_range(...)` does the bounded pagination + client-side filter; `tx_hash` → `etherscan.io/tx/{hash}` for verification.
 
-- `https://sky.data.blockanalitica.com/internal/*` — richer internal variants
-  (`accounting/treasury`, `accounting/profit-and-loss/yields`, `allocations`,
-  `buyback`, `facets/*`). Public but internal-shaped; stability unknown.
-- `https://sky.data.blockanalitica.com/internal/facets/changelog/` — **onchain
-  protocol-event feed** (allocations/deposits with `tx_hash`, `payload`).
-  Data feed, **not** the app/methodology changelog.
-- `https://observatory.data.blockanalitica.com/*` — Observatory API (risk,
-  liquidity, Maple/Anchorage, PSM, MSC, SKY token).
+## Adjacent surfaces — evaluated (probed 2026-08-14, currently unwired)
+
+Two more bases back the SkyEco app. **All public, no auth, same
+`{data,status,success}` envelope + decimal strings, same mid-stream-drop
+reliability.** They are `/internal`- and observatory-shaped — undocumented and
+less stable than `/v1/accounting/*` — so they are **evaluated here but not wired
+into the client** until there's a use for them. Wire-recommendation in the last
+column.
+
+**`https://sky.data.blockanalitica.com/internal`**
+
+| Endpoint | Returns | Wire? |
+|---|---|---|
+| `/accounting/financials/` (+ `/history/`) | One rich object of **derived metrics**: `net_income`, `nii`, `roa`, `roe`, `gross_yield`, `sky_capital`, `backstop_capital`, and a full **`ttm_*`** (trailing-twelve-month) set | **High value** — TTM/ROA/ROE aren't derivable from `/v1/accounting/` alone. Prime candidate for a P5. |
+| `/accounting/treasury/` (+ `/historic/`) | Treasury token holdings `{address, symbol, balance, price, balance_usd, type}` | Medium — treasury composition over time. |
+| `/accounting/profit-and-loss/yields/` (+ `/history/`) | Per-item `{uid, rate, apy, debt, balance, amount}` | Medium — yield/APY attribution per source. |
+| `/buyback/` · `/buyback/events/` · `/buyback/aggregates/` | Buyback state (`sky_in_treasury`, `usds_amount`, `sky_amount`, `price`) + onchain buyback txs (`tx_hash`, `usds_amount`, `sky_amount`) | Medium — onchain buyback drill-down, parallels `cash-flow/events`. |
+| `/allocations/` · `/facets/*` | Allocator/agent allocation detail | Low for financials scope (overlaps Prime views). |
+| `/facets/changelog/` | **Onchain protocol-event feed** (`ilk`, `category`, `tx_hash`, `payload`) — allocations/deposits | Data feed, **not** the app/methodology changelog. Candidate data domain, not a drift signal. |
+
+**`https://observatory.data.blockanalitica.com`**
+
+| Endpoint | Returns | Wire? |
+|---|---|---|
+| `/sky/msc/` | **Monthly Settlement Cycle** summaries `{name, income, expenses, net_revenue, net_profit, exec_tx_hash, vote_link, forum_link, settled_date}` | **High value** — ties settlement cycles to governance (vote/forum/exec links); strong cross-link to `/governance-data`. |
+| `/sky/token/historic/` | SKY `{total_supply, circulating_supply, price}` history | Low — overlaps `/messari-market-data`. |
+| `/risk/sky/info/` (+ `/historic/`), `/liquidity/sky/allocations/`, `/demand/buckets/` | Risk capital, liquidity by redemption duration, USDS demand buckets | Out of scope (risk domain, not accounting). |
 
 ## Drift watch (know when to update our client)
 

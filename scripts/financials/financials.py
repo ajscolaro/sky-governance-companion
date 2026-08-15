@@ -182,6 +182,38 @@ class FinancialsClient:
         return self._get("cash-flow/events",
                          {"page": page, "limit": limit, "date_from": date_from, "date_to": date_to})
 
+    def events_range(self, date_from: str | None = None, date_to: str | None = None,
+                     category: str | None = None, source: str | None = None,
+                     max_events: int = 500, page_limit: int = 200,
+                     max_pages: int = 25) -> tuple[list[dict], int | None]:
+        """Bounded cash-flow-event drill-down, newest-first.
+
+        Date filters are applied server-side; `category`/`source` client-side
+        (their value sets are small — see docs/financials-api.md). Returns
+        (events, total_in_date_range). Hard-capped at max_events output and
+        max_pages scanned — the caller MUST surface truncation (repo rule: no
+        silent caps), which is why total_in_date_range is returned alongside.
+        """
+        out: list[dict] = []
+        total: int | None = None
+        for page in range(1, max_pages + 1):
+            d = self.events(page=page, limit=page_limit, date_from=date_from, date_to=date_to)
+            total = d.get("pagination", {}).get("total", total)
+            rows = d.get("results", [])
+            if not rows:
+                break
+            for r in rows:
+                if category and r.get("category") != category:
+                    continue
+                if source and r.get("source") != source:
+                    continue
+                out.append(r)
+                if len(out) >= max_events:
+                    return out, total
+            if not d.get("pagination", {}).get("next"):
+                break
+        return out, total
+
     # -- Composite -----------------------------------------------------------
 
     def live_snapshot(self, fetched_at: str) -> dict:
@@ -429,6 +461,11 @@ def to_decimal(value) -> Decimal | None:
         return Decimal(str(value))
     except (ArithmeticError, ValueError):
         return None
+
+
+def etherscan_tx(tx_hash: str | None) -> str:
+    """Etherscan link for a cash-flow event's tx — human-verifiable, ties to /protocol-info."""
+    return f"https://etherscan.io/tx/{tx_hash}" if tx_hash else ""
 
 
 def fmt_usd(value) -> str:

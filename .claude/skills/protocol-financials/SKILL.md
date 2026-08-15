@@ -54,6 +54,7 @@ python3 scripts/financials/financials-lookup.py metrics cash-flow               
 python3 scripts/financials/financials-lookup.py series profit-and-loss net --start 2025-01
 python3 scripts/financials/financials-lookup.py overlay profit-and-loss net 2026-03 --before 3 --after 3
 python3 scripts/financials/financials-lookup.py daily cash-flow net --start 2026-07-01 --end 2026-07-31   # live
+python3 scripts/financials/financials-lookup.py events --start 2026-08-01 --end 2026-08-05 --category "Savings Payouts" --limit 20   # live onchain drill-down
 ```
 
 `overlay` is the governance tool: it prints a metric's monthly window around a
@@ -101,10 +102,16 @@ cl.profit_and_loss(date_from="2026-01-01", date_to="2026-06-30")   # period P&L
 cl.categories("profit-and-loss")                                    # taxonomy
 cl.items("balance-sheet", page=1, limit=100)                        # {results, pagination}
 cl.item_history("balance-sheet", "ALLOCATOR-SPARK-A")               # one item's history
-cl.events(page=1, limit=100)                                        # cash-flow onchain txs (~760k rows — paginate)
+# Onchain cash-flow drill-down — bounded, date filter server-side, category/source client-side:
+events, total = cl.events_range(date_from="2026-08-01", date_to="2026-08-05",
+                                category="Savings Payouts", max_events=50)
+# each event: {datetime, event, amount, category, source, tx_hash, ...}; etherscan_tx(e["tx_hash"]) for the link
 ```
 `group_by` ∈ {`day`, `month`, `quarter`, `year`} (`week` → 400). Dates are
-`YYYY-MM-DD`.
+`YYYY-MM-DD`. Event filter values: `category` ∈ {Collateral Stability Fees,
+Savings Payouts, RWA Fees, Buyback Spending}; `event` ∈ {fold, suck, swap};
+`source`/`type` per vault/module. The events feed is ~760k rows — **always pass a
+date range** and rely on the `max_events` cap.
 
 ## Cross-referencing with governance events
 

@@ -23,7 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from financials import (
     STATEMENTS, FinancialsCache, FinancialsClient, FinancialsDB,
-    fmt_usd, normalize_headline,
+    etherscan_tx, fmt_usd, normalize_headline,
 )
 
 ATTRIB = "Source: BA Labs / SkyEco (not an official protocol statement)."
@@ -107,6 +107,34 @@ def cmd_daily(args) -> int:
     return 0
 
 
+def cmd_events(args) -> int:
+    # Live drill-down: onchain cash-flow txs. Date filter is server-side; a bare
+    # call spans ~760k rows, so a date range is effectively required.
+    if not (args.start or args.end):
+        print("events: pass --start/--end (the feed is ~760k rows without a date filter).")
+        return 1
+    rows, total = FinancialsClient().events_range(
+        date_from=args.start, date_to=args.end,
+        category=args.category, source=args.source, max_events=args.limit,
+    )
+    if not rows:
+        print(f"No events for {args.start}..{args.end}"
+              + (f" category={args.category}" if args.category else "")
+              + (f" source={args.source}" if args.source else ""))
+        return 1
+    filt = "".join(f" {k}={v}" for k, v in (("category", args.category), ("source", args.source)) if v)
+    print(f"cash-flow events {args.start}..{args.end}{filt} — showing {len(rows)} "
+          f"(of {total} in date range):")
+    for e in rows:
+        print(f"  {e.get('datetime')}  {e.get('event'):<5} {fmt_usd(e.get('amount')):>11}  "
+              f"{e.get('category')} / {e.get('source')}")
+        print(f"       {etherscan_tx(e.get('tx_hash'))}")
+    if total and len(rows) < total:
+        print(f"  ... {total - len(rows)} more in range not shown (raise --limit or narrow the dates)")
+    print(ATTRIB)
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Query cached Sky financial statements.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -135,10 +163,17 @@ def main() -> int:
     p.add_argument("--start")
     p.add_argument("--end")
 
+    p = sub.add_parser("events", help="onchain cash-flow event drill-down (live)")
+    p.add_argument("--start", help="YYYY-MM-DD (effectively required)")
+    p.add_argument("--end", help="YYYY-MM-DD")
+    p.add_argument("--category", help="e.g. 'Savings Payouts', 'Collateral Stability Fees'")
+    p.add_argument("--source", help="e.g. 'susds', 'buyback', 'ETH-A'")
+    p.add_argument("--limit", type=int, default=50, help="max events to show")
+
     args = ap.parse_args()
     return {
         "snapshot": cmd_snapshot, "metrics": cmd_metrics, "series": cmd_series,
-        "overlay": cmd_overlay, "daily": cmd_daily,
+        "overlay": cmd_overlay, "daily": cmd_daily, "events": cmd_events,
     }[args.cmd](args)
 
 
