@@ -74,6 +74,18 @@ def build_checks(c: FinancialsClient):
             probs += _keys(d["results"][0], "tx_hash", "amount", "event", "block_number")
         return probs
 
+    def kpis():
+        d = c.kpis()
+        return _keys(d, "date", "ttm_net_income", "roa", "roe", "total_assets", "market_cap")
+
+    def kpis_hist():
+        row = _first(c.kpis_history(group_by="month"))
+        return _keys(row, "date", "roe", "ttm_net_income")
+
+    def settlements():
+        row = _first(c.settlement_cycles())
+        return _keys(row, "name", "income", "expenses", "net_profit", "exec_tx_hash", "forum_link")
+
     def group_by_week_rejected():
         # Contract: week is not a valid granularity. If it starts succeeding, our
         # VALID_GROUP_BY set is stale — worth knowing.
@@ -92,6 +104,9 @@ def build_checks(c: FinancialsClient):
         ("profit-and-loss/statement/history/", pnl_hist),
         ("cash-flow/statement/history/", cf_hist),
         ("cash-flow/events/", events),
+        ("internal/accounting/financials/ (kpis)", kpis),
+        ("internal/accounting/financials/history/", kpis_hist),
+        ("observatory/sky/msc/ (settlements)", settlements),
         ("group_by=week rejected", group_by_week_rejected),
     ]
 

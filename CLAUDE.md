@@ -80,7 +80,7 @@ Skills are narrowly scoped — each handles one domain. For questions that span 
 |-------|--------|-------------|
 | `/refresh` | Refresh all caches + auto-process merged PRs + briefing | Start of a working session; "what's changed?" |
 | `/messari-market-data` | Price, supply, ratios, stablecoin rankings | Quantitative market analysis |
-| `/protocol-financials` | Balance sheet, P&L, cash flow (BA Labs / SkyEco) | Protocol accounting: revenue/expense/surplus, balance-sheet composition, financial overlays on governance events |
+| `/protocol-financials` | Balance sheet, P&L, cash flow, KPIs (ROA/ROE/TTM), settlement cycles (BA Labs / SkyEco) | Protocol accounting: revenue/expense/surplus, KPI trends, settlement-cycle income, financial overlays on governance events |
 | `/atlas-navigate` | Atlas document search and reading | "What does the Atlas say about X?" |
 | `/atlas-analyze` | PR diff analysis and impact assessment | "What changed in PR #N?" |
 | `/atlas-track` | Process merged PRs into history | Maintaining institutional memory |

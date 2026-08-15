@@ -45,6 +45,10 @@ CACHE_DIR = PROJECT_DIR / "data" / "financials"
 DB_PATH = CACHE_DIR / "financials.db"
 
 API_BASE = "https://sky.data.blockanalitica.com/v1/accounting"
+# Two extra BA Labs bases behind the SkyEco app. Undocumented and less stable than
+# /v1/accounting — wired for the two high-value KPI/settlement surfaces only.
+INTERNAL_BASE = "https://sky.data.blockanalitica.com/internal"
+OBSERVATORY_BASE = "https://observatory.data.blockanalitica.com"
 USER_AGENT = "sky-governance-companion/financials (read-only)"
 
 FETCH_TIMEOUT = 45
@@ -54,6 +58,27 @@ RETRY_BACKOFF = 0.6
 # The three statement families. Balance sheet is a stock (point-in-time); P&L and
 # cash flow are flows (period-summed). Only the balance sheet has an items/latest/.
 STATEMENTS = ("balance-sheet", "profit-and-loss", "cash-flow")
+
+# Statements the monthly store may hold. "kpis" is the derived-metrics series from
+# the internal base (TTM/ROA/ROE/…) — stored alongside the three, but it is NOT a
+# /v1/accounting endpoint, so the client statement helpers reject it.
+STORED_STATEMENTS = (*STATEMENTS, "kpis")
+
+# KPI metrics that are not USD amounts — everything else in the KPI object is USD.
+# Drives display formatting (fmt_metric); the stored value is always the raw string.
+METRIC_KINDS = {
+    **{m: "pct" for m in (
+        "roa", "roe", "gross_yield", "cost_of_funds", "nim", "nis",
+        "gross_yield_current", "cost_of_funds_current", "nim_current", "nis_current",
+        "collateralization", "capital_cushion", "equity_ratio", "net_margin",
+        "expense_ratio", "leverage", "loan_to_deposit", "earning_asset_ratio",
+        "free_float_ratio", "payout_ratio", "buyback_coverage", "total_capital_ratio",
+        "backstop_coverage", "write_off_ratio", "revenue_yoy", "net_income_yoy",
+        "assets_yoy", "deposits_yoy", "earnings_yield", "buyback_yield")},
+    **{m: "mult" for m in ("pe_ratio", "ps_ratio", "pb_ratio")},
+    **{m: "price" for m in ("sky_price", "nav_per_sky", "eps")},
+    "sky_supply": "count",
+}
 
 # Rejected by the API; kept here so callers can validate before a wasted request.
 VALID_GROUP_BY = ("day", "month", "quarter", "year")
@@ -77,14 +102,17 @@ class FinancialsClient:
         self.retries = retries
 
     def _get(self, path: str, params: dict | None = None):
-        """GET {base}/{path}/ and return the unwrapped `data`.
+        """GET {base}/{path}/ (the /v1/accounting base) and return unwrapped `data`."""
+        return self._request(f"{self.base}/{path.strip('/')}/", params)
+
+    def _request(self, url: str, params: dict | None = None):
+        """GET an absolute URL and return the unwrapped `data`.
 
         Retries on transient stream drops — the server routinely closes large
         responses early (IncompleteRead / connection reset), which is a
         transport failure, not an application error, so a plain re-request
         succeeds. HTTP 4xx/5xx are surfaced immediately (no point retrying a 400).
         """
-        url = f"{self.base}/{path.strip('/')}/"
         if params:
             clean = {k: v for k, v in params.items() if v is not None}
             if clean:
@@ -214,6 +242,27 @@ class FinancialsClient:
                 break
         return out, total
 
+    # -- Derived KPIs + settlement cycles (adjacent bases) ------------------
+
+    def kpis(self) -> dict:
+        """Latest derived financial KPIs (61 fields: TTM revenue/expense/net,
+        ROA/ROE, NIM, capital ratios, P/E, EPS, YoY). Bank-style view — its raw
+        `revenue`/`expense` are interest income/expense, NOT the /v1 P&L totals.
+        """
+        return self._request(f"{INTERNAL_BASE}/accounting/financials/")
+
+    def kpis_history(self, group_by: str = "month",
+                     date_from: str | None = None, date_to: str | None = None) -> list:
+        """Monthly (or group_by) time series of the same 61 KPI fields, back to 2020."""
+        _require_group_by(group_by)
+        return self._request(f"{INTERNAL_BASE}/accounting/financials/history/",
+                             {"group_by": group_by, "date_from": date_from, "date_to": date_to})
+
+    def settlement_cycles(self) -> list:
+        """Monthly Settlement Cycle summaries — income/expenses/net_profit plus
+        `exec_tx_hash`, `vote_link`, `forum_link` (observatory base)."""
+        return self._request(f"{OBSERVATORY_BASE}/sky/msc/")
+
     # -- Composite -----------------------------------------------------------
 
     def live_snapshot(self, fetched_at: str) -> dict:
@@ -267,6 +316,14 @@ class FinancialsCache:
     def balance_sheet_items_latest(self) -> list:
         return self._read("balance-sheet-items-latest.json")
 
+    def kpis(self) -> dict:
+        """Latest derived KPI object (see FinancialsClient.kpis)."""
+        return self._read("kpis.json")
+
+    def settlement_cycles(self) -> list:
+        """Monthly Settlement Cycle summaries (see FinancialsClient.settlement_cycles)."""
+        return self._read("settlement-cycles.json")
+
     def is_stale(self, max_age_hours: float = 24.0) -> bool:
         """True when the cached snapshot is older than max_age_hours (or missing)."""
         try:
@@ -319,7 +376,7 @@ class FinancialsDB:
             self._conn = None
 
     def metrics(self, statement: str) -> list[str]:
-        _require_statement(statement)
+        _require_stored(statement)
         cur = self.conn.execute(
             "SELECT DISTINCT metric FROM financials_monthly WHERE statement = ? ORDER BY metric",
             (statement,),
@@ -329,7 +386,7 @@ class FinancialsDB:
     def series(self, statement: str, metric: str,
                start: str | None = None, end: str | None = None) -> list[tuple[str, Decimal]]:
         """Monthly (date, value) for a metric, oldest-first. Dates are 'YYYY-MM'."""
-        _require_statement(statement)
+        _require_stored(statement)
         q = "SELECT date, value FROM financials_monthly WHERE statement = ? AND metric = ?"
         params: list = [statement, metric]
         if start:
@@ -341,7 +398,7 @@ class FinancialsDB:
 
     def value_at(self, statement: str, metric: str, month: str) -> Decimal | None:
         """Metric value for a given 'YYYY-MM' (exact month, no fallback)."""
-        _require_statement(statement)
+        _require_stored(statement)
         cur = self.conn.execute(
             "SELECT value FROM financials_monthly WHERE statement = ? AND metric = ? AND date = ?",
             (statement, metric, month),
@@ -448,6 +505,11 @@ def _require_statement(name: str) -> None:
         raise ValueError(f"unknown statement {name!r}; expected one of {STATEMENTS}")
 
 
+def _require_stored(name: str) -> None:
+    if name not in STORED_STATEMENTS:
+        raise ValueError(f"unknown statement {name!r}; expected one of {STORED_STATEMENTS}")
+
+
 def _require_group_by(group_by: str) -> None:
     if group_by not in VALID_GROUP_BY:
         raise ValueError(f"invalid group_by {group_by!r}; expected one of {VALID_GROUP_BY}")
@@ -461,6 +523,27 @@ def to_decimal(value) -> Decimal | None:
         return Decimal(str(value))
     except (ArithmeticError, ValueError):
         return None
+
+
+def fmt_metric(metric: str, value) -> str:
+    """Format by metric kind — KPI metrics may be percent/multiple/price; else USD.
+
+    The three statements' metrics (assets, revenue, net, …) aren't in METRIC_KINDS,
+    so they fall through to USD; only the KPI series needs the non-USD kinds.
+    """
+    d = to_decimal(value)
+    if d is None:
+        return "n/a"
+    kind = METRIC_KINDS.get(metric, "usd")
+    if kind == "pct":
+        return f"{d:.2f}%"
+    if kind == "mult":
+        return f"{d:.2f}x"
+    if kind == "count":
+        return f"{d:,.0f}"
+    if kind == "price":
+        return f"${d:.4f}" if abs(d) >= Decimal("0.01") else f"${d:.6f}"
+    return fmt_usd(value)
 
 
 def etherscan_tx(tx_hash: str | None) -> str:

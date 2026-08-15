@@ -92,7 +92,38 @@ Period **flow** statement: inflows, outflows, net. Categories break down into
 
 **Events filtering:** `date_from`/`date_to` filter server-side (still large — ~26k for one month). `category`, `event`, `source`, `type` are **not** query params — filter client-side (their value sets are small): `category` ∈ {Collateral Stability Fees, Savings Payouts, RWA Fees, Buyback Spending}; `event` ∈ {fold, suck, swap}; `source`/`type` are per-vault/module (`susds`, `dsr`, `buyback`, `ETH-A`, …). `FinancialsClient.events_range(...)` does the bounded pagination + client-side filter; `tx_hash` → `etherscan.io/tx/{hash}` for verification.
 
-## Adjacent surfaces — evaluated (probed 2026-08-14, currently unwired)
+## Derived KPIs & settlement cycles (wired — P5)
+
+Two surfaces on the adjacent bases are wired into `FinancialsClient` and cached,
+because their data isn't derivable from `/v1/accounting/` alone. They sit on the
+less-stable `internal`/`observatory` bases, so the drift check (`check-contract.py`)
+covers them.
+
+**Derived KPIs — `https://sky.data.blockanalitica.com/internal/accounting/financials/`**
+
+- Latest: a single **61-field object** (`kpis()`). History: `/history/` — same
+  fields per month back to 2020-01 (`kpis_history(group_by=…)`, `day`/`month`/etc).
+- Fields span TTM flows (`ttm_revenue`, `ttm_expense`, `ttm_net_income`, `ttm_nii`,
+  `ttm_buyback`, `ttm_distributions`), returns/margins (`roa`, `roe`, `net_margin`,
+  `gross_yield`, `cost_of_funds`, `nim`, `earnings_yield`), capital (`sky_capital`,
+  `backstop_capital`, `equity_ratio`, `leverage`, `collateralization`,
+  `backstop_coverage`), and valuation (`market_cap`, `pe_ratio`, `ps_ratio`,
+  `pb_ratio`, `eps`, `nav_per_sky`, `buyback_yield`, YoY growth).
+- **Caveat:** this is a **bank-style view** — its raw `revenue`/`expense` are
+  *interest income/expense*, NOT the `/v1` P&L totals. Don't conflate them.
+- **Storage:** cached to `data/financials/kpis.json`; monthly history upserted into
+  `financials.db` under `statement='kpis'` (month-end dates truncated to `YYYY-MM`).
+  Metric kinds (pct/multiple/price/USD) drive display via `fmt_metric`.
+
+**Settlement cycles — `https://observatory.data.blockanalitica.com/sky/msc/`**
+
+- List of Monthly Settlement Cycles (`settlement_cycles()`): `{name, reporting_start_date,
+  reporting_end_date, settled_date, income, expenses, net_revenue, net_profit,
+  *_without_msc, exec_tx_hash, exec_datetime, vote_link, forum_link}`.
+- **Cross-link value:** `vote_link`/`forum_link`/`exec_tx_hash` tie each cycle to
+  `/governance-data` + `/forum-search`. Cached to `data/financials/settlement-cycles.json`.
+
+## Adjacent surfaces — evaluated (probed 2026-08-14, mostly unwired)
 
 Two more bases back the SkyEco app. **All public, no auth, same
 `{data,status,success}` envelope + decimal strings, same mid-stream-drop
@@ -105,7 +136,7 @@ column.
 
 | Endpoint | Returns | Wire? |
 |---|---|---|
-| `/accounting/financials/` (+ `/history/`) | One rich object of **derived metrics**: `net_income`, `nii`, `roa`, `roe`, `gross_yield`, `sky_capital`, `backstop_capital`, and a full **`ttm_*`** (trailing-twelve-month) set | **High value** — TTM/ROA/ROE aren't derivable from `/v1/accounting/` alone. Prime candidate for a P5. |
+| `/accounting/financials/` (+ `/history/`) | One rich object of **derived metrics**: `net_income`, `nii`, `roa`, `roe`, `gross_yield`, `sky_capital`, `backstop_capital`, and a full **`ttm_*`** (trailing-twelve-month) set | ✅ **Wired (P5)** — see "Derived KPIs" above. |
 | `/accounting/treasury/` (+ `/historic/`) | Treasury token holdings `{address, symbol, balance, price, balance_usd, type}` | Medium — treasury composition over time. |
 | `/accounting/profit-and-loss/yields/` (+ `/history/`) | Per-item `{uid, rate, apy, debt, balance, amount}` | Medium — yield/APY attribution per source. |
 | `/buyback/` · `/buyback/events/` · `/buyback/aggregates/` | Buyback state (`sky_in_treasury`, `usds_amount`, `sky_amount`, `price`) + onchain buyback txs (`tx_hash`, `usds_amount`, `sky_amount`) | Medium — onchain buyback drill-down, parallels `cash-flow/events`. |
@@ -116,7 +147,7 @@ column.
 
 | Endpoint | Returns | Wire? |
 |---|---|---|
-| `/sky/msc/` | **Monthly Settlement Cycle** summaries `{name, income, expenses, net_revenue, net_profit, exec_tx_hash, vote_link, forum_link, settled_date}` | **High value** — ties settlement cycles to governance (vote/forum/exec links); strong cross-link to `/governance-data`. |
+| `/sky/msc/` | **Monthly Settlement Cycle** summaries `{name, income, expenses, net_revenue, net_profit, exec_tx_hash, vote_link, forum_link, settled_date}` | ✅ **Wired (P5)** — see "Settlement cycles" above. |
 | `/sky/token/historic/` | SKY `{total_supply, circulating_supply, price}` history | Low — overlaps `/messari-market-data`. |
 | `/risk/sky/info/` (+ `/historic/`), `/liquidity/sky/allocations/`, `/demand/buckets/` | Risk capital, liquidity by redemption duration, USDS demand buckets | Out of scope (risk domain, not accounting). |
 

@@ -57,7 +57,7 @@ Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Ref
 | `data/voting/market/` | Price/mcap JSON for SKY, SPK, USDS, sUSDS, BTC, ETH (8 files) | `/refresh` | `scripts/voting/fetch-voting-*.py` (used for vote-impact analysis) |
 | `data/market.db` assets | SKY, USDS+DAI, sUSDS, SPK, GROVE, BTC, ETH daily price/mcap | `/refresh` | `scripts/market/fetch-market.py` (asset registry in `scripts/market/market.py`) |
 | `data/market.db` | SQLite — daily price/mcap from Messari API *(optional, needs `MESSARI_API_KEY`)* | `/refresh` | `scripts/market/fetch-market.py` |
-| `data/financials/` | Live snapshot of the three Sky financial statements (balance sheet, P&L, cash flow) + block-stamped balance-sheet item balances, from the BA Labs accounting API | `/refresh` | `scripts/financials/fetch-financials.py` |
+| `data/financials/` | Sky financial statements (balance sheet, P&L, cash flow) + block-stamped balances, derived KPIs, and Monthly Settlement Cycles, from the BA Labs accounting API; monthly series in `financials.db` | `/refresh` | `scripts/financials/fetch-financials.py` |
 | `data/github/open-prs.json` | Open (non-draft) PRs from next-gen-atlas | `/refresh` | `scripts/github/fetch-open-prs.sh` |
 
 ### Key data schemas
@@ -83,9 +83,11 @@ Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Ref
 **`data/financials/`** — live JSON snapshots + a monthly SQLite store:
 - `balance-sheet.json`, `profit-and-loss.json`, `cash-flow.json` — the statement roots (`{date|date_from/date_to, totals, groups}`)
 - `balance-sheet-items-latest.json` — flat, block-stamped per-item balances (the live-snapshot source)
+- `kpis.json` — 61-field derived-KPI object (TTM revenue/expense/net, ROA/ROE, NIM, capital ratios, P/E, EPS, YoY); **bank-style view — its raw revenue/expense are interest income/expense, not the /v1 P&L**
+- `settlement-cycles.json` — Monthly Settlement Cycles (income/expenses/net + `exec_tx_hash`, `vote_link`, `forum_link`)
 - `_meta.json` — `fetched_at`, `block_number`, source/attribution, endpoint list
-- `financials.db` — SQLite `financials_monthly(statement, date, metric, value TEXT)`: monthly headline series per statement back to 2019/2020 (BS: assets/liabilities/held/info; P&L: revenue/expense/net; cash-flow: opening/inflows/outflows/net/closing_*/residual). **Daily granularity is fetched live, not stored.**
-- Values are **decimal strings** (parse as `Decimal`). **Never fetch these endpoints or query the db by hand** — use `FinancialsClient`/`FinancialsCache`/`FinancialsDB` (`from financials import …`), the CLI (`scripts/financials/financials-lookup.py` — `snapshot`/`metrics`/`series`/`overlay`/`daily`), or invoke `/protocol-financials` *(skill pending)*. Full contract: [`docs/financials-api.md`](financials-api.md). Figures are **BA Labs / SkyEco, not an official protocol statement**.
+- `financials.db` — SQLite `financials_monthly(statement, date, metric, value TEXT)`: monthly headline series per statement back to 2019/2020 (BS: assets/liabilities/held/info; P&L: revenue/expense/net; cash-flow: opening/inflows/outflows/net/closing_*/residual) plus `statement='kpis'` (the KPI series). **Daily granularity is fetched live, not stored.**
+- Values are **decimal strings** (parse as `Decimal`). **Never fetch these endpoints or query the db by hand** — use `FinancialsClient`/`FinancialsCache`/`FinancialsDB` (`from financials import …`), the CLI (`scripts/financials/financials-lookup.py` — `snapshot`/`kpis`/`settlements`/`metrics`/`series`/`overlay`/`daily`/`events`), or invoke `/protocol-financials`. Full contract: [`docs/financials-api.md`](financials-api.md). Figures are **BA Labs / SkyEco, not an official protocol statement**.
 
 **`data/forum/registry.json`** — Authorized Forum Accounts (Atlas `A.2.7.1.1.1.1.4.0.6.1`):
 - `entities` — forward map

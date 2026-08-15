@@ -22,8 +22,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from financials import (
-    STATEMENTS, FinancialsCache, FinancialsClient, FinancialsDB,
-    etherscan_tx, fmt_usd, normalize_headline,
+    STATEMENTS, STORED_STATEMENTS, FinancialsCache, FinancialsClient, FinancialsDB,
+    etherscan_tx, fmt_metric, fmt_usd, normalize_headline,
 )
 
 ATTRIB = "Source: BA Labs / SkyEco (not an official protocol statement)."
@@ -66,7 +66,7 @@ def cmd_series(args) -> int:
         return 1
     print(f"{args.statement} / {args.metric} (monthly):")
     for d, v in rows:
-        print(f"  {d}  {fmt_usd(v):>12}")
+        print(f"  {d}  {fmt_metric(args.metric, v):>12}")
     print(ATTRIB)
     return 0
 
@@ -81,7 +81,7 @@ def cmd_overlay(args) -> int:
           f"(-{args.before}/+{args.after} months):")
     for d, v in r["series"]:
         mark = "  <-- " + args.month if d == r["month"] else ""
-        print(f"  {d}  {fmt_usd(v):>12}{mark}")
+        print(f"  {d}  {fmt_metric(args.metric, v):>12}{mark}")
     if r["change_pct"] is not None:
         print(f"  window change: {r['change_pct']:+.2f}%")
     print(ATTRIB)
@@ -135,23 +135,74 @@ def cmd_events(args) -> int:
     return 0
 
 
+KPI_GROUPS = [
+    ("Profitability (TTM)", ["ttm_revenue", "ttm_expense", "ttm_net_income", "ttm_nii",
+                             "ttm_buyback", "ttm_distributions"]),
+    ("Returns & margins", ["roa", "roe", "net_margin", "gross_yield", "cost_of_funds",
+                           "nim", "earnings_yield"]),
+    ("Capital & balance sheet", ["total_assets", "total_liabilities", "sky_capital",
+                                 "backstop_capital", "equity_ratio", "leverage",
+                                 "collateralization", "backstop_coverage"]),
+    ("Valuation", ["market_cap", "sky_price", "pe_ratio", "ps_ratio", "pb_ratio", "eps",
+                   "nav_per_sky", "buyback_yield"]),
+    ("Growth (YoY)", ["revenue_yoy", "net_income_yoy", "assets_yoy", "deposits_yoy"]),
+]
+
+
+def cmd_kpis(_args) -> int:
+    k = FinancialsCache().kpis()
+    print(f"Derived KPIs @ {k.get('date')} — bank-style view; TTM = trailing 12 months.")
+    print("(raw revenue/expense here are interest income/expense, NOT the /v1 P&L totals)")
+    for title, keys in KPI_GROUPS:
+        print(f"  {title}:")
+        for m in keys:
+            if m in k:
+                print(f"    {m:22s} {fmt_metric(m, k[m]):>14}")
+    print("  (full 61-field object in data/financials/kpis.json)")
+    print(ATTRIB)
+    return 0
+
+
+def cmd_settlements(_args) -> int:
+    cycles = FinancialsCache().settlement_cycles()
+    if not cycles:
+        print("No settlement cycles cached.")
+        return 1
+    print(f"Monthly Settlement Cycles ({len(cycles)}):")
+    for c in cycles:
+        print(f"  {c.get('name')}  {c.get('reporting_start_date')}..{c.get('reporting_end_date')}  "
+              f"settled {c.get('settled_date')}")
+        print(f"     income {fmt_usd(c.get('income'))}, expenses {fmt_usd(c.get('expenses'))}, "
+              f"net profit {fmt_usd(c.get('net_profit'))}")
+        if c.get("forum_link"):
+            print(f"     forum: {c['forum_link']}")
+        if c.get("vote_link"):
+            print(f"     vote:  {c['vote_link']}")
+        if c.get("exec_tx_hash"):
+            print(f"     exec:  {etherscan_tx(c['exec_tx_hash'])}")
+    print(ATTRIB)
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Query cached Sky financial statements.")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     sub.add_parser("snapshot", help="current statement summary from cache")
+    sub.add_parser("kpis", help="latest derived KPIs (TTM/ROA/ROE/valuation)")
+    sub.add_parser("settlements", help="Monthly Settlement Cycles + governance links")
 
     p = sub.add_parser("metrics", help="list available metrics for a statement")
-    p.add_argument("statement", choices=STATEMENTS)
+    p.add_argument("statement", choices=STORED_STATEMENTS)
 
-    p = sub.add_parser("series", help="monthly series for a metric")
-    p.add_argument("statement", choices=STATEMENTS)
+    p = sub.add_parser("series", help="monthly series for a metric ('kpis' allowed)")
+    p.add_argument("statement", choices=STORED_STATEMENTS)
     p.add_argument("metric")
     p.add_argument("--start")
     p.add_argument("--end")
 
     p = sub.add_parser("overlay", help="metric window around a month (governance overlay)")
-    p.add_argument("statement", choices=STATEMENTS)
+    p.add_argument("statement", choices=STORED_STATEMENTS)
     p.add_argument("metric")
     p.add_argument("month", help="YYYY-MM (or YYYY-MM-DD, truncated)")
     p.add_argument("--before", type=int, default=3)
@@ -172,8 +223,9 @@ def main() -> int:
 
     args = ap.parse_args()
     return {
-        "snapshot": cmd_snapshot, "metrics": cmd_metrics, "series": cmd_series,
-        "overlay": cmd_overlay, "daily": cmd_daily, "events": cmd_events,
+        "snapshot": cmd_snapshot, "kpis": cmd_kpis, "settlements": cmd_settlements,
+        "metrics": cmd_metrics, "series": cmd_series, "overlay": cmd_overlay,
+        "daily": cmd_daily, "events": cmd_events,
     }[args.cmd](args)
 
 

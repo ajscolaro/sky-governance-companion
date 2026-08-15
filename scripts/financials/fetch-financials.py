@@ -84,6 +84,25 @@ def main() -> int:
         print(f"financials: monthly history fetch failed ({e}); snapshot cache still updated",
               file=sys.stderr)
 
+    # Derived KPIs (internal base) + settlement cycles (observatory base) — the two
+    # high-value adjacent surfaces. Non-fatal, like the monthly history above. KPI
+    # history dates are month-end ('2026-07-31'); truncate to 'YYYY-MM' so they key
+    # consistently with the statement series in the same table.
+    kpi_months = 0
+    cycles = 0
+    try:
+        _write(CACHE_DIR / "kpis.json", client.kpis())
+        sc = client.settlement_cycles()
+        _write(CACHE_DIR / "settlement-cycles.json", sc)
+        cycles = len(sc) if isinstance(sc, list) else 0
+        conn = FinancialsDB.init_db()
+        krows = normalize_headline("kpis", client.kpis_history(group_by="month"))
+        kpi_months = FinancialsDB.upsert(conn, [("kpis", d[:7], m, v) for d, m, v in krows])
+        conn.close()
+    except FinancialsError as e:
+        print(f"financials: KPI/settlement fetch failed ({e}); core cache still updated",
+              file=sys.stderr)
+
     bs = snap["balance_sheet"].get("totals", {})
     pnl = snap["profit_and_loss"].get("totals", {})
     cf = snap["cash_flow"].get("totals", {})
@@ -97,6 +116,8 @@ def main() -> int:
         f"outflows {fmt_usd(cf.get('outflows'))}, net {fmt_usd(cf.get('net'))}")
     if months:
         say(f"  Monthly headline history: {months} rows upserted into data/financials/financials.db")
+    if kpi_months or cycles:
+        say(f"  KPIs: {kpi_months} monthly rows; settlement cycles: {cycles}")
     return 0
 
 
