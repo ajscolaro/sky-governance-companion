@@ -134,7 +134,7 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 ## `.claude/` — agent surface
 
 - `.claude/settings.json` — sandbox config, permissions, hooks (PreToolUse → `scripts/core/check-write-path.sh`)
-- `.claude/skills/<name>/SKILL.md` — skill instructions. The nine project skills (`refresh`, `atlas-navigate`, `atlas-analyze`, `atlas-track`, `governance-data`, `forum-search`, `ad-track`, `messari-market-data`, `protocol-info`) all live here.
+- `.claude/skills/<name>/SKILL.md` — skill instructions. The eleven project skills (`refresh`, `atlas-navigate`, `atlas-analyze`, `atlas-track`, `governance-data`, `forum-search`, `history-search`, `ad-track`, `messari-market-data`, `protocol-financials`, `protocol-info`) all live here.
 - `.claude/commands/` — slash-command definitions (e.g. `messari-atlas-edit-drafter.md`)
 
 ## `docs/` — reference
