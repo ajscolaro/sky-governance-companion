@@ -537,7 +537,7 @@ This tool helps you navigate the {cyan('Sky Atlas')} — the governing document 
 the Sky ecosystem (formerly MakerDAO) — and track governance changes over time.
 
 {bold('What just happened:')}
-  The Atlas repo was cloned and indexed ({cyan('~9,800 documents')} parsed).
+  The Atlas repo was cloned and indexed ({cyan('the full document tree')} parsed).
   On future sessions, this refreshes automatically and you'll see a briefing
   of what changed since your last session.
 
