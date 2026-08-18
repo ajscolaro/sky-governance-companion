@@ -4,7 +4,7 @@ A Claude Code workspace for analyzing Sky ecosystem governance over time, built 
 
 ## Why this exists
 
-The [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas) is a corpus of \~10,200 governance documents — every rule, parameter, role, and structure in the Sky ecosystem (formerly MakerDAO) — stored as a folder tree of `content/A/x/y/z/document.md` files with YAML frontmatter. It's already well-suited to AI tooling on its own — clean markdown, stable UUIDs, governance-approved PRs as the unit of change.
+The [Sky Atlas](https://github.com/sky-ecosystem/next-gen-atlas) is the corpus of governance documents — every rule, parameter, role, and structure in the Sky ecosystem (formerly MakerDAO) — stored as a folder tree of `content/A/x/y/z/document.md` files with YAML frontmatter. It's already well-suited to AI tooling on its own — clean markdown, stable UUIDs, governance-approved PRs as the unit of change.
 
 But the Atlas only tells you **what's true right now**. To actually reason about Sky governance you also need:
 
@@ -21,12 +21,14 @@ This repo is the workspace that ties all of it together. It indexes the Atlas fo
 - **Indexed Atlas** — Document lookup by name, path, type, or UUID without loading every document file into context
 - **Per-entity change history** — Curated changelogs in `history/`, optimized for RAG/grep retrieval (terse, predictable structure, stable identifiers, sorted most-recent-first)
 - **PR analysis** — Diff-based analysis of open and merged Atlas PRs against current state and prior history
-- **Auto-processing on `/refresh`** — Newly merged PRs become skeleton changelog entries automatically; the agent finalizes them into full Material/Housekeeping/Context entries
+- **Auto-processing on `/refresh`** — Newly merged PRs are rendered into full changelog entries automatically (Material/Housekeeping bullets, per-entity routing); the agent fills only the interpretive `Context`
 - **Onchain governance** — Delegation snapshots, poll vote matrix (with poll type and Atlas-PR linking), executive hat/supporter monitoring, full spell lifecycle (proposed/hat/cast/expired) with parsed proposal text from `sky-ecosystem/executive-votes`
 - **Delegate tracking** — Per-AD profiles with onchain voting records and forum vote rationales
 - **Forum search** — Cached Sky Forum posts searchable by keyword, author, category, or date; authors are tagged with their governance entity (Prime Agent, GovOps, AR, etc.) via the Authorized Forum Accounts registry (Atlas `A.2.7.1.1.1.1`)
-- **Market data** *(optional)* — SQLite database of daily price and supply for SKY, USDS+DAI, sUSDS, SPK, BTC, ETH; derived ratios; stablecoin competitive rankings
-- **Session briefing** — `/refresh` prints what's changed since last session: current hat, active/ended polls, new open PRs, forum activity, daily market moves
+- **Protocol info** — Contract addresses, audit history, and source repos from the `sky-ecosystem/sky-protocol-info` mirror, for spell analysis and security context
+- **Market data** *(optional)* — SQLite database of daily price and supply for SKY, USDS+DAI, sUSDS, SPK, GROVE, BTC, ETH; derived ratios; stablecoin competitive rankings
+- **Protocol financials** — Sky's financial statements (balance sheet, P&L, cash flow), derived KPIs (TTM revenue/net income, ROA/ROE, margins), and Monthly Settlement Cycles, from the BA Labs / SkyEco accounting API — for financial context on governance events
+- **Session briefing** — `/refresh` prints what's changed since last session: current hat, active/ended polls, new open PRs, forum activity, daily market moves, and a protocol-financials snapshot
 
 ## Setup
 
@@ -60,7 +62,7 @@ Once the session is open, run **`/refresh`** to fetch governance, forum, delegat
    - *"Find docs about Grove genesis capital"*
    - *"How has USDS supply trended this quarter?"*
 
-When `/refresh` detects newly merged PRs, it auto-writes **skeleton** entries to `history/<entity>/changelog.md` and reports them as `Skeleton PRs awaiting finalization: …`. Claude then proactively runs `/atlas-track` and `/atlas-analyze` to rewrite each skeleton into a full entry with Material/Housekeeping sections and interpretive Context. You don't have to invoke those skills manually.
+When `/refresh` detects newly merged PRs, it runs the auto-changelog pipeline to write **fully-rendered** entries to `history/<entity>/changelog.md` (Material/Housekeeping bullets, status `auto`), leaving a `Context` placeholder. Claude then proactively runs `/atlas-track` to fill each `Context` using the session's context. You don't have to invoke it manually. (Legacy entries from the pre-pipeline workflow surface as `Skeleton PRs awaiting finalization: …` and are upgraded to full entries when re-processed.)
 
 Changelog entries are optimized for **RAG/grep retrieval** — terse (5-15 lines substantive, 3-5 trivial), predictable structure (`## PR #N` / `**Merged:**` / `**Type:**` / `### Material Changes` / `### Housekeeping` / `### Context`), with stable identifiers (UUIDs, Atlas paths) inline where they aid navigation. Each changelog is sorted most-recent-first; `scripts/core/sort-changelogs.py` can re-sort everything if order drifts.
 
@@ -151,6 +153,26 @@ Query the local market database for price, supply, stablecoin rankings, derived 
 
 Requires `MESSARI_API_KEY` in `.env` for data refresh. Queries work on cached data without it. The Messari API is also [x402-compatible](https://docs.messari.io/api-reference/x402-payments) — pay per request with USDC on Base or Solana, no subscription needed (x402 integration not yet wired into the fetch scripts).
 
+### `/protocol-financials` — Protocol financial statements
+
+Query Sky's financial statements, derived KPIs, and Monthly Settlement Cycles from the BA Labs / SkyEco accounting API (cached locally on `/refresh`; daily granularity fetched live). Figures are BA Labs / SkyEco analytics — reliable for analysis, but not an official protocol statement.
+
+```
+/protocol-financials current balance sheet and net revenue
+/protocol-financials ROE trend over 2026
+/protocol-financials net income around the March settlement
+/protocol-financials savings-payout events in August
+```
+
+### `/protocol-info` — Contract addresses and audit history
+
+Look up Sky Protocol contract addresses, audit history, and source repos from the local `sky-ecosystem/sky-protocol-info` mirror — for spell analysis, resolving a `0x…` address, or security context.
+
+```
+/protocol-info 0x...            # what contract is this?
+/protocol-info LockstakeEngine  # component lookup
+```
+
 ### `/forum-search` — Search forum discussions
 
 Search cached Sky Forum governance discussions by keyword, author, category, or date. Author lines are enriched with governance entity attribution from the Authorized Forum Accounts registry — e.g., `adamfraser (Atlas Axis AR)`, `SoterLabs (Soter Labs; Amatsu AR; Ozone AR)`. Filter by entity or registration status:
@@ -168,12 +190,15 @@ The registry (`data/forum/registry.json`) is rebuilt on `/refresh` from Atlas `A
 
 ```
 .atlas-repo/          Shallow clone of next-gen-atlas (gitignored, auto-refreshed)
+.protocol-repo/       Shallow clone of sky-protocol-info (gitignored, auto-refreshed)
 .claude/
   settings.json       Sandbox config, hooks, permissions
   skills/             Skill definitions for all slash commands
 data/                 Generated caches (gitignored, rebuilt on refresh)
   index.json          Parsed document index keyed by UUID and number
+  protocol-index.json Parsed protocol-info index (contracts, audits, repos)
   market.db           SQLite market database (optional, requires Messari API key)
+  financials/         BA Labs financials cache (JSON snapshots + monthly SQLite)
   forum/              Cached forum posts and search index
   delegates/          Cached AD vote rationales from RSS feeds
   voting/
@@ -193,7 +218,7 @@ history/              Per-entity change logs (committed, long-term memory)
   A.1--governance/
   ...
   A.6--agents/
-    A.6.1.1.1--spark/       Per-agent changelogs (8 agents tracked)
+    A.6.1.1.1--spark/       Per-agent changelogs (one dir per governance-recognized agent)
     A.6.1.1.2--grove/
     ...
 plans/                Implementation plans and handoff docs
@@ -231,6 +256,13 @@ scripts/
     market.py                   MarketDB query module (import for programmatic access)
     fetch-market.py             Populate SQLite from Messari API (optional)
     market-lookup.py            CLI for market data queries (date, range, ratio, stablecoins)
+  financials/
+    financials.py               FinancialsClient / FinancialsCache / FinancialsDB (BA Labs API + cache)
+    fetch-financials.py         Refresh statement + KPI + settlement cache (invoked by /refresh)
+    financials-lookup.py        CLI: snapshot, kpis, settlements, series, overlay, daily, events
+    check-contract.py           Drift check for the BA Labs API shapes (CI + local)
+  protocol/
+    build-index.py              Parse the protocol-info mirror into data/protocol-index.json
 CLAUDE.md             Agent instructions, security rules, project conventions
 ```
 
@@ -238,7 +270,7 @@ CLAUDE.md             Agent instructions, security rules, project conventions
 
 This project processes untrusted content from public GitHub PRs and anonymous forum posts. Several layers of defense are in place:
 
-- **OS-level sandbox** — Filesystem writes restricted to the project directory; `.atlas-repo/` is write-protected; network limited to GitHub and the Sky Forum; dangerous shell patterns (`eval`, `curl | bash`) are denied
+- **OS-level sandbox** — Filesystem writes restricted to the project directory; `.atlas-repo/` and `.protocol-repo/` are write-protected; network limited to an allowlist of governance and data-provider APIs; dangerous shell patterns (`eval`, `curl | bash`) are denied
 - **PreToolUse hook** — Intercepts all Write/Edit tool calls; hard-blocks writes to `.atlas-repo/`; requires human approval for changes to `.claude/`, `CLAUDE.md`, and `scripts/`
 - **Content sanitization** — PR titles, document names, and forum posts are sanitized before storage (HTML comments, XML tags, ChatML markers, prompt injection patterns stripped)
 - **Skill tool restrictions** — Each skill declares which tools it can use; read-only skills like `/forum-search` cannot run Bash or modify files
@@ -268,7 +300,7 @@ The `/atlas-track` skill can also detect and set up new agents automatically.
 
 ### Network access
 
-The sandbox network allowlist in `.claude/settings.json` controls which domains are reachable. Current allowlist: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`. Add domains as needed for your use case.
+The sandbox network allowlist under `sandbox.network.allowedDomains` in `.claude/settings.json` controls which domains are reachable (GitHub, the Sky forum/vote portals, and the Messari + BA Labs data APIs). Add domains there as needed for your use case; the full current list is in [docs/security.md](docs/security.md).
 
 ## Starting fresh vs. using the included history
 

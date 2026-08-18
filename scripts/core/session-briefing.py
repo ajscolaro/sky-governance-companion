@@ -5,9 +5,10 @@ Reads cached data from disk (no API calls). Invoked by scripts/core/refresh.sh
 after all parallel fetches have completed, so every data source is fresh.
 
 Each section prints only if it has content — no empty placeholders, no entry
-caps. Sections: market (daily), spells (current + pending), polls (ended since
-last session + active), atlas proposals (new open PRs in last 7 days), forum
-activity (new posts since last session).
+caps. Sections: market (daily), protocol financials (balance sheet + TTM KPIs),
+spells (current + pending), polls (ended since last session + active), atlas
+proposals (new open PRs in last 7 days), forum activity (new posts since last
+session).
 """
 
 from __future__ import annotations
@@ -25,6 +26,8 @@ HAT_FILE = PROJECT_DIR / "data" / "voting" / "executive" / "hat.json"
 EXECUTIVE_PROPOSALS_FILE = PROJECT_DIR / "data" / "voting" / "executive" / "proposals.json"
 VOTE_MATRIX_FILE = PROJECT_DIR / "data" / "voting" / "polls" / "vote-matrix.json"
 MARKET_DB_FILE = PROJECT_DIR / "data" / "market.db"
+FINANCIALS_KPIS_FILE = PROJECT_DIR / "data" / "financials" / "kpis.json"
+FINANCIALS_BS_FILE = PROJECT_DIR / "data" / "financials" / "balance-sheet.json"
 FORUM_INDEX_FILE = PROJECT_DIR / "data" / "forum" / "index.json"
 OPEN_PRS_FILE = PROJECT_DIR / "data" / "github" / "open-prs.json"
 
@@ -375,6 +378,51 @@ def _fmt_abs_delta(delta: float) -> str:
     return f"{sign}${mag / 1e3:.0f}K"
 
 
+def _money(value) -> str:
+    """Compact USD from a decimal string/number — display only, precision loss ok here."""
+    try:
+        v = float(value)
+    except (TypeError, ValueError):
+        return "n/a"
+    a = abs(v)
+    if a >= 1e9:
+        return f"${v / 1e9:.2f}B"
+    if a >= 1e6:
+        return f"${v / 1e6:.1f}M"
+    return f"${v:,.0f}"
+
+
+def get_financials() -> dict | None:
+    """Snapshot for the briefing from the financials cache, or None if absent."""
+    kpis = load_json(FINANCIALS_KPIS_FILE)
+    bs = load_json(FINANCIALS_BS_FILE)
+    if not isinstance(kpis, dict) and not isinstance(bs, dict):
+        return None
+    return {"kpis": kpis if isinstance(kpis, dict) else {},
+            "bs": bs if isinstance(bs, dict) else {}}
+
+
+def print_financials_section(fin: dict | None) -> bool:
+    if not fin:
+        return False
+    k, bs = fin["kpis"], fin["bs"]
+    tot = bs.get("totals", {})
+    print(f"\n{bold('=== PROTOCOL FINANCIALS ===')} {dim('(per BA Labs / SkyEco)')}")
+    if tot:
+        print(f"  Balance sheet ({bs.get('date', '?')}): assets {_money(tot.get('assets'))}, "
+              f"liabilities {_money(tot.get('liabilities'))}")
+    if k:
+        def pct(x):
+            try:
+                return f"{float(x):.1f}%"
+            except (TypeError, ValueError):
+                return "n/a"
+        print(f"  TTM: revenue {_money(k.get('ttm_revenue'))}, "
+              f"net income {_money(k.get('ttm_net_income'))} | "
+              f"ROE {pct(k.get('roe'))}, net margin {pct(k.get('net_margin'))}")
+    return True
+
+
 def print_market_section(moves: list[tuple] | None) -> bool:
     if not moves:
         return False
@@ -489,7 +537,7 @@ This tool helps you navigate the {cyan('Sky Atlas')} — the governing document 
 the Sky ecosystem (formerly MakerDAO) — and track governance changes over time.
 
 {bold('What just happened:')}
-  The Atlas repo was cloned and indexed ({cyan('~9,800 documents')} parsed).
+  The Atlas repo was cloned and indexed ({cyan('the full document tree')} parsed).
   On future sessions, this refreshes automatically and you'll see a briefing
   of what changed since your last session.
 
@@ -532,6 +580,7 @@ def main():
     matrix = load_json(VOTE_MATRIX_FILE)
 
     moves = get_market_moves()
+    financials = get_financials()
     current_spell = get_current_executive(lifecycle, hat_data, proposals)
     pending_spells = get_pending_non_hat_spells(lifecycle, hat_data, proposals)
     ended_polls = get_ended_polls_since(matrix, since)
@@ -543,6 +592,7 @@ def main():
 
     # Always-on (state-of-now) sections
     print_market_section(moves)
+    print_financials_section(financials)
     print_spells_section(current_spell, pending_spells)
 
     # Time-bounded sections — only show the window fallback if all three are empty

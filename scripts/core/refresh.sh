@@ -23,6 +23,7 @@ VOTING_DIR="$PROJECT_DIR/scripts/voting"
 FORUM_DIR="$PROJECT_DIR/scripts/forum"
 DELEGATES_DIR="$PROJECT_DIR/scripts/delegates"
 MARKET_DIR="$PROJECT_DIR/scripts/market"
+FINANCIALS_DIR="$PROJECT_DIR/scripts/financials"
 GITHUB_DIR="$PROJECT_DIR/scripts/github"
 ATLAS_DIR="$PROJECT_DIR/scripts/atlas"
 
@@ -69,6 +70,9 @@ if [ -f "$DELEGATES_DIR/fetch-delegates.sh" ]; then
 fi
 if [ -f "$MARKET_DIR/fetch-market.py" ]; then
     python3 "$MARKET_DIR/fetch-market.py" --quiet 2>/dev/null &
+fi
+if [ -f "$FINANCIALS_DIR/fetch-financials.py" ]; then
+    python3 "$FINANCIALS_DIR/fetch-financials.py" --quiet 2>/dev/null &
 fi
 if [ -f "$GITHUB_DIR/fetch-open-prs.sh" ]; then
     bash "$GITHUB_DIR/fetch-open-prs.sh" --quiet 2>/dev/null &

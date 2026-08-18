@@ -1,0 +1,23 @@
+name: financials-contract
+
+# Drift watch for the BA Labs accounting API (docs/financials-api.md). The
+# endpoints are undocumented and can change without notice; this run fails when
+# a shape scripts/financials/ depends on breaks, which is the signal to update
+# the client + docs. Notify-only — reads the public API, commits nothing.
+
+on:
+  schedule:
+    - cron: "17 9 * * 1"  # weekly, Monday 09:17 UTC (off the top of the hour)
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # stdlib only — no dependency install needed
+      - name: Validate accounting API contract
+        run: python3 scripts/financials/check-contract.py

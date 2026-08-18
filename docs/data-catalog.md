@@ -57,6 +57,7 @@ Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Ref
 | `data/voting/market/` | Price/mcap JSON for SKY, SPK, USDS, sUSDS, BTC, ETH (8 files) | `/refresh` | `scripts/voting/fetch-voting-*.py` (used for vote-impact analysis) |
 | `data/market.db` assets | SKY, USDS+DAI, sUSDS, SPK, GROVE, BTC, ETH daily price/mcap | `/refresh` | `scripts/market/fetch-market.py` (asset registry in `scripts/market/market.py`) |
 | `data/market.db` | SQLite — daily price/mcap from Messari API *(optional, needs `MESSARI_API_KEY`)* | `/refresh` | `scripts/market/fetch-market.py` |
+| `data/financials/` | Sky financial statements (balance sheet, P&L, cash flow) + block-stamped balances, derived KPIs, and Monthly Settlement Cycles, from the BA Labs accounting API; monthly series in `financials.db` | `/refresh` | `scripts/financials/fetch-financials.py` |
 | `data/github/open-prs.json` | Open (non-draft) PRs from next-gen-atlas | `/refresh` | `scripts/github/fetch-open-prs.sh` |
 
 ### Key data schemas
@@ -78,6 +79,15 @@ Shallow clone (depth 1, no submodules) of `sky-ecosystem/sky-protocol-info`. Ref
 - `daily(date, asset, close, mcap)`
 - `stablecoin_snapshot(date, asset, supply)`
 - No `daily_prices` table, no `volume` column. **Never write raw SQL** — use `MarketDB` class (`from market import MarketDB`), the CLI (`scripts/market/market-lookup.py`), or invoke `/messari-market-data`.
+
+**`data/financials/`** — live JSON snapshots + a monthly SQLite store:
+- `balance-sheet.json`, `profit-and-loss.json`, `cash-flow.json` — the statement roots (`{date|date_from/date_to, totals, groups}`)
+- `balance-sheet-items-latest.json` — flat, block-stamped per-item balances (the live-snapshot source)
+- `kpis.json` — 61-field derived-KPI object (TTM revenue/expense/net, ROA/ROE, NIM, capital ratios, P/E, EPS, YoY); **bank-style view — its raw revenue/expense are interest income/expense, not the /v1 P&L**
+- `settlement-cycles.json` — Monthly Settlement Cycles (income/expenses/net + `exec_tx_hash`, `vote_link`, `forum_link`)
+- `_meta.json` — `fetched_at`, `block_number`, source/attribution, endpoint list
+- `financials.db` — SQLite `financials_monthly(statement, date, metric, value TEXT)`: monthly headline series per statement back to 2019/2020 (BS: assets/liabilities/held/info; P&L: revenue/expense/net; cash-flow: opening/inflows/outflows/net/closing_*/residual) plus `statement='kpis'` (the KPI series). **Daily granularity is fetched live, not stored.**
+- Values are **decimal strings** (parse as `Decimal`). **Never fetch these endpoints or query the db by hand** — use `FinancialsClient`/`FinancialsCache`/`FinancialsDB` (`from financials import …`), the CLI (`scripts/financials/financials-lookup.py` — `snapshot`/`kpis`/`settlements`/`metrics`/`series`/`overlay`/`daily`/`events`), or invoke `/protocol-financials`. Full contract: [`docs/financials-api.md`](financials-api.md). Figures are **BA Labs / SkyEco, not an official protocol statement**.
 
 **`data/forum/registry.json`** — Authorized Forum Accounts (Atlas `A.2.7.1.1.1.1.4.0.6.1`):
 - `entities` — forward map
@@ -120,12 +130,13 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 | `scripts/delegates/` | AD vote-rationale fetch (per-AD Discourse RSS, sanitized) |
 | `scripts/voting/` | vote.sky.money API ingestion (polls, delegates, executive, delegation history) |
 | `scripts/market/` | Messari market-data fetch + SQLite query layer (`MarketDB`, `market-lookup.py`) |
+| `scripts/financials/` | BA Labs accounting API client + cache + monthly SQLite (`FinancialsClient`/`FinancialsCache`/`FinancialsDB` in `financials.py`, snapshot/history writer `fetch-financials.py`, CLI `financials-lookup.py`) |
 | `scripts/github/` | GitHub API helpers (open-PRs fetch) |
 
 ## `.claude/` — agent surface
 
 - `.claude/settings.json` — sandbox config, permissions, hooks (PreToolUse → `scripts/core/check-write-path.sh`)
-- `.claude/skills/<name>/SKILL.md` — skill instructions. The nine project skills (`refresh`, `atlas-navigate`, `atlas-analyze`, `atlas-track`, `governance-data`, `forum-search`, `ad-track`, `messari-market-data`, `protocol-info`) all live here.
+- `.claude/skills/<name>/SKILL.md` — skill instructions. The eleven project skills (`refresh`, `atlas-navigate`, `atlas-analyze`, `atlas-track`, `governance-data`, `forum-search`, `history-search`, `ad-track`, `messari-market-data`, `protocol-financials`, `protocol-info`) all live here.
 - `.claude/commands/` — slash-command definitions (e.g. `messari-atlas-edit-drafter.md`)
 
 ## `docs/` — reference
@@ -139,7 +150,7 @@ Organized by domain. **Prefer invoking the right `/skill` over running scripts d
 **SessionStart hook (automatic, fast):** `scripts/core/atlas-sync.sh` pulls the latest Atlas (or `first-run-welcome.sh` if `.atlas-repo/.git` is absent), rebuilds `data/index.json`, the link graph (`data/link-graph.json`), and the address map. Then calls `scripts/core/protocol-sync.sh` (best-effort, silent) to pull `.protocol-repo/` and rebuild `data/protocol-index.json`. Nothing else.
 
 **`/refresh` (user-invoked):** `scripts/core/refresh.sh` runs:
-1. Parallel fetches: forum, delegate RSS, voting (delegates/polls/executive), market data, open PRs, unprocessed-PR discovery
+1. Parallel fetches: forum, delegate RSS, voting (delegates/polls/executive), market data, financials snapshot, open PRs, unprocessed-PR discovery
 2. Auto-process any unprocessed merged PRs via `scripts/atlas/process-pr.sh` (5-stage pipeline → fully-rendered entries in `history/<entity>/changelog.md`, status=`auto` in `_log.md`)
 3. Session briefing (reads fresh data, prints sections with content only)
 
