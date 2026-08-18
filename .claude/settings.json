@@ -57,7 +57,10 @@
         "raw.githubusercontent.com",
         "forum.skyeco.com",
         "vote.sky.money",
-        "api.messari.io"
+        "api.messari.io",
+        "sky.data.blockanalitica.com",
+        "observatory.data.blockanalitica.com",
+        "financial.skyeco.com"
       ],
       "enableWeakerNetworkIsolation": true
     }

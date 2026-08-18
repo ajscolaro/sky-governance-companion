@@ -14,7 +14,7 @@ Configured in `.claude/settings.json`. Every Claude Code session in this repo is
 - `~/.ssh`, `~/.gnupg`, `~/.aws` are deny-read
 
 **Network** (configured under `permissions.network.allowedDomains` in `.claude/settings.json`):
-- Only the following hosts are reachable: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`
+- Only the following hosts are reachable: `github.com`, `api.github.com`, `raw.githubusercontent.com`, `forum.skyeco.com`, `vote.sky.money`, `api.messari.io`, `sky.data.blockanalitica.com` + `observatory.data.blockanalitica.com` (BA Labs financials API), `financial.skyeco.com` (SkyEco bundle-hash drift check)
 - `enableWeakerNetworkIsolation` is on so network-dependent tools (curl, git) can verify TLS certificates via macOS trust service
 
 **Command restrictions:**
@@ -111,7 +111,7 @@ Only posts where `dc:creator` matches the AD's forum username are cached. The us
 |---|---|
 | Shell injection via crafted document names | OS sandbox restricts filesystem/network for all subprocesses |
 | Prompt injection → self-modification | PreToolUse hook requires human approval for config/script writes |
-| Exfiltration via network | Sandbox allowlist limits outbound to GitHub and forum.skyeco.com only |
+| Exfiltration via network | Sandbox allowlist limits outbound to GitHub, the Sky forum/vote portals, and the Messari + BA Labs data APIs only |
 | Credential theft | `~/.ssh`, `~/.gnupg`, `~/.aws` are deny-read |
 | Agent bypasses sandbox | `allowUnsandboxedCommands: false` blocks the escape hatch |
 | Write to Atlas mirror | Hard-blocked by hook (exit 2) + sandbox denyWrite |
