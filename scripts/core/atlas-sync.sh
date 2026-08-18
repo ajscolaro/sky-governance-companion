@@ -14,15 +14,19 @@ PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 REPO_DIR="$PROJECT_DIR/.atlas-repo"
 
 MESSAGE=""
+# additionalContext for Claude; defaults to MESSAGE, but the staleness-gated
+# auto-refresh below sets it to a directive the user's systemMessage need not carry.
+CONTEXT=""
 
 emit_and_exit() {
     if [ -n "$MESSAGE" ]; then
+        local ctx="${CONTEXT:-$MESSAGE}"
         if command -v jq >/dev/null 2>&1; then
-            jq -nc --arg msg "$MESSAGE" '{
+            jq -nc --arg msg "$MESSAGE" --arg ctx "$ctx" '{
                 systemMessage: $msg,
                 hookSpecificOutput: {
                     hookEventName: "SessionStart",
-                    additionalContext: $msg
+                    additionalContext: $ctx
                 }
             }'
         else
@@ -84,6 +88,37 @@ if [ -f "$SCRIPT_DIR/protocol-sync.sh" ]; then
     bash "$SCRIPT_DIR/protocol-sync.sh" >/dev/null 2>&1 || true
 fi
 
-MESSAGE="Atlas synced: $LATEST_SHA ($LATEST_MSG)
-Run /refresh to update governance/market/forum data and see what's changed."
+# Staleness-gated auto-refresh. /refresh does slow network fetches and needs an
+# agent turn for the /atlas-track Context-fill follow-up, so it can't run inside
+# this hook. Instead, when the caches are stale we direct the session (via
+# additionalContext) to run /refresh on its first turn; a fresh re-open stays
+# instant and quiet. .last-session's mtime marks the last successful /refresh
+# (session-briefing.py writes it at the end of every /refresh).
+STALE_AFTER=21600  # 6h in seconds — tune here to change the auto-refresh cadence
+LAST_SESSION="$PROJECT_DIR/.last-session"
+NOW=$(date +%s)
+if [ -f "$LAST_SESSION" ]; then
+    LAST_TS=$(stat -f %m "$LAST_SESSION" 2>/dev/null || stat -c %Y "$LAST_SESSION" 2>/dev/null || echo 0)
+else
+    LAST_TS=0
+fi
+AGE=$(( NOW - LAST_TS ))
+AGE_H=$(( AGE / 3600 ))
+SYNC_LINE="Atlas synced: $LATEST_SHA ($LATEST_MSG)"
+
+if [ "$LAST_TS" -eq 0 ] || [ "$AGE" -ge "$STALE_AFTER" ]; then
+    if [ "$LAST_TS" -eq 0 ]; then
+        AGE_DESC="not yet refreshed in this clone"
+    else
+        AGE_DESC="last refreshed ${AGE_H}h ago"
+    fi
+    MESSAGE="$SYNC_LINE
+Data caches are stale ($AGE_DESC) — auto-refreshing now."
+    CONTEXT="$SYNC_LINE
+
+Workspace auto-refresh (staleness-gated, >6h): the data caches (governance, forum, delegate, market, financials, open PRs) are stale ($AGE_DESC). At the start of this session, proactively invoke the /refresh skill to update them, auto-process any newly merged Atlas PRs, and fill their changelog Context via /atlas-track. Do this before answering the user's first request unless that request is urgent or unrelated — in which case run /refresh right after. If /refresh has already run this session, do not run it again."
+else
+    MESSAGE="$SYNC_LINE
+Data is fresh (refreshed ${AGE_H}h ago). Run /refresh anytime to update."
+fi
 emit_and_exit

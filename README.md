@@ -41,7 +41,7 @@ claude
 
 After setup, every `claude` start re-pulls the Atlas (~1s) and rebuilds the index automatically via the `SessionStart` hook (`scripts/core/atlas-sync.sh`).
 
-Once the session is open, run **`/refresh`** to fetch governance, forum, delegate, and market data, and to print the briefing.
+Once the session is open, **`/refresh`** fetches governance, forum, delegate, market, and financials data and prints the briefing. It runs **automatically on the first turn when your data is more than ~6h stale** (a fresh re-open stays instant); you can also invoke it manually anytime.
 
 > If you started `claude` before running setup, you'll see a welcome message explaining the steps. Exit Claude (`/exit` or `Ctrl+C` twice), run `bash scripts/core/setup.sh` from your shell, then restart Claude. The setup script can't run via the `!` prefix because the project sandbox denies writes to `.atlas-repo`.
 
